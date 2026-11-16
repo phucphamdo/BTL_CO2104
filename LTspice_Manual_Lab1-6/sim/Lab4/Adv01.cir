@@ -1,0 +1,17 @@
+* Lab 4 - Adv01: gain-bandwidth limitation (closed-loop gain 10 and 100)
+.param Rf=9k
+Vin in 0 AC 1
+R1 inn 0 1k
+Rf out inn {Rf}
+X1 in inn out vcc vee OPAMPGB
+.step param Rf list 9k 99k
+.ac dec 50 100 10Meg
+* behavioural op-amp with finite gain-bandwidth (A0 = 1e5, GBW = 1 MHz)
+.subckt OPAMPGB inp inn out vcc vee
+G1 0 x inp inn 1m
+R1 x 0 100Meg
+C1 x 0 159p
+B1 out 0 V=limit(V(x),V(vee)+1.5,V(vcc)-1.5)
+.ends
+V+ vcc 0 15
+V- vee 0 -15

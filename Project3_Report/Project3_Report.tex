@@ -1,0 +1,599 @@
+% !TEX program = xelatex
+%% =====================================================================
+%%  BÁO CÁO BÀI TẬP LỚN - DỰ ÁN 3 (CO2037)
+%%  Xây dựng tài liệu thực hành mới với LTspice
+%%  Mẫu báo cáo theo "Phần B" của đề (TS. Lê Trọng Nhân), dựng bằng LaTeX
+%%  theo bố cục của các file logbook.
+%%
+%%  Biên dịch (bắt buộc XeLaTeX, chạy 2 lần để mục lục đúng):
+%%      xelatex Project3_Report.tex      hoặc      latexmk Project3_Report.tex
+%%  Overleaf: Menu -> Compiler -> XeLaTeX
+%%
+%%  CÁCH DÙNG NHANH
+%%   1. Điền thông tin nhóm ở khối "THÔNG TIN NHÓM" bên dưới.
+%%   2. Làm theo thứ tự các mục; thay mỗi KHUNG VIỀN CAM bằng nội dung của nhóm.
+%%   3. Hình: đặt ảnh vào thư mục images/ đúng tên gợi ý -> khung cam tự thành hình.
+%%   4. Khi xong: đổi \guidetrue thành \guidefalse để ẩn toàn bộ hướng dẫn.
+%% =====================================================================
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[a4paper,top=2.4cm,bottom=2.5cm,left=2.5cm,right=2.5cm,headheight=15pt]{geometry}
+\usepackage{fontspec}
+\setmainfont{Latin Modern Roman}
+\setsansfont{Latin Modern Sans}
+\setmonofont{Latin Modern Mono}
+
+\usepackage[table]{xcolor}
+\usepackage{colortbl,array,tabularx,longtable,multirow}
+\usepackage{enumitem,graphicx,float,caption,amsmath,amssymb,etoolbox}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric,arrows.meta,positioning,calc}
+\usepackage[most]{tcolorbox}
+\usepackage{fancyhdr,titlesec}
+\setcounter{secnumdepth}{2}\setcounter{tocdepth}{2}
+\usepackage[colorlinks=true,linkcolor=navy,urlcolor=navy,citecolor=navy]{hyperref}
+
+%% ===================== BẬT / TẮT HƯỚNG DẪN =====================
+\newif\ifguide
+\guidetrue          % <-- đổi thành \guidefalse khi nộp bài (ẩn mọi hướng dẫn)
+
+%% ===================== THÔNG TIN NHÓM (sửa tại đây) =====================
+\newcommand{\NhomSo}{9}                          % Nhóm
+\newcommand{\LopHoc}{\dotuline}                  % Lớp (điền, ví dụ: CC04)
+\newcommand{\HocKy}{\dotuline}                   % Học kỳ (điền)
+\newcommand{\TVa}{Phạm Đỗ Hồng Phúc}   \newcommand{\MSa}{2510359}   \newcommand{\PTa}{}  % lab phụ trách của TV1
+\newcommand{\TVb}{Lê Lương Vỹ}          \newcommand{\MSb}{2214056}   \newcommand{\PTb}{}  % lab phụ trách của TV2
+\newcommand{\TVc}{Nguyễn Bảo Duy Thành} \newcommand{\MSc}{2510372}   \newcommand{\PTc}{}  % lab phụ trách của TV3
+\newcommand{\PhienBanLT}{}                       % Phiên bản LTspice / hệ điều hành
+\newcommand{\CongCuSoanThao}{LaTeX (XeLaTeX)}    % Công cụ biên soạn tài liệu
+\newcommand{\CongCuAI}{}                         % Công cụ AI đã sử dụng
+%% =========================================================================
+
+\definecolor{navy}{HTML}{1F2F5E}
+\definecolor{accent}{HTML}{D98200}
+\definecolor{guidegray}{HTML}{6E6E6E}
+\definecolor{lightnavy}{HTML}{EAEFF8}
+\definecolor{lightorange}{HTML}{FFF3DC}
+\newcommand{\dotuline}{\makebox[2.6cm]{\dotfill}}
+
+%% ---------- Việt hoá tên bảng/hình, caption ----------
+\renewcommand{\tablename}{Bảng}
+\renewcommand{\figurename}{Hình}
+\renewcommand{\contentsname}{MỤC LỤC}
+\captionsetup{font={small,it},labelfont={small,bf,it},labelsep=colon,skip=5pt}
+
+%% ---------- Trang, chân trang (giống logbook: đường kẻ + chữ nghiêng) ----------
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[R]{\small\itshape\color{guidegray} CO2037 -- Dự án 3: Tài liệu thực hành LTspice}
+\fancyfoot[L]{\small\itshape\color{guidegray} HCMUT -- Khoa Khoa học và Kỹ thuật Máy tính}
+\fancyfoot[R]{\small\itshape\color{guidegray} Trang \thepage}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0.8pt}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+\linespread{1.08}
+\setlist{itemsep=2pt,topsep=3pt,parsep=0pt}
+
+%% ---------- Tiêu đề mục (xanh navy, đậm) ----------
+\titleformat{\section}{\sffamily\bfseries\Large\color{navy}}{\thesection.}{0.6em}{}
+\titleformat{\subsection}{\sffamily\bfseries\large\color{navy}}{\thesubsection.}{0.6em}{}
+\titleformat{\subsubsection}{\sffamily\bfseries\normalsize\color{navy}}{}{0pt}{}
+\titlespacing*{\section}{0pt}{16pt}{6pt}
+\titlespacing*{\subsection}{0pt}{12pt}{4pt}
+\titlespacing*{\subsubsection}{0pt}{8pt}{3pt}
+
+%% =====================================================================
+%%  MACRO GIÚP LÀM BÀI
+%% =====================================================================
+% (1) Chữ xám nghiêng = hướng dẫn của đề -> xoá khi hoàn thành
+\newcommand{\hd}[1]{\ifguide{\par\color{guidegray}\itshape #1\par}\fi}
+
+% (2) Khung xanh = "Cách làm" chi tiết do mẫu này bổ sung
+\newcommand{\cachlam}[2][Cách làm]{%
+  \ifguide
+  \begin{tcolorbox}[enhanced,breakable,colback=lightnavy,colframe=navy,boxrule=0.6pt,arc=2pt,
+    left=6pt,right=6pt,top=3pt,bottom=3pt,fonttitle=\sffamily\bfseries\small,title={#1}]
+  \small #2
+  \end{tcolorbox}
+  \fi}
+
+% (3) Khung viền cam = vị trí chèn nội dung của nhóm
+\newcommand{\chen}[2][2.2cm]{%
+  \begin{tcolorbox}[colback=lightorange,colframe=accent,boxrule=1.1pt,arc=2pt,
+     height=#1,valign=center,halign=center,before skip=6pt,after skip=6pt]
+  \color{accent!85!black}\bfseries\itshape [#2]
+  \end{tcolorbox}}
+
+% (4) Chèn hình: nếu có file images/<tên> thì tự thành hình, nếu chưa có thì hiện khung cam
+\newcommand{\hinhanh}[4]{% tên file, độ rộng, chú thích, nhãn
+  \IfFileExists{images/#1}{%
+    \begin{figure}[H]\centering\includegraphics[width=#2]{images/#1}%
+      \caption{#3}\label{#4}\end{figure}}{%
+    \chen[2.6cm]{Chèn hình: #3 \\[2pt] {\small\normalfont\upshape(đặt file \texttt{images/#1})}}}}
+
+% (5) Ô tick và dấu
+\newcommand{\cb}{$\square$\ }
+\newcommand{\ar}{\texorpdfstring{$\rightarrow$}{->}}
+
+% (6) Hàng tiêu đề bảng
+\newcommand{\hc}[1]{\cellcolor{navy}\color{white}\sffamily\bfseries\small #1}
+\newcommand{\hrulenavy}{\arrayrulecolor{navy}}
+\arrayrulecolor{navy}
+
+% (7) Bảng 10 bài tập của một lab
+\newcommand{\labrow}[1]{#1 & & & & & \rule{0pt}{0.95cm}\\ \hline}
+\newcommand{\labbang}[1]{%
+  \begin{table}[H]\centering\small
+  \caption{Danh sách bài tập Lab #1}\label{tab:lab#1}
+  \setlength{\tabcolsep}{3.5pt}
+  \begin{tabular}{|c|p{2.5cm}|p{3.3cm}|p{1.9cm}|p{2.7cm}|p{2.2cm}|}
+  \hline
+  \hc{\#} & \hc{Bài gốc} & \hc{Bài mới (LTspice)} & \hc{Trạng thái} & \hc{Lệnh mô phỏng} & \hc{Sai lệch LT -- MP}\\ \hline
+  \labrow{1}\labrow{2}\labrow{3}\labrow{4}\labrow{5}\labrow{6}\labrow{7}\labrow{8}\labrow{9}\labrow{10}
+  \end{tabular}
+  \par\vspace{2pt}{\footnotesize Trạng thái: \textbf{Giữ nguyên} (chỉ đổi công cụ) / \textbf{Điều chỉnh} (đổi linh kiện, giá trị nhưng giữ mục tiêu) / \textbf{Thay thế} (bài tương đương mới).}
+  \end{table}}
+
+% (8) Bảng bài tập nâng cao của một lab
+\newcommand{\advrow}[1]{#1 & & & \rule{0pt}{0.9cm}\\ \hline}
+\newcommand{\advbang}[1]{%
+  \begin{table}[H]\centering\small
+  \caption{Bài tập nâng cao Lab #1 (tối thiểu 2 bài)}\label{tab:adv#1}
+  \setlength{\tabcolsep}{4pt}
+  \begin{tabular}{|p{1.5cm}|p{3.6cm}|p{4.2cm}|p{5.2cm}|}
+  \hline
+  \hc{Mã file} & \hc{Tên bài} & \hc{Mục tiêu} & \hc{Mô tả ngắn}\\ \hline
+  \advrow{Adv01}\advrow{Adv02}\advrow{Adv03 (nếu có)}
+  \end{tabular}
+  \end{table}}
+
+% (9) Một câu hỏi trong mục 7
+\newcommand{\cau}[3]{% số câu, nội dung câu hỏi (trích từ đề), cách làm
+  \subsubsection{Câu [#1]}
+  \begin{tcolorbox}[colback=white,colframe=guidegray!70,boxrule=0.4pt,arc=1pt,left=5pt,right=5pt,top=2pt,bottom=2pt]
+  \small\textit{Đề:} #2
+  \end{tcolorbox}
+  \cachlam[Cách làm câu {[#1]}]{#3}
+  \chen[2.6cm]{Trả lời của nhóm}}
+
+%% =====================================================================
+\begin{document}
+
+%% ============================== BÌA ==============================
+\begin{titlepage}
+\centering
+{\sffamily\bfseries\large ĐẠI HỌC QUỐC GIA TP. HỒ CHÍ MINH\\
+TRƯỜNG ĐẠI HỌC BÁCH KHOA\\
+KHOA KHOA HỌC VÀ KỸ THUẬT MÁY TÍNH\par}
+\vspace{1.6cm}
+{\sffamily\bfseries\Large\color{navy} LINH KIỆN VÀ MẠCH ĐIỆN TỬ (CO2037)\par}
+{\itshape\color{navy} Electronic Devices and Circuits\par}
+\vspace{1.8cm}
+{\sffamily\bfseries\LARGE\color{accent} BÁO CÁO BÀI TẬP LỚN -- DỰ ÁN 3\par}
+\vspace{4pt}
+{\sffamily\bfseries\Huge\color{navy} XÂY DỰNG TÀI LIỆU\\[3pt] THỰC HÀNH MỚI\\[3pt] VỚI LTSPICE\par}
+\vspace{6pt}
+{\itshape\large Chuyển 6 bài thực hành mô phỏng từ PSpice for TI sang LTspice\par}
+\vspace{1.6cm}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{|>{\bfseries\sffamily\small}p{4.4cm}|p{9.4cm}|}
+\hline
+\hc{Thông tin} & \hc{Nội dung}\\ \hline
+Giảng viên & TS. Lê Trọng Nhân\\ \hline
+Nhóm & \NhomSo \hspace{1.2cm} \textbf{Lớp:} \LopHoc\\ \hline
+Học kỳ & \HocKy\\ \hline
+Thành viên 1 & \TVa\ -- \MSa\\ \hline
+Thành viên 2 & \TVb\ -- \MSb\\ \hline
+Thành viên 3 & \TVc\ -- \MSc\\ \hline
+\end{tabular}
+\vfill
+{\itshape TP. Hồ Chí Minh, ngày \dotuline\ tháng \dotuline\ năm \dotuline\par}
+\end{titlepage}
+
+\pagenumbering{arabic}
+\tableofcontents
+\clearpage
+
+%% ================== PHẦN HƯỚNG DẪN THỰC HIỆN (ẩn khi \guidefalse) ==================
+\ifguide
+\section*{HƯỚNG DẪN THỰC HIỆN BÁO CÁO (đọc trước -- xoá khi nộp)}
+\addcontentsline{toc}{section}{HƯỚNG DẪN THỰC HIỆN BÁO CÁO (đọc trước -- xoá khi nộp)}
+
+\subsection*{0.1. Cách dùng file mẫu này}
+\begin{itemize}
+  \item \textbf{Chữ xám nghiêng} (như dòng này ở đầu mỗi mục): hướng dẫn của đề -- xoá khi hoàn thành.
+  \item \textbf{Khung viền cam}: vị trí chèn nội dung của nhóm -- thay khung bằng nội dung thật.
+  \item \textbf{Khung nền xanh} ``Cách làm'': hướng dẫn chi tiết cách thực hiện từng mục, bổ sung từ yêu cầu của đề.
+  \item Ẩn toàn bộ hướng dẫn: đổi \texttt{\textbackslash guidetrue} thành \texttt{\textbackslash guidefalse} ở đầu file.
+  \item Chèn hình: đặt ảnh vào thư mục \texttt{images/} đúng tên ghi trong khung cam; khi file có mặt, khung tự chuyển thành hình có đánh số và chú thích.
+  \item Thông tin nhóm (họ tên, MSSV, lab phụ trách, phiên bản LTspice, công cụ AI): sửa ở khối \texttt{THÔNG TIN NHÓM} đầu file; các bảng bên dưới tự cập nhật.
+\end{itemize}
+
+\subsection*{0.2. Quy trình thực hiện dự án (Hình 1 của đề)}
+\begin{center}
+\resizebox{0.98\linewidth}{!}{%
+\begin{tikzpicture}[
+  node distance=0.5cm,
+  box/.style={draw,rounded corners=4pt,very thick,align=center,minimum width=3.0cm,minimum height=1.6cm,font=\sffamily\small},
+  arr/.style={-{Stealth[length=2.2mm]},thick,gray!70!black}]
+  \node[box,draw=gray!70!black] (a) at (0,0) {Tài liệu cũ\\(PSpice for TI)\\6 lab $\times$ 10 bài};
+  \node[box,draw=navy] (b) at (3.7,0) {Phân tích nội dung\\\& phân công\\(3 sinh viên)};
+  \node[box,draw=accent] (c) at (7.4,0) {Cài đặt LTspice\\bản offline\\+ thư viện};
+  \node[box,draw=navy] (d) at (11.1,0) {Hiện thực lại\\từng bài tập\\trên LTspice};
+  \node[draw=accent,very thick,diamond,aspect=1.6,align=center,font=\sffamily\small,inner sep=1pt] (e) at (14.9,0) {Thực hiện\\được?};
+  \node[box,draw=green!50!black,minimum width=2.7cm] (f) at (13.2,-3.0) {Giữ nguyên /\\điều chỉnh};
+  \node[box,draw=accent,minimum width=2.7cm] (g) at (16.5,-3.0) {Đề xuất bài\\tương đương};
+  \node[box,draw=green!50!black] (h) at (9.3,-5.4) {Thêm bài tập\\nâng cao\\(mỗi lab)};
+  \node[box,draw=navy] (i) at (5.0,-5.4) {Kiểm thử chéo\\(thành viên khác\\làm theo tài liệu)};
+  \node[box,draw=green!50!black] (j) at (0.8,-5.4) {Tài liệu mới\\+ lời giải\\+ file .asc};
+  \draw[arr] (a)--(b); \draw[arr] (b)--(c); \draw[arr] (c)--(d); \draw[arr] (d)--(e);
+  \draw[arr] (e)--node[left,green!50!black,font=\sffamily\small\bfseries]{Có}(f);
+  \draw[arr] (e)--node[right,red!70!black,font=\sffamily\small\bfseries]{Không}(g);
+  \draw[arr] (f)--(h.east); \draw[arr] (g)--(h.east);
+  \draw[arr] (h)--(i); \draw[arr] (i)--(j);
+\end{tikzpicture}}
+\end{center}
+\textbf{Thứ tự làm việc khuyến nghị:}
+\begin{enumerate}
+  \item \textbf{Phân tích và phân công:} đọc tài liệu gốc 6 chương; mỗi thành viên phụ trách chính \textbf{2 lab}; cả nhóm cùng làm cài đặt, bảng ánh xạ và kiểm thử chéo (mục 11).
+  \item \textbf{Cài đặt offline:} tìm bộ cài, kiểm tra bằng một file mẫu trong \texttt{examples}, chụp màn hình (mục 2).
+  \item \textbf{Hoàn thiện bảng ánh xạ thao tác} PSpice for TI $\rightarrow$ LTspice theo đúng phiên bản đang dùng (mục 3).
+  \item \textbf{Hiện thực từng bài tập:} vẽ \texttt{.asc}, chạy mô phỏng, ghi lệnh mô phỏng, đối chiếu lý thuyết -- mô phỏng, gán trạng thái Giữ nguyên / Điều chỉnh / Thay thế (mục 5).
+  \item \textbf{Bài không chuyển đổi được:} giải thích lý do và đề xuất bài tương đương (mục 6).
+  \item \textbf{Thêm bài nâng cao:} tối thiểu 2 bài mỗi lab (mục 5).
+  \item \textbf{Kiểm thử chéo:} người khác làm theo tài liệu, ghi lỗi, sửa tài liệu (mục 8).
+  \item \textbf{Hoàn thiện} lời giải, báo cáo, nhật ký AI, phân công; đóng gói và nộp.
+\end{enumerate}
+
+\subsection*{0.3. Sản phẩm phải nộp}
+\begin{table}[H]\centering\small
+\caption{Danh sách sản phẩm nộp (theo đề)}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{|c|p{8.2cm}|p{4.2cm}|}
+\hline
+\hc{STT} & \hc{Sản phẩm} & \hc{Định dạng}\\ \hline
+1 & Tài liệu thực hành mới (6 bài lab) & .pdf + file nguồn (.tex hoặc .docx)\\ \hline
+2 & File lời giải tham khảo & .pdf\\ \hline
+3 & Thư mục file mô phỏng LTspice và thư viện bổ sung & .zip\\ \hline
+4 & Hướng dẫn cài đặt offline (có thể là một chương trong tài liệu) & .pdf\\ \hline
+5 & Báo cáo dự án theo mẫu Phần B (chính là file này) & .docx và .pdf\\ \hline
+6 & (Khuyến khích) Video demo ngắn cho mỗi lab & .mp4 hoặc liên kết\\ \hline
+\end{tabular}
+\end{table}
+\textbf{Tên file nộp:} \texttt{MSSV1\_MSSV2\_MSSV3\_Project3.zip}. Tên file mô phỏng đặt thống nhất: \texttt{Lab1/Ex01.asc}, \dots, \texttt{Lab6/Adv02.asc}.
+
+\cachlam[Lưu ý quan trọng về định dạng báo cáo]{
+Đề yêu cầu báo cáo theo mẫu Phần B ở dạng \textbf{.docx và .pdf}. File LaTeX này cho ra bản \textbf{.pdf}; hãy \textbf{hỏi giảng viên} xem có chấp nhận file nguồn \texttt{.tex} thay cho \texttt{.docx} đối với báo cáo hay không. Nếu không, chuyển nội dung sang mẫu \texttt{.docx} của đề (cấu trúc 12 mục giống hệt file này).}
+
+\subsection*{0.4. Những quy tắc bắt buộc của đề}
+\begin{itemize}
+  \item \cb Đủ \textbf{6 lab}, mỗi lab \textbf{đúng 10 bài tập chính} (chương gốc nhiều hơn thì chọn lọc/gộp, ít hơn thì bổ sung) và \textbf{$\geq$ 2 bài nâng cao}.
+  \item \cb Mọi hình mạch và hình kết quả \textbf{chụp từ LTspice}, đủ rõ khi in, có đánh số và chú thích.
+  \item \cb Mỗi bài có giá trị linh kiện cụ thể và ghi rõ mô hình linh kiện; mọi \texttt{.asc} \textbf{mở và chạy được ngay trên bộ cài offline} mà không cần tải thêm.
+  \item \cb Phần tính toán \textbf{để trống} cho sinh viên; lời giải chỉ nằm trong file dành cho giảng viên.
+  \item \cb Mọi số liệu do nhóm \textbf{chạy mô phỏng thật} trên LTspice -- \textbf{không dùng số liệu do AI tự sinh}.
+  \item \cb Mọi lần dùng AI có ảnh hưởng tới kết quả phải ghi vào \textbf{Nhật ký sử dụng AI} (mục 10), kèm cách kiểm chứng.
+  \item \cb Ngôn ngữ tài liệu thực hành: \textbf{tiếng Anh}, thuật ngữ và ký hiệu nhất quán giữa các bài.
+  \item \cb Mọi thành viên phải giải thích được \textbf{mọi bài lab} (có thể vấn đáp), không chỉ phần mình phụ trách.
+  \item \cb Ngoài phạm vi: Ch.~4 (Altium Designer), các mục Altium trong Ch.~5 và Ch.~6, Ch.~8 (Final Project); không thiết kế PCB, không thi công mạch.
+\end{itemize}
+
+\subsection*{0.5. Tiêu chí đánh giá và vị trí trong báo cáo này}
+\begin{table}[H]\centering\small
+\caption{Tiêu chí đánh giá Dự án 3 (theo đề) và nơi thể hiện}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{|p{4.2cm}|c|p{8.2cm}|}
+\hline
+\hc{Tiêu chí} & \hc{Tỉ trọng} & \hc{Thể hiện trong báo cáo này}\\ \hline
+Tài liệu thực hành & 35\,\% & Nộp riêng; báo cáo mô tả ở mục 4, 5\\ \hline
+File mô phỏng \& lời giải & 20\,\% & Nộp riêng; mô tả cấu trúc ở mục 9\\ \hline
+Chuyển đổi \& bài tương đương & 15\,\% & Mục 3 (bảng ánh xạ), mục 5 (trạng thái), mục 6\\ \hline
+Bài tập nâng cao & 10\,\% & Mục 5 (bảng nâng cao từng lab)\\ \hline
+Cài đặt offline \& câu hỏi & 10\,\% & Mục 2 và mục 7 (câu [1]--[9])\\ \hline
+Báo cáo \& quy trình & 10\,\% & Mục 8 (kiểm thử chéo), 10 (nhật ký AI), 11 (phân công)\\ \hline
+\end{tabular}
+\end{table}
+
+\subsection*{0.6. Một bài tập chính phải có những gì}
+Mỗi bài tập chính trong tài liệu thực hành mới gồm: (1) \textbf{sơ đồ mạch}; (2) \textbf{phần tính toán lý thuyết} (để trống cho sinh viên điền); (3) \textbf{phần mô phỏng} (hướng dẫn cấu hình lệnh); (4) \textbf{bảng so sánh} lý thuyết -- mô phỏng. Mỗi lab còn có phần \textbf{Introduction}, \textbf{hướng dẫn LTspice có ảnh chụp màn hình}, và bài nâng cao (ví dụ dùng \texttt{.step}, \texttt{.meas}, phân tích nhiệt độ, Monte Carlo, phân tích Fourier).
+
+\clearpage
+\fi
+
+%% =====================================================================
+%%                       NỘI DUNG BÁO CÁO (PHẦN B)
+%% =====================================================================
+\hd{Báo cáo này mô tả \textbf{quá trình} thực hiện dự án; bản thân tài liệu thực hành mới được nộp riêng. Các dòng chữ nghiêng màu xám là hướng dẫn -- xoá đi khi hoàn thành. Các khung viền cam là vị trí chèn nội dung.}
+
+\begin{table}[H]\centering\small
+\caption{Thông tin nhóm}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{|p{6.6cm}|p{8.6cm}|}
+\hline
+\hc{Thông tin} & \hc{Nội dung}\\ \hline
+Thành viên 1 (Họ tên -- MSSV) -- lab phụ trách & \TVa\ -- \MSa\ \PTa\\ \hline
+Thành viên 2 (Họ tên -- MSSV) -- lab phụ trách & \TVb\ -- \MSb\ \PTb\\ \hline
+Thành viên 3 (Họ tên -- MSSV) -- lab phụ trách & \TVc\ -- \MSc\ \PTc\\ \hline
+Lớp / Nhóm & \LopHoc\ / Nhóm \NhomSo\\ \hline
+Phiên bản LTspice / hệ điều hành & \PhienBanLT\\ \hline
+Công cụ biên soạn tài liệu (LaTeX/Word) & \CongCuSoanThao\\ \hline
+Công cụ AI đã sử dụng & \CongCuAI\\ \hline
+\end{tabular}
+\end{table}
+\cachlam{Điền \texttt{\textbackslash PTa}, \texttt{\textbackslash PTb}, \texttt{\textbackslash PTc} (lab phụ trách, ví dụ ``Lab 1, Lab 2''), \texttt{\textbackslash PhienBanLT} (ghi số phiên bản \textbf{đúng như hiển thị trong phần mềm} và hệ điều hành) và \texttt{\textbackslash CongCuAI} ở khối THÔNG TIN NHÓM đầu file. Lớp và học kỳ điền ở dòng \texttt{\textbackslash LopHoc}, \texttt{\textbackslash HocKy}.}
+
+%% ----------------------------- 1 -----------------------------
+\section{Giới thiệu}
+\hd{Mục tiêu dự án, phạm vi (6 lab), cách nhóm tổ chức công việc.}
+\cachlam{Viết khoảng nửa đến một trang, gồm: (1) \textbf{mục tiêu} -- thay PSpice for TI bằng LTspice và xây dựng lại tài liệu thực hành cho 6 lab mô phỏng; (2) \textbf{phạm vi} -- 6 lab ánh xạ từ các chương gốc (Lab 1 $\leftarrow$ Ch.~1, Lab 2 $\leftarrow$ Ch.~2, Lab 3 $\leftarrow$ Ch.~3, Lab 4 $\leftarrow$ Ch.~5, Lab 5 $\leftarrow$ Ch.~6, Lab 6 $\leftarrow$ Ch.~7), nêu rõ những chương/mục nằm ngoài phạm vi; (3) \textbf{cách tổ chức}: nhóm 3 người, ai phụ trách lab nào, ai làm phần chung (cài đặt, ánh xạ, kiểm thử chéo); (4) cấu trúc phần còn lại của báo cáo. Không đưa kết quả chi tiết vào đây.}
+\chen[3cm]{Nội dung giới thiệu của nhóm}
+
+%% ----------------------------- 2 -----------------------------
+\section{Tìm hiểu LTspice và cài đặt offline}
+\hd{Giới thiệu LTspice; nguồn tải, phiên bản; giải pháp cài đặt offline; các bước triển khai cho phòng máy; kết quả kiểm tra. Có ảnh chụp màn hình.}
+\cachlam{Trình bày theo thứ tự các ý mà đề yêu cầu tìm hiểu:
+\begin{itemize}
+  \item \textbf{Nguồn tải chính thức} (Analog Devices), \textbf{phiên bản} dùng, \textbf{dung lượng}, hệ điều hành hỗ trợ; ghi ngày tra cứu và dẫn nguồn.
+  \item \textbf{Điều khoản sử dụng}: có được phân phối lại bộ cài trong nội bộ trường hay không -- \textbf{đọc điều khoản trên trang chính thức} và trích dẫn đúng; nếu chưa chắc thì ghi rõ là chưa chắc và hỏi giảng viên.
+  \item \textbf{Bộ cài offline}: bộ cài có kèm đủ thư viện linh kiện không; thư viện cập nhật như thế nào; cách sao chép thư viện sang máy không có Internet.
+  \item \textbf{macOS / Linux (qua Wine)}: nếu có giới hạn thì ghi rõ.
+  \item \textbf{Kiểm tra cài đặt thành công}: mở và chạy một file mẫu trong thư mục \texttt{examples}; chụp màn hình trước/sau.
+  \item Các bước triển khai trên một máy \textbf{không có Internet} (làm thử trên máy thật hoặc máy ảo đã ngắt mạng) và cách cập nhật về sau. Phần này cũng là cơ sở trả lời câu [2].
+\end{itemize}}
+\hinhanh{cai-dat-offline.png}{0.9\linewidth}{Quá trình cài đặt offline và kiểm tra LTspice}{fig:caidat}
+
+%% ----------------------------- 3 -----------------------------
+\section{Ánh xạ PSpice for TI \ar\ LTspice}
+\hd{Hoàn thiện Bảng 2 của Phần A theo phiên bản LTspice thực tế, bổ sung các thao tác nhóm phát hiện thêm.}
+\cachlam{Bảng dưới đã điền sẵn \textbf{gợi ý của đề}. Với từng dòng: thử thực hiện thao tác trên LTspice đang dùng, đánh dấu $\checkmark$ nếu đúng hoặc ghi lại cách đúng/tên menu thực tế vào cột cuối (tên menu có thể thay đổi giữa các phiên bản). Thêm các hàng mới cho thao tác nhóm phát hiện thêm (ví dụ: xuất dữ liệu, đo, đặt nhãn, khai báo mô hình).}
+{\small
+\setlength{\tabcolsep}{3.5pt}
+\renewcommand{\arraystretch}{1.25}
+\begin{longtable}{|p{3.1cm}|p{4.4cm}|p{3.2cm}|p{3.9cm}|}
+\caption{Ánh xạ thao tác PSpice for TI $\rightarrow$ LTspice (gợi ý của đề, nhóm kiểm tra lại)}\label{tab:anhxa}\\
+\hline
+\hc{PSpice for TI} & \hc{LTspice (gợi ý)} & \hc{Ghi chú (đề)} & \hc{Nhóm kiểm tra (\checkmark/sửa)}\\ \hline\endfirsthead
+\hline
+\hc{PSpice for TI} & \hc{LTspice (gợi ý)} & \hc{Ghi chú (đề)} & \hc{Nhóm kiểm tra (\checkmark/sửa)}\\ \hline\endhead
+Project + Simulation Profile & File schematic \texttt{.asc} + lệnh mô phỏng (SPICE directive) & Lệnh mô phỏng đặt trên schematic dưới dạng text & \rule{0pt}{0.8cm}\\ \hline
+Bias Point, Enable Voltage/Current Bias Display & \texttt{.op}; di chuột lên dây/linh kiện, hoặc đặt nhãn \texttt{.op data} trên schematic & Kết quả \texttt{.op} cũng hiện trong cửa sổ văn bản & \\ \hline
+DC Sweep & \texttt{.dc <nguồn> <bắt đầu> <kết thúc> <bước>} & & \rule{0pt}{0.8cm}\\ \hline
+Nested DC Sweep & \texttt{.dc V1 \dots\ V2 \dots} (hai nguồn trong một lệnh) & Dùng cho họ đặc tuyến JFET/BJT & \\ \hline
+Parametric sweep & \texttt{.step param R list \dots} hoặc \texttt{.step param R 1k 10k 1k} & Kết hợp \texttt{.param} và giá trị \texttt{\{R\}} & \\ \hline
+Time Domain (Transient) & \texttt{.tran <thời gian dừng>} & Chú ý bước thời gian tối đa với mạch chuyển mạch & \\ \hline
+AC Sweep & \texttt{.ac dec <số điểm/decade> <f\_bắt đầu> <f\_kết thúc>} & Nguồn phải có biên độ AC & \\ \hline
+Trace > Add Trace, cursor & Bấm chuột lên nút/linh kiện (probe); cursor trong cửa sổ đồ thị; \texttt{.meas} & \texttt{.meas} giúp tự động đo giá trị để so sánh lý thuyết & \\ \hline
+Copy to Clipboard (xuất dữ liệu) & Xuất dữ liệu dạng text từ cửa sổ đồ thị & & \rule{0pt}{0.8cm}\\ \hline
+VCVS / CCCS \dots & Nguồn phụ thuộc E, F, G, H; nguồn hành vi B & & \\ \hline
+VSIN, VPULSE & Nguồn áp với hàm SINE/PULSE & & \\ \hline
+Dbreak, mô hình TI & D với \texttt{.model} mặc định hoặc mô hình trong thư viện; nhập \texttt{.lib}/\texttt{.subckt} bên ngoài & Mô hình PSpice mã hoá của TI thường không dùng được trong LTspice & \\ \hline
+\rule{0pt}{0.8cm} & & & \\ \hline
+\rule{0pt}{0.8cm} & & & \\ \hline
+\rule{0pt}{0.8cm} & & & \\ \hline
+\end{longtable}}
+
+%% ----------------------------- 4 -----------------------------
+\section{Tổng quan tài liệu thực hành mới}
+\hd{Thống kê số bài tập theo trạng thái.}
+\cachlam{Điền bảng \textbf{sau khi} hoàn thành các bảng ở mục 5. Với mỗi lab: \textbf{Giữ nguyên + Điều chỉnh + Thay thế = 10} bài chính; \textbf{Nâng cao $\geq$ 2}; cột ``Phụ trách'' ghi tên thành viên. Số liệu phải khớp với các Bảng danh sách bài tập Lab 1--6.}
+\begin{table}[H]\centering\small
+\caption{Thống kê số bài tập theo trạng thái}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{|c|c|c|c|c|p{3.4cm}|}
+\hline
+\hc{Lab} & \hc{Giữ nguyên} & \hc{Điều chỉnh} & \hc{Thay thế} & \hc{Nâng cao} & \hc{Phụ trách}\\ \hline
+Lab 1 & & & & & \\ \hline
+Lab 2 & & & & & \\ \hline
+Lab 3 & & & & & \\ \hline
+Lab 4 & & & & & \\ \hline
+Lab 5 & & & & & \\ \hline
+Lab 6 & & & & & \\ \hline
+\end{tabular}
+\end{table}
+
+%% ----------------------------- 5 -----------------------------
+\section{Chi tiết từng bài lab}
+\hd{Mỗi lab một mục con, gồm: bảng 10 bài tập (mẫu dưới đây), danh sách bài tập nâng cao, và ảnh chụp minh hoạ một bài tiêu biểu.}
+\cachlam{Cách điền bảng danh sách bài tập của mỗi lab:
+\begin{itemize}
+  \item \textbf{Bài gốc}: tên/số mục của bài trong tài liệu PSpice (ví dụ ``Mục 3.4 Clamper'').
+  \item \textbf{Bài mới (LTspice)}: tên bài mới và tên file (ví dụ \texttt{Ex04.asc}). Đặt tên file thống nhất \texttt{LabN/ExNN.asc}.
+  \item \textbf{Trạng thái}: \textbf{Giữ nguyên} (chỉ đổi công cụ), \textbf{Điều chỉnh} (đổi linh kiện/giá trị nhưng giữ mục tiêu), hoặc \textbf{Thay thế} (bài tương đương mới). \textbf{Mọi thay đổi phải có lý do} -- ghi vào mục 6 (và câu [6]).
+  \item \textbf{Lệnh mô phỏng}: các lệnh dùng trong bài (ví dụ \texttt{.op}, \texttt{.dc V1 0 5 10m}, \texttt{.tran 100m}, \texttt{.ac dec 20 10 1Meg}, \texttt{.step}, \texttt{.meas}).
+  \item \textbf{Sai lệch LT -- MP}: sai lệch giữa lý thuyết và mô phỏng (ví dụ phần trăm sai lệch của đại lượng chính), \textbf{lấy từ lần chạy thật}.
+\end{itemize}
+Mỗi lab có \textbf{đúng 10 bài chính}: chương gốc nhiều hơn thì chọn lọc hoặc gộp, ít hơn thì bổ sung.}
+
+%% ---- Lab 1 ----
+\subsection{Lab 1}
+\cachlam[Gợi ý từ đề cho Lab 1]{\textbf{Chương gốc:} Ch.~1 -- First Project on PSpice. \textbf{Nội dung:} cài đặt, tạo project, Bias Point; 10 bài: định luật Kirchhoff, nguồn phụ thuộc (VCVS), điện trở tương đương, biến đổi sao -- tam giác, chọn điện trở chuẩn. \textbf{Lưu ý khi chuyển:} phân tích \texttt{.op}, nguồn E, hiển thị điểm làm việc trên schematic, \texttt{.meas}. \textbf{Gợi ý nâng cao:} dùng \texttt{.step} khảo sát công suất tải theo điện trở tải và kiểm chứng định lý truyền công suất cực đại; dùng \texttt{.meas} tự động tính sai số so với lý thuyết.}
+\labbang{1}
+\hd{Bài tập nâng cao: tên, mục tiêu, mô tả ngắn.}
+\advbang{1}
+\hinhanh{lab1-demo.png}{0.85\linewidth}{Minh hoạ một bài tập tiêu biểu của Lab 1 (LTspice)}{fig:lab1}
+
+%% ---- Lab 2 ----
+\subsection{Lab 2}
+\cachlam[Gợi ý từ đề cho Lab 2]{\textbf{Chương gốc:} Ch.~2 -- Diode Circuits Analysis. \textbf{Nội dung:} đặc tuyến V-I (DC Sweep), mô hình diode, diode nối tiếp, mạch kẹp, mạch chuyển nguồn, chỉnh lưu bán kỳ/toàn kỳ, ổn áp Zener, nguồn AC/DC, nguồn AC/DC với LM2596. \textbf{Lưu ý:} mô hình \texttt{Dbreak} và \texttt{LM2596\_5P0\_TRANS} (mô hình của TI) có thể không dùng được -- cần mô hình thay thế hoặc bài tương đương (liên quan câu [4], [5]). \textbf{Gợi ý nâng cao:} ảnh hưởng nhiệt độ (\texttt{.temp}, \texttt{.step temp}) lên điện áp thuận của diode; độ gợn của chỉnh lưu theo giá trị tụ lọc; nguồn buck dùng IC của ADI.}
+\labbang{2}
+\hd{Bài tập nâng cao: tên, mục tiêu, mô tả ngắn.}
+\advbang{2}
+\hinhanh{lab2-demo.png}{0.85\linewidth}{Minh hoạ một bài tập tiêu biểu của Lab 2 (LTspice)}{fig:lab2}
+
+%% ---- Lab 3 ----
+\subsection{Lab 3}
+\cachlam[Gợi ý từ đề cho Lab 3]{\textbf{Chương gốc:} Ch.~3 -- Bipolar Junction Transistor. \textbf{Nội dung:} 13 mục -- bão hoà, DC Sweep, khoá BJT, lái tải, phân cực, PNP, NPN + PNP, điện trở emitter, Darlington, base chung, gương dòng, cổng logic, opto. \textbf{Lưu ý:} chọn/gộp còn \textbf{10 bài}; tìm mô hình optocoupler hoặc xây dựng mô hình tương đương. \textbf{Gợi ý nâng cao:} độ ổn định điểm làm việc khi $\beta$ thay đổi; Monte Carlo sai số điện trở; đáp ứng tần số của mạch khuếch đại emitter chung.}
+\labbang{3}
+\hd{Bài tập nâng cao: tên, mục tiêu, mô tả ngắn.}
+\advbang{3}
+\hinhanh{lab3-demo.png}{0.85\linewidth}{Minh hoạ một bài tập tiêu biểu của Lab 3 (LTspice)}{fig:lab3}
+
+%% ---- Lab 4 ----
+\subsection{Lab 4}
+\cachlam[Gợi ý từ đề cho Lab 4]{\textbf{Chương gốc:} Ch.~5 -- Operational Amplifier. \textbf{Nội dung:} 7 bài -- voltage follower, follower dòng lớn, khuếch đại không đảo, cộng, lọc thông thấp, lọc thông cao, Schmitt trigger (AC Sweep, Transient). \textbf{Lưu ý:} \textbf{bổ sung 3 bài}; kiểm tra mô hình LM358 hoặc chọn op-amp tương đương của ADI (bỏ các mục Altium). \textbf{Gợi ý nâng cao:} ảnh hưởng của tích độ lợi -- băng thông (GBW) và slew rate thực của op-amp; bộ lọc Sallen-Key bậc 2; phân tích \texttt{.four} tính THD.}
+\labbang{4}
+\hd{Bài tập nâng cao: tên, mục tiêu, mô tả ngắn.}
+\advbang{4}
+\hinhanh{lab4-demo.png}{0.85\linewidth}{Minh hoạ một bài tập tiêu biểu của Lab 4 (LTspice)}{fig:lab4}
+
+%% ---- Lab 5 ----
+\subsection{Lab 5}
+\cachlam[Gợi ý từ đề cho Lab 5]{\textbf{Chương gốc:} Ch.~6 -- Field Effect Transistor. \textbf{Nội dung:} JFET (DC Sweep, Nested DC Sweep, tự phân cực, phân áp), MOSFET kênh có sẵn và kênh cảm ứng, MOSFET làm khoá, điều khiển động cơ. \textbf{Lưu ý:} nested sweep dùng \texttt{.dc} hai nguồn; mô hình MOSFET kênh có sẵn có thể phải tự khai báo \texttt{.model}; \textbf{bổ sung đủ 10 bài} (bỏ các mục Altium). \textbf{Gợi ý nâng cao:} đặc tuyến truyền đạt và $R_{DS(on)}$ theo $V_{GS}$; tổn hao chuyển mạch của MOSFET khi điều khiển tải cảm; mạch cầu H.}
+\labbang{5}
+\hd{Bài tập nâng cao: tên, mục tiêu, mô tả ngắn.}
+\advbang{5}
+\hinhanh{lab5-demo.png}{0.85\linewidth}{Minh hoạ một bài tập tiêu biểu của Lab 5 (LTspice)}{fig:lab5}
+
+%% ---- Lab 6 ----
+\subsection{Lab 6}
+\cachlam[Gợi ý từ đề cho Lab 6]{\textbf{Chương gốc:} Ch.~7 -- 24 Hour Project for Midterm. \textbf{Nội dung:} 8 bài tổng hợp -- điện trở tương đương, dòng điện, diode, Zener, BJT, BJT + Zener. \textbf{Lưu ý:} \textbf{bổ sung 2 bài}; có thể dùng làm bài ôn tập giữa kỳ. \textbf{Gợi ý nâng cao:} bài tổng hợp nhiều khối (nguồn -- ổn áp -- khoá BJT/MOSFET -- op-amp) dùng cho ôn tập.}
+\labbang{6}
+\hd{Bài tập nâng cao: tên, mục tiêu, mô tả ngắn.}
+\advbang{6}
+\hinhanh{lab6-demo.png}{0.85\linewidth}{Minh hoạ một bài tập tiêu biểu của Lab 6 (LTspice)}{fig:lab6}
+
+%% ----------------------------- 6 -----------------------------
+\section{Bài tập không chuyển đổi được và đề xuất tương đương}
+\hd{Với mỗi bài: mô tả bài gốc, lý do không thực hiện được, bài tương đương đề xuất, lập luận về mục tiêu học tập.}
+\cachlam{Mỗi bài không chuyển đổi trực tiếp được (ví dụ do thiếu mô hình linh kiện như \texttt{LM2596\_5P0\_TRANS}, optocoupler, op-amp, MOSFET kênh có sẵn) điền \textbf{một hàng} trong bảng dưới (sao chép thêm hàng nếu cần). Yêu cầu của từng cột:
+\begin{itemize}
+  \item \textbf{Bài gốc}: lab, số mục, tóm tắt mục tiêu của bài.
+  \item \textbf{Lý do không thực hiện được}: nêu thử nghiệm đã làm (ví dụ thông báo lỗi khi nạp mô hình) -- \textbf{không chỉ nói ``không có''}.
+  \item \textbf{Bài tương đương}: mạch/linh kiện/mô hình thay thế và phân tích dùng.
+  \item \textbf{Lập luận mục tiêu học tập}: so sánh mục tiêu học tập của bài gốc và bài thay thế, chứng minh \textbf{tương đương}.
+\end{itemize}
+Mọi bài ở trạng thái ``Điều chỉnh''/``Thay thế'' trong Bảng~\ref{tab:lab1}--\ref{tab:lab6} phải xuất hiện ở đây hoặc được giải thích tại câu [6] của mục 7.}
+{\small
+\renewcommand{\arraystretch}{1.2}
+\setlength{\tabcolsep}{4pt}
+\begin{longtable}{|p{2.2cm}|p{3.3cm}|p{3.2cm}|p{2.7cm}|p{3.0cm}|}
+\caption{Bài không chuyển đổi được và bài tương đương đề xuất}\label{tab:tuongduong}\\
+\hline
+\hc{Lab / bài} & \hc{Bài gốc (mục tiêu)} & \hc{Lý do không thực hiện được} & \hc{Bài tương đương} & \hc{Lập luận mục tiêu học tập}\\ \hline\endfirsthead
+\hline
+\hc{Lab / bài} & \hc{Bài gốc (mục tiêu)} & \hc{Lý do không thực hiện được} & \hc{Bài tương đương} & \hc{Lập luận mục tiêu học tập}\\ \hline\endhead
+\rule{0pt}{1.6cm} & & & & \\ \hline
+\rule{0pt}{1.6cm} & & & & \\ \hline
+\rule{0pt}{1.6cm} & & & & \\ \hline
+\rule{0pt}{1.6cm} & & & & \\ \hline
+\end{longtable}}
+
+%% ----------------------------- 7 -----------------------------
+\section{Trả lời câu hỏi}
+\hd{Trả lời các câu [1]--[9] ở mục 9.1 Phần A.}
+\cachlam{Mỗi câu bên dưới có: nội dung câu hỏi (trích từ đề), phần ``Cách làm'' (những gì cần làm và đưa vào câu trả lời) và khung cam để nhóm viết câu trả lời. \textbf{Chỉ đưa vào các kết quả nhóm đã chạy thật}; mọi số liệu cần kèm lệnh/ảnh chụp để kiểm chứng. Nếu dùng AI hỗ trợ, ghi vào mục 10.}
+
+\cau{1}{So sánh PSpice for TI và LTspice theo: giấy phép và đăng ký, hệ điều hành, thư viện mô hình, các kiểu phân tích hỗ trợ, cách khai báo mô phỏng, xuất dữ liệu, khả năng nhập mô hình bên ngoài. Nêu ưu và nhược điểm của việc chuyển đổi đối với môn học.}{
+Lập \textbf{bảng so sánh hai cột} theo đúng 7 tiêu chí của đề, mỗi ô có nguồn (trang chính thức của Analog Devices và Texas Instruments, ghi ngày tra cứu). Sau bảng: đoạn \textbf{ưu điểm} và \textbf{nhược điểm} của việc chuyển đổi \textbf{đối với môn học} (ví dụ: chi phí/đăng ký cho phòng máy, độ sẵn có của mô hình, khác biệt thao tác, công sức chuyển bài). Có thể tham chiếu mục 3 (ánh xạ thao tác).}
+
+\cau{2}{Trình bày giải pháp \textbf{cài đặt offline} của nhóm: nguồn tải, phiên bản, cách đóng gói thư viện, cách kiểm tra tính toàn vẹn của bộ cài, các bước triển khai trên máy không có Internet và cách cập nhật về sau. Điều khoản sử dụng có cho phép phân phối lại không?}{
+Trả lời theo \textbf{6 ý của đề}: nguồn tải; phiên bản; cách \textbf{đóng gói thư viện} (thư mục nào cần sao chép); \textbf{kiểm tra toàn vẹn} (ví dụ tính mã băm SHA-256 của bộ cài và so với giá trị công bố nếu có: Windows \texttt{certutil -hashfile <file> SHA256}, macOS \texttt{shasum -a 256 <file>}, Linux \texttt{sha256sum <file>}); \textbf{các bước triển khai} trên máy không có Internet (đánh số từng bước, kèm ảnh); \textbf{cách cập nhật} về sau. Cuối cùng \textbf{trích dẫn nguyên văn điều khoản} liên quan đến phân phối lại và kết luận có/không (hoặc ``chưa rõ, đã hỏi giảng viên'').}
+
+\cau{3}{Mô hình diode mặc định của LTspice (không khai báo tham số) có những tham số nào? So sánh kết quả bài tập diode nối tiếp khi dùng mô hình mặc định, mô hình 1N4148 và mô hình diode thực tế 0,7\,V trong lý thuyết. Giải thích sai lệch.}{
+(a) Tra \textbf{danh sách tham số} của diode (tài liệu trợ giúp LTspice hoặc xem mô hình) và liệt kê tham số + giá trị mặc định mà nhóm \textbf{đọc được}. (b) Chạy \textbf{cùng một mạch diode nối tiếp (bài 3.2 của Lab 2)} 3 lần: diode mặc định, diode 1N4148 (khai báo \texttt{.model}/\texttt{.lib}), và tính lý thuyết với $V_D = 0{,}7$\,V. (c) Lập \textbf{bảng}: $V_{D1}, V_{D2}, V_{D3}, V_{R}, I$ cho 3 trường hợp, kèm lệnh \texttt{.op} và ảnh chụp. (d) \textbf{Giải thích sai lệch} bằng các tham số mô hình (ví dụ dòng bão hoà, hệ số lý tưởng, điện trở nối tiếp).}
+
+\cau{4}{Trình bày cách nhập một mô hình SPICE của nhà sản xuất (.lib, .subckt) vào LTspice và tạo symbol cho nó. Thử với một mô hình op-amp hoặc IC nguồn của TI: có chạy được không? Nếu không, vì sao?}{
+Viết \textbf{quy trình từng bước, có ảnh}: (1) lấy file \texttt{.lib}/\texttt{.subckt} của nhà sản xuất; (2) khai báo trong schematic (lệnh \texttt{.lib}/\texttt{.include}); (3) tạo \textbf{symbol} cho mạch con (ghi đúng tên menu của phiên bản bạn dùng) và gán đúng thứ tự chân; (4) chạy thử mạch kiểm tra. Sau đó \textbf{thử thực tế} với một mô hình op-amp hoặc IC nguồn của TI: ghi \textbf{kết quả} (chạy được/không), \textbf{thông báo lỗi} (chụp ảnh) và \textbf{nguyên nhân} bạn xác định được (ví dụ cú pháp riêng của PSpice, mô hình mã hoá). Liên hệ câu [5].}
+
+\cau{5}{Với bài tập dùng LM2596 (Lab 2), trình bày giải pháp của nhóm: tìm mô hình tương thích, hay thay bằng IC buck có sẵn trong thư viện LTspice, hay mô hình hành vi. So sánh mục tiêu học tập giữa bài gốc và bài thay thế.}{
+Nêu \textbf{phương án đã chọn} (một trong ba hướng của đề) và \textbf{vì sao}, kèm bằng chứng đã thử (các phương án bị loại, lỗi gặp phải). Mô tả bài thay thế (mạch, linh kiện, lệnh mô phỏng, kết quả). Lập \textbf{bảng so sánh mục tiêu học tập} giữa bài gốc LM2596 và bài thay thế (mỗi mục tiêu: đạt/không đạt/đạt một phần). Phần này đồng thời được ghi vào mục 6.}
+
+\cau{6}{Liệt kê \textbf{tất cả} bài tập ở trạng thái ``Điều chỉnh'' hoặc ``Thay thế'' trong 6 lab, kèm lý do và cách nhóm bảo đảm mục tiêu học tập tương đương.}{
+Tổng hợp từ các Bảng~\ref{tab:lab1}--\ref{tab:lab6}: \textbf{mọi bài ``Điều chỉnh'' và ``Thay thế''} (không bỏ sót) vào một bảng gồm: lab/số bài, bài gốc, thay đổi gì, \textbf{lý do}, và \textbf{cách bảo đảm mục tiêu học tập tương đương}. Số bài liệt kê phải khớp với Bảng thống kê ở mục 4.}
+
+\cau{7}{Trong phân tích .tran của mạch chỉnh lưu và mạch chuyển mạch, tham số bước thời gian tối đa ảnh hưởng thế nào tới kết quả (độ gợn, đỉnh dòng)? Minh hoạ bằng hai lần chạy với bước khác nhau.}{
+Chọn một mạch chỉnh lưu (và một mạch chuyển mạch nếu có). Chạy \texttt{.tran} \textbf{hai lần với bước thời gian tối đa khác nhau} (nhóm tự chọn hai giá trị đủ chênh lệch; cú pháp \texttt{.tran <Tprint> <Tstop> <Tstart> <dTmax>}). Với mỗi lần: chụp dạng sóng, đo \textbf{độ gợn} và \textbf{đỉnh dòng} (bằng \texttt{.meas} hoặc cursor), ghi \textbf{thời gian chạy}. Trình bày bảng hai lần chạy và nhận xét ảnh hưởng của bước thời gian.}
+
+\cau{8}{Trình bày cách dùng .step và .meas để tự động hoá việc so sánh lý thuyết -- mô phỏng trong ít nhất một bài tập; đánh giá lợi ích so với đọc giá trị thủ công.}{
+Chọn \textbf{ít nhất một bài tập}. Nêu: lệnh \texttt{.param}/\texttt{.step} (quét tham số) và \texttt{.meas} (đo), \textbf{công thức lý thuyết} dùng để so sánh, và cách lấy kết quả (ví dụ từ file log). Ví dụ từ đề: \texttt{.meas DC Id\_1V FIND I(D1) AT=1} lấy dòng tại $V_1 = 1$\,V. Đưa \textbf{netlist/ảnh log} thật, bảng so sánh tự động và \textbf{đánh giá lợi ích} so với đọc thủ công (độ chính xác, thời gian, khả năng lặp lại).}
+
+\cau{9}{Mô tả quá trình \textbf{kiểm thử chéo}: ai thử bài nào, các lỗi hoặc điểm khó hiểu được phát hiện, và nhóm đã sửa tài liệu thế nào.}{
+Mô tả \textbf{quy trình} (người viết và người kiểm thử khác nhau; kiểm thử trên \textbf{bộ cài offline}), tóm tắt các lỗi/điểm khó hiểu \textbf{điển hình} và cách sửa; dẫn chiếu Bảng~\ref{tab:kiemthu} ở mục 8 cho chi tiết từng lab.}
+
+%% ----------------------------- 8 -----------------------------
+\section{Kiểm thử chéo}
+\cachlam{Mỗi lab do \textbf{một người viết} và \textbf{một người khác kiểm thử}: người kiểm thử làm theo tài liệu từ đầu, trên bộ cài offline, không hỏi người viết. Ghi \textbf{mọi lỗi hoặc điểm khó hiểu} (sai giá trị linh kiện, thiếu bước, hình mờ, lệnh không chạy\dots) và xác nhận \textbf{đã sửa} (ghi cách sửa).}
+\begin{table}[H]\centering\small
+\caption{Kết quả kiểm thử chéo}\label{tab:kiemthu}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{|c|p{2.5cm}|p{2.5cm}|p{5.4cm}|p{2.2cm}|}
+\hline
+\hc{Lab} & \hc{Người viết} & \hc{Người kiểm thử} & \hc{Lỗi / điểm khó hiểu phát hiện} & \hc{Đã sửa}\\ \hline
+Lab 1 & & & & \rule{0pt}{1.0cm}\\ \hline
+Lab 2 & & & & \rule{0pt}{1.0cm}\\ \hline
+Lab 3 & & & & \rule{0pt}{1.0cm}\\ \hline
+Lab 4 & & & & \rule{0pt}{1.0cm}\\ \hline
+Lab 5 & & & & \rule{0pt}{1.0cm}\\ \hline
+Lab 6 & & & & \rule{0pt}{1.0cm}\\ \hline
+\end{tabular}
+\end{table}
+
+%% ----------------------------- 9 -----------------------------
+\section{Hướng dẫn sử dụng tài liệu cho giảng viên}
+\hd{Cấu trúc thư mục bàn giao, cách cập nhật file .asc, các lưu ý khi triển khai trong phòng máy.}
+\cachlam{Viết ngắn gọn cho \textbf{giảng viên} (không phải sinh viên): (1) \textbf{cấu trúc thư mục bàn giao} -- ví dụ gợi ý:
+\begin{itemize}
+  \item \texttt{MSSV1\_MSSV2\_MSSV3\_Project3.zip}
+  \item tài liệu thực hành (.pdf + nguồn), file lời giải (.pdf), hướng dẫn cài đặt offline (.pdf), báo cáo (.docx + .pdf)
+  \item thư mục mô phỏng: \texttt{Lab1/Ex01.asc \dots\ Ex10.asc, Adv01.asc, Adv02.asc}, \dots, \texttt{Lab6/}\dots, cùng thư mục mô hình/thư viện bổ sung
+\end{itemize}
+(2) \textbf{cách cập nhật} file \texttt{.asc} và tài liệu khi đổi giá trị/bài tập; (3) \textbf{lưu ý khi triển khai} trong phòng máy (đường dẫn thư viện, quyền ghi, phiên bản). Đảm bảo mọi \texttt{.asc} chạy ngay trên bộ cài offline.}
+\chen[3cm]{Nội dung hướng dẫn cho giảng viên}
+
+%% ----------------------------- 10 -----------------------------
+\section{Nhật ký sử dụng AI}
+\cachlam{Ghi \textbf{mỗi lần} dùng AI có ảnh hưởng tới kết quả (tra cứu, sinh netlist, viết nháp hướng dẫn, đề xuất bài nâng cao, rà soát lỗi). \textbf{Cách kiểm chứng} là cột quan trọng: ghi cách nhóm xác nhận (ví dụ chạy lại trên LTspice, đối chiếu tài liệu chính thức). Nhắc lại: \textbf{mọi số liệu phải do nhóm chạy mô phỏng thật}, không dùng số liệu AI tự sinh. Thêm hàng nếu cần.}
+\begin{table}[H]\centering\small
+\caption{Nhật ký sử dụng AI}
+\renewcommand{\arraystretch}{1.4}
+\setlength{\tabcolsep}{3.5pt}
+\begin{tabular}{|c|p{1.9cm}|p{2.5cm}|p{2.9cm}|p{2.9cm}|p{2.6cm}|}
+\hline
+\hc{\#} & \hc{Công cụ} & \hc{Mục đích} & \hc{Tóm tắt prompt} & \hc{Kết quả nhận được} & \hc{Cách kiểm chứng}\\ \hline
+1 & & & & & \rule{0pt}{1.1cm}\\ \hline
+2 & & & & & \rule{0pt}{1.1cm}\\ \hline
+3 & & & & & \rule{0pt}{1.1cm}\\ \hline
+4 & & & & & \rule{0pt}{1.1cm}\\ \hline
+5 & & & & & \rule{0pt}{1.1cm}\\ \hline
+\end{tabular}
+\end{table}
+
+%% ----------------------------- 11 -----------------------------
+\section{Phân công công việc}
+\cachlam{Điền tên từng thành viên vào cột tương ứng cho mỗi hạng mục (gợi ý của đề: mỗi người phụ trách chính 2 lab; cả nhóm cùng làm cài đặt, bảng ánh xạ và kiểm thử chéo). Hàng cuối ghi \textbf{tỉ lệ đóng góp} (tổng 100\,\%). Thống nhất với bảng ở mục 4 và mục 8.}
+\begin{table}[H]\centering\small
+\caption{Phân công công việc}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{|p{4.6cm}|p{3.2cm}|p{3.2cm}|p{3.2cm}|}
+\hline
+\hc{Hạng mục} & \hc{Thành viên 1\newline\normalfont\scriptsize\TVa} & \hc{Thành viên 2\newline\normalfont\scriptsize\TVb} & \hc{Thành viên 3\newline\normalfont\scriptsize\TVc}\\ \hline
+Cài đặt offline, bảng ánh xạ & & & \\ \hline
+Lab 1, Lab 2 & & & \\ \hline
+Lab 3, Lab 4 & & & \\ \hline
+Lab 5, Lab 6 & & & \\ \hline
+Lời giải, file .asc & & & \\ \hline
+Kiểm thử chéo, báo cáo & & & \\ \hline
+Tỉ lệ đóng góp (\%) & & & \\ \hline
+\end{tabular}
+\end{table}
+
+%% ----------------------------- 12 -----------------------------
+\section{Kết luận}
+\hd{Kết quả đạt được, hạn chế, đề xuất cho các học kỳ sau.}
+\cachlam{Viết ngắn gọn 3 ý: (1) \textbf{kết quả đạt được} (số lab/bài đã chuyển, số bài thay thế, số bài nâng cao, bộ cài offline); (2) \textbf{hạn chế} (bài chưa chuyển được, mô hình thiếu, phần chưa kiểm thử); (3) \textbf{đề xuất} cho các học kỳ sau. Số liệu phải khớp với mục 4.}
+\chen[3cm]{Nội dung kết luận của nhóm}
+
+%% ----------------------------- Tài liệu tham khảo -----------------------------
+\section*{Tài liệu tham khảo}
+\addcontentsline{toc}{section}{Tài liệu tham khảo}
+\begin{enumerate}[label={[\arabic*]}]
+  \item Lê Trọng Nhân, \textit{Electronic Device Component} -- tài liệu thực hành (PSpice for TI), HCMUT.
+  \item Analog Devices, \textit{LTspice} -- trang sản phẩm và tải về. \url{https://www.analog.com/ltspice}
+  \item Analog Devices, \textit{LTspice Help} (tài liệu trợ giúp tích hợp trong phần mềm).
+  \item Texas Instruments, \textit{PSpice for TI}. \url{https://www.ti.com/tool/PSPICE-FOR-TI}
+  \item G. Brocard, \textit{The LTspice IV Simulator: Manual, Methods and Applications}, Würth Elektronik, 2013.
+\end{enumerate}
+\hd{Thêm các nguồn khác nhóm đã dùng (trang hỗ trợ của ADI/TI, datasheet linh kiện, \dots) và trích dẫn trong nội dung.}
+
+\end{document}

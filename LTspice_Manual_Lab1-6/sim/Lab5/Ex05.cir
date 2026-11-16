@@ -1,0 +1,15 @@
+* Lab 5 - Ex05: JFET voltage-divider bias
+V1 vdd 0 15
+R1 vdd g 1Meg
+R2 g 0 270k
+RD vdd d 2.2k
+RS s 0 1.5k
+J1 d g s JN
+.op
+* models
+.model JN NJF(Beta=2.5m Vto=-2 Lambda=0.01)
+.model DMOS NMOS(Kp=1.78m Vto=-3 Lambda=0.01)
+.model NM NMOS(Kp=2m Vto=2 Lambda=0.01)
+.model NMSW NMOS(Kp=0.5 Vto=2)
+.model PM PMOS(Kp=1m Vto=-2 Lambda=0.01)
+.model D1N4148 D(Is=2.52n Rs=0.568 N=1.752 Cjo=4p M=0.4 Tt=20n)

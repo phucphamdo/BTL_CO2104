@@ -1,0 +1,11 @@
+* Lab 1 - Ex10: find V (across R2), node E = ground
+V1 A 0 100
+R1 A B 16
+R2 B 0 35
+R7 B D 30
+R6 B C 15
+R5 C D 10
+R3 C 0 12
+R4 D 0 20
+.op
+.end

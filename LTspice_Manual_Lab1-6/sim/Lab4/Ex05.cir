@@ -1,0 +1,17 @@
+* Lab 4 - Ex05: voltage follower with gain 1 + R2/R1 (BJT output stage)
+V1 in 0 2
+X1 in fb ob vcc vee OPAMP
+Q1 vc ob out QN
+V3 vc 0 12
+R1 fb 0 1k
+R2 out fb 2k
+RL out 0 100
+.op
+* behavioural op-amp (rails = supply -/+ 1.5 V)
+.subckt OPAMP inp inn out vcc vee
+Rin inp inn 10Meg
+B1 out 0 V=limit(1e6*(V(inp)-V(inn)),V(vee)+1.5,V(vcc)-1.5)
+.ends
+.model QN NPN(Is=1e-14 Bf=100 Br=1)
+V+ vcc 0 15
+V- vee 0 -15

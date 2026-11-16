@@ -1,0 +1,9 @@
+* Lab 6 - Ex01: equivalent resistance, bridge with a 4 ohm series resistor (24 V source)
+V1 a 0 24
+R1 a t 4
+R2 t m 20
+R3 t r 30
+R4 m 0 60
+R5 r 0 40
+R6 m r 10
+.op

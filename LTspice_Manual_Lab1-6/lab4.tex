@@ -1,0 +1,295 @@
+\chap{Operational Amplifier}
+
+\section{Introduction}
+In this laboratory you study circuits built with an operational amplifier: the basic amplifier configurations, the voltage follower and its current-boosted versions, summing and difference amplifiers, first-order active filters and the Schmitt trigger. You verify the ideal-op-amp equations with DC, AC and transient simulations.
+
+\textbf{After this laboratory you will be able to:}
+\begin{itemize}
+  \item place an op-amp and its supply sources and use the virtual-short concept;
+  \item calculate and simulate inverting, non-inverting, summing and difference amplifiers;
+  \item use a BJT at the output of an op-amp to increase the output current;
+  \item obtain the Bode plot of active low-pass and high-pass filters with an AC analysis;
+  \item explain and measure the hysteresis of a Schmitt trigger in a transient simulation;
+  \item observe the effect of the finite gain-bandwidth product of a real op-amp.
+\end{itemize}
+
+\textbf{Exercises.} Save every schematic as \file{Lab4/ExNN.asc} (advanced exercises: \file{Lab4/AdvNN.asc}). Calculation spaces are blank; fill in the comparison tables with your own theoretical and simulated values.
+
+\section{LTspice guide}
+
+\subsection{Op-amp symbols and supplies}
+Place the op-amp symbol with \texttt{F2}: search for \cmd{UniversalOpAmp2} in the \textit{[Opamps]} folder. The symbol has five pins: non-inverting input (+), inverting input ($-$), output, and two supply pins. Connect a $+15$\,V source to the upper supply pin and a $-15$\,V source to the lower one; ground the other terminals of both sources. The output of the op-amp cannot exceed the supply rails: it saturates a little below them.
+
+\labfig{lab4_guide01.png}{10cm}{An op-amp with its two supply sources}{fig:lab4_guide01}
+
+\subsection{AC analysis and Bode plot}
+Give the input source an AC amplitude of 1\,V (voltage source dialog, \textit{Small signal AC analysis}). Choose \textit{Simulate $\rightarrow$ Edit Simulation Cmd $\rightarrow$ AC Analysis}, select the decade sweep, the number of points per decade and the start and stop frequencies. Plot the output node: LTspice shows the magnitude in dB and the phase. The cut-off frequency is where the magnitude is 3\,dB below its pass-band value.
+
+\labfig{lab4_guide02.png}{12cm}{AC analysis settings and Bode plot}{fig:lab4_guide02}
+
+\subsection{Transient analysis of comparators}
+A Schmitt trigger is studied in the time domain. Use a sine source and a \cmd{.tran} analysis; plot the input and the output in the same plot window (select the second node after the first). Use the cursors to read the input value at the instants when the output switches.
+
+\section{Exercises}
+
+\subsection{Exercise 1: Non-inverting amplifier}
+In the circuit of Figure~\ref{fig:lab4_ex01} a 2\,V DC source drives the non-inverting input of an op-amp; the output is divided by R$_f$ = 1\,k$\Omega$ and R$_1$ = 1\,k$\Omega$, and the divided voltage is fed back to the inverting input. Assume an ideal op-amp operating in its linear region unless stated otherwise. Determine the voltage at the inverting input, the closed-loop gain and the output voltage, and the current in R$_f$. Then simulate.
+
+\labfig{lab4_ex01.png}{9cm}{Exercise 1: non-inverting amplifier}{fig:lab4_ex01}
+
+\theory{8}
+
+\simulation{
+\item Draw the circuit of Figure~\ref{fig:lab4_ex01} in LTspice and save it as \file{Lab4/Ex01.asc}.
+\item Use the op-amp symbol \cmd{UniversalOpAmp2} from the \textit{[Opamps]} folder (\texttt{F2}). Supply it with two DC sources, $+15$\,V on the V+ pin and $-15$\,V on the V$-$ pin, both referenced to ground.
+\item Add the \cmd{.op} analysis (\textit{Simulate $\rightarrow$ Edit Simulation Cmd $\rightarrow$ DC op pnt}), run the simulation and read the node voltages and branch currents.
+\item Be careful with signs: LTspice reports the current of a voltage source as positive when it flows \emph{into} its positive terminal, and the current of a two-terminal device as positive when it flows from its first pin to its second pin.
+}
+
+\comparetable{
+\cmprow{$V_{-}$ (V)}
+\cmprow{Gain $V_{out}/V_{in}$}
+\cmprow{$V_{out}$ (V)}
+\cmprow{$I_{R_f}$ (mA)}
+}
+
+\commentlines{2}
+
+\subsection{Exercise 2: Inverting amplifier}
+In the circuit of Figure~\ref{fig:lab4_ex02} the 2\,V source is connected to the inverting input through R$_1$ = 1\,k$\Omega$ and the feedback resistor is R$_f$ = 2\,k$\Omega$; the non-inverting input is grounded. Assume an ideal op-amp operating in its linear region unless stated otherwise. Determine the voltage at the inverting input (virtual ground), the gain, the output voltage and the input current. Then simulate.
+
+\labfig{lab4_ex02.png}{9cm}{Exercise 2: inverting amplifier}{fig:lab4_ex02}
+
+\theory{8}
+
+\simulation{
+\item Draw the circuit of Figure~\ref{fig:lab4_ex02} in LTspice and save it as \file{Lab4/Ex02.asc}.
+\item Use the op-amp symbol \cmd{UniversalOpAmp2} from the \textit{[Opamps]} folder (\texttt{F2}). Supply it with two DC sources, $+15$\,V on the V+ pin and $-15$\,V on the V$-$ pin, both referenced to ground.
+\item Add the \cmd{.op} analysis (\textit{Simulate $\rightarrow$ Edit Simulation Cmd $\rightarrow$ DC op pnt}), run the simulation and read the node voltages and branch currents.
+\item Be careful with signs: LTspice reports the current of a voltage source as positive when it flows \emph{into} its positive terminal, and the current of a two-terminal device as positive when it flows from its first pin to its second pin.
+}
+
+\comparetable{
+\cmprow{$V_{-}$ (V)}
+\cmprow{Gain $V_{out}/V_{in}$}
+\cmprow{$V_{out}$ (V)}
+\cmprow{Input current (mA)}
+}
+
+\commentlines{2}
+
+\subsection{Exercise 3: Voltage follower}
+In the voltage follower of Figure~\ref{fig:lab4_ex03} a 3\,V source is connected to the non-inverting input; the output is connected directly to the inverting input and loaded by R$_L$ = 1\,k$\Omega$. Determine $V_{out}$ and the load current, and explain why the circuit is used as a buffer. Then simulate.
+
+\labfig{lab4_ex03.png}{9cm}{Exercise 3: voltage follower}{fig:lab4_ex03}
+
+\theory{8}
+
+\simulation{
+\item Draw the circuit of Figure~\ref{fig:lab4_ex03} in LTspice and save it as \file{Lab4/Ex03.asc}.
+\item Use the op-amp symbol \cmd{UniversalOpAmp2} from the \textit{[Opamps]} folder (\texttt{F2}). Supply it with two DC sources, $+15$\,V on the V+ pin and $-15$\,V on the V$-$ pin, both referenced to ground.
+\item Add the \cmd{.op} analysis (\textit{Simulate $\rightarrow$ Edit Simulation Cmd $\rightarrow$ DC op pnt}), run the simulation and read the node voltages and branch currents.
+\item Add a second load of 100\,$\Omega$ in parallel and check that the output voltage remains the same; read the current delivered by the op-amp in both cases.
+}
+
+\comparetable{
+\cmprow{$V_{out}$ (V)}
+\cmprow{Load current, 1\,k$\Omega$ (mA)}
+\cmprow{Load current, 1\,k$\Omega\parallel100\,\Omega$ (mA)}
+}
+
+\commentlines{2}
+
+\subsection{Exercise 4: High-current voltage follower}
+An op-amp cannot deliver a large current. In the circuit of Figure~\ref{fig:lab4_ex04} an NPN transistor (collector connected to a 12\,V supply) is added at the output of the op-amp as a current booster, and a feedback resistor R$_f$ = 10\,k$\Omega$ connects the emitter to the inverting input; the 3\,V source drives the non-inverting input and R$_L$ = 1\,k$\Omega$ is the load. Determine $V_{out}$, the load current, the base current of the transistor and the output voltage of the op-amp. Assume an ideal op-amp operating in its linear region unless stated otherwise. Then simulate.
+
+\labfig{lab4_ex04.png}{10cm}{Exercise 4: high-current voltage follower}{fig:lab4_ex04}
+
+\theory{10}
+
+\simulation{
+\item Draw the circuit of Figure~\ref{fig:lab4_ex04} in LTspice and save it as \file{Lab4/Ex04.asc}.
+\item Use the op-amp symbol \cmd{UniversalOpAmp2} from the \textit{[Opamps]} folder (\texttt{F2}). Supply it with two DC sources, $+15$\,V on the V+ pin and $-15$\,V on the V$-$ pin, both referenced to ground.
+\item Declare the transistor model \cmd{.model QN NPN(Is=1e-14 Bf=100 Br=1)} (\texttt{S} key) and use \cmd{npn} for Q1.
+\item Add the \cmd{.op} analysis (\textit{Simulate $\rightarrow$ Edit Simulation Cmd $\rightarrow$ DC op pnt}), run the simulation and read the node voltages and branch currents.
+\item Be careful with signs: LTspice reports the current of a voltage source as positive when it flows \emph{into} its positive terminal, and the current of a two-terminal device as positive when it flows from its first pin to its second pin.
+}
+
+\comparetable{
+\cmprow{$V_{out}$ (V)}
+\cmprow{$I_L$ (mA)}
+\cmprow{$I_B$ of Q1 ($\micro$A)}
+\cmprow{Op-amp output voltage (V)}
+}
+
+\commentlines{2}
+
+\subsection{Exercise 5: Voltage follower with gain}
+The circuit of Figure~\ref{fig:lab4_ex05} is a non-inverting amplifier with a current-boosting NPN stage in the loop (V$_{IN}$ = 2\,V, R$_1$ = 1\,k$\Omega$ from the inverting input to ground, R$_2$ = 2\,k$\Omega$ from the emitter to the inverting input, R$_L$ = 100\,$\Omega$, collector supply 12\,V). Determine the gain $1+R_2/R_1$, $V_{out}$ and the load current. Assume an ideal op-amp operating in its linear region unless stated otherwise. Then simulate.
+
+\labfig{lab4_ex05.png}{10cm}{Exercise 5: voltage follower with gain}{fig:lab4_ex05}
+
+\theory{8}
+
+\simulation{
+\item Draw the circuit of Figure~\ref{fig:lab4_ex05} in LTspice and save it as \file{Lab4/Ex05.asc}.
+\item Use the op-amp symbol \cmd{UniversalOpAmp2} from the \textit{[Opamps]} folder (\texttt{F2}). Supply it with two DC sources, $+15$\,V on the V+ pin and $-15$\,V on the V$-$ pin, both referenced to ground.
+\item Declare \cmd{.model QN NPN(Is=1e-14 Bf=100 Br=1)} and use \cmd{npn} for Q1.
+\item Add the \cmd{.op} analysis (\textit{Simulate $\rightarrow$ Edit Simulation Cmd $\rightarrow$ DC op pnt}), run the simulation and read the node voltages and branch currents.
+\item Be careful with signs: LTspice reports the current of a voltage source as positive when it flows \emph{into} its positive terminal, and the current of a two-terminal device as positive when it flows from its first pin to its second pin.
+}
+
+\comparetable{
+\cmprow{Gain}
+\cmprow{$V_{out}$ (V)}
+\cmprow{$I_L$ (mA)}
+}
+
+\commentlines{2}
+
+\subsection{Exercise 6: Summing amplifiers}
+(a) In the inverting summing amplifier of Figure~\ref{fig:lab4_ex06} the three inputs V1 = 1\,V, V2 = 2\,V and V3 = 3\,V are connected through three 10\,k$\Omega$ resistors to the inverting input, and R$_f$ = 10\,k$\Omega$. Determine $V_{out}$. (b) In the non-inverting summing amplifier (Figure~\ref{fig:lab4_ex06b}) the same inputs are connected through 10\,k$\Omega$ resistors to the non-inverting input, with R$_i$ = 10\,k$\Omega$ and R$_f$ = 20\,k$\Omega$. Determine $V_{out}$. Assume an ideal op-amp operating in its linear region unless stated otherwise. Simulate both circuits.
+
+\labfig{lab4_ex06.png}{9cm}{Exercise 6 (a): inverting summing amplifier}{fig:lab4_ex06}
+
+\labfig{lab4_ex06b.png}{9cm}{Exercise 6 (b): non-inverting summing amplifier}{fig:lab4_ex06b}
+
+\theory{10}
+
+\simulation{
+\item Draw the circuit of Figure~\ref{fig:lab4_ex06} in LTspice and save it as \file{Lab4/Ex06.asc}.
+\item Use the op-amp symbol \cmd{UniversalOpAmp2} from the \textit{[Opamps]} folder (\texttt{F2}). Supply it with two DC sources, $+15$\,V on the V+ pin and $-15$\,V on the V$-$ pin, both referenced to ground.
+\item Add the \cmd{.op} analysis (\textit{Simulate $\rightarrow$ Edit Simulation Cmd $\rightarrow$ DC op pnt}), run the simulation and read the node voltages and branch currents.
+\item Be careful with signs: LTspice reports the current of a voltage source as positive when it flows \emph{into} its positive terminal, and the current of a two-terminal device as positive when it flows from its first pin to its second pin.
+}
+
+\comparetable{
+\cmprow{(a) $V_{out}$ (V)}
+\cmprow{(b) $V_{in}$ at the non-inverting input (V)}
+\cmprow{(b) $V_{out}$ (V)}
+}
+
+\commentlines{2}
+
+\subsection{Exercise 7: Low-pass filter}
+The circuit of Figure~\ref{fig:lab4_ex07} is a first-order active low-pass filter: R$_1$ = 1\,k$\Omega$ at the input, and the feedback network is R$_f$ = 10\,k$\Omega$ in parallel with C$_f$ = 15.9\,nF (inverting configuration). Determine the DC gain, the cut-off frequency $f_c=1/(2\pi R_fC_f)$ and the gain at $f_c$ and at $10f_c$. Then run an AC analysis from 10\,Hz to 100\,kHz and verify.
+
+\labfig{lab4_ex07.png}{10cm}{Exercise 7: active low-pass filter}{fig:lab4_ex07}
+
+\theory{10}
+
+\simulation{
+\item Draw the circuit of Figure~\ref{fig:lab4_ex07} in LTspice and save it as \file{Lab4/Ex07.asc}.
+\item Use the op-amp symbol \cmd{UniversalOpAmp2} from the \textit{[Opamps]} folder (\texttt{F2}). Supply it with two DC sources, $+15$\,V on the V+ pin and $-15$\,V on the V$-$ pin, both referenced to ground.
+\item Set the AC amplitude of the input source to 1\,V and run \cmd{.ac dec 20 10 100k}.
+\item Plot \cmd{V(out)} (magnitude in dB and phase) and read the DC gain and the $-3$\,dB frequency with the cursors.
+}
+
+\comparetable{
+\cmprow{DC gain (dB)}
+\cmprow{Cut-off frequency $f_c$ (Hz)}
+\cmprow{Gain at $10f_c$ (dB)}
+}
+
+\commentlines{2}
+
+\subsection{Exercise 8: High-pass filter}
+The circuit of Figure~\ref{fig:lab4_ex08} is a first-order active high-pass filter: an input capacitor C$_1$ = 100\,nF in series with R$_1$ = 1.6\,k$\Omega$ and a feedback resistor R$_f$ = 16\,k$\Omega$ (inverting configuration). Determine the high-frequency gain, the cut-off frequency $f_c=1/(2\pi R_1C_1)$ and the gain at $f_c/10$. Then run an AC analysis from 10\,Hz to 100\,kHz and verify.
+
+\labfig{lab4_ex08.png}{10cm}{Exercise 8: active high-pass filter}{fig:lab4_ex08}
+
+\theory{10}
+
+\simulation{
+\item Draw the circuit of Figure~\ref{fig:lab4_ex08} in LTspice and save it as \file{Lab4/Ex08.asc}.
+\item Use the op-amp symbol \cmd{UniversalOpAmp2} from the \textit{[Opamps]} folder (\texttt{F2}). Supply it with two DC sources, $+15$\,V on the V+ pin and $-15$\,V on the V$-$ pin, both referenced to ground.
+\item Set the AC amplitude of the input source to 1\,V and run \cmd{.ac dec 20 10 100k}; plot \cmd{V(out)} and read the high-frequency gain and the $-3$\,dB frequency.
+}
+
+\comparetable{
+\cmprow{High-frequency gain (dB)}
+\cmprow{Cut-off frequency $f_c$ (Hz)}
+\cmprow{Gain at $f_c/10$ (dB)}
+}
+
+\commentlines{2}
+
+\subsection{Exercise 9: Schmitt trigger}
+The circuit of Figure~\ref{fig:lab4_ex09} is an inverting Schmitt trigger: the input signal is applied to the inverting input and a part of the output is fed back to the non-inverting input through the divider R$_1$ = R$_2$ = 10\,k$\Omega$. With a saturation voltage of about $\pm13.5$\,V (supplies $\pm15$\,V), determine the upper and the lower threshold voltages and the hysteresis width. Then apply a 10\,V peak, 100\,Hz sine wave, run a transient simulation of 40\,ms and measure the thresholds.
+
+\labfig{lab4_ex09.png}{9cm}{Exercise 9: inverting Schmitt trigger}{fig:lab4_ex09}
+
+\theory{10}
+
+\simulation{
+\item Draw the circuit of Figure~\ref{fig:lab4_ex09} in LTspice and save it as \file{Lab4/Ex09.asc}.
+\item Use the op-amp symbol \cmd{UniversalOpAmp2} from the \textit{[Opamps]} folder (\texttt{F2}). Supply it with two DC sources, $+15$\,V on the V+ pin and $-15$\,V on the V$-$ pin, both referenced to ground.
+\item Set the input to SINE (amplitude 10\,V, 100\,Hz) and run \cmd{.tran 0 40m 0 10u}; plot the input and the output on the same axes.
+\item With the cursors, read the input voltage at the instants when the output switches.
+}
+
+\comparetable{
+\cmprow{Upper threshold (V)}
+\cmprow{Lower threshold (V)}
+\cmprow{Hysteresis (V)}
+\cmprow{Output high level (V)}
+}
+
+\commentlines{2}
+
+\subsection{Exercise 10: Difference amplifier}
+In the difference amplifier of Figure~\ref{fig:lab4_ex10} the inputs are V1 = 1\,V and V2 = 1.5\,V, R$_1$ = R$_3$ = 10\,k$\Omega$ and R$_f$ = R$_4$ = 47\,k$\Omega$ (V1 to the inverting input, V2 to the non-inverting input). Assume an ideal op-amp operating in its linear region unless stated otherwise. Determine the voltage at the non-inverting input, the gain of the differential signal and $V_{out}$. Then simulate and discuss what happens when V1 = V2.
+
+\labfig{lab4_ex10.png}{10cm}{Exercise 10: difference amplifier}{fig:lab4_ex10}
+
+\theory{10}
+
+\simulation{
+\item Draw the circuit of Figure~\ref{fig:lab4_ex10} in LTspice and save it as \file{Lab4/Ex10.asc}.
+\item Use the op-amp symbol \cmd{UniversalOpAmp2} from the \textit{[Opamps]} folder (\texttt{F2}). Supply it with two DC sources, $+15$\,V on the V+ pin and $-15$\,V on the V$-$ pin, both referenced to ground.
+\item Add the \cmd{.op} analysis (\textit{Simulate $\rightarrow$ Edit Simulation Cmd $\rightarrow$ DC op pnt}), run the simulation and read the node voltages and branch currents.
+\item Set V1 = V2 = 1.5\,V and run again to see the common-mode behaviour.
+}
+
+\comparetable{
+\cmprow{$V_{+}$ (V)}
+\cmprow{Differential gain}
+\cmprow{$V_{out}$ (V)}
+\cmprow{$V_{out}$ for V1 = V2 (V)}
+}
+
+\commentlines{2}
+
+\newpage
+\section{Advanced exercises}
+
+\subsection{Advanced Exercise 1: Gain-bandwidth limit of a real op-amp}
+A real op-amp has a limited gain-bandwidth product. In the non-inverting amplifier of Figure~\ref{fig:lab4_adv01} (R$_1$ = 1\,k$\Omega$, R$_f$ = 9\,k$\Omega$ or 99\,k$\Omega$) measure the bandwidth for a closed-loop gain of 10 and of 100.
+
+\labfig{lab4_adv01.png}{9cm}{Advanced Exercise 1: non-inverting amplifier with a real op-amp}{fig:lab4_adv01}
+
+\subsubsection{Theory calculation}\vspace{-3pt}\notesblock For an op-amp with GBW = 1\,MHz, calculate the closed-loop gains and the expected bandwidths $f_{-3dB}\approx GBW/A_{cl}$.\dotlines{4}
+
+\simulation{
+\item Use the op-amp \cmd{UniversalOpAmp2} and set its \texttt{GBW} parameter to 1\,Meg in the value field (read the other default parameters in the LTspice help).
+\item Define \cmd{.param Rf=9k}, use \cmd{\{Rf\}} for the feedback resistor and add \cmd{.step param Rf list 9k 99k}.
+\item Run \cmd{.ac dec 50 100 10Meg} and measure the $-3$\,dB frequency of each curve with the cursors.
+}
+\begin{center}\renewcommand{\arraystretch}{1.8}\begin{tabular}{|c|c|c|c|}\hline \textbf{Closed-loop gain} & \textbf{$f_{-3dB}$ theory (kHz)} & \textbf{$f_{-3dB}$ LTspice (kHz)} & \textbf{Error (\%)}\\ \hline 10 & & & \\ \hline 100 & & & \\ \hline \end{tabular}\end{center}
+\commentlines{2}
+\newpage
+
+\subsection{Advanced Exercise 2: Second-order Sallen--Key low-pass filter}
+Figure~\ref{fig:lab4_adv02} shows a unity-gain Sallen--Key low-pass filter (R$_1$ = R$_2$ = 10\,k$\Omega$, C$_1$ = 22\,nF from the node between the resistors to the output, C$_2$ = 10\,nF to ground). Determine its cut-off frequency and quality factor and compare its roll-off with that of the first-order filter of Exercise~7.
+
+\labfig{lab4_adv02.png}{10cm}{Advanced Exercise 2: Sallen--Key low-pass filter}{fig:lab4_adv02}
+
+\subsubsection{Theory calculation}\vspace{-3pt}\notesblock Use $f_0=1/(2\pi R\sqrt{C_1C_2})$ and $Q=\tfrac12\sqrt{C_1/C_2}$ (for $R_1=R_2=R$).\dotlines{4}
+
+\simulation{
+\item Set the AC amplitude of the source to 1\,V and run \cmd{.ac dec 50 10 100k}.
+\item Read $f_{-3dB}$ and the attenuation one decade above $f_0$ with the cursors, and compare with the first-order filter.
+}
+\begin{center}\renewcommand{\arraystretch}{1.8}\begin{tabular}{|c|c|c|c|}\hline \textbf{Quantity} & \textbf{Theory} & \textbf{LTspice} & \textbf{Error (\%)}\\ \hline $f_0$ (Hz) & & & \\ \hline $Q$ & & & \\ \hline Attenuation at $10f_0$ (dB) & & & \\ \hline \end{tabular}\end{center}
+\commentlines{2}
+\newpage

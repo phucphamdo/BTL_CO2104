@@ -1,0 +1,19 @@
+* Lab 2 - Ex05: power switching (k3, k2 switch the 5 V and 9 V supplies)
+.param k3=1 k2=1
+V3 a 0 {5*k3}
+V2 b 0 {9*k2}
+D3 a o D1N4148
+D4 b o D1N4148
+RL o 0 1k
+.step param k3 list 0 1
+.step param k2 list 0 1
+.op
+* models
+.model D1N4148 D(Is=2.52n Rs=0.568 N=1.752 Cjo=4p M=0.4 Tt=20n)
+.model DSCH D(Is=1u N=1.05 Rs=0.05 Cjo=100p)
+.model DZ5V D(Is=1e-14 Bv=5.0 Ibv=10m Rs=2)
+.model DZ22 D(Is=1e-14 Bv=22 Ibv=10m Rs=2)
+.model DZ20 D(Is=1e-14 Bv=20 Ibv=10m Rs=2)
+.model LEDRED D(Is=1e-18 N=1.9 Rs=5 Cjo=30p)
+.model QN NPN(Is=1e-14 Bf=100 Br=1)
+.model QP PNP(Is=1e-14 Bf=100 Br=1)

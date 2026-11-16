@@ -1,0 +1,8 @@
+* Lab 1 - Ex09 (instructor): p1 supplies (V source), p2 absorbs (resistor), CCVS H1 = 3*ix
+V1 A 0 10
+R1 A B 12
+V2 B 0 4
+R2 B C 3.5555556
+H1 C 0 V2 3
+.op
+.end

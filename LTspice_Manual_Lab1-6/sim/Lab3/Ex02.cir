@@ -1,0 +1,22 @@
+* Lab 3 - Ex02: BJT as a switch (RC = 100, RB = 820) and as an LED driver
+V1 vcc 0 5
+V2 in 0 5
+RB in b 820
+RC vcc c 100
+Q1 c b 0 QN
+* LED driver: 3.3 V logic input, 10 mA LED
+V3 in2 0 3.3
+RB2 in2 b2 2.7k
+RL2 vcc l 300
+D1 l c2 LEDRED
+Q2 c2 b2 0 QN
+.op
+* models
+.model D1N4148 D(Is=2.52n Rs=0.568 N=1.752 Cjo=4p M=0.4 Tt=20n)
+.model DSCH D(Is=1u N=1.05 Rs=0.05 Cjo=100p)
+.model DZ5V D(Is=1e-14 Bv=5.0 Ibv=10m Rs=2)
+.model DZ22 D(Is=1e-14 Bv=22 Ibv=10m Rs=2)
+.model DZ20 D(Is=1e-14 Bv=20 Ibv=10m Rs=2)
+.model LEDRED D(Is=1e-18 N=1.9 Rs=5 Cjo=30p)
+.model QN NPN(Is=1e-14 Bf=100 Br=1)
+.model QP PNP(Is=1e-14 Bf=100 Br=1)

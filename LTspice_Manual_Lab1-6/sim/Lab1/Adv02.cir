@@ -1,0 +1,12 @@
+* Lab 1 - Adv02: superposition with .step (k1 switches V1 off/on, the V2 sweep switches V2 off/on)
+.param k1=1
+V1 a 0 {12*k1}
+V2 b 0 6
+R1 a x 1k
+R2 b x 2.2k
+R3 x 0 3.3k
+.step param k1 list 0 1
+.dc V2 0 6 6
+.meas DC Vx_V2off FIND V(x) AT=0
+.meas DC Vx_V2on FIND V(x) AT=6
+.end

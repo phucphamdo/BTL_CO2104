@@ -1,0 +1,7 @@
+* Lab 1 - Ex05: choose R so that V1 across 3.9k is 5 V (R is a parameter)
+.param R=15k
+V1 n1 0 24
+R1 n1 n2 {R}
+R2 n2 0 3.9k
+.op
+.end

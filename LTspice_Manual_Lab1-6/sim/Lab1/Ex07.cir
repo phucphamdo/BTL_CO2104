@@ -1,0 +1,9 @@
+* Lab 1 - Ex07: equivalent resistance and Is
+V1 t 0 12
+R1 t m1 12k
+R2 t m2 18k
+R3 m1 m2 6k
+R4 m1 0 4k
+R5 m2 0 9k
+.op
+.end

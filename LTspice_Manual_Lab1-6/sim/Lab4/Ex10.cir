@@ -1,0 +1,17 @@
+* Lab 4 - Ex10: difference amplifier
+V1 a 0 1
+V2 b 0 1.5
+R1 a inn 10k
+Rf out inn 47k
+R3 b p 10k
+R4 p 0 47k
+X1 p inn out vcc vee OPAMP
+.op
+* behavioural op-amp (rails = supply -/+ 1.5 V)
+.subckt OPAMP inp inn out vcc vee
+Rin inp inn 10Meg
+B1 out 0 V=limit(1e6*(V(inp)-V(inn)),V(vee)+1.5,V(vcc)-1.5)
+.ends
+.model QN NPN(Is=1e-14 Bf=100 Br=1)
+V+ vcc 0 15
+V- vee 0 -15

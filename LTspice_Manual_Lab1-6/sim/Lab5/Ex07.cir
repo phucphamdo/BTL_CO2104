@@ -1,0 +1,12 @@
+* Lab 5 - Ex07: enhancement MOSFET characteristics (nested DC sweep)
+VDS d 0 0
+VGS g 0 0
+M1 d g 0 0 NM
+.dc VDS 0 10 0.05 VGS 3 6 1
+* models
+.model JN NJF(Beta=2.5m Vto=-2 Lambda=0.01)
+.model DMOS NMOS(Kp=1.78m Vto=-3 Lambda=0.01)
+.model NM NMOS(Kp=2m Vto=2 Lambda=0.01)
+.model NMSW NMOS(Kp=0.5 Vto=2)
+.model PM PMOS(Kp=1m Vto=-2 Lambda=0.01)
+.model D1N4148 D(Is=2.52n Rs=0.568 N=1.752 Cjo=4p M=0.4 Tt=20n)

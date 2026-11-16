@@ -1,0 +1,8 @@
+* Lab 6 - Ex03: delta network fed by a 6 mA current source
+I1 0 a 6m
+R1 a b 6k
+R2 b c 3k
+R3 a c 12k
+R4 b 0 4k
+R5 c 0 2k
+.op

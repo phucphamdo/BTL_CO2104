@@ -1,0 +1,74 @@
+% !TEX program = xelatex
+%% =====================================================================
+%%  LTspice Laboratory Manual  -  Electronic Devices and Circuits (CO2037)
+%%  Dự án 3: Xây dựng tài liệu thực hành mới với LTspice
+%%  Biên dịch: xelatex LTspice_Manual.tex   (chạy 2 lần)   hoặc   latexmk LTspice_Manual.tex
+%% =====================================================================
+\documentclass[12pt,twoside]{Book}
+
+%% ------------- Thông tin nhóm biên soạn (sửa tại đây) -------------
+\newcommand{\GroupNo}{9}
+\newcommand{\MemberA}{Phạm Đỗ Hồng Phúc}   \newcommand{\IdA}{2510359}
+\newcommand{\MemberB}{Lê Lương Vỹ}          \newcommand{\IdB}{2214056}
+\newcommand{\MemberC}{Nguyễn Bảo Duy Thành} \newcommand{\IdC}{2510372}
+%% -------------------------------------------------------------------
+
+\input{manual_common}
+
+\begin{document}
+
+%% ----------------------------- Title page -----------------------------
+\thispagestyle{empty}
+\begin{center}
+\vspace*{1.2cm}
+{\bfseries\large HO CHI MINH CITY UNIVERSITY OF TECHNOLOGY\\
+FACULTY OF COMPUTER SCIENCE AND ENGINEERING\par}
+\vspace{1.6cm}
+{\color{navy}\bfseries Electronic Devices and Circuits (CO2037)\par}
+\vspace{1.2cm}
+{\bfseries\Huge LTspice Laboratory Manual\par}
+\vspace{6pt}
+{\itshape\large Six laboratories on circuit simulation with LTspice\par}
+\vspace{1.4cm}
+{\large Student edition -- Laboratories 1 to 6\par}
+\vspace{2.2cm}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{|p{5.8cm}|p{5.8cm}|}\hline
+\textbf{Prepared by (Group \GroupNo)} & \textbf{Student ID}\\ \hline
+{\vnfont\MemberA} & \IdA\\ \hline
+{\vnfont\MemberB} & \IdB\\ \hline
+{\vnfont\MemberC} & \IdC\\ \hline
+\end{tabular}
+\vfill
+Instructor: Dr. Le Trong Nhan
+\end{center}
+\clearpage
+
+%% ----------------------------- Preface -----------------------------
+\section*{Preface}
+This manual replaces the former PSpice for TI laboratories with LTspice, a free circuit simulator from Analog Devices. It contains six laboratories; each laboratory has ten main exercises and a set of advanced exercises.
+
+\textbf{What you need.} The offline LTspice installation provided for the course (including the component libraries). All schematics in this manual open and run on that installation without downloading anything else.
+
+\textbf{How to work.}
+\begin{enumerate}
+  \item Read the introduction and the LTspice guide of the laboratory.
+  \item For each exercise, complete the \emph{Theory calculation} by hand: the calculation space is intentionally blank, and the reference solutions are given only to the instructor.
+  \item Build the circuit in LTspice, run the analysis indicated in the \emph{LTspice simulation} part and save the schematic as \file{LabN/ExNN.asc} (advanced exercises: \file{LabN/AdvNN.asc}).
+  \item Fill in the \emph{Comparison} table with your theoretical and simulated values and comment on any difference.
+\end{enumerate}
+
+\textbf{Conventions.} Component names follow the figures (R1, V1, \dots). Values use SPICE prefixes (\texttt{k}, \texttt{Meg}, \texttt{m}, \texttt{u}); remember that \texttt{M} also means milli in SPICE. Voltage and current signs follow the reference directions shown in each figure; LTspice reports the current of a voltage source as positive when it enters the positive terminal.
+\clearpage
+
+\tableofcontents
+\clearpage
+
+\input{lab1}
+\input{lab2}
+\input{lab3}
+\input{lab4}
+\input{lab5}
+\input{lab6}
+
+\end{document}

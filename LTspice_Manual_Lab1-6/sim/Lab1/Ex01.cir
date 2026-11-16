@@ -1,0 +1,8 @@
+* Lab 1 - Ex01: KVL with a dependent source (E1: v_dep = 2*v0, v0 = V(0)-V(n4))
+V1 n1 0 12
+R1 n1 n2 4
+E1 n2 n3 0 n4 2
+V2 n4 n3 4
+R2 n4 0 6
+.op
+.end

@@ -1,0 +1,9 @@
+* Lab 1 - Ex08 (instructor): unknown elements replaced by R / DC source
+* p2 absorbs power -> resistor; p3 absorbs power -> resistor; p4 supplies power -> DC source
+V1 nL 0 30
+R1 nL nM 1
+R3 nM 0 1.428571
+V2 nM nR 8
+F1 0 nR V1 -0.4
+.op
+.end

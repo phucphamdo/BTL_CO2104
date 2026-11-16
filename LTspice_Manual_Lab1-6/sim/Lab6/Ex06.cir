@@ -1,0 +1,14 @@
+* Lab 6 - Ex06: Zener shunt regulator (RL = 1k and 10k)
+.param RL=10k
+V1 in 0 16
+R1 in o 220
+DZ 0 o DZ12
+RL o 0 {RL}
+.step param RL list 1k 10k
+.op
+* models
+.model D1N4148 D(Is=2.52n Rs=0.568 N=1.752 Cjo=4p M=0.4 Tt=20n)
+.model DZ12 D(Is=1e-14 Bv=12 Ibv=10m Rs=2)
+.model DZ51 D(Is=1e-14 Bv=5.1 Ibv=10m Rs=2)
+.model DZ17 D(Is=1e-14 Bv=1.7 Ibv=1m Rs=2)
+.model QN NPN(Is=1e-14 Bf=100 Br=1)

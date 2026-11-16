@@ -1,0 +1,337 @@
+\chap{Diode Circuits Analysis}
+
+\section{Introduction}
+In this laboratory you analyse circuits with diodes: the diode models, rectifiers, clampers, Zener regulators and a switching regulator. You compare the hand calculation (with the constant-voltage diode model) with the simulation (with a real diode model) and you discuss the differences.
+
+\textbf{After this laboratory you will be able to:}
+\begin{itemize}
+  \item declare and use diode models, and plot the V-I characteristic with a DC sweep;
+  \item analyse diode circuits with the constant-voltage model and verify them with \cmd{.op};
+  \item run transient simulations of rectifiers and read the peak, ripple and conduction time;
+  \item build and simulate a Zener regulator and a buck converter;
+  \item use \cmd{.step} and \cmd{.meas} to study parameters and temperature.
+\end{itemize}
+
+\textbf{Exercises.} Save every schematic as \file{Lab2/ExNN.asc} (advanced exercises: \file{Lab2/AdvNN.asc}). Calculation spaces are blank; fill in the comparison tables with your own theoretical and simulated values.
+
+\section{LTspice guide}
+
+\subsection{Diode models}
+Place a diode with the \texttt{D} key. A diode needs a model: either choose one from the library with \textit{Pick New Diode} in the component dialog, or declare it yourself with a SPICE directive (press \texttt{S}), for example \cmd{.model D1N4148 D(Is=2.52n Rs=0.568 N=1.752)}, and type the model name in the value field of the diode. A diode without parameters uses the default model of LTspice, whose parameters you can look up in the LTspice help (they are different from those of a real diode).
+
+\labfig{lab2_guide01.png}{10cm}{Placing a diode and declaring its model}{fig:lab2_guide01}
+
+\subsection{DC sweep and plotting}
+Choose \textit{Simulate $\rightarrow$ Edit Simulation Cmd}, select the \textit{DC sweep} tab, enter the name of the source, the start value, the stop value and the increment. After the run, the waveform viewer opens; click a node to plot its voltage and click a component to plot its current. Click the name of a trace above the plot to attach a cursor.
+
+\labfig{lab2_guide02.png}{12cm}{DC sweep settings and the waveform viewer}{fig:lab2_guide02}
+
+\subsection{Transient analysis and sources}
+Select the \textit{Transient} tab and enter the stop time and the maximum time step. A sine source is set from the voltage source dialog: click \textit{Advanced} and choose SINE (amplitude, frequency); a pulse train is set in the same way with PULSE (initial value, pulsed value, delay, rise and fall times, on time, period).
+
+\labfig{lab2_guide03.png}{10cm}{Sine source and transient settings}{fig:lab2_guide03}
+
+\subsection{Measurements, parameters and temperature}
+The directive \cmd{.step} repeats a simulation for several values of a parameter or of the temperature (\cmd{.step param R list 1k 2k}, \cmd{.step temp list 25 75}); \cmd{.meas} measures a value automatically (for example \cmd{.meas DC Id FIND I(D1) AT=1}). Its results are written in the SPICE Error Log (\textit{View $\rightarrow$ SPICE Error Log}).
+
+\subsection{Transformers}
+LTspice has no ideal transformer: use two inductors and the directive \cmd{K1 L1 L2 1}. The turns ratio is the square root of the inductance ratio. Give the secondary a DC path to ground with a large resistor.
+
+\labfig{lab2_guide05.png}{9cm}{A transformer made from two coupled inductors}{fig:lab2_guide05}
+
+\section{Exercises}
+
+\subsection{Exercise 1: Complete diode model}
+According to the simulation circuit of Figure~\ref{fig:lab2_ex01} (a 5\,V source, a resistor R1 and one diode), determine the voltage across the resistor and the diode ($V_R$, $V_D$) and the current $I$ in the circuit with two different values of R1: 220\,$\Omega$ and 1.5\,k$\Omega$. Assume that the complete diode model is used for the calculation, with a forward voltage of 0.7\,V and an internal resistance of 50\,m$\Omega$. Finally, run the simulation to double-check the theory and explain briefly the difference between theory and simulation.
+
+\labfig{lab2_ex01.png}{8cm}{Exercise 1: diode with a series resistor}{fig:lab2_ex01}
+
+\theory{8}
+
+\simulation{
+\item Draw the circuit of Figure~\ref{fig:lab2_ex01} in LTspice and save it as \file{Lab2/Ex01.asc}.
+\item Declare the diode model with a SPICE directive (\texttt{S} key), for example \cmd{.model D1N4148 D(Is=2.52n Rs=0.568 N=1.752)}, and type the model name \texttt{D1N4148} in the value field of every diode.
+\item Define R1 as a parameter (\cmd{.param R=220}, value \cmd{\{R\}}) and run both cases with \cmd{.step param R list 220 1.5k}.
+\item Add the \cmd{.op} analysis (\textit{Simulate $\rightarrow$ Edit Simulation Cmd $\rightarrow$ DC op pnt}), run the simulation and read the node voltages and branch currents.
+\item Plot the V-I characteristic of the diode with a DC sweep: \cmd{.dc V1 0 5 10m}, and plot \cmd{I(D1)} against \cmd{V(a)}.
+\item Be careful with signs: LTspice reports the current of a voltage source as positive when it flows \emph{into} its positive terminal, and the current of a two-terminal device as positive when it flows from its first pin to its second pin.
+}
+
+\comparetable{
+\cmprow{$V_R$, R1\,=\,220\,$\Omega$ (V)}
+\cmprow{$V_D$, R1\,=\,220\,$\Omega$ (V)}
+\cmprow{$I$, R1\,=\,220\,$\Omega$ (mA)}
+\cmprow{$V_R$, R1\,=\,1.5\,k$\Omega$ (V)}
+\cmprow{$V_D$, R1\,=\,1.5\,k$\Omega$ (V)}
+\cmprow{$I$, R1\,=\,1.5\,k$\Omega$ (mA)}
+}
+
+\commentlines{2}
+
+\subsection{Exercise 2: Diodes in series}
+Similar to the previous exercise, determine the voltages $V_{D1}$, $V_{D2}$, $V_{D3}$ and the current $I$ for the circuit of Figure~\ref{fig:lab2_ex02} (a 10\,V source, three diodes in series and a 1\,k$\Omega$ resistor). Use the practical diode model with a forward voltage of 0.7\,V in the calculation, then simulate the circuit again.
+
+\labfig{lab2_ex02.png}{10cm}{Exercise 2: three diodes in series}{fig:lab2_ex02}
+
+\theory{8}
+
+\simulation{
+\item Draw the circuit of Figure~\ref{fig:lab2_ex02} in LTspice and save it as \file{Lab2/Ex02.asc}.
+\item Declare the diode model with a SPICE directive (\texttt{S} key), for example \cmd{.model D1N4148 D(Is=2.52n Rs=0.568 N=1.752)}, and type the model name \texttt{D1N4148} in the value field of every diode.
+\item Add the \cmd{.op} analysis (\textit{Simulate $\rightarrow$ Edit Simulation Cmd $\rightarrow$ DC op pnt}), run the simulation and read the node voltages and branch currents.
+\item Be careful with signs: LTspice reports the current of a voltage source as positive when it flows \emph{into} its positive terminal, and the current of a two-terminal device as positive when it flows from its first pin to its second pin.
+}
+
+\comparetable{
+\cmprow{$V_{D1}$ (V)}
+\cmprow{$V_{D2}$ (V)}
+\cmprow{$V_{D3}$ (V)}
+\cmprow{$V_{R1}$ (V)}
+\cmprow{$I$ (mA)}
+}
+
+\commentlines{2}
+
+\subsection{Exercise 3: Circuit analysis with a diode}
+Consider the circuit of Figure~\ref{fig:lab2_ex03}: four resistors (R1 = 2\,k$\Omega$, R2 = 8\,k$\Omega$, R3 = 4\,k$\Omega$, R4 = 6\,k$\Omega$) and a diode D1 connected between the two middle nodes, supplied by a source of $V_s$. Assume that the diode is forward biased with a drop-down voltage of 0.7\,V. Write the nodal equations for the voltages $V_1$ (anode) and $V_2$ (cathode) and determine the current in every resistor for $V_s=10$\,V; solve it again for $V_s=8$\,V and 12\,V. Then run the simulation to check your results.
+
+\labfig{lab2_ex03.png}{9cm}{Exercise 3: resistor network with a diode}{fig:lab2_ex03}
+
+\theory{10}
+
+\simulation{
+\item Draw the circuit of Figure~\ref{fig:lab2_ex03} in LTspice and save it as \file{Lab2/Ex03.asc}.
+\item Declare the diode model with a SPICE directive (\texttt{S} key), for example \cmd{.model D1N4148 D(Is=2.52n Rs=0.568 N=1.752)}, and type the model name \texttt{D1N4148} in the value field of every diode.
+\item Define \cmd{.param Vs=10}, set the source to \cmd{\{Vs\}} and simulate the three cases with \cmd{.step param Vs list 8 10 12}.
+\item Add the \cmd{.op} analysis (\textit{Simulate $\rightarrow$ Edit Simulation Cmd $\rightarrow$ DC op pnt}), run the simulation and read the node voltages and branch currents.
+\item Be careful with signs: LTspice reports the current of a voltage source as positive when it flows \emph{into} its positive terminal, and the current of a two-terminal device as positive when it flows from its first pin to its second pin.
+}
+
+\comparetable{
+\cmprow{$V_1$, $V_s=8$\,V (V)}
+\cmprow{$V_2$, $V_s=8$\,V (V)}
+\cmprow{$I_D$, $V_s=8$\,V (mA)}
+\cmprow{$V_1$, $V_s=12$\,V (V)}
+\cmprow{$V_2$, $V_s=12$\,V (V)}
+\cmprow{$I_D$, $V_s=12$\,V (mA)}
+}
+
+\commentlines{2}
+
+\subsection{Exercise 4: Clamper diode circuit}
+The circuit of Figure~\ref{fig:lab2_ex04} (20\,V source V1, diodes D1 and D2, R1 = 5.6\,k$\Omega$, R2 = 3.3\,k$\Omega$) is used as a clamper, i.e.\ it clamps the voltage across R2 to a specific DC level. Using the practical diode model ($V_F=0.7$\,V), determine for $V_1=20$\,V which diodes conduct, the voltage across R2 and the currents $I_{R1}$, $I_{R2}$, $I_{D2}$. Then repeat the calculation for $V_1=12$\,V and explain the conclusion. Verify with a simulation.
+
+\labfig{lab2_ex04.png}{9cm}{Exercise 4: clamper circuit}{fig:lab2_ex04}
+
+\theory{10}
+
+\simulation{
+\item Draw the circuit of Figure~\ref{fig:lab2_ex04} in LTspice and save it as \file{Lab2/Ex04.asc}.
+\item Declare the diode model with a SPICE directive (\texttt{S} key), for example \cmd{.model D1N4148 D(Is=2.52n Rs=0.568 N=1.752)}, and type the model name \texttt{D1N4148} in the value field of every diode.
+\item Run both cases with \cmd{.param Vs=20} (value \cmd{\{Vs\}}) and \cmd{.step param Vs list 12 20}.
+\item Add the \cmd{.op} analysis (\textit{Simulate $\rightarrow$ Edit Simulation Cmd $\rightarrow$ DC op pnt}), run the simulation and read the node voltages and branch currents.
+\item Be careful with signs: LTspice reports the current of a voltage source as positive when it flows \emph{into} its positive terminal, and the current of a two-terminal device as positive when it flows from its first pin to its second pin.
+}
+
+\comparetable{
+\cmprow{$I_{R1}$, 12\,V (mA)}
+\cmprow{$I_{R2}$, 12\,V (mA)}
+\cmprow{$I_{D2}$, 12\,V (mA)}
+\cmprow{$V_{R2}$, 12\,V (V)}
+\cmprow{$I_{R1}$, 20\,V (mA)}
+\cmprow{$I_{R2}$, 20\,V (mA)}
+\cmprow{$I_{D2}$, 20\,V (mA)}
+\cmprow{$V_{R2}$, 20\,V (V)}
+}
+
+\commentlines{2}
+
+\subsection{Exercise 5: Power switching circuit}
+When power is abruptly lost, some systems switch automatically to a secondary source. In the circuit of Figure~\ref{fig:lab2_ex05} a 5\,V backup supply and a 9\,V main supply feed a 1\,k$\Omega$ load R$_L$, each through one diode. Assuming the practical diode model ($V_F=0.7$\,V), present the equations that give $I_{D3}$, $I_{D4}$, $I_{RL}$ and $V_{RL}$ in three cases: only the 5\,V source, only the 9\,V source, and both sources. Then simulate all cases.
+
+\labfig{lab2_ex05.png}{9cm}{Exercise 5: power switching circuit}{fig:lab2_ex05}
+
+\theory{10}
+
+\simulation{
+\item Draw the circuit of Figure~\ref{fig:lab2_ex05} in LTspice and save it as \file{Lab2/Ex05.asc}.
+\item Declare the diode model with a SPICE directive (\texttt{S} key), for example \cmd{.model D1N4148 D(Is=2.52n Rs=0.568 N=1.752)}, and type the model name \texttt{D1N4148} in the value field of every diode.
+\item Make the three cases with parameters: set the sources to \cmd{\{5*k3\}} and \cmd{\{9*k2\}}, and add \cmd{.step param k3 list 0 1} and \cmd{.step param k2 list 0 1}.
+\item Add the \cmd{.op} analysis (\textit{Simulate $\rightarrow$ Edit Simulation Cmd $\rightarrow$ DC op pnt}), run the simulation and read the node voltages and branch currents.
+}
+
+\comparetable{
+\cmprow{$I_{D3}$, 5\,V only (mA)}
+\cmprow{$V_{RL}$, 5\,V only (V)}
+\cmprow{$I_{D4}$, 9\,V only (mA)}
+\cmprow{$V_{RL}$, 9\,V only (V)}
+\cmprow{$I_{D3}$, both sources (mA)}
+\cmprow{$I_{D4}$, both sources (mA)}
+\cmprow{$V_{RL}$, both sources (V)}
+}
+
+\commentlines{2}
+
+\subsection{Exercise 6: Half-wave rectifier}
+In this exercise a sinusoidal source (amplitude 22\,V, frequency 50\,Hz) feeds a diode D1 and a load R1 = 1\,k$\Omega$ (see Figure~\ref{fig:lab2_ex06}). Using $V_F=0.78$\,V, calculate the maximum and the minimum value of the load voltage, the period of the source and the duration (conduction angle and time) during which the diode conducts in every cycle. Then run a transient simulation of 100\,ms and read the maximum and minimum values of the output.
+
+\labfig{lab2_ex06.png}{8cm}{Exercise 6: half-wave rectifier}{fig:lab2_ex06}
+
+\theory{12}
+
+\simulation{
+\item Draw the circuit of Figure~\ref{fig:lab2_ex06} in LTspice and save it as \file{Lab2/Ex06.asc}.
+\item Declare the diode model with a SPICE directive (\texttt{S} key), for example \cmd{.model D1N4148 D(Is=2.52n Rs=0.568 N=1.752)}, and type the model name \texttt{D1N4148} in the value field of every diode.
+\item Set the source to a sine wave: right-click V1 and use \textit{Advanced} to select SINE (amplitude 22\,V, frequency 50\,Hz).
+\item Place a voltage marker on the output and use the transient analysis \cmd{.tran 0 100m 0 0.1m} (stop time 100\,ms, maximum time step 0.1\,ms).
+\item Read the maximum and minimum with the cursors (click the trace name) or with \cmd{.meas TRAN Vmax MAX V(o)} and \cmd{.meas TRAN Vmin MIN V(o)}.
+}
+
+\comparetable{
+\cmprow{$V_{R1,max}$ (V)}
+\cmprow{$V_{R1,min}$ (V)}
+\cmprow{Period $T$ (ms)}
+\cmprow{Conduction time per cycle (ms)}
+}
+
+\commentlines{2}
+
+\subsection{Exercise 7: Full-wave bridge rectifier}
+The circuit of Figure~\ref{fig:lab2_ex07} is a full-wave bridge rectifier fed by a transformer with ratio $N_1/N_2=10$ from a 220\,V (peak), 50\,Hz source. Write the voltage equations $V_{AB}$ (transformer secondary) and $V_{CD}$ (load), assuming $V_F=0.7$\,V. Then perform a time-domain analysis to check them. Determine the time of the analysis for 10 periods of $V_{AB}$ and a time step that is ten times finer than the period of the signal.
+
+\labfig{lab2_ex07.png}{11cm}{Exercise 7: full-wave bridge rectifier with a transformer}{fig:lab2_ex07}
+
+\theory{10}
+
+\simulation{
+\item Draw the circuit of Figure~\ref{fig:lab2_ex07} in LTspice and save it as \file{Lab2/Ex07.asc}.
+\item Declare the diode model with a SPICE directive (\texttt{S} key), for example \cmd{.model D1N4148 D(Is=2.52n Rs=0.568 N=1.752)}, and type the model name \texttt{D1N4148} in the value field of every diode.
+\item Build the transformer with two inductors, for example L1\,=\,10\,H and L2\,=\,0.1\,H, and add the SPICE directive \cmd{K1 L1 L2 1}; the inductance ratio gives the turns ratio ($L_1/L_2=N_1^2/N_2^2$).
+\item The secondary winding must have a DC path to ground: connect a large resistor (for example 100\,M$\Omega$) between one terminal of L2 and ground.
+\item Plot $V_{AB}$ and $V_{CD}$ with a transient analysis (\cmd{.tran}) using your own stop time and maximum step.
+}
+
+\comparetable{
+\cmprow{Amplitude of $V_{AB}$ (V)}
+\cmprow{Peak of $V_{CD}$ (V)}
+\cmprow{Period of $V_{AB}$ (ms)}
+\cmprow{Stop time for 10 periods (ms)}
+\cmprow{Maximum time step (ms)}
+}
+
+\commentlines{2}
+
+\subsection{Exercise 8: Zener diode as a regulator}
+A Zener diode is used to build the voltage regulator of Figure~\ref{fig:lab2_ex08} (R$_S$ = 200\,$\Omega$, R$_L$ = 1.5\,k$\Omega$, $V_Z=5$\,V). When the Zener diode operates in reverse breakdown, give the equations for the load current $I_L$, the series current $I_S$, the Zener current $I_Z$, the power $P_{R_S}$ dissipated in R$_S$ and the power $P_Z$ in the Zener diode. Then calculate them for $V_{CC}=8$\,V and 12\,V, and run the simulations (bias point) to confirm.
+
+\labfig{lab2_ex08.png}{9cm}{Exercise 8: voltage regulator using a Zener diode}{fig:lab2_ex08}
+
+\theory{10}
+
+\simulation{
+\item Draw the circuit of Figure~\ref{fig:lab2_ex08} in LTspice and save it as \file{Lab2/Ex08.asc}.
+\item Declare the Zener model with a directive such as \cmd{.model DZ5V D(Is=1e-14 Bv=5.0 Ibv=10m Rs=2)} and use it in the diode that is connected in the reverse direction (cathode to the output node).
+\item Simulate both input voltages with \cmd{.param Vcc=8} (value \cmd{\{Vcc\}}) and \cmd{.step param Vcc list 8 12}.
+\item Add the \cmd{.op} analysis (\textit{Simulate $\rightarrow$ Edit Simulation Cmd $\rightarrow$ DC op pnt}), run the simulation and read the node voltages and branch currents.
+\item The power in a component is the product of its voltage and current.
+\item Be careful with signs: LTspice reports the current of a voltage source as positive when it flows \emph{into} its positive terminal, and the current of a two-terminal device as positive when it flows from its first pin to its second pin.
+}
+
+\comparetable{
+\cmprow{$I_S$, 8\,V (mA)}
+\cmprow{$I_L$, 8\,V (mA)}
+\cmprow{$I_Z$, 8\,V (mA)}
+\cmprow{$V_L$, 8\,V (V)}
+\cmprow{$P_{R_S}$, 8\,V (mW)}
+\cmprow{$P_Z$, 8\,V (mW)}
+\cmprow{$I_S$, 12\,V (mA)}
+\cmprow{$I_Z$, 12\,V (mA)}
+\cmprow{$V_L$, 12\,V (V)}
+\cmprow{$P_Z$, 12\,V (mW)}
+}
+
+\commentlines{2}
+
+\subsection{Exercise 9: AC/DC power circuit application}
+In this exercise you build, step by step, an AC-to-DC voltage source (Figure~\ref{fig:lab2_ex09}). The source is a 220\,V (peak), 50\,Hz sine wave, the transformer ratio is 10:1, the bridge uses four diodes and the load is R1 = 1\,k$\Omega$. Perform a time-domain simulation of 100\,ms for each step and write out comments and explanations.\begin{enumerate}[label=\textbf{Step \arabic*:},leftmargin=*,itemsep=2pt]\item The rectified voltage without any filtering or regulation.\item Add a 10\,$\micro$F filter capacitor in parallel with R1.\item Replace the capacitor by 680\,$\micro$F, re-run the simulation and explain the change.\item Add a Zener diode (reverse biased) in parallel with the load, with Zener voltage 22\,V; simulate and comment.\item Change the Zener voltage to 20\,V, re-run the simulation and explain any change.\end{enumerate}
+
+\labfig{lab2_ex09.png}{12cm}{Exercise 9: bridge rectifier with filter capacitor and Zener diode (Step 5)}{fig:lab2_ex09}
+
+\subsubsection{Theory calculation}\vspace{-3pt}\notesblock Estimate the peak output voltage of the rectifier and the ripple voltage expected for the 10\,$\micro$F and the 680\,$\micro$F capacitor (use $\Delta V\approx I/(2fC)$).\dotsx{2pt}{26.5pt}{6}
+
+\simulation{
+\item Draw the circuit of Figure~\ref{fig:lab2_ex09} in LTspice and save it as \file{Lab2/Ex09.asc}.
+\item Declare the diode model with a SPICE directive (\texttt{S} key), for example \cmd{.model D1N4148 D(Is=2.52n Rs=0.568 N=1.752)}, and type the model name \texttt{D1N4148} in the value field of every diode.
+\item Reuse the transformer and the bridge of Exercise~7. Modify the circuit step by step and save each version (for example \file{Lab2/Ex09\_step1.asc}, \dots).
+\item Put two voltage markers: the transformer secondary and the output. Use \cmd{.tran} with a stop time of 100\,ms and a maximum step of 0.1\,ms.
+\item For every step, measure the peak value and the ripple (difference between the maximum and the minimum of the output after the first 50\,ms) with the cursors or with \cmd{.meas TRAN Vpp PP V(out) FROM=50m TO=100m}.
+}
+
+\comparetable{
+\cmprow{Step 1: output peak (V)}
+\cmprow{Step 2: ripple (V)}
+\cmprow{Step 3: ripple (V)}
+\cmprow{Step 4: output level (V)}
+\cmprow{Step 5: output level (V)}
+}
+
+\commentlines{6}
+
+\subsection{Exercise 10: Buck converter (switching power supply)}
+A switching regulator reduces a DC voltage efficiently. The circuit of Figure~\ref{fig:lab2_ex10} is a buck converter built from discrete components: a 12\,V source V1, a switch S1 driven by a 100\,kHz pulse train with a 50\,\% duty cycle, a diode D1, an inductor L1\,=\,33\,$\micro$H, a capacitor C1\,=\,220\,$\micro$F and a 10\,$\Omega$ load. Calculate the expected average output voltage and the load current, the peak-to-peak ripple of the inductor current $\Delta I_L=V_{out}(1-D)/(L f_{sw})$ and the output ripple voltage. Then run a transient simulation and compare. (The original exercise used the LM2596 regulator, whose vendor model cannot be assumed to be available; this circuit has the same learning objectives: switching regulation, inductor filtering and ripple.)
+
+\labfig{lab2_ex10.png}{11cm}{Exercise 10: buck converter}{fig:lab2_ex10}
+
+\theory{10}
+
+\simulation{
+\item Draw the circuit of Figure~\ref{fig:lab2_ex10} in LTspice and save it as \file{Lab2/Ex10.asc}.
+\item Declare the switch with the directive \cmd{.model SW SW(Ron=0.05 Roff=1Meg Vt=2.5 Vh=0.1)} and place the switch (\cmd{sw}). Drive its control pins with a pulse source: \cmd{PULSE(0 5 0 10n 10n 5u 10u)}.
+\item Declare a Schottky diode, for example \cmd{.model DSCH D(Is=1u N=1.05 Rs=0.05)}.
+\item Run \cmd{.tran 0 3m 0 0.2u}. Look at the output voltage in the last 0.5\,ms (zoom in) to measure the average value and the ripple, and at the current in L1.
+\item Optionally add \cmd{.meas TRAN Vavg AVG V(out) FROM=2.5m TO=3m} to obtain the average.
+}
+
+\comparetable{
+\cmprow{Average output voltage (V)}
+\cmprow{Load current (A)}
+\cmprow{Inductor current ripple (A)}
+\cmprow{Output voltage ripple (mV)}
+}
+
+\commentlines{2}
+
+\newpage
+\section{Advanced exercises}
+
+\subsection{Advanced Exercise 1: Forward voltage versus temperature}
+In the circuit of Figure~\ref{fig:lab2_adv01}, a 5\,V source feeds a 1\,k$\Omega$ resistor in series with a diode. Investigate how the forward voltage of the diode changes with the temperature.
+
+\labfig{lab2_adv01.png}{8cm}{Advanced Exercise 1: diode and series resistor}{fig:lab2_adv01}
+
+\subsubsection{Theory calculation}\vspace{-3pt}\notesblock Using the diode equation, explain why $V_D$ decreases when the temperature increases and estimate the slope in mV/$^\circ$C.\dotlines{4}
+
+\simulation{
+\item Add \cmd{.step temp list -25 25 75 125} to simulate four temperatures, and a one-point DC sweep \cmd{.dc V1 0 5 5}.
+\item Measure the diode voltage with \cmd{.meas DC Vd FIND V(a) AT=5} and read the four results in the SPICE Error Log.
+\item Fill in the table and compute the slope $\Delta V_D/\Delta T$.
+}
+\begin{center}\renewcommand{\arraystretch}{1.8}\begin{tabular}{|c|c|c|}\hline \textbf{Temperature ($^\circ$C)} & \textbf{$V_D$ (V)} & \textbf{$I_D$ (mA)}\\ \hline $-25$ & & \\ \hline 25 & & \\ \hline 75 & & \\ \hline 125 & & \\ \hline \end{tabular}\end{center}
+\commentlines{2}
+\newpage
+
+\subsection{Advanced Exercise 2: Ripple of a rectifier versus the filter capacitor}
+In the circuit of Figure~\ref{fig:lab2_adv02} a 22\,V (peak), 50\,Hz source feeds a bridge rectifier with a filter capacitor $C$ and a 1\,k$\Omega$ load. Study how the ripple voltage depends on $C$.
+
+\labfig{lab2_adv02.png}{9cm}{Advanced Exercise 2: bridge rectifier with a filter capacitor}{fig:lab2_adv02}
+
+\subsubsection{Theory calculation}\vspace{-3pt}\notesblock Estimate the ripple voltage $\Delta V\approx V_p/(2fR_LC)$ for $C=100$, 470, 1000 and 2200\,$\micro$F.\dotlines{4}
+
+\simulation{
+\item Set the capacitor to \cmd{\{C\}} with \cmd{.param C=470u} and add \cmd{.step param C list 100u 470u 1000u 2200u}.
+\item Run \cmd{.tran 0 200m 0 0.1m} and measure the ripple in steady state with \cmd{.meas TRAN Vpp PP V(c,d) FROM=100m TO=200m}.
+\item Read the four results in the SPICE Error Log and compare them with your estimates.
+}
+\begin{center}\renewcommand{\arraystretch}{1.8}\begin{tabular}{|c|c|c|c|}\hline \textbf{$C$ ($\micro$F)} & \textbf{Ripple, theory (V)} & \textbf{Ripple, LTspice (V)} & \textbf{Error (\%)}\\ \hline 100 & & & \\ \hline 470 & & & \\ \hline 1000 & & & \\ \hline 2200 & & & \\ \hline \end{tabular}\end{center}
+\commentlines{2}
+\newpage

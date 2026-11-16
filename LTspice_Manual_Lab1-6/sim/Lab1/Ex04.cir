@@ -1,0 +1,8 @@
+* Lab 1 - Ex04: I1, I2, I3, Va, Vb
+V1 n1 0 12
+R1 n1 a 9k
+R2 a 0 6k
+R3 a b 3k
+R4 b 0 3k
+.op
+.end

@@ -1,0 +1,96 @@
+%% =====================================================================
+%%  manual_common.tex - cấu hình chung của tài liệu thực hành LTspice
+%%  (bố cục theo Book.cls và các logbook; tiếng Anh, font Utopia thu 0.92)
+%%  Biên dịch: xelatex LTspice_Manual.tex (2 lần)
+%% =====================================================================
+\ifdefined\directlua\usepackage{fontspec}\else\ifdefined\XeTeXversion\usepackage{fontspec}\fi\fi
+\usepackage[a4paper,tmargin=2cm,bmargin=2.5cm,lmargin=3.5cm,rmargin=2.0cm]{geometry}
+\usepackage{color,calc,graphicx}
+\usepackage{amsmath,amssymb,amsfonts,enumitem}
+\usepackage{gensymb}
+\providecommand{\micro}{\ifmmode\text{\textmu}\else\textmu\fi}
+\usepackage{float,titlesec,fancyhdr,chngcntr,eso-pic,afterpage,array,booktabs}
+\usepackage[table]{xcolor}
+\usepackage[most]{tcolorbox}
+\usepackage[T1]{fontenc}
+\makeatletter
+\def\pus@decl#1#2#3#4#5{\DeclareFontShape{#1}{pus}{#2}{#3}{<->s*[0.92]#4}{}}
+\DeclareFontFamily{T1}{pus}{}
+\pus@decl{T1}{m}{n}{putr8t}{}\pus@decl{T1}{m}{sl}{putro8t}{}\pus@decl{T1}{m}{it}{putri8t}{}
+\pus@decl{T1}{m}{sc}{putrc8t}{}
+\pus@decl{T1}{b}{n}{putb8t}{}\pus@decl{T1}{b}{sl}{putbo8t}{}\pus@decl{T1}{b}{it}{putbi8t}{}
+\DeclareFontShape{T1}{pus}{bx}{n}{<->ssub * pus/b/n}{}
+\DeclareFontShape{T1}{pus}{bx}{sl}{<->ssub * pus/b/sl}{}
+\DeclareFontShape{T1}{pus}{bx}{it}{<->ssub * pus/b/it}{}
+\DeclareFontFamily{TS1}{pus}{}
+\pus@decl{TS1}{m}{n}{putr8c}{}\pus@decl{TS1}{m}{sl}{putro8c}{}\pus@decl{TS1}{m}{it}{putri8c}{}
+\pus@decl{TS1}{b}{n}{putb8c}{}\pus@decl{TS1}{b}{sl}{putbo8c}{}\pus@decl{TS1}{b}{it}{putbi8c}{}
+\DeclareFontShape{TS1}{pus}{bx}{n}{<->ssub * pus/b/n}{}
+\DeclareFontShape{TS1}{pus}{bx}{sl}{<->ssub * pus/b/sl}{}
+\DeclareFontShape{TS1}{pus}{bx}{it}{<->ssub * pus/b/it}{}
+\DeclareFontFamily{OT1}{pus}{}
+\pus@decl{OT1}{m}{n}{putr7t}{}\pus@decl{OT1}{m}{sl}{putro7t}{}\pus@decl{OT1}{m}{it}{putri7t}{}
+\pus@decl{OT1}{b}{n}{putb7t}{}\pus@decl{OT1}{b}{sl}{putbo7t}{}\pus@decl{OT1}{b}{it}{putbi7t}{}
+\DeclareFontShape{OT1}{pus}{bx}{n}{<->ssub * pus/b/n}{}
+\DeclareFontShape{OT1}{pus}{bx}{sl}{<->ssub * pus/b/sl}{}
+\DeclareFontShape{OT1}{pus}{bx}{it}{<->ssub * pus/b/it}{}
+\makeatother
+\renewcommand{\ttdefault}{pcr}
+\renewcommand{\rmdefault}{pus}\renewcommand{\familydefault}{\rmdefault}
+\usepackage[italic]{mathastext}
+\ifdefined\directlua\newfontfamily\vnfont{Latin Modern Roman}\else\ifdefined\XeTeXversion\newfontfamily\vnfont{Latin Modern Roman}\fi\fi
+\usepackage[colorlinks=true,linkcolor=black,urlcolor=blue]{hyperref}
+
+\definecolor{accent}{HTML}{D98200}
+\definecolor{lightorange}{HTML}{FFF3DC}
+\definecolor{navy}{HTML}{1F2F5E}
+\definecolor{lightnavy}{HTML}{EAEFF8}
+
+\pagestyle{fancy}
+\lhead[]{}\chead[]{}\rhead[]{}
+\lfoot[\sl Page \thepage]{\it LTspice Laboratory Manual \hfil}
+\cfoot[]{}
+\rfoot[\it HCMUT - Computer Engineering]{\sl Page \thepage}
+\renewcommand{\headrulewidth}{0pt}\renewcommand{\footrulewidth}{1pt}
+\setlength{\parindent}{0pt}
+\newcommand\blankpage{\null\thispagestyle{empty}\addtocounter{page}{0}\newpage}
+
+\renewcommand{\chaptername}{Lab}
+\titleformat{\chapter}[display]{\bfseries\huge}{\filright\MakeUppercase{\chaptertitlename} \huge\thechapter}{21.8pt}{\titlerule\vspace{11.05pt}\filleft}[\vspace{10.85pt}\titlerule]
+\titlespacing*{\chapter}{0pt}{50.1pt}{40pt}
+\counterwithin*{section}{chapter}\counterwithin*{subsection}{section}\counterwithin*{subsubsection}{subsection}
+\renewcommand{\chap}[1]{\chapter{#1}\thispagestyle{empty}%
+  \AddToShipoutPictureBG*{\includegraphics[width=\paperwidth,height=\paperheight]{source/picture/chapter.png}}\newpage}
+
+% ---------- Dotted answer lines (calculation parts are left blank for students) ----------
+\newcount\dotcnt
+\newcommand{\dotsx}[3]{\par\vspace{#1}\begingroup\parskip=0pt \baselineskip=#2 \lineskip=0pt \lineskiplimit=0pt
+  \dotcnt=#3\relax \loop\ifnum\dotcnt>0 \noindent\dotfill\par\advance\dotcnt by -1 \repeat\endgroup}
+\newcommand{\dotlines}[1]{\dotsx{0pt}{26.5pt}{#1}}
+\newcommand{\notesblock}{\textbf{\textit{Notes:}}\\
+  \textit{Explanations, formulas, and equations are expected rather than only results.}\par}
+\newcommand{\theory}[1]{\subsubsection{Theory calculation}\vspace{-3pt}\notesblock\dotsx{2.4pt}{26.5pt}{#1}}
+
+% ---------- Placeholders / figures (LTspice screenshots go to images/) ----------
+\newcommand{\placeholderbox}[2]{% file, width
+  \begin{tcolorbox}[width=#2,colback=lightorange,colframe=accent,boxrule=1pt,arc=2pt,halign=center,valign=center,height=3.2cm,center]
+  \color{accent!85!black}\bfseries\itshape [Insert LTspice screenshot]\\[1pt]
+  {\small\normalfont\upshape(save as \texttt{images/\detokenize{#1}})}\end{tcolorbox}}
+\newcommand{\labfig}[4]{% file, width, caption, label
+  \begin{figure}[H]\centering
+  \IfFileExists{images/#1}{\includegraphics[width=#2]{images/#1}}{\placeholderbox{#1}{#2}}
+  \caption{#3}\label{#4}\end{figure}}
+
+% ---------- Comparison table and simulation block ----------
+\newcommand{\cmprow}[1]{#1 & & & \\ \hline}
+\newcommand{\comparetable}[1]{\subsubsection{Comparison}
+  \begin{center}\renewcommand{\arraystretch}{1.9}
+  \begin{tabular}{|p{4.6cm}|c|c|c|}\hline
+  \textbf{Quantity} & \textbf{Theory} & \textbf{LTspice} & \textbf{Error (\%)}\\ \hline #1
+  \end{tabular}\end{center}}
+\newcommand{\commentlines}[1]{\textbf{\textit{Comments:}} \dotfill\dotsx{0pt}{26.5pt}{#1}}
+\newcommand{\simulation}[1]{\subsubsection{LTspice simulation}\begin{itemize}[itemsep=3pt,topsep=3pt]#1\end{itemize}}
+\newcommand{\cmd}[1]{\texttt{#1}}
+\emergencystretch=5em
+\tolerance=2000
+\newcommand{\file}[1]{\texttt{#1}}

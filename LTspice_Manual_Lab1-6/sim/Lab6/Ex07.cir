@@ -1,0 +1,13 @@
+* Lab 6 - Ex07: BJT driven into saturation (sweep of V1)
+V1 in 0 0
+R1 in b 10k
+V2 vcc 0 10
+R2 vcc c 470
+Q1 c b 0 QN
+.dc V1 0 6 0.05
+* models
+.model D1N4148 D(Is=2.52n Rs=0.568 N=1.752 Cjo=4p M=0.4 Tt=20n)
+.model DZ12 D(Is=1e-14 Bv=12 Ibv=10m Rs=2)
+.model DZ51 D(Is=1e-14 Bv=5.1 Ibv=10m Rs=2)
+.model DZ17 D(Is=1e-14 Bv=1.7 Ibv=1m Rs=2)
+.model QN NPN(Is=1e-14 Bf=100 Br=1)

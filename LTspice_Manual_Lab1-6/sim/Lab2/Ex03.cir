@@ -1,0 +1,19 @@
+* Lab 2 - Ex03: diode in a resistor bridge (Vs = 8, 10, 12 V)
+.param Vs=10
+V1 l 0 {Vs}
+R1 l t 2k
+R2 t 0 8k
+R3 l b 4k
+R4 b 0 6k
+D1 t b D1N4148
+.step param Vs list 8 10 12
+.op
+* models
+.model D1N4148 D(Is=2.52n Rs=0.568 N=1.752 Cjo=4p M=0.4 Tt=20n)
+.model DSCH D(Is=1u N=1.05 Rs=0.05 Cjo=100p)
+.model DZ5V D(Is=1e-14 Bv=5.0 Ibv=10m Rs=2)
+.model DZ22 D(Is=1e-14 Bv=22 Ibv=10m Rs=2)
+.model DZ20 D(Is=1e-14 Bv=20 Ibv=10m Rs=2)
+.model LEDRED D(Is=1e-18 N=1.9 Rs=5 Cjo=30p)
+.model QN NPN(Is=1e-14 Bf=100 Br=1)
+.model QP PNP(Is=1e-14 Bf=100 Br=1)
