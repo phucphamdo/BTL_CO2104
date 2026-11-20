@@ -1,5 +1,5 @@
 ﻿# Full Audit Report — LTspice Manual Lab1-6
-**Thời gian kiểm tra:** 2026-11-20 15:40:54  
+**Thời gian kiểm tra:** 2026-11-20 22:47:46  
 **Thư mục:** C:\Users\HONG ANH\Documents\GitHub\BTL_CO2104\LTspice_Manual_Lab1-6
 
 ---

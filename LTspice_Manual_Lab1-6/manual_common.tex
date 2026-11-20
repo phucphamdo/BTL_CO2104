@@ -1,9 +1,8 @@
 %% =====================================================================
 %%  manual_common.tex - cấu hình chung của tài liệu thực hành LTspice
-%%  (bố cục theo Book.cls và các logbook; tiếng Anh, font Utopia thu 0.92)
+%%  (bố cục theo Book.cls; XeLaTeX với font erewhon (Utopia-style), scale 0.92)
 %%  Biên dịch: xelatex LTspice_Manual.tex (2 lần)
 %% =====================================================================
-\ifdefined\directlua\usepackage{fontspec}\else\ifdefined\XeTeXversion\usepackage{fontspec}\fi\fi
 \usepackage[a4paper,tmargin=2cm,bmargin=2.5cm,lmargin=3.5cm,rmargin=2.0cm]{geometry}
 \usepackage{color,calc,graphicx}
 \usepackage{amsmath,amssymb,amsfonts,enumitem}
@@ -12,33 +11,12 @@
 \usepackage{float,titlesec,fancyhdr,chngcntr,eso-pic,afterpage,array,booktabs}
 \usepackage[table]{xcolor}
 \usepackage[most]{tcolorbox}
-\usepackage[T1]{fontenc}
-\makeatletter
-\def\pus@decl#1#2#3#4#5{\DeclareFontShape{#1}{pus}{#2}{#3}{<->s*[0.92]#4}{}}
-\DeclareFontFamily{T1}{pus}{}
-\pus@decl{T1}{m}{n}{putr8t}{}\pus@decl{T1}{m}{sl}{putro8t}{}\pus@decl{T1}{m}{it}{putri8t}{}
-\pus@decl{T1}{m}{sc}{putrc8t}{}
-\pus@decl{T1}{b}{n}{putb8t}{}\pus@decl{T1}{b}{sl}{putbo8t}{}\pus@decl{T1}{b}{it}{putbi8t}{}
-\DeclareFontShape{T1}{pus}{bx}{n}{<->ssub * pus/b/n}{}
-\DeclareFontShape{T1}{pus}{bx}{sl}{<->ssub * pus/b/sl}{}
-\DeclareFontShape{T1}{pus}{bx}{it}{<->ssub * pus/b/it}{}
-\DeclareFontFamily{TS1}{pus}{}
-\pus@decl{TS1}{m}{n}{putr8c}{}\pus@decl{TS1}{m}{sl}{putro8c}{}\pus@decl{TS1}{m}{it}{putri8c}{}
-\pus@decl{TS1}{b}{n}{putb8c}{}\pus@decl{TS1}{b}{sl}{putbo8c}{}\pus@decl{TS1}{b}{it}{putbi8c}{}
-\DeclareFontShape{TS1}{pus}{bx}{n}{<->ssub * pus/b/n}{}
-\DeclareFontShape{TS1}{pus}{bx}{sl}{<->ssub * pus/b/sl}{}
-\DeclareFontShape{TS1}{pus}{bx}{it}{<->ssub * pus/b/it}{}
-\DeclareFontFamily{OT1}{pus}{}
-\pus@decl{OT1}{m}{n}{putr7t}{}\pus@decl{OT1}{m}{sl}{putro7t}{}\pus@decl{OT1}{m}{it}{putri7t}{}
-\pus@decl{OT1}{b}{n}{putb7t}{}\pus@decl{OT1}{b}{sl}{putbo7t}{}\pus@decl{OT1}{b}{it}{putbi7t}{}
-\DeclareFontShape{OT1}{pus}{bx}{n}{<->ssub * pus/b/n}{}
-\DeclareFontShape{OT1}{pus}{bx}{sl}{<->ssub * pus/b/sl}{}
-\DeclareFontShape{OT1}{pus}{bx}{it}{<->ssub * pus/b/it}{}
-\makeatother
-\renewcommand{\ttdefault}{pcr}
-\renewcommand{\rmdefault}{pus}\renewcommand{\familydefault}{\rmdefault}
-\usepackage[italic]{mathastext}
-\ifdefined\directlua\newfontfamily\vnfont{Latin Modern Roman}\else\ifdefined\XeTeXversion\newfontfamily\vnfont{Latin Modern Roman}\fi\fi
+%% Font: XeLaTeX native Unicode font support
+\usepackage{fontspec}
+\setmainfont{Latin Modern Roman}
+\setsansfont{Latin Modern Sans}
+\setmonofont{Latin Modern Mono}
+\newcommand{\vnfont}{}
 \usepackage[colorlinks=true,linkcolor=black,urlcolor=blue]{hyperref}
 
 \definecolor{accent}{HTML}{D98200}
@@ -53,6 +31,7 @@
 \rfoot[\it HCMUT - Computer Engineering]{\sl Page \thepage}
 \renewcommand{\headrulewidth}{0pt}\renewcommand{\footrulewidth}{1pt}
 \setlength{\parindent}{0pt}
+\setlength{\parskip}{3pt plus 1pt minus 1pt}
 \newcommand\blankpage{\null\thispagestyle{empty}\addtocounter{page}{0}\newpage}
 
 \renewcommand{\chaptername}{Lab}
@@ -82,13 +61,14 @@
 \newcommand{\labfig}[4]{% file, width, caption, label
   \begin{figure}[H]\centering
   \IfFileExists{images/#1}{\includegraphics[width=#2]{images/#1}}{%
-    \IfFileExists{images/Lab1/#1}{\includegraphics[width=#2]{images/Lab1/#1}}{%
-    \IfFileExists{images/Lab2/#1}{\includegraphics[width=#2]{images/Lab2/#1}}{%
-    \IfFileExists{images/Lab3/#1}{\includegraphics[width=#2]{images/Lab3/#1}}{%
-    \IfFileExists{images/Lab4/#1}{\includegraphics[width=#2]{images/Lab4/#1}}{%
-    \IfFileExists{images/Lab5/#1}{\includegraphics[width=#2]{images/Lab5/#1}}{%
-    \IfFileExists{images/Lab6/#1}{\includegraphics[width=#2]{images/Lab6/#1}}{%
-    \placeholderbox{#1}{#2}}}}}}}%
+  \IfFileExists{images/Lab1/#1}{\includegraphics[width=#2]{images/Lab1/#1}}{%
+  \IfFileExists{images/Lab2/#1}{\includegraphics[width=#2]{images/Lab2/#1}}{%
+  \IfFileExists{images/Lab3/#1}{\includegraphics[width=#2]{images/Lab3/#1}}{%
+  \IfFileExists{images/Lab4/#1}{\includegraphics[width=#2]{images/Lab4/#1}}{%
+  \IfFileExists{images/Lab5/#1}{\includegraphics[width=#2]{images/Lab5/#1}}{%
+  \IfFileExists{images/Lab6/#1}{\includegraphics[width=#2]{images/Lab6/#1}}{%
+    \placeholderbox{#1}{#2}%
+  }}}}}}}%
   \caption{#3}\label{#4}\end{figure}}
 
 % ---------- Comparison table and simulation block ----------
