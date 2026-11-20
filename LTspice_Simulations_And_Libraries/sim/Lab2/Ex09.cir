@@ -1,0 +1,25 @@
+* Lab 2 - Ex09: AC/DC power circuit (step 5 shown: C = 680 uF + 20 V Zener)
+* Step 1: remove C1 and DZ.  Step 2: C1 = 10u, no DZ.  Step 3: C1 = 680u, no DZ.  Step 4: C1 = 680u + DZ22.  Step 5: DZ20.
+V1 p 0 SINE(0 220 50)
+L1 p 0 10
+L2 a b 0.1
+K1 L1 L2 1
+Rg b 0 100Meg
+D1 a c D1N4148
+D2 b c D1N4148
+D3 d a D1N4148
+D4 d b D1N4148
+Rd d 0 1
+R1 c d 1k
+C1 c d 680u
+DZ d c DZ20
+.tran 0 100m 0 0.1m
+* models
+.model D1N4148 D(Is=2.52n Rs=0.568 N=1.752 Cjo=4p M=0.4 Tt=20n)
+.model DSCH D(Is=1u N=1.05 Rs=0.05 Cjo=100p)
+.model DZ5V D(Is=1e-14 Bv=5.0 Ibv=10m Rs=2)
+.model DZ22 D(Is=1e-14 Bv=22 Ibv=10m Rs=2)
+.model DZ20 D(Is=1e-14 Bv=20 Ibv=10m Rs=2)
+.model LEDRED D(Is=1e-18 N=1.9 Rs=5 Cjo=30p)
+.model QN NPN(Is=1e-14 Bf=100 Br=1)
+.model QP PNP(Is=1e-14 Bf=100 Br=1)

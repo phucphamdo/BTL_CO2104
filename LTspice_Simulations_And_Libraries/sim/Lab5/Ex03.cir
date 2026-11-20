@@ -1,0 +1,12 @@
+* Lab 5 - Ex03: JFET transfer characteristic
+VDS d 0 8
+VGS g 0 0
+J1 d g 0 JN
+.dc VGS -3 0 0.01
+* models
+.model JN NJF(Beta=2.5m Vto=-2 Lambda=0.01)
+.model DMOS NMOS(Kp=1.78m Vto=-3 Lambda=0.01)
+.model NM NMOS(Kp=2m Vto=2 Lambda=0.01)
+.model NMSW NMOS(Kp=0.5 Vto=2)
+.model PM PMOS(Kp=1m Vto=-2 Lambda=0.01)
+.model D1N4148 D(Is=2.52n Rs=0.568 N=1.752 Cjo=4p M=0.4 Tt=20n)

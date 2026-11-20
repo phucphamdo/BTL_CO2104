@@ -1,0 +1,16 @@
+* Lab 4 - Adv02: second-order Sallen-Key low-pass filter
+V1 in 0 AC 1
+R1 in a 10k
+R2 a p 10k
+C1 a out 22n
+C2 p 0 10n
+X1 p out out vcc vee OPAMP
+.ac dec 50 10 100k
+* behavioural op-amp (rails = supply -/+ 1.5 V)
+.subckt OPAMP inp inn out vcc vee
+Rin inp inn 10Meg
+B1 out 0 V=limit(1e6*(V(inp)-V(inn)),V(vee)+1.5,V(vcc)-1.5)
+.ends
+.model QN NPN(Is=1e-14 Bf=100 Br=1)
+V+ vcc 0 15
+V- vee 0 -15

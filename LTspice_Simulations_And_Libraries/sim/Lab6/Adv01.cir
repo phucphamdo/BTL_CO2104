@@ -1,0 +1,15 @@
+* Lab 6 - Adv01: Monte Carlo tolerance analysis of the series regulator (5 % resistors)
+V1 in 0 12
+R1 in b {mc(1k,0.05)}
+DZ 0 b DZ51
+Q1 in b out QN
+RL out 0 {mc(100,0.05)}
+.step param run 1 20 1
+.op
+.meas OP Vout FIND V(out) AT=0
+* models
+.model D1N4148 D(Is=2.52n Rs=0.568 N=1.752 Cjo=4p M=0.4 Tt=20n)
+.model DZ12 D(Is=1e-14 Bv=12 Ibv=10m Rs=2)
+.model DZ51 D(Is=1e-14 Bv=5.1 Ibv=10m Rs=2)
+.model DZ17 D(Is=1e-14 Bv=1.7 Ibv=1m Rs=2)
+.model QN NPN(Is=1e-14 Bf=100 Br=1)

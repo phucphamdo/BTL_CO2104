@@ -1,0 +1,10 @@
+* Lab 1 - Adv01: maximum power transfer (sweep the load RL with .step)
+.param RL=100
+V1 in 0 12
+R1 in x 100
+R2 x 0 220
+RL x 0 {RL}
+.step param RL 10 200 10
+.dc V1 0 12 12
+.meas DC PL FIND V(x)*I(RL) AT=12
+.end

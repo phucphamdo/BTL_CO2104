@@ -1,0 +1,699 @@
+﻿
+ĐẠI HỌC QUỐC GIA TP. HỒ CHÍ MINH
+TRƯỜNG ĐẠI HỌC BÁCH KHOA
+KHOA KHOA HỌC VÀ KỸ THUẬT MÁY TÍNH
+LINH KIỆN VÀ MẠCH ĐIỆN TỬ (CO2037)
+Electronic Devices and Circuits
+BÀI TẬP LỚN – DỰ ÁN 3
+XÂY DỰNG TÀI LIỆU THỰC HÀNH MỚI VỚI LTSPICE
+Chuyển 6 bài thực hành mô phỏng từ PSpice for TI sang LTspice
+Thông tin
+Nội dung
+Hình thức
+Làm nhóm, 3 sinh viên/nhóm
+Sản phẩm
+Tài liệu hướng dẫn thực hành mới (6 bài lab, mỗi bài gồm phần hướng dẫn + 10 bài tập + bài tập nâng cao), file lời giải và toàn bộ file mô phỏng LTspice
+Môi trường
+Chỉ mô phỏng trên LTspice (Analog Devices); không thiết kế PCB, không thi công mạch
+Tài liệu gốc
+Tài liệu thực hành Electronic Device Component (PSpice for TI)
+Công cụ AI
+Được phép sử dụng AI Agent, có khai báo nhật ký sử dụng
+Chuẩn đầu ra
+L.O.1.1, L.O.1.3, L.O.2.1, L.O.2.2, L.O.2.3, L.O.4.2, L.O.4.3
+Giảng viên
+TS. Lê Trọng Nhân
+
+
+MỤC LỤC
+TOC \h \o "1-2"PHẦN A. MÔ TẢ VÀ HƯỚNG DẪN DỰ ÁN PAGEREF _Toc244554191 \h 1
+1. Mục tiêu PAGEREF _Toc244554192 \h 1
+2. Tổ chức thực hiện PAGEREF _Toc244554193 \h 1
+3. Phạm vi: 6 bài lab cần xây dựng lại PAGEREF _Toc244554194 \h 1
+4. Giới thiệu LTspice và yêu cầu cài đặt PAGEREF _Toc244554195 \h 1
+5. Ánh xạ thao tác từ PSpice for TI sang LTspice PAGEREF _Toc244554196 \h 1
+6. Cấu trúc bắt buộc của mỗi bài lab mới PAGEREF _Toc244554197 \h 1
+7. Gợi ý bài tập nâng cao PAGEREF _Toc244554198 \h 1
+8. Kết quả mong đợi PAGEREF _Toc244554199 \h 1
+9. Yêu cầu PAGEREF _Toc244554200 \h 1
+10. Tài liệu tham khảo PAGEREF _Toc244554201 \h 1
+PHẦN B. BÁO CÁO CỦA SINH VIÊN (MẪU) PAGEREF _Toc244554202 \h 1
+1. Giới thiệu PAGEREF _Toc244554203 \h 1
+2. Tìm hiểu LTspice và cài đặt offline PAGEREF _Toc244554204 \h 1
+3. Ánh xạ PSpice for TI → LTspice PAGEREF _Toc244554205 \h 1
+4. Tổng quan tài liệu thực hành mới PAGEREF _Toc244554206 \h 1
+5. Chi tiết từng bài lab PAGEREF _Toc244554207 \h 1
+6. Bài tập không chuyển đổi được và đề xuất tương đương PAGEREF _Toc244554208 \h 1
+7. Trả lời câu hỏi PAGEREF _Toc244554209 \h 1
+8. Kiểm thử chéo PAGEREF _Toc244554210 \h 1
+9. Hướng dẫn sử dụng tài liệu cho giảng viên PAGEREF _Toc244554211 \h 1
+10. Nhật ký sử dụng AI PAGEREF _Toc244554212 \h 1
+11. Phân công công việc PAGEREF _Toc244554213 \h 1
+12. Kết luận PAGEREF _Toc244554214 \h 1
+
+
+PHẦN A. MÔ TẢ VÀ HƯỚNG DẪN DỰ ÁN
+1. Mục tiêu
+Các bài thực hành mô phỏng hiện tại của môn học sử dụng PSpice for TI. Trong dự án này, mỗi nhóm thay thế công cụ đó bằng LTspice – trình mô phỏng SPICE miễn phí của Analog Devices – và xây dựng lại toàn bộ tài liệu hướng dẫn thực hành cho 6 bài lab mô phỏng. Sản phẩm của nhóm phải đủ chất lượng để sinh viên khoá sau có thể dùng trực tiếp trong phòng thực hành. Thông qua dự án, sinh viên sẽ:
+Tìm hiểu một công cụ mô phỏng mới, so sánh với công cụ cũ và tìm cách triển khai cài đặt offline cho phòng máy.
+Hiện thực lại các mạch điện trở, diode, BJT, op-amp và FET trên LTspice với các kiểu phân tích .op, .dc, .tran, .ac và .step.
+Đối chiếu kết quả lý thuyết – mô phỏng, giải thích các sai lệch do mô hình linh kiện.
+Đánh giá khi nào một bài tập cũ không thể chuyển đổi trực tiếp, và đề xuất bài tập tương đương về mục tiêu học tập.
+Thiết kế thêm các bài tập nâng cao cho mỗi bài lab.
+Viết tài liệu kỹ thuật rõ ràng, có thể kiểm thử bởi người khác.
+2. Tổ chức thực hiện
+Nhóm: 3 sinh viên/nhóm. Gợi ý: mỗi thành viên phụ trách chính 2 bài lab, cùng nhau thực hiện phần cài đặt, bảng ánh xạ công cụ và kiểm thử chéo. Mọi thành viên phải hiểu toàn bộ tài liệu.
+Môi trường: Chỉ mô phỏng trên LTspice. Không thiết kế PCB, không thi công mạch. Các mục dùng Altium Designer trong tài liệu gốc không thuộc phạm vi dự án.
+Cài đặt offline: Nhóm phải tìm cách có được bộ cài đặt offline của LTspice (kèm thư viện linh kiện) để triển khai cho phòng máy không có Internet, và viết hướng dẫn cài đặt.
+Bài tập tương đương: Nếu một bài tập trong tài liệu gốc không thể thực hiện tương tự trên LTspice (ví dụ do không có mô hình linh kiện), nhóm được phép đề xuất bài tập tương đương, kèm giải thích.
+Bài tập nâng cao: Khuyến khích đề xuất thêm ít nhất 2 bài tập nâng cao cho mỗi lab.
+AI Agent: Được phép sử dụng AI. Quy định cụ thể ở mục 9.4.
+
+Hình 1: Quy trình thực hiện dự án
+3. Phạm vi: 6 bài lab cần xây dựng lại
+Tài liệu gốc gồm 8 chương. Dự án chỉ xét các chương mô phỏng; các chương và mục dùng Altium Designer, cùng chương Final Project, nằm ngoài phạm vi. Bảng 1 ánh xạ chương gốc sang 6 bài lab mới. Mỗi bài lab mới phải có đúng 10 bài tập chính: nếu chương gốc có nhiều hơn, nhóm chọn lọc hoặc gộp; nếu có ít hơn, nhóm bổ sung.
+Bảng 1: Ánh xạ chương trong tài liệu gốc sang 6 bài lab mới
+Lab mới
+Chương gốc
+Nội dung chính trong tài liệu gốc
+Lưu ý khi chuyển sang LTspice
+Lab 1
+Ch. 1 – First Project on PSpice
+Cài đặt, tạo project, Bias Point; 10 bài: định luật Kirchhoff, nguồn phụ thuộc (VCVS), điện trở tương đương, biến đổi sao – tam giác, chọn điện trở chuẩn
+Phân tích .op, nguồn E, hiển thị điểm làm việc trên schematic, .meas
+Lab 2
+Ch. 2 – Diode Circuits Analysis
+Đặc tuyến V-I (DC Sweep), mô hình diode, diode nối tiếp, mạch kẹp, mạch chuyển nguồn, chỉnh lưu bán kỳ/toàn kỳ, ổn áp Zener, nguồn AC/DC, nguồn AC/DC với LM2596
+Mô hình Dbreak và LM2596_5P0_TRANS (mô hình của TI) có thể không dùng được – cần mô hình thay thế hoặc bài tương đương
+Lab 3
+Ch. 3 – Bipolar Junction Transistor
+13 mục: bão hoà, DC Sweep, khoá BJT, lái tải, phân cực, PNP, NPN + PNP, điện trở emitter, Darlington, base chung, gương dòng, cổng logic, opto
+Chọn/gộp còn 10 bài; tìm mô hình optocoupler hoặc xây dựng mô hình tương đương
+Lab 4
+Ch. 5 – Operational Amplifier
+7 bài: voltage follower, follower dòng lớn, khuếch đại không đảo, cộng, lọc thông thấp, lọc thông cao, Schmitt trigger (AC Sweep, Transient)
+Bổ sung 3 bài; kiểm tra mô hình LM358 hoặc chọn op-amp tương đương của ADI
+Lab 5
+Ch. 6 – Field Effect Transistor
+JFET (DC Sweep, Nested DC Sweep, tự phân cực, phân áp), MOSFET kênh có sẵn và kênh cảm ứng, MOSFET làm khoá, điều khiển động cơ
+Nested sweep dùng .dc hai nguồn; mô hình MOSFET kênh có sẵn có thể phải tự khai báo .model; bổ sung đủ 10 bài
+Lab 6
+Ch. 7 – 24 Hour Project for Midterm
+8 bài tổng hợp: điện trở tương đương, dòng điện, diode, Zener, BJT, BJT + Zener
+Bổ sung 2 bài; có thể dùng làm bài ôn tập giữa kỳ
+
+Ngoài phạm vi dự án
+Ch. 4 (Circuit Design with Altium Designer), các mục Altium Designer trong Ch. 5 và Ch. 6, và Ch. 8 (Final Project) không cần chuyển đổi.
+
+4. Giới thiệu LTspice và yêu cầu cài đặt
+LTspice là trình mô phỏng SPICE miễn phí, không giới hạn số nút mạch, do Analog Devices phát triển, chạy trên Windows và macOS. LTspice có sẵn thư viện mô hình cho phần lớn sản phẩm của Analog Devices và Linear Technology cùng nhiều linh kiện rời phổ biến (diode, BJT, MOSFET, JFET). Khác với PSpice for TI, LTspice không yêu cầu tài khoản hay mã kích hoạt.
+Nhóm phải tìm hiểu và trình bày trong báo cáo:
+Nguồn tải chính thức, phiên bản sử dụng, dung lượng, hệ điều hành hỗ trợ; điều khoản sử dụng và việc có được phép phân phối lại bộ cài trong nội bộ trường hay không.
+Cách có được bộ cài đặt offline: bộ cài có kèm đầy đủ thư viện không; thư viện được cập nhật như thế nào; cách sao chép thư viện sang máy không có Internet.
+Cách chạy LTspice trên máy không dùng Windows (macOS, hoặc Linux qua Wine) – nếu có giới hạn, ghi rõ.
+Quy trình kiểm tra cài đặt thành công (ví dụ: mở và chạy một file mẫu trong thư mục examples).
+5. Ánh xạ thao tác từ PSpice for TI sang LTspice
+Bảng 2 gợi ý cách thực hiện các thao tác của tài liệu cũ trong LTspice. Nhóm phải kiểm tra lại với phiên bản LTspice đang dùng (tên menu có thể thay đổi giữa các phiên bản) và hoàn thiện bảng này trong tài liệu mới.
+Bảng 2: Ánh xạ thao tác PSpice for TI → LTspice (gợi ý)
+PSpice for TI
+LTspice
+Ghi chú
+Project + Simulation Profile
+File schematic .asc + lệnh mô phỏng (SPICE directive)
+Lệnh mô phỏng được đặt trên schematic dưới dạng text
+Bias Point, Enable Voltage/Current Bias Display
+.op; di chuột lên dây/linh kiện, hoặc đặt nhãn .op data trên schematic
+Kết quả .op cũng hiện trong cửa sổ văn bản
+DC Sweep
+.dc <nguồn> <bắt đầu> <kết thúc> <bước>
+
+Nested DC Sweep
+.dc V1 … V2 … (hai nguồn trong một lệnh)
+Dùng cho họ đặc tuyến JFET/BJT
+Parametric sweep
+.step param R list … hoặc .step param R 1k 10k 1k
+Kết hợp .param và giá trị {R}
+Time Domain (Transient)
+.tran <thời gian dừng>
+Chú ý bước thời gian tối đa với mạch chuyển mạch
+AC Sweep
+.ac dec <số điểm/decade> <f_bắt đầu> <f_kết thúc>
+Nguồn phải có biên độ AC
+Trace > Add Trace, cursor
+Bấm chuột lên nút/linh kiện (probe); cursor trong cửa sổ đồ thị; .meas
+.meas giúp tự động đo giá trị để so sánh lý thuyết
+Copy to Clipboard (xuất dữ liệu)
+Xuất dữ liệu dạng text từ cửa sổ đồ thị
+
+VCVS / CCCS…
+Nguồn phụ thuộc E, F, G, H; nguồn hành vi B
+
+VSIN, VPULSE
+Nguồn áp với hàm SINE/PULSE
+
+Dbreak, mô hình TI
+D với .model mặc định hoặc mô hình trong thư viện; nhập .lib/.subckt bên ngoài
+Mô hình PSpice mã hoá của TI thường không dùng được trong LTspice
+
+Ví dụ netlist cho bài khảo sát đặc tuyến V-I của diode (Lab 2) – sinh viên có thể vẽ schematic tương đương và dùng lệnh .meas để lấy dòng tại V1 = 1 V:
+* Lab 2 - Diode V-I characteristic
+V1 in 0 5
+R1 in a 1k
+D1 a 0 1N4148
+.dc V1 0 5 10m
+.meas DC Id_1V FIND I(D1) AT=1
+.end
+
+6. Cấu trúc bắt buộc của mỗi bài lab mới
+Mỗi bài lab trong tài liệu mới có cấu trúc thống nhất, tương đương tài liệu gốc:
+Introduction: mục tiêu của bài, kiểu phân tích được giới thiệu.
+Hướng dẫn LTspice: các bước có ảnh chụp màn hình từ LTspice, đủ để sinh viên lần đầu sử dụng làm theo.
+10 bài tập chính: mỗi bài gồm sơ đồ mạch, phần tính toán lý thuyết (để trống cho sinh viên điền), phần mô phỏng (hướng dẫn cấu hình lệnh) và bảng so sánh lý thuyết – mô phỏng.
+Bài tập nâng cao: ít nhất 2 bài, có mục tiêu rõ ràng, mức độ cao hơn bài chính (ví dụ dùng .step, .meas, phân tích nhiệt độ, Monte Carlo, phân tích Fourier).
+Kèm theo (ngoài tài liệu phát cho sinh viên): file lời giải cho giảng viên và file .asc của mọi bài tập.
+Mỗi bài tập được đánh dấu một trong ba trạng thái: Giữ nguyên (chỉ đổi công cụ), Điều chỉnh (đổi linh kiện/giá trị nhưng giữ mục tiêu) hoặc Thay thế (bài tương đương mới). Mọi thay đổi phải có lý do.
+7. Gợi ý bài tập nâng cao
+Các gợi ý sau chỉ mang tính tham khảo; nhóm được tự do đề xuất:
+Lab 1: dùng .step để khảo sát công suất tải theo điện trở tải và kiểm chứng định lý truyền công suất cực đại; dùng .meas tự động tính sai số so với lý thuyết.
+Lab 2: ảnh hưởng của nhiệt độ (.temp, .step temp) lên điện áp thuận của diode; độ gợn của mạch chỉnh lưu theo giá trị tụ lọc; mạch nguồn buck dùng IC của ADI.
+Lab 3: khảo sát độ ổn định điểm làm việc khi β thay đổi; phân tích Monte Carlo sai số điện trở; đáp ứng tần số của mạch khuếch đại emitter chung.
+Lab 4: ảnh hưởng của tích độ lợi – băng thông (GBW) và slew rate thực của op-amp; bộ lọc Sallen-Key bậc 2; phân tích .four tính THD.
+Lab 5: đặc tuyến truyền đạt và điện trở R_DS(on) theo V_GS; tổn hao chuyển mạch của MOSFET khi điều khiển tải cảm; mạch cầu H.
+Lab 6: bài tổng hợp nhiều khối (nguồn – ổn áp – khoá BJT/MOSFET – op-amp) dùng cho ôn tập.
+8. Kết quả mong đợi
+Tài liệu thực hành mới (6 bài lab) với chất lượng trình bày tương đương tài liệu gốc.
+File lời giải cho giảng viên: lời giải lý thuyết, kết quả mô phỏng và bảng so sánh cho mọi bài tập.
+Thư mục file LTspice (.asc và mô hình/thư viện bổ sung), đặt tên thống nhất: Lab1/Ex01.asc, …, Lab6/Adv02.asc.
+Hướng dẫn cài đặt offline LTspice cho phòng máy.
+Báo cáo dự án theo mẫu Phần B.
+9. Yêu cầu
+9.1. Các câu hỏi cần trả lời trong báo cáo
+[1]So sánh PSpice for TI và LTspice theo: giấy phép và đăng ký, hệ điều hành, thư viện mô hình, các kiểu phân tích hỗ trợ, cách khai báo mô phỏng, xuất dữ liệu, khả năng nhập mô hình bên ngoài. Nêu ưu và nhược điểm của việc chuyển đổi đối với môn học.
+[2]Trình bày giải pháp cài đặt offline của nhóm: nguồn tải, phiên bản, cách đóng gói thư viện, cách kiểm tra tính toàn vẹn của bộ cài, các bước triển khai trên máy không có Internet và cách cập nhật về sau. Điều khoản sử dụng có cho phép phân phối lại không?
+[3]Mô hình diode mặc định của LTspice (không khai báo tham số) có những tham số nào? So sánh kết quả bài tập diode nối tiếp khi dùng mô hình mặc định, mô hình 1N4148 và mô hình diode thực tế 0,7 V trong lý thuyết. Giải thích sai lệch.
+[4]Trình bày cách nhập một mô hình SPICE của nhà sản xuất (.lib, .subckt) vào LTspice và tạo symbol cho nó. Thử với một mô hình op-amp hoặc IC nguồn của TI: có chạy được không? Nếu không, vì sao?
+[5]Với bài tập dùng LM2596 (Lab 2), trình bày giải pháp của nhóm: tìm mô hình tương thích, hay thay bằng IC buck có sẵn trong thư viện LTspice, hay mô hình hành vi. So sánh mục tiêu học tập giữa bài gốc và bài thay thế.
+[6]Liệt kê tất cả bài tập ở trạng thái “Điều chỉnh” hoặc “Thay thế” trong 6 lab, kèm lý do và cách nhóm bảo đảm mục tiêu học tập tương đương.
+[7]Trong phân tích .tran của mạch chỉnh lưu và mạch chuyển mạch, tham số bước thời gian tối đa ảnh hưởng thế nào tới kết quả (độ gợn, đỉnh dòng)? Minh hoạ bằng hai lần chạy với bước khác nhau.
+[8]Trình bày cách dùng .step và .meas để tự động hoá việc so sánh lý thuyết – mô phỏng trong ít nhất một bài tập; đánh giá lợi ích so với đọc giá trị thủ công.
+[9]Mô tả quá trình kiểm thử chéo: ai thử bài nào, các lỗi hoặc điểm khó hiểu được phát hiện, và nhóm đã sửa tài liệu thế nào.
+9.2. Yêu cầu về tài liệu thực hành
+Ngôn ngữ thống nhất với tài liệu gốc (tiếng Anh); thuật ngữ và ký hiệu nhất quán giữa các bài.
+Mọi hình mạch và hình kết quả được chụp từ LTspice, đủ rõ khi in; có đánh số và chú thích.
+Mỗi bài tập có giá trị linh kiện cụ thể, mô hình linh kiện được ghi rõ; mọi file .asc mở và chạy được ngay trên bộ cài offline mà không cần tải thêm.
+Phần tính toán để trống cho sinh viên; lời giải chỉ có trong file dành cho giảng viên.
+Tài liệu có thể biên soạn bằng LaTeX hoặc Word; nộp cả file nguồn và file PDF.
+9.3. Sản phẩm nộp
+Bảng 3: Danh sách sản phẩm nộp
+STT
+Sản phẩm
+Định dạng
+1
+Tài liệu thực hành mới (6 bài lab)
+.pdf + file nguồn (.tex hoặc .docx)
+2
+File lời giải tham khảo
+.pdf
+3
+Thư mục file mô phỏng LTspice và thư viện bổ sung
+.zip
+4
+Hướng dẫn cài đặt offline (có thể là một chương trong tài liệu)
+.pdf
+5
+Báo cáo dự án theo mẫu Phần B
+.docx và .pdf
+6
+(Khuyến khích) Video demo ngắn cho mỗi lab
+.mp4 hoặc liên kết
+
+Đặt tên file nộp: MSSV1_MSSV2_MSSV3_Project3.zip.
+9.4. Quy định sử dụng AI Agent
+Được phép dùng AI để tra cứu, sinh netlist, viết nháp hướng dẫn, đề xuất bài tập nâng cao, rà soát lỗi.
+Mọi lần sử dụng AI có ảnh hưởng tới kết quả phải được ghi vào Nhật ký sử dụng AI (Phần B, mục 10), kèm cách kiểm chứng.
+Mọi kết quả trong tài liệu và lời giải phải do nhóm chạy mô phỏng thực tế trên LTspice; không dùng số liệu do AI tự sinh ra.
+Giảng viên có thể vấn đáp: mỗi thành viên phải giải thích được mọi bài lab, không chỉ phần mình phụ trách.
+9.5. Tiêu chí đánh giá
+Bảng 4: Tiêu chí đánh giá Dự án 3
+Tiêu chí
+Nội dung đánh giá
+Tỉ trọng
+Tài liệu thực hành
+6 lab đủ cấu trúc, hướng dẫn rõ ràng, hình ảnh chất lượng, chính xác kỹ thuật
+35 %
+File mô phỏng & lời giải
+File .asc chạy được trên bộ cài offline; lời giải đúng, đủ
+20 %
+Chuyển đổi & bài tương đương
+Bảng ánh xạ, xử lý bài không chuyển được, lập luận về mục tiêu học tập
+15 %
+Bài tập nâng cao
+Tính mới, mức độ thử thách, gắn với nội dung lab
+10 %
+Cài đặt offline & câu hỏi
+Giải pháp cài đặt khả thi; trả lời câu [1]–[9]
+10 %
+Báo cáo & quy trình
+Kiểm thử chéo, nhật ký AI, phân công
+10 %
+
+10. Tài liệu tham khảo
+Lê Trọng Nhân, Electronic Device Component – tài liệu thực hành (PSpice for TI), HCMUT.
+Analog Devices, LTspice – trang sản phẩm và tải về. https://www.analog.com/ltspice
+Analog Devices, LTspice Help (tài liệu trợ giúp tích hợp trong phần mềm).
+Texas Instruments, PSpice for TI. https://www.ti.com/tool/PSPICE-FOR-TI
+G. Brocard, The LTspice IV Simulator: Manual, Methods and Applications, Würth Elektronik, 2013.
+
+PHẦN B. BÁO CÁO CỦA SINH VIÊN (MẪU)
+Hướng dẫn sử dụng mẫu báo cáo
+Báo cáo này mô tả quá trình thực hiện dự án; bản thân tài liệu thực hành mới được nộp riêng.
+Các dòng chữ nghiêng màu xám là hướng dẫn – xoá đi khi hoàn thành. Các khung viền cam là vị trí chèn nội dung.
+
+Bảng 5: Thông tin nhóm
+Thông tin
+Nội dung
+Thành viên 1 (Họ tên – MSSV) – lab phụ trách
+
+Thành viên 2 (Họ tên – MSSV) – lab phụ trách
+
+Thành viên 3 (Họ tên – MSSV) – lab phụ trách
+
+Lớp / Nhóm
+
+Phiên bản LTspice / hệ điều hành
+
+Công cụ biên soạn tài liệu (LaTeX/Word)
+
+Công cụ AI đã sử dụng
+
+
+1. Giới thiệu
+Mục tiêu dự án, phạm vi (6 lab), cách nhóm tổ chức công việc.
+2. Tìm hiểu LTspice và cài đặt offline
+Giới thiệu LTspice; nguồn tải, phiên bản; giải pháp cài đặt offline; các bước triển khai cho phòng máy; kết quả kiểm tra. Có ảnh chụp màn hình.
+[Chèn ảnh chụp quá trình cài đặt và kiểm tra]
+
+3. Ánh xạ PSpice for TI → LTspice
+Hoàn thiện Bảng 2 của Phần A theo phiên bản LTspice thực tế, bổ sung các thao tác nhóm phát hiện thêm.
+[Chèn bảng ánh xạ hoàn chỉnh]
+
+4. Tổng quan tài liệu thực hành mới
+Bảng 6: Thống kê số bài tập theo trạng thái
+Lab
+Giữ nguyên
+Điều chỉnh
+Thay thế
+Nâng cao
+Phụ trách
+Lab 1
+
+
+
+
+
+Lab 2
+
+
+
+
+
+Lab 3
+
+
+
+
+
+Lab 4
+
+
+
+
+
+Lab 5
+
+
+
+
+
+Lab 6
+
+
+
+
+
+
+5. Chi tiết từng bài lab
+Mỗi lab một mục con, gồm: bảng 10 bài tập (mẫu dưới đây), danh sách bài tập nâng cao, và ảnh chụp minh hoạ một bài tiêu biểu.
+5.1. Lab 1
+Bảng 7: Danh sách bài tập Lab 1
+#
+Bài gốc
+Bài mới (LTspice)
+Trạng thái
+Lệnh mô phỏng
+Sai lệch LT – MP
+1
+
+
+
+
+
+2
+
+
+
+
+
+…
+
+
+
+
+
+10
+
+
+
+
+
+
+Bài tập nâng cao: tên, mục tiêu, mô tả ngắn.
+[Chèn ảnh minh hoạ một bài tập tiêu biểu của Lab 1]
+
+5.2. Lab 2
+Bảng 8: Danh sách bài tập Lab 2
+#
+Bài gốc
+Bài mới (LTspice)
+Trạng thái
+Lệnh mô phỏng
+Sai lệch LT – MP
+1
+
+
+
+
+
+2
+
+
+
+
+
+…
+
+
+
+
+
+10
+
+
+
+
+
+
+Bài tập nâng cao: tên, mục tiêu, mô tả ngắn.
+[Chèn ảnh minh hoạ một bài tập tiêu biểu của Lab 2]
+
+5.3. Lab 3
+Bảng 9: Danh sách bài tập Lab 3
+#
+Bài gốc
+Bài mới (LTspice)
+Trạng thái
+Lệnh mô phỏng
+Sai lệch LT – MP
+1
+
+
+
+
+
+2
+
+
+
+
+
+…
+
+
+
+
+
+10
+
+
+
+
+
+
+Bài tập nâng cao: tên, mục tiêu, mô tả ngắn.
+[Chèn ảnh minh hoạ một bài tập tiêu biểu của Lab 3]
+
+5.4. Lab 4
+Bảng 10: Danh sách bài tập Lab 4
+#
+Bài gốc
+Bài mới (LTspice)
+Trạng thái
+Lệnh mô phỏng
+Sai lệch LT – MP
+1
+
+
+
+
+
+2
+
+
+
+
+
+…
+
+
+
+
+
+10
+
+
+
+
+
+
+Bài tập nâng cao: tên, mục tiêu, mô tả ngắn.
+[Chèn ảnh minh hoạ một bài tập tiêu biểu của Lab 4]
+
+5.5. Lab 5
+Bảng 11: Danh sách bài tập Lab 5
+#
+Bài gốc
+Bài mới (LTspice)
+Trạng thái
+Lệnh mô phỏng
+Sai lệch LT – MP
+1
+
+
+
+
+
+2
+
+
+
+
+
+…
+
+
+
+
+
+10
+
+
+
+
+
+
+Bài tập nâng cao: tên, mục tiêu, mô tả ngắn.
+[Chèn ảnh minh hoạ một bài tập tiêu biểu của Lab 5]
+
+5.6. Lab 6
+Bảng 12: Danh sách bài tập Lab 6
+#
+Bài gốc
+Bài mới (LTspice)
+Trạng thái
+Lệnh mô phỏng
+Sai lệch LT – MP
+1
+
+
+
+
+
+2
+
+
+
+
+
+…
+
+
+
+
+
+10
+
+
+
+
+
+
+Bài tập nâng cao: tên, mục tiêu, mô tả ngắn.
+[Chèn ảnh minh hoạ một bài tập tiêu biểu của Lab 6]
+
+6. Bài tập không chuyển đổi được và đề xuất tương đương
+Với mỗi bài: mô tả bài gốc, lý do không thực hiện được, bài tương đương đề xuất, lập luận về mục tiêu học tập.
+[Nội dung của nhóm]
+
+7. Trả lời câu hỏi
+Trả lời các câu [1]–[9] ở mục 9.1 Phần A.
+Câu [1]
+[Trả lời của nhóm]
+
+Câu [2]
+[Trả lời của nhóm]
+
+Câu [3]
+[Trả lời của nhóm]
+
+Câu [4]
+[Trả lời của nhóm]
+
+Câu [5]
+[Trả lời của nhóm]
+
+Câu [6]
+[Trả lời của nhóm]
+
+Câu [7]
+[Trả lời của nhóm]
+
+Câu [8]
+[Trả lời của nhóm]
+
+Câu [9]
+[Trả lời của nhóm]
+
+8. Kiểm thử chéo
+Bảng 13: Kết quả kiểm thử chéo
+Lab
+Người viết
+Người kiểm thử
+Lỗi / điểm khó hiểu phát hiện
+Đã sửa
+Lab 1
+
+
+
+
+Lab 2
+
+
+
+
+Lab 3
+
+
+
+
+Lab 4
+
+
+
+
+Lab 5
+
+
+
+
+Lab 6
+
+
+
+
+
+9. Hướng dẫn sử dụng tài liệu cho giảng viên
+Cấu trúc thư mục bàn giao, cách cập nhật file .asc, các lưu ý khi triển khai trong phòng máy.
+10. Nhật ký sử dụng AI
+Bảng 14: Nhật ký sử dụng AI
+#
+Công cụ
+Mục đích
+Tóm tắt prompt
+Kết quả nhận được
+Cách kiểm chứng
+1
+
+
+
+
+
+2
+
+
+
+
+
+3
+
+
+
+
+
+
+11. Phân công công việc
+Bảng 15: Phân công công việc
+Hạng mục
+Thành viên 1
+Thành viên 2
+Thành viên 3
+Cài đặt offline, bảng ánh xạ
+
+
+
+Lab 1, Lab 2
+
+
+
+Lab 3, Lab 4
+
+
+
+Lab 5, Lab 6
+
+
+
+Lời giải, file .asc
+
+
+
+Kiểm thử chéo, báo cáo
+
+
+
+Tỉ lệ đóng góp (%)
+
+
+
+
+12. Kết luận
+Kết quả đạt được, hạn chế, đề xuất cho các học kỳ sau.

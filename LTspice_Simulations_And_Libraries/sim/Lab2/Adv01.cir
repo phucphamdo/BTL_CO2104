@@ -1,0 +1,16 @@
+* Lab 2 - Adv01: forward voltage of a diode versus temperature
+V1 in 0 5
+R1 in a 1k
+D1 a 0 D1N4148
+.step temp list -25 25 75 125
+.dc V1 0 5 5
+.meas DC Vd FIND V(a) AT=5
+* models
+.model D1N4148 D(Is=2.52n Rs=0.568 N=1.752 Cjo=4p M=0.4 Tt=20n)
+.model DSCH D(Is=1u N=1.05 Rs=0.05 Cjo=100p)
+.model DZ5V D(Is=1e-14 Bv=5.0 Ibv=10m Rs=2)
+.model DZ22 D(Is=1e-14 Bv=22 Ibv=10m Rs=2)
+.model DZ20 D(Is=1e-14 Bv=20 Ibv=10m Rs=2)
+.model LEDRED D(Is=1e-18 N=1.9 Rs=5 Cjo=30p)
+.model QN NPN(Is=1e-14 Bf=100 Br=1)
+.model QP PNP(Is=1e-14 Bf=100 Br=1)

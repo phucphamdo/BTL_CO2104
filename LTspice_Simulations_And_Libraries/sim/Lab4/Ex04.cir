@@ -1,0 +1,16 @@
+* Lab 4 - Ex04: high-current voltage follower
+V1 in 0 3
+X1 in fb ob vcc vee OPAMP
+Q1 vc ob out QN
+V3 vc 0 12
+Rf out fb 10k
+RL out 0 1k
+.op
+* behavioural op-amp (rails = supply -/+ 1.5 V)
+.subckt OPAMP inp inn out vcc vee
+Rin inp inn 10Meg
+B1 out 0 V=limit(1e6*(V(inp)-V(inn)),V(vee)+1.5,V(vcc)-1.5)
+.ends
+.model QN NPN(Is=1e-14 Bf=100 Br=1)
+V+ vcc 0 15
+V- vee 0 -15

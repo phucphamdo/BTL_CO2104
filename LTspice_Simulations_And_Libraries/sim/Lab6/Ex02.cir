@@ -1,0 +1,8 @@
+* Lab 6 - Ex02: balanced bridge of equal resistors
+V1 a 0 10
+R1 a c 1k
+R2 c 0 1k
+R3 a d 1k
+R4 d 0 1k
+R5 c d 1k
+.op

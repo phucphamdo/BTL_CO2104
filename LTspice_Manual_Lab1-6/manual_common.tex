@@ -60,7 +60,7 @@
 \titlespacing*{\chapter}{0pt}{50.1pt}{40pt}
 \counterwithin*{section}{chapter}\counterwithin*{subsection}{section}\counterwithin*{subsubsection}{subsection}
 \renewcommand{\chap}[1]{\chapter{#1}\thispagestyle{empty}%
-  \AddToShipoutPictureBG*{\includegraphics[width=\paperwidth,height=\paperheight]{source/picture/chapter.png}}\newpage}
+  \AddToShipoutPictureBG*{\includegraphics[width=\paperwidth,height=\paperheight]{images/template/chapter.png}}\newpage}
 
 % ---------- Dotted answer lines (calculation parts are left blank for students) ----------
 \newcount\dotcnt
@@ -71,14 +71,24 @@
   \textit{Explanations, formulas, and equations are expected rather than only results.}\par}
 \newcommand{\theory}[1]{\subsubsection{Theory calculation}\vspace{-3pt}\notesblock\dotsx{2.4pt}{26.5pt}{#1}}
 
-% ---------- Placeholders / figures (LTspice screenshots go to images/) ----------
+% ---------- Placeholders / figures (LTspice screenshots go to images/ or images/LabN/) ----------
+\graphicspath{{images/}{images/template/}{images/Lab1/}{images/Lab2/}{images/Lab3/}{images/Lab4/}{images/Lab5/}{images/Lab6/}}
+
 \newcommand{\placeholderbox}[2]{% file, width
   \begin{tcolorbox}[width=#2,colback=lightorange,colframe=accent,boxrule=1pt,arc=2pt,halign=center,valign=center,height=3.2cm,center]
   \color{accent!85!black}\bfseries\itshape [Insert LTspice screenshot]\\[1pt]
-  {\small\normalfont\upshape(save as \texttt{images/\detokenize{#1}})}\end{tcolorbox}}
+  {\small\normalfont\upshape(save in \texttt{images/LabN/\detokenize{#1}} or \texttt{images/\detokenize{#1}})}\end{tcolorbox}}
+
 \newcommand{\labfig}[4]{% file, width, caption, label
   \begin{figure}[H]\centering
-  \IfFileExists{images/#1}{\includegraphics[width=#2]{images/#1}}{\placeholderbox{#1}{#2}}
+  \IfFileExists{images/#1}{\includegraphics[width=#2]{images/#1}}{%
+    \IfFileExists{images/Lab1/#1}{\includegraphics[width=#2]{images/Lab1/#1}}{%
+    \IfFileExists{images/Lab2/#1}{\includegraphics[width=#2]{images/Lab2/#1}}{%
+    \IfFileExists{images/Lab3/#1}{\includegraphics[width=#2]{images/Lab3/#1}}{%
+    \IfFileExists{images/Lab4/#1}{\includegraphics[width=#2]{images/Lab4/#1}}{%
+    \IfFileExists{images/Lab5/#1}{\includegraphics[width=#2]{images/Lab5/#1}}{%
+    \IfFileExists{images/Lab6/#1}{\includegraphics[width=#2]{images/Lab6/#1}}{%
+    \placeholderbox{#1}{#2}}}}}}}%
   \caption{#3}\label{#4}\end{figure}}
 
 % ---------- Comparison table and simulation block ----------
@@ -91,6 +101,7 @@
 \newcommand{\commentlines}[1]{\textbf{\textit{Comments:}} \dotfill\dotsx{0pt}{26.5pt}{#1}}
 \newcommand{\simulation}[1]{\subsubsection{LTspice simulation}\begin{itemize}[itemsep=3pt,topsep=3pt]#1\end{itemize}}
 \newcommand{\cmd}[1]{\texttt{#1}}
+\newcommand{\status}[1]{{\small\noindent\textbf{\color{navy}Status:} \textit{#1}\par}\vspace{4pt}}
 \emergencystretch=5em
 \tolerance=2000
 \newcommand{\file}[1]{\texttt{#1}}

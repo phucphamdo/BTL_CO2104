@@ -367,7 +367,7 @@
                          \refstepcounter{chapter}%
                          \typeout{\@chapapp\space\thechapter.}%
                          \addcontentsline{toc}{chapter}%
-                                  {\bf  Logbook \protect\numberline{\thechapter. } #1}%
+                                  {\bf  Lab \protect\numberline{\thechapter. } #1}%
                                   %{\bf  Bài \protect\numberline{\thechapter. } #1}%
                        \else
                          \addcontentsline{toc}{chapter}{#1}%
@@ -734,7 +734,7 @@
 \newcommand{\chap}[1]{
     \chapter{#1}
     \thispagestyle{empty}
-    \AddToShipoutPictureBG*{\includegraphics[width=\paperwidth,height=\paperheight]{source/picture/chapter.png}}
+    \AddToShipoutPictureBG*{\includegraphics[width=\paperwidth,height=\paperheight]{images/template/chapter.png}}
     \newpage
 }
 \newcommand{\makecite}[1]{

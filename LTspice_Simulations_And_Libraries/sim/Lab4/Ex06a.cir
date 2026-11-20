@@ -1,0 +1,18 @@
+* Lab 4 - Ex06 (a): inverting summing amplifier
+V1 a 0 1
+V2 b 0 2
+V3 c 0 3
+R1 a inn 10k
+R2 b inn 10k
+R3 c inn 10k
+Rf out inn 10k
+X1 0 inn out vcc vee OPAMP
+.op
+* behavioural op-amp (rails = supply -/+ 1.5 V)
+.subckt OPAMP inp inn out vcc vee
+Rin inp inn 10Meg
+B1 out 0 V=limit(1e6*(V(inp)-V(inn)),V(vee)+1.5,V(vcc)-1.5)
+.ends
+.model QN NPN(Is=1e-14 Bf=100 Br=1)
+V+ vcc 0 15
+V- vee 0 -15

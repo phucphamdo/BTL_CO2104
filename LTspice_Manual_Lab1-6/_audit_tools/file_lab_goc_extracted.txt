@@ -1,0 +1,2650 @@
+Dr. Le Trong Nhan
+
+Contents
+
+Chapter 1. First Project on PSpice
+1
+Introduction . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+2
+PSpice installation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+3
+Create a project on PSpice . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+4
+Design a circuit . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+5
+Create a simulation profile . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+6
+Exercise and Report . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+6.1
+Exercise 1 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+6.1.1
+Calculation . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+6.1.2
+Simulation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+6.2
+Exercise 2 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+6.2.1
+Rearrange the circuit . . . . . . . . . . . . . . . . . . . . . . . .
+6.2.2
+Calculation . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+6.2.3
+Simulation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+6.3
+Exercise 3 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+6.3.1
+Rearrange the circuit . . . . . . . . . . . . . . . . . . . . . . . .
+6.3.2
+Calculation . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+6.3.3
+Simulation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+6.4
+Exercise 4 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+6.4.1
+Calculation . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+6.4.2
+Simulation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+6.5
+Exercise 5 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+6.5.1
+Simulation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+6.6
+Exercise 6 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+6.6.1
+Circuit transformation . . . . . . . . . . . . . . . . . . . . . . .
+6.6.2
+Calculation . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+6.6.3
+Simulation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+6.7
+Exercise 7 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+6.7.1
+Circuit transformation . . . . . . . . . . . . . . . . . . . . . . .
+6.7.2
+Calculation . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+6.7.3
+Simulation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+6.8
+Exercise 8 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+6.8.1
+Identify the unknown elements . . . . . . . . . . . . . . . . .
+6.8.2
+Redraw the circuit for simulation . . . . . . . . . . . . . . . .
+6.9
+Exercise 9 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+6.9.1
+Calculation . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+6.9.2
+Simulation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+6.10 Exercise 10 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Electronic Device Component
+
+7
+8
+9
+9
+10
+14
+15
+15
+15
+16
+17
+17
+18
+18
+19
+19
+20
+20
+21
+21
+21
+22
+22
+23
+23
+24
+24
+25
+25
+26
+26
+27
+27
+27
+28
+28
+29
+30
+
+Page 3
+
+Chapter 2. Diode Circuits Analysis
+31
+1
+Introduction . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 32
+2
+Diode simulation circuit . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 33
+3
+Exercise and Report . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 39
+3.1
+Complete diode model . . . . . . . . . . . . . . . . . . . . . . . . . . . . 39
+3.1.1
+Theory calculation . . . . . . . . . . . . . . . . . . . . . . . . . 39
+3.1.2
+PSpice Simulation . . . . . . . . . . . . . . . . . . . . . . . . . 39
+3.1.3
+Comparison . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 40
+3.2
+Diode in a series . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 40
+3.2.1
+Theory Calculation . . . . . . . . . . . . . . . . . . . . . . . . . 40
+3.2.2
+PSpice Simulation . . . . . . . . . . . . . . . . . . . . . . . . . 41
+3.2.3
+Comparison . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 41
+3.3
+Circuit Analysis with Diode . . . . . . . . . . . . . . . . . . . . . . . . . 41
+3.3.1
+Theory calculation . . . . . . . . . . . . . . . . . . . . . . . . . 42
+3.3.2
+PSpice simulation . . . . . . . . . . . . . . . . . . . . . . . . . 42
+3.3.3
+Comparison . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 43
+3.4
+Clamper Diode Circuit . . . . . . . . . . . . . . . . . . . . . . . . . . . . 43
+3.4.1
+Theory calculation . . . . . . . . . . . . . . . . . . . . . . . . . 43
+3.4.2
+PSpice simulation . . . . . . . . . . . . . . . . . . . . . . . . . 44
+3.4.3
+Comparison . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 44
+3.5
+Power switching circuit . . . . . . . . . . . . . . . . . . . . . . . . . . . 44
+3.5.1
+Theory calculation . . . . . . . . . . . . . . . . . . . . . . . . . 45
+3.5.2
+PSpice simulation . . . . . . . . . . . . . . . . . . . . . . . . . 45
+3.5.3
+Comparison . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 46
+3.6
+Half-wave Rectifier . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 46
+3.6.1
+Theory calculation . . . . . . . . . . . . . . . . . . . . . . . . . 48
+3.6.2
+PSpice simulation . . . . . . . . . . . . . . . . . . . . . . . . . 48
+3.7
+Full-wave Rectifier . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 48
+3.7.1
+Theory calculation . . . . . . . . . . . . . . . . . . . . . . . . . 50
+3.7.2
+Simulation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 51
+3.8
+Zener Diode as a Regulator . . . . . . . . . . . . . . . . . . . . . . . . . 52
+3.9
+AC/DC Power Circuit Application . . . . . . . . . . . . . . . . . . . . . 53
+3.10 Exercise 8: AC/DC Power Circuit Application With LM2596_5P0_TRANS 58
+Chapter 3. Bipolar Junction Transistor
+1
+Introduction . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+2
+BJT simulation circuit . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+3
+Exercise and Report . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+3.1
+BJT in Saturation Mode . . . . . . . . . . . . . . . . . . . . . . . . . . .
+3.2
+DC Sweep Simulation . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+3.3
+BJT used as a Switch . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+3.4
+Drive a device with an NPN BJT . . . . . . . . . . . . . . . . . . . . . .
+3.4.1
+Theory calculations . . . . . . . . . . . . . . . . . . . . . . . .
+3.4.2
+Simulation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+3.4.3
+Compare . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+3.5
+Simple bias configuration . . . . . . . . . . . . . . . . . . . . . . . . . .
+3.5.1
+Simulation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+3.5.2
+Circuit analysis . . . . . . . . . . . . . . . . . . . . . . . . . . .
+3.6
+PNP Circuit . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Page 4
+
+63
+64
+65
+66
+66
+67
+67
+68
+69
+70
+70
+70
+71
+71
+72
+
+HCMUT - Computer Engineering
+
+3.6.1
+Theoretical calculation . . . . . . . . . . . . . . . . . . . . . .
+3.6.2
+Simulation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+3.6.3
+Comparison . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Circuit with NPN and PNP bipolar junction transistors . . . . . . . . .
+3.7.1
+Theoretical calculation . . . . . . . . . . . . . . . . . . . . . .
+3.7.2
+Simulation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+3.7.3
+Comparison . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+NPN Circuit with E resistance . . . . . . . . . . . . . . . . . . . . . . . .
+3.8.1
+Theoretical calculation . . . . . . . . . . . . . . . . . . . . . .
+3.8.2
+Simulation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Darlington circuit . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+3.9.1
+Theoretical calculation . . . . . . . . . . . . . . . . . . . . . .
+3.9.2
+Simulation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Common base . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+3.10.1 Theoretical calculation . . . . . . . . . . . . . . . . . . . . . .
+3.10.2 Simulation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Current mirror . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+3.11.1 Theoretical calculation . . . . . . . . . . . . . . . . . . . . . .
+3.11.2 Simulation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+BJT’s logic gate application . . . . . . . . . . . . . . . . . . . . . . . . .
+3.12.1 Simulation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Opto . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+72
+73
+73
+73
+74
+74
+75
+75
+75
+76
+76
+77
+78
+78
+78
+79
+79
+80
+80
+82
+83
+85
+
+Chapter 4. Circuit Design with Altium Designer
+1
+Introduction . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+2
+Voltage Regulator using 7805 . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+2.1
+Schematic design . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+2.2
+PCB layout . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+3
+Volatage Regulator using LM2596 . . . . . . . . . . . . . . . . . . . . . . . . .
+3.1
+Schematic design . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+3.2
+PCB layout . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+87
+88
+88
+89
+90
+90
+90
+91
+
+Chapter 5. Operational Amplifier - OPAMP
+1
+Introduction . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+2
+Closed Loop Operation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+2.1
+Non inverting configuration . . . . . . . . . . . . . . . . . . . . . . . .
+2.2
+Inverting configuration . . . . . . . . . . . . . . . . . . . . . . . . . . .
+3
+Exercise and Report . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+3.1
+Voltage Follower . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+3.2
+High-Current Voltage Follower . . . . . . . . . . . . . . . . . . . . . . .
+3.3
+Voltage Follower with Gain . . . . . . . . . . . . . . . . . . . . . . . . .
+3.4
+Summing Amplifier . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+3.5
+Low Pass Filter . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+3.6
+High Pass Filter . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+3.7
+Comparator with Hysteresis (Schmitt Trigger) . . . . . . . . . . . . . .
+4
+Altium Designer . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+4.1
+LED Driver . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+4.1.1
+Schematic design . . . . . . . . . . . . . . . . . . . . . . . . . .
+4.1.2
+PCB layout . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+4.2
+Relay Controller . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+93
+94
+95
+95
+95
+96
+96
+97
+97
+98
+99
+101
+101
+104
+104
+104
+104
+104
+
+3.7
+
+3.8
+
+3.9
+
+3.10
+
+3.11
+
+3.12
+3.13
+
+Electronic Device Component
+
+Page 5
+
+4.2.1
+4.2.2
+
+Schematic design . . . . . . . . . . . . . . . . . . . . . . . . . . 104
+PCB layout . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 104
+
+Chapter 6. Chapter 6: Field Effect Transistor (FET)
+105
+1
+Introduction . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 106
+2
+Junction Field Effect Transistor . . . . . . . . . . . . . . . . . . . . . . . . . . . 106
+2.1
+DC Sweep simulation . . . . . . . . . . . . . . . . . . . . . . . . . . . . 107
+2.2
+Nested DC Sweep simulation . . . . . . . . . . . . . . . . . . . . . . . . 107
+2.3
+Exercises . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 108
+2.3.1
+Self bias configuration . . . . . . . . . . . . . . . . . . . . . . . 108
+2.3.2
+Voltage divider configuration . . . . . . . . . . . . . . . . . . . 109
+3
+Metal Oxide Semiconductor FET . . . . . . . . . . . . . . . . . . . . . . . . . . 109
+3.1
+Depletion-mode MOSFET . . . . . . . . . . . . . . . . . . . . . . . . . . 109
+3.2
+Enhancement-mode MOSFET . . . . . . . . . . . . . . . . . . . . . . . 111
+4
+MOSFET Applications . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 112
+4.1
+MOSFET as a switch . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 112
+4.2
+MOSFET Motor Controller [Optional] . . . . . . . . . . . . . . . . . . . 112
+4.3
+Complementary MOSFET Motor Controller [Optinal] . . . . . . . . . 113
+5
+Altium Designer . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 114
+5.1
+Button Input . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 114
+5.2
+ADC Input . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 114
+List of References
+
+Page 6
+
+117
+
+HCMUT - Computer Engineering
+
+CHAPTER 1
+First Project on PSpice
+
+1 Introduction
+PSpice for TI is a design and simulation environment that helps evaluate functionality of
+analog circuits. This full-featured, design and simulation suite uses an analog analysis engine from Cadence®. Available at no cost, PSpice for TI includes one of the largest model
+libraries in the industry, spanning our analog and power portfolio, as well as select analog
+behavioral models[Dir81; Gre93; Ein05; Knu68; Knu73; Knu; GMS93; Hal].
+The PSpice for TI design and simulation environment allows you to simulate complex
+mixed-signal designs with its built-in library. Create complete end equipment designs
+and prototype your solutions before you commit to layout and fabrication, reducing time
+to market and development cost.
+Within the PSpice for TI design and simulation tool, you can search for TI devices, explore
+the portfolio, open test benches and simulate your design to further analyze the selected
+device. You can also run co-simulation of multiple TI devices to better represent your system.
+In addition to a full library of preloaded models, you can easily access the latest technical
+collateral for TI devices within the PSPICE-FOR-TI tool. After you have verified that you
+have the correct device for your application, you can access the TI store to purchase the
+product. Using PSpice for TI, you have access to tools to address your simulation needs
+as you progress through the design cycle, from circuit exploration to design development
+and verification. Available at no cost, it is easy to get started.
+A primary purpose of this lab is for you to become familiar with the use of PSpice and to
+learn to use it to assist you in the analysis of circuits (e.g. double check the results with
+your exercise). The software is required to install in your computer. Moreover, it is your
+responsibility to learn its use in a more detailed way since you will be using it along the
+course of this semester and in the future. The targets in the first manual are summarized
+as follows:
+• PSpice installation on Windows OS
+• Create a project on PSpice
+• Create a bias analysis profile
+• Run the simulation and obtain results
+
+Page 8
+
+HCMUT - Computer Engineering
+
+2 PSpice installation
+The homepage to install this tool is located at https://www.ti.com/tool/PSPICE-FOR-TI.
+
+Figure 1.1: Homepage to download PSpice
+By clicking on the Download button, the website is navigated as follows:
+
+Figure 1.2: Request information for downloading
+Basically, you need to login before requesting a setup file. Please follow the manuals from
+the website to accomplish this process. An email with an access key will be sent to your
+account to activate the PSpice software.
+
+3 Create a project on PSpice
+Step 1: Launch PSpice for TI from windows start menu.
+
+Figure 1.3: Create a new project on PSpice
+From menu File, select New, then select Project.
+Step 2: Create an empty project as follows.
+
+Electronic Device Component
+
+Page 9
+
+Figure 1.4: Provide the name, location and select a blank project
+In the second dialog, please select Create a blank project. An empty project is created
+and the next UI is displayed as follow.
+
+Figure 1.5: An empty project is created on PSpice
+
+4 Design a circuit
+Step 1: Double click on the Resistor in the device list and then move the mouse to the
+schematic design page. This device is in the Favourite library in default. While moving,
+press R to rotate the device before placing it (by left-mouse click), as follow:
+
+Page 10
+
+HCMUT - Computer Engineering
+
+Figure 1.6: Place a resistor in PSpice
+Step 2: Double click on the value of the resistor, which is 1k in default, in order to change
+its resistance.
+
+Figure 1.7: Assign the resistance
+If the resistance is Ohm, no unit is required in the Value field. Repeat the first 2 steps to
+finalize all resistors in the circuit.
+
+Figure 1.8: Place other resistors in PSpice
+Electronic Device Component
+
+Page 11
+
+Some hot keys including Ctrl + C and Ctrl + V can be used to copy an old device.
+Step 3: In order to place a voltage supple, find the component named VDC (DC Voltage
+Source) in the favourite list, or filter it on the search area. Double click on the voltage
+supply and change to a desired value. The result after this step is expected as figure bellow.
+
+Figure 1.9: Place the power supply using VDC component
+Step 4: Wire all components by selecting the Wire command on the right panel (hot key
+is W).
+
+Figure 1.10: Wire the whole circuit
+By clicking a start point and an end point, a wire is placed. In order to delete, select the
+wire and press Delete. The picture of the circuit after this step is depicted as follow.
+
+Page 12
+
+HCMUT - Computer Engineering
+
+Figure 1.11: Finish all wire in the circuit
+Step 5: Place a Ground symbol. This step is very important to analyze the voltage in a
+circuit as a reference voltage (0V) is required. The ground symbol is available on the right
+panel of the software.
+
+Figure 1.12: Add a ground symbol to the circuit
+Wiring the ground to a point in the circuit, the final result should be like the figure bellow.
+
+Figure 1.13: A ground point is added to the circuit
+
+Electronic Device Component
+
+Page 13
+
+5 Create a simulation profile
+Before the simulation is started, a simulation profile (or the simulation configuration) is
+required. From menu PSpice, select New Simulation Profile as follow:
+
+Figure 1.14: Create a simulation profile
+When the simulation setting dialog is appeared, please select the Bias Point for analysis
+type.
+
+Figure 1.15: Select Bias Point simulation
+In PSpice, the bias point analysis calculates the node voltages and currents through the
+devices in the circuit. Bias point analysis also takes into account any voltage sources applied to the circuit and any initial conditions set on devices or nodes in the circuit.
+Finally, click on menu PSpice to select Run, or press F11 to start the simulation. The
+simulation results are displayed directly on the circuit as follow:
+
+Figure 1.16: Volate and Current in the whole circuit
+Page 14
+
+HCMUT - Computer Engineering
+
+In order to display simulation results, go to menu PSpice, select Bias Point and enable
+the information you need. Students are also proposed to double check their solutions
+with the simulation results.
+
+6 Exercise and Report
+In this section, students are proposed to work in some circuit analysis, mostly based on
+resistors. Some explanations are required and will be considered as a part of the report.
+Note that the calculation subsection expects to see formulas and equations rather than
+only the results.
+
+6.1 Exercise 1
+Given the following circuit. Calculate the value of the voltage v 0 and the current i . Then,
+simulate the circuit to check it out.
+
+Figure 1.17: Find the voltage and the current in the given circuit using KVL
+
+6.1.1 Calculation
+Notes:
+Explanations, formulas, and equations are expected rather than only results.
+According to the: . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+We have the first equation: . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . (1)
+According to the: . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+We have the second equation: . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . (2)
+From (1) and (2) we have:
+v0 = . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+i = ...........................................................................................
+
+Electronic Device Component
+
+Page 15
+
+6.1.2 Simulation
+Tips:
+To get the Voltage Controlled Voltage Source (VCVS) from the PSpice, under the Place
+menu, find PSpice Component > Source > Controlled Sources > VCVS.
+A circuit used for the simulation in this exercise maybe like this:
+
+Figure 1.18: A circuit containing a Voltage Controlled Voltage Source in PSpice
+Simulation result (image):
+
+Page 16
+
+HCMUT - Computer Engineering
+
+6.2 Exercise 2
+Given the following circuit, students rearrange the circuit to clarify its serial and/or parallel topology. Then, apply the knowledge you’ve learned to find the equivalent resistance
+value between two circuit terminals A and F. Finally, perform the simulation to check if
+the current through the whole circuit is correctly calculated.
+
+Figure 1.19: Find the equivalent resistance value between terminals A and F
+6.2.1 Rearrange the circuit
+Insert the rearranged circuit here. Don’t forget the resistance values and the nodes’ names.
+
+Electronic Device Component
+
+Page 17
+
+6.2.2 Calculation
+Convention:
+The equivalent resistance between the two terminals A and B of a circuit segment containing only R1, R2, R3, and R4 may be named R AB _1234 .
+Notes:
+Explanations, formulas, and equations are expected rather than only results.
+RC D_3456 = . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+RB E = . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+R AF = . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+I AB = . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+6.2.3 Simulation
+Simulation result (image):
+
+Page 18
+
+HCMUT - Computer Engineering
+
+6.3 Exercise 3
+Given the following circuit, students rearrange the circuit to clarify its serial and/or parallel topology. Next, apply the knowledge you’ve learned to find the equivalent resistance
+value between two circuit terminals A and F, the voltage values at A, B, C, D, and E. Finally,
+perform the simulation to check your calculation.
+
+Figure 1.20: Find the whole-circuit equivalent resistance and the voltages at A, B, C, D,
+and E
+6.3.1 Rearrange the circuit
+Insert the rearranged circuit here. Don’t forget the resistance values and the nodes’ names.
+
+Electronic Device Component
+
+Page 19
+
+6.3.2 Calculation
+Notes:
+Explanations, formulas, and equations are expected rather than only results.
+R AF = . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+VA = . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+VB = . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+VC = . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+VD = . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+VE = . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+6.3.3 Simulation
+Simulation result (image):
+
+Page 20
+
+HCMUT - Computer Engineering
+
+6.4 Exercise 4
+Given the following circuit, find I 1 , I 2 , I 3 , Va , and Vb . Present your calculation steps and
+check them out by performing the simulation.
+
+Figure 1.21: Find I 1 , I 2 , I 3 , Va , and Vb
+6.4.1 Calculation
+Notes:
+Explanations, formulas, and equations are expected rather than only results.
+The whole circuit equivalent resistance: R eq = . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+I1 = . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+I2 = . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+I3 = . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Va =. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Vb =. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+6.4.2 Simulation
+Simulation result (image):
+
+Electronic Device Component
+
+Page 21
+
+6.5 Exercise 5
+Given the network as shown below:
+
+Figure 1.22: Select resistor R from the standard resistors list and do the following requirement
+Notes:
+Explanations, formulas, and equations are expected rather than only results.
+
+a. Find the required value for the resistor R.
+R = ....................................................................................
+b. Use Table 2.1 in the lecture slide to select a standard 10% tolerance resistor for R. R
+in the circuit may be a single resistor or a combination of many resistors as long as
+these resistors are meet the standard values and are available in the market.
+
+The selected resistor: . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+........................................................................................
+c. Using the resistor selected in (b), determine the voltage across the 3.9k resistor.
+The value of V1 according to the selected resistor R: . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+........................................................................................
+d. Calculate the percent error in the voltage V1, if the standard resistor selected in (b)
+is used.
+........................................................................................
+e. Determine the power rating for this standard component.
+PR = . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+6.5.1 Simulation
+Simulation result (image):
+
+Page 22
+
+HCMUT - Computer Engineering
+
+6.6 Exercise 6
+Given the following circuit. Apply the knowledge you’ve learned to transform it into another form in which you can find total equivalent resistance R ab more easily. Next, find
+the value of the current i through the circuit and perform a simulation to check it out.
+
+Figure 1.23: Transform the circuit, then find the equivalent resistance R ab and the current
+i through the circuit.
+6.6.1 Circuit transformation
+Insert the transformed circuit here.
+
+Electronic Device Component
+
+Page 23
+
+Explain any calculations (i.e., write out the formulas you used).
+
+............................................... ...............................................
+............................................... ...............................................
+............................................... ...............................................
+............................................... ...............................................
+..............................................................................................
+6.6.2 Calculation
+Notes:
+Explanations, formulas, and equations are expected rather than only results.
+R ab = . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+i = ...........................................................................................
+
+6.6.3 Simulation
+Simulation result (image):
+
+Page 24
+
+HCMUT - Computer Engineering
+
+6.7 Exercise 7
+Given the following circuit. Apply the knowledge you’ve learned to transform it into another form in which you can find total equivalent resistance more easily. Next, find the
+value of the current I S through the circuit and perform a simulation to check it out.
+
+Figure 1.24: Transform the circuit, then find the equivalent resistance and the current I S
+through the circuit.
+6.7.1 Circuit transformation
+Insert the transformed circuit here.
+
+Electronic Device Component
+
+Page 25
+
+Explain any calculations (i.e., write out the formulas you used).
+
+............................................... ...............................................
+............................................... ...............................................
+............................................... ...............................................
+............................................... ...............................................
+..............................................................................................
+6.7.2 Calculation
+Notes:
+Explanations, formulas, and equations are expected rather than only results.
+R equi v al ent = . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+IS = . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+6.7.3 Simulation
+Simulation result (image):
+
+Page 26
+
+HCMUT - Computer Engineering
+
+6.8 Exercise 8
+Given the following circuit with p 2 , p 3 , and p 4 are absorbing powers of unknown electrical
+elements. First, use the knowledge you’ve learned to identify whether they are active or
+passive elements (supplying or absorbing power). To an element absorbing power, use a
+pure resistor with a proper value as a representative. To a power element, use an ideal DC
+voltage source with the corresponding value as a representative. Next, redraw the circuit
+and calculate the power that each element absorbs. Note that here we use the passive sign
+convention. Then, perform a simulation with the elements determined by the previous
+step.
+
+Figure 1.25: Determine the unknown elements and calculate the absorbing power of each
+6.8.1 Identify the unknown elements
+In Figure 1.25:
+p 2 = . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . −→ . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . element
+p 3 = . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . −→ . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . element
+p 4 = . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . −→ . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . element
+
+6.8.2 Redraw the circuit for simulation
+Simulation result (image):
+
+Electronic Device Component
+
+Page 27
+
+6.9 Exercise 9
+Given the following circuit. Find the voltage v and the current i x . According to the result, determine the elements whose absorbing power respectively p 1 and p 2 are active or
+passive (calculations are required). Note that here we use the passive sign convention.
+If an element consumes power, use a pure resistor with an appropriate value as a representative. If it is a power supply element, use a corresponding ideal DC voltage source to
+represent it. Perform a simulation to check how the circuit works.
+
+Figure 1.26: Find the unknown elements and variables, then check them out by simulation
+
+6.9.1 Calculation
+Notes:
+Explanations, formulas, and equations are expected rather than only results.
+According to the: . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+We have:
+v =...........................................................................................
+ix = . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+So, we have:
+p 1 = . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . −→ . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . element.
+I AB = . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+I BC = . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+p 2 = . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . −→ . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . element.
+UC D =. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+Page 28
+
+HCMUT - Computer Engineering
+
+6.9.2 Simulation
+Tips:
+To get the Current Controlled Voltage Source (CCVS) from the PSpice, under the Place
+menu, find PSpice Component > Source > Controlled Sources > CCVS.
+A circuit used for the simulation in this exercise maybe like this:
+
+Figure 1.27: A circuit containing a Current Controlled Voltage Source in PSpice
+Simulation result (image):
+
+Electronic Device Component
+
+Page 29
+
+6.10 Exercise 10
+Given the following circuit. Find the voltage V. You can do this in any way but remember
+to explain it in detail. Then simulate the circuit to check the result.
+
+Figure 1.28: Find the voltage V
+Answer:
+
+..............................................................................................
+............................................... ...............................................
+............................................... ...............................................
+............................................... ...............................................
+............................................... ...............................................
+............................................... ...............................................
+............................................... ...............................................
+............................................... ...............................................
+............................................... ...............................................
+............................................... ...............................................
+............................................... ...............................................
+..............................................................................................
+Page 30
+
+HCMUT - Computer Engineering
+
+CHAPTER 2
+Diode Circuits Analysis
+
+1 Introduction
+This laboratory exercise aims to demonstrate different diode wave shaping circuits. In
+general, these exercises aims to help students to fully understand how these diode circuit works in theory and actual situations. This laboratory exercises also helps students
+to understand about DC Sweep analysis and Time Domain (Transient) in simulation configuration.
+• DC Sweep analysis calculates the steady-state voltages and currents when sweeping
+a source, model parameter, global parameter, or temperature over a range of values.
+You can view the results of a DC sweep analysis in either a text output file or in the
+graphical display of the Probe window.
+• Transient analysis involves a set of techniques used to analyze simulation data or
+experimental results in the time domain, specifically when the system under study
+is transitioning between two states
+The targets are summarized as follows:
+• Create Project and design as provided schematic to analyse V-I characteristic with
+DC Sweep configuration.
+• Analyse diode characteristic.
+• Analyse some practical diode application circuits.
+
+Page 32
+
+HCMUT - Computer Engineering
+
+2 Diode simulation circuit
+In this manual, a simple circuit presented bellow is used in order to demonstrate principles of a diode. Finally, the simulation based DC Sweep configuration is run to analyse
+the circuit.
+
+Figure 2.1: A simple simulation circuit using Diode
+Step 1: Students are proposed to create a new project in PSPICE. Please select on the
+option Create a blank project.
+Step 2: From the list of Favorites devices, search the component named Dbreak, which
+is a popular diode in circuit. Other components such as VDC, Resistor and the Ground,
+which are already used in Lab 1, are also added to the project as well. Finally, set the voltage supple of V1 to 5Vdc.
+Step 3: Create a simulation project by clicking on the menu PSpice, New Simulation
+Profile. After the name of the simulation profile is given, following dialog is shown:
+
+Figure 2.2: Configure the DC-Sweep simulation Profile
+Following fields are required to configure:
+• Analysis Type: select DC Sweep mode
+• Sweep variable: name of input source to analyze, which is (V1) in this case.
+Electronic Device Component
+
+Page 33
+
+• Sweep Type: vary voltage of the source, which is from 0V to 5V and the incremental
+step is 0.1V.
+Step 5: Run simulation (F11 or from menu PSpice, select Run). The simulation result for
+DC Sweep mode is launched as follows:
+
+Figure 2.3: Simulation results for DC-Sweep mode
+However, the screen is empty without any tracking information. In this case, we need to
+monitor the current in the circuit having a diode. To do this, from menu Trace, select Add
+Trace to open following dialog:
+
+Figure 2.4: Add I(D1) to Y-Axis Trace
+Choose I(D1) which is the current passing through the diode (and also the main current
+in the circuit having 2 components in a series). Finally, simulation results are depicted as
+follows:
+
+Page 34
+
+HCMUT - Computer Engineering
+
+Figure 2.5: Simulation Result
+Step 6: In order to make tracking information more readable, right click on the tracking
+line and choose Trace Property as follows:
+
+Figure 2.6: Configure Trace Property
+The following dialog is opened, allow you to change the color and also the width of the
+tracking line
+
+Figure 2.7: Change Trace Width to make it more readable
+
+Electronic Device Component
+
+Page 35
+
+The final shape of the simulation result is look like the following picture:
+
+Figure 2.8: Simulation result after changing the Trace Width
+The whole data for every point of the input voltage can be extract to text file by right click
+on the curve and select the option Copy to Clipboard. Finally, the data can be pasted to
+text editor, for instance, Notepad IDE.
+
+Figure 2.9: Extract data to Notepad Editor
+It is obviously that when the power supply is less than 0.7V, the current is close to zero (in
+order of 10−9 at 0.3V). However, when the input voltage is 1V, the current in the circuit is
+around 0.37mA. This result can be estimated as (1V-0.7V)/1k, when the practical diode
+model is applied. Students are proposed to check the simulation results at other points,
+such as V1 = 2V or V1 = 4V.
+Step 7: A very important analysis with a diode is the relation between the voltage and the
+current across the diode, which is popular known as the V-I characteristic of the diode. To
+do this, on the simulation result windows, double click on the X-Axis to open the dialog
+as following:
+
+Page 36
+
+HCMUT - Computer Engineering
+
+Figure 2.10: Set the X-Axis of the simulation result
+Firstly, clicking on the Add Variables button and select V(D1:1), which is the voltage
+across the diode. Secondly, on the data range, select from 0V to 1V in the User Defined
+option. Finally, add a trace from menu Trace, and select I(D1) as previous simulation. The
+figure bellow is achieved:
+
+Figure 2.11: V-I characteristic of a diode
+This figure confirms that in the forward bias mode, the drop-down voltage of a diode is
+around 0.7V, which is the default value in the practical diode model.
+Step 8: The bias simulation is also applied in this lab. By clicking on menu PSpice, New
+Simulation Profile. Similar to the first lab, after providing the name for the simulation
+profile(e.g. bias_point), only the analysis type is changed to Bias Point. Finally, click OK
+button to create the second simulation profile.
+
+Electronic Device Component
+
+Page 37
+
+Figure 2.12: Add Bias Point simulation profile to the project
+Currently, there are two simulation profiles in the project, which can be browsed as following. In order to set a profile to active, right click on this profile and select Make Active.
+
+Figure 2.13: Set the active simulation profile
+Bias simulation results are displayed as follows:
+
+Figure 2.14: Enable Bias Current Display
+From the simulation results, it is confirmed that the drop-down voltage of a diode is
+around 0.7V, which is very closed to the practical diode model.
+
+Page 38
+
+HCMUT - Computer Engineering
+
+3 Exercise and Report
+3.1 Complete diode model
+According to the above simulation circuit (Figure 1.2), determine the voltage across the
+resistor and the diode (VR , VD ), and also the current I in the circuit with two different
+values of R1, including 220 Ohm and 1.5K Ohm. It is assumed that the complete diode
+model is used to analyse, having the forward voltage at 0.7V and the internal resistor equal
+to 50 Ohm.
+Finally, the simulation on PSpice is run to double check with theory calculation. Brief explanations concerning the difference between theory and simulations can be provided in
+the report.
+
+3.1.1 Theory calculation
+Notes:
+Explanations, formulas, and equations are expected rather than only results.
+According to the: . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+We have VD : . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Formula to calculate VR : . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Formula to calculate I : . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Finally, when R = 220 Ohm, VR = . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+And when R = 1.5K Ohm, VR = . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+3.1.2 PSpice Simulation
+Set the simulation profile to bias-point. Moreover, enable both Enable Voltage Bias Display and Enable Current Bias Display to show the simulation results.
+Students are supposed to capture the screen in PSPice and present in this report.
+Simulation results (images):
+Your image goes here
+
+Electronic Device Component
+
+Page 39
+
+3.1.3 Comparison
+In this section, the theory calculations and PSpice simulations are summarized in the
+table bellow to compare the difference. Students are supposed to fill all information in
+the table.
+Theory
+VR VD I
+
+PSpice
+VR V I
+
+R = 220 Ohm
+R= 1.5K Ohm
+According to the above Exercise Results, give some comments about observation (between calculation results and simulation results): . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+............................................... ...............................................
+............................................... ...............................................
+............................................... ...............................................
+..............................................................................................
+
+3.2 Diode in a series
+Similar to the previous exercise, determine the value of the voltage VD1 , VD2 , VD3 and the
+current I for the give circuit. Then, simulate again the circuit using PSpice. However, in
+this case, the practical diode model is used with the forward voltage is 0.7223V.
+
+Figure 2.15: Find the voltage and the current in the given circuit
+
+3.2.1 Theory Calculation
+Notes:
+Explanations, formulas, and equations are expected rather than only results.
+According to the: . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+We have VD1 = . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+VD2 = . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+VD3 = . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Page 40
+
+HCMUT - Computer Engineering
+
+VR1 = . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Formula to calculate I : . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+I = ...........................................................................................
+
+3.2.2 PSpice Simulation
+Set the simulation profile to bias-point. Moreover, enable both Enable Voltage Bias Display and Enable Current Bias Display to show the simulation results.
+Students are supposed to capture the screen in PSPice and present in this report.
+Simulation results (images): Your image goes here
+
+3.2.3 Comparison
+VD1
+
+VD2
+
+VD3
+
+VR1
+
+I
+
+Calculation
+PSpice
+The circuit in this exercise is a simple solution to design a power supply by leveraging a
+voltage drop of a diode. For example, a SIM module used to send SMS messages has a
+good voltage supply at 4.3V. In this case, a diode is connected from a 5V supply (which is
+a very popular voltage) and then, connected to the module SIM. Not only used to protect
+the module to avoid reverse current, a diode is a low-cost solution to generate 4.3V power
+supply for the SIM module.
+
+3.3 Circuit Analysis with Diode
+In PSpice, some exercise in the lesson can be simulated to confirm the results. Although
+it is not exactly the same values (e.g. voltage and current), the simulation in PSpice is a
+tool to check your solution. An example simulation circuit having diode and resistors is
+depicted as follows:
+Students are proposed to analyse this circuit using practical diode model, with the dropdown voltage is around 0.7V. Then the simulation is run on PSpice to double check with
+your results.
+Electronic Device Component
+
+Page 41
+
+Figure 2.16: Circuit analysis with diode
+3.3.1 Theory calculation
+It is assumed that the voltage at anode and cathode of the diode V1 and V2 . It is assumed
+that the diode is in forward bias mode.
+According to the practical diode mode: V1 -V2 = 0.7V
+Students are proposed to construct the equations to determine the current across all the
+resistors.
+..............................................................................................
+............................................... ...............................................
+............................................... ...............................................
+............................................... ...............................................
+..............................................................................................
+3.3.2 PSpice simulation
+The bias point profile is used to run the simulation in this exercise. Students are proposed
+to capture the screen on PSpice showing the current and the voltage in the circuit.
+Your image(s) goes here
+
+Page 42
+
+HCMUT - Computer Engineering
+
+3.3.3 Comparison
+Students are supposed to summarized the results from both theory calculations and PSpice
+simulations and fill in the table bellow.
+
+I R1
+
+Theory Calculation
+I R2 I R3 I R4 V1
+
+V2
+
+I R1
+
+PSpice Simulation
+I R2 I R3 VR4 V1
+
+V2
+
+V = 8V
+V = 12V
+
+3.4 Clamper Diode Circuit
+The circuits in the figure below are known as clampers or DC restorers. The simulation on
+PSpice is also shown in the figure below. These circuits clamp a peak of a waveform to a
+specific DC level (e.g. 0.7V). Students are supposed to implement the circuit in PSPice to
+verify their results from therory calculation.
+
+Figure 2.17: Clamper circuit using diode
+
+3.4.1 Theory calculation
+In this part, it is assumed that the practical diode model is used. Present your equations
+to calculate three different currents, including I R1 , I R2 , I D2 and the voltage VR2 .
+..............................................................................................
+............................................... ...............................................
+............................................... ...............................................
+............................................... ...............................................
+..............................................................................................
+Electronic Device Component
+
+Page 43
+
+3.4.2 PSpice simulation
+The bias point simulation is run in PSpice. Capture your screen with voltage and current
+are enabled in the results.
+Your image(s) goes here
+
+3.4.3 Comparison
+Students are supposed to summarized the results from both theory calculations and PSpice
+simulations and fill in the table bellow.
+
+Theory calculation
+I R1 I R2 I D2 VR2
+
+PSpice simulation
+I R1 I R2 I D2 VR2
+
+V = 12V
+V = 20V
+What can be concluded from this table?
+
+3.5 Power switching circuit
+The corruption of main power can be crucial in many different situations. For instance,
+when power is abruptly lost, you might want to save some backup data on a micro-controller.
+Such use cases need some form of automatic switching circuit to a secondary power
+source, such as a battery.
+
+Page 44
+
+HCMUT - Computer Engineering
+
+Figure 2.18: Power switching circuit
+The simplest solution to this problem is simply to add a diode on each voltage source,
+as shown in the figure above. In this circuit, a 5V power supply can be used as a backup
+battery. Meanwhile, 9V is the main power supply for the system, which is demonstrated
+by a load resistor.
+However, the main issue with this naive approach is that the voltage drop (forward voltage) across the diode might be too high for the system. Thanks to Schottky diode, this
+can be mitigated by using extremely low forward voltage one, which can be found on the
+market (e.g. Schottky diode having drop-down voltage around 250mV at 1A).
+3.5.1 Theory calculation
+In this part, it is assumed that the practical diode model is used. Present your equations
+to calculate the current I D3 , I D4 , I RL and the volatage VRL in three different cases: only 5V,
+only 9V and both 5V and 9V for the power supply.
+..............................................................................................
+............................................... ...............................................
+............................................... ...............................................
+............................................... ...............................................
+..............................................................................................
+3.5.2 PSpice simulation
+The bias point simulation is run in PSpice with both power sources are enabled. Capture
+your screen with voltage and current are enabled in the results.
+Your image(s) goes here
+
+Electronic Device Component
+
+Page 45
+
+3.5.3 Comparison
+Students are supposed to summarized the results from both theory calculations and PSpice
+simulations and fill in the table bellow. Both power sources are connected to the circuit.
+
+Theory calculation
+I D1 I D2 I RL VRL
+
+PSpice simulation
+I D1 I D2 I RL VRL
+
+The last feature of the diodes in this circuit is to protect the reverse current in case both
+the power sources are switch on together. This use case is very popular when a microcontroller platform is programmed and powered by an USB port and also equipped with
+an adapter for external power supply.
+
+3.6 Half-wave Rectifier
+In this exercise, an alternating source is used to generate a half-wave rectifier output using
+a diode. The schematic of the simulation is given bellow:
+
+Figure 2.19: Half-wave Rectifier with Voltage Sin Source
+Step 1: Create the schematic.
+The new component in this schematic is the VSIN - Sine Voltage Source, which can be
+found in the Favorites list. This component has four different parameters are required to
+configure, as follows:
+• VOFF: Offset voltage of the source
+• VAMPL: Amplifier voltage of the source
+• FREQ: Frequency of the alternative current
+• AC: The source type (having value 0 or 1), to switch between VAC and VSIN. In VSIN
+source, the frequency can be modified.
+After setting these parameters are set to the values shown in the figure above, add a voltage
+probe to track the output by clicking on the Voltage/Level Marker on the PSpice Toolbar,
+as follows:
+Page 46
+
+HCMUT - Computer Engineering
+
+Figure 2.20: Add a voltage marker for simulation tracing
+Step 2: Create a new simulation profile. In order to generate the output signal of the
+voltage probe, the analysis type is set to Time Domain (Transient). Moreover, due to the
+frequency of the power source is 50Hz, the simulation time is set to 100ms, to depict 10
+cycles of the output signal. Finally, the resolution is set to 0.1ms in the Maximum Step
+size. The configuration windows for this simulation profile is presented as follows:
+
+Figure 2.21: Create Time Domain simulation profile
+Step 3: Run the simulation and observe the results Finally, run the simulation and the
+output on the simulation windows should be presented in the figure bellow:
+
+Figure 2.22: Wave form for the half-ware rectifier circuit
+
+Electronic Device Component
+
+Page 47
+
+3.6.1 Theory calculation
+Notes:
+Explanations, formulas, and equations are expected rather than only results.
+Approximation: Diodes have V f = 0.78V
+
+• Minimum Value of VR1 = . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+• Maximum Value of VR1 = . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+• Duration (millisecond) for a cycle of VR1 = . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+3.6.2 PSpice simulation
+Export your simulation results to Notepad for instance, and find the minimum and the
+maximum point of the output voltage, then fill your answer to the section bellow:
+
+• Minimum Value of VR1 = . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+• Maximum Value of VR1 = . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+• Duration (millisecond) for a cycle of VR1 = . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+The tracking point can also be used directly on the simulation output windows, by the
+Toggle Cursor option on the toolbar. A Probe Cursor window is opened to update a tracking point.
+
+3.7 Full-wave Rectifier
+The following circuit is known as a full-wave bridge diode rectifier. Given that the transformer has the ratio N 1/N 2 = 10. Write the voltage difference equation V AB and VC D .
+After that, perform a time-domain (transient) analysis to check the equation you’ve written.
+Page 48
+
+HCMUT - Computer Engineering
+
+Figure 2.23: Full-wave bridge rectifier
+
+Tips 1: To place the component transformer:
+
+• Step 1: Go to Place > PSpice Component > Modeling Application...
+
+• Step 2: Browse for the Transformer component under the System Modules category
+as shown in the following Figure.
+
+Figure 2.24: Browse for the component Transformer
+
+• Step 3: Set the transformation ratio before placing as shown below.
+Electronic Device Component
+
+Page 49
+
+Figure 2.25: Setting the transformation ratio before placing the transformer
+Tips 2: The Voltage Differential Markers in PSPICE for TI:
+
+Figure 2.26: The Voltage Differential Markers in PSPICE for TI
+3.7.1 Theory calculation
+Notes:
+Explanations, formulas, and equations are expected rather than only results.
+Approximation: Diodes have V f = 0.7V
+
+V AB = . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+VC D = . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+Page 50
+
+HCMUT - Computer Engineering
+
+3.7.2 Simulation
+The sinusoidal waveform of the voltage difference V AB has the period T = . . . . . . . . . . . . . . .
+If we want to perform the transient analysis in 10 periods of the waveform V AB , the required time would be: . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+If we want the sampling rate to be as ten times higher than the frequency of the sinusoidal
+voltage difference V AB , the time interval between two consecutive sampling time points
+should be: . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+Now, create a simulation profile as guided in the Exercise 3.6 and perform your simulation to check it out!
+Simulation result: Show both V AB and VC D in a single plot window to illustrate the relationship between them. Don’t forget to use the cursors to prove that the equation you’ve
+written is correct.
+(Your image(s) goes here)
+
+Electronic Device Component
+
+Page 51
+
+3.8 Zener Diode as a Regulator
+The Zener diode has a well-defined reverse-breakdown voltage, at which it starts conducting current, and continues operating continuously in the reverse-bias mode without
+getting damaged. Additionally, the voltage drop across the diode remains constant over
+a wide range of voltages, a feature that makes Zener diodes suitable for use in voltage
+regulation.
+
+Figure 2.27: Electrical characteristic of Zener diode
+In this exercise, a Zener diode is used to design a voltage regular circuit. The schematic in
+this exercise is given following:
+
+Figure 2.28: Voltage regulator using Zener diode
+The Zener component in the circuit can be found in the Favourites list by search the keyword Zener. The full name of the component used in the circuit above is Zenner_P Zener Diode (parameterized). The default Zener voltage of this component is V Z = 5V .
+However, this value can be changed in the properties of the component (right click and
+select Edit Properties) for other simulations.
+
+Page 52
+
+HCMUT - Computer Engineering
+
+For theory calculation, students are supposed to provide equations for these values
+• IL = . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+• IS = . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+• IZ = . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+• P RS = . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+• PZ = . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Then, perform the calculation for the Zener diode voltage regulator with two different input voltage, including 8V and 12V power supply. Finally, run the simulations in PSpice (in
+Bias Point simulation profile) to confirm with the theory calculation.
+The results are summarized in the table bellow.
+IS
+
+Theory Calculation
+I L I Z VL P RS P Z
+
+IS
+
+PSpice Simulation
+I L I Z VL P RS P Z
+
+Vcc = 8V
+Vcc = 12V
+
+3.9 AC/DC Power Circuit Application
+In this exercise, we are building step by step an AC to DC voltage source transformation
+circuit. Students perform a time-domain simulation and write out comments and explanations for each step.
+Tips: To place a capacitor, go to Place > PSpice Component > Capacitor
+• Step 1: The rectified voltage without any filtering or being regulated.
+
+Figure 2.29: The rectified voltage without any filtering or being regulated
+Electronic Device Component
+
+Page 53
+
+Simulation result: Your image goes here
+
+Any comments or explanations: . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+............................................ ............................................
+............................................ ............................................
+............................................ ............................................
+............................................ ............................................
+............................................ ............................................
+........................................................................................
+• Step 2: Rectified voltage regulated with a 10µF capacitor.
+
+Figure 2.30: Rectified voltage regulated with a capacitor
+Page 54
+
+HCMUT - Computer Engineering
+
+Simulation result(s): Your image goes here
+
+Any comments or explanations: . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+............................................ ............................................
+............................................ ............................................
+............................................ ............................................
+............................................ ............................................
+............................................ ............................................
+........................................................................................
+• Step 3: Replace the 10µF capacitor with a 680µF one and re-run the simulation,
+recognize the change in the result and explain.
+Simulation result(s): Your image goes here
+
+Any comments or explanations: . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Electronic Device Component
+
+Page 55
+
+............................................ ............................................
+............................................ ............................................
+............................................ ............................................
+............................................ ............................................
+............................................ ............................................
+........................................................................................
+• Step 4: Add a zener diode as in Figure 2.31 with the zener vol t ag e properties set to
+22 volt then simulate the circuit and comment or explain the result.
+
+Figure 2.31: Rectified voltage regulated with a capacitor and a zener diode
+Simulation result(s): Your image goes here
+
+Any comments or explanations: . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Page 56
+
+HCMUT - Computer Engineering
+
+............................................ ............................................
+............................................ ............................................
+............................................ ............................................
+............................................ ............................................
+............................................ ............................................
+........................................................................................
+• Step 5: Change the zener vol t ag e properties of the zener diode to 20 voltage and
+then re-run the simulation. Comment and explain any changes in the result.
+Simulation result(s): Your image goes here
+
+Any comments or explanations: . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+............................................ ............................................
+............................................ ............................................
+............................................ ............................................
+............................................ ............................................
+............................................ ............................................
+........................................................................................
+
+Electronic Device Component
+
+Page 57
+
+3.10 Exercise 8: AC/DC Power Circuit Application With LM2596_5P0_TRANS
+Figure 2.32 describes an incomplete Texas Instrument LM2596 - 5.0 Switching Power Supply circuit. It lacks a Zener diode voltage regulator and an inductor reducing the voltage
+variation. At first, let perform a time-domain (transient) simulation with this incomplete
+circuit and figure out the problem with the output voltage (the voltage marker at R1).
+
+Figure 2.32: Incomplete switching power supply circuit
+
+Tips:
+To place the switching power supply IC LM2596 - 5.0, go to Place > PSpice Component...
+> Search... then search for LM2596_5P0_TRANS.
+But before you can perform a transient simulation and analysis with this circuit, we will
+need to pay attention to some minor settings on the simulation profile.
+
+Figure 2.33: Set the transient simulation duration
+Page 58
+
+HCMUT - Computer Engineering
+
+Figure 2.34: Set the transient calculation accuracy
+Simulation result(s): Your image goes here
+
+Any comments or explanations: . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+............................................... ...............................................
+............................................... ...............................................
+............................................... ...............................................
+............................................... ...............................................
+............................................... ...............................................
+Electronic Device Component
+
+Page 59
+
+..............................................................................................
+Next, add an inductor 33µH to the circuit as shown in Figure 2.35 then re-run the simulation and explain any improvements.
+
+Figure 2.35: A 33µH inductor added to the circuit
+Simulation result(s): Your image goes here
+
+Any comments or explanations: . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+............................................... ...............................................
+............................................... ...............................................
+............................................... ...............................................
+............................................... ...............................................
+............................................... ...............................................
+..............................................................................................
+Continue, add a 5V Zener diode to the circuit as shown in Figure 2.36, change the capacitor to 220µF , add a current marker to the Zener diode, re-run the simulation and explain
+the role of the Zener diode in the circuit.
+Page 60
+
+HCMUT - Computer Engineering
+
+Figure 2.36: A 5V Zener diode added to the circuit
+Simulation result(s): Your image goes here
+
+Any comments or explanations: . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+............................................... ...............................................
+............................................... ...............................................
+............................................... ...............................................
+............................................... ...............................................
+............................................... ...............................................
+..............................................................................................
+
+Electronic Device Component
+
+Page 61
+
+Page 62
+
+HCMUT - Computer Engineering
+
+CHAPTER 3
+Bipolar Junction Transistor
+
+1 Introduction
+In the diode tutorials we saw that simple diodes are made up from two pieces of semiconductor material to form a simple pn-junction and we also learnt about their properties
+and characteristics.
+
+Figure 3.1: Bipolar transistor construction
+If two individual signal diodes are joined together back-to-back, this will form a two PNjunctions connected together in series which would share a common Positive, (P) or Negative, (N) terminal. The fusion of these two diodes produces a three layer, two junction,
+three terminal device forming the basis of a Bipolar Junction Transistor (BJT), which is
+shown in the figure above.
+Considering the symbol of the transistor in the schematic, the direction of the arrow always points from the positive P-type region to the negative N-type region for both transistor types, exactly the same as for the standard diode symbol.
+The transistor is ability to change between these two states enables it to have two basic functions: “switching” (digital electronics) or “amplification” (analogue electronics).
+Then bipolar transistors have the ability to operate within three different regions:
+• Active region: The transistor operates as an amplifier and IC = βI B
+• Saturation: The transistor is “Fully-ON” operating as a switch and IC = I Sat
+• Cut-off: The transistor is “Fully-OFF” operating as a switch and IC = 0
+
+Page 64
+
+HCMUT - Computer Engineering
+
+2 BJT simulation circuit
+Implement the following circuit in PSPICE. The new component used is QBreakN NPN,
+which can be found in the Favorites list. The default transistor gain is β = 100, and the
+saturated voltage VC E (Sat ) = 0.65V
+
+Figure 3.2: Simple connection with transistor
+For a bias point simulation profile, the following results are expected:
+
+Figure 3.3: Bias profile simulation results
+It is assumed that VB E = 0.7V , the simulation results in PSPice are explained as follows:
+• According to the Ohm’s Law, I B = (VB B − VB E )/R1 = (5V - 0.7V)/10k = 0.43mA
+• It is assumed that the transistor is in linear (or active) mode, IC = β ∗ I B = 43mA
+• Finally, in order to confirm the assumption above, VC E = VCC − IC ∗R2 = 10V - 43mA
+* 100Ohm = 5.7V
+Since VC E > VC E (Sat ) , the transistor is working in the linear mode, to confirm our assumption. Moreover, the theory calculation is very close to the PSpice simulations.
+Electronic Device Component
+
+Page 65
+
+3 Exercise and Report
+3.1 BJT in Saturation Mode
+Change the value of R1 to 1k and run the simulation again. Capture the simulation results and explain the values of I B , IC ,VC E . The default transistor gain is β = 100, and the
+saturated voltage VC E (Sat ) = 0.65V and VB E = 0.7V .
+Your image goes here:
+
+The results in PSpice are explained as follows:
+• According to the Ohm’s Law, I B = . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+• It is assumed that the transistor is in linear (or active) mode, IC = β ∗ I B = . . . . . . . . . .
+• Finally, in order to confirm the assumption above, VC E = VCC − IC ∗ R2 = . . . . . . . . . . .
+Since VC E < 0, our assumption is not correct. The transistor stays in saturation mode.
+Therefore, IC is determined as follows:
+IC = (VCC − VC E (Sat ) )/R2 = . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+Page 66
+
+HCMUT - Computer Engineering
+
+3.2 DC Sweep Simulation
+The schematic in the first exersice with R1 = 1k is re-used in this exercise. However, a DCSweep simulation mode is performed with V1 is varied from 0V to 5V (0.1V for the step),
+as follows:
+
+Figure 3.4: DC-Sweep profile for simulation
+Run the simulation and trace for the current IC according to the value of V1. Capture your
+screen and plot it in the report. Please increase the width of the curve.
+Your image goes here:
+
+When the transistor becomes saturation, the value of V1 is . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+At this value, the value of I B is . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+And the value of IC (Sat ) is . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+3.3 BJT used as a Switch
+For a given BJT circuit, determine R1 and R2 to have IC saturated at 50mA. In this saturation mode, VC E (Sat ) is 30mV. Assume that VB E = 0.7V and the current gain β = 100.
+
+Electronic Device Component
+
+Page 67
+
+Figure 3.5: BJT used as switch in saturation mode
+
+Present your solution to determine R1 and R2. Perform the simulation in PSpice to confirm the results. Capture the screen in PSpice and present in the report.
+Your image goes here:
+
+3.4 Drive a device with an NPN BJT
+This exercise has a 5V logic output (the Vt er in Figure 3.6) that can source up to 10m A
+of current without a severe voltage drop and stand a maximum current of 20m A. If the
+logic terminal sources a current larger than 20m A, it would be damaged. Or, if it sources
+a current larger than 10m A, the Vt er voltage will drop to less than 4V . We should avoid
+this drop in many cases. However, this logic terminal has to be used to drive an electrical
+component with an equivalent internal resistance of 5 ohms (the LOAD in Figure 3.6)
+and requires a current of at least 300m A and not exceeding 500m A to function normally.
+Given that we have an NPN transistor with the current gain β equals 100, the maximum
+IC current is 400m A, and the barrier potential at the BE junction is VB E = 0.7V , select a
+resistor available in the market to replace the resistor R B revealed in Figure 3.6. to make
+the circuit function well. After that, perform a simulation to double-check your selection.
+Page 68
+
+HCMUT - Computer Engineering
+
+Figure 3.6: Select a resistor available in the market for R B
+
+3.4.1 Theory calculations
+Notes:
+Explanations, formulas, and equations are expected rather than only results.
+According to the limits of the LOAD and the transistor, we have:
+
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . (min) < IC < . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . (max)
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . (min) < I B < . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . (max)
+With I B (mi n) = . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . we have:
+R B (max) = . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+With I B (max) = . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . we have:
+R B (mi n) = . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+So:
+
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . (min) < R B < . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . (max)
+R B selected: . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+Electronic Device Component
+
+Page 69
+
+3.4.2 Simulation
+
+Your image goes here
+
+3.4.3 Compare
+
+RB
+
+Theory
+VB E I B I C
+
+PSpice
+VB E I B I C
+
+R B (mi n)
+R B (max)
+R B (sel ec t ed )
+
+3.5 Simple bias configuration
+
+The circuit given in Figure 3.7 is known as a simple kind of NPN bias configuration. First,
+students simulate the circuit with two values of RC, respectively 10 Ohms and 1k Ohms.
+Then, give your statement on the change of the current I E and explain the phenomena.
+Page 70
+
+HCMUT - Computer Engineering
+
+Figure 3.7: Simple bias configuration
+3.5.1 Simulation
+Your images go here (2 images)
+Step 1: Simulate the circuit with RC = 10 Ohms.
+Step 2: Simulate the circuit with RC = 1k Ohms.
+
+3.5.2 Circuit analysis
+Conduct some theoretical calculation to explain for the phenomena you have observed
+from the simulation.
+
+Electronic Device Component
+
+Page 71
+
+..............................................................................................
+............................................... ...............................................
+............................................... ...............................................
+............................................... ...............................................
+............................................... ...............................................
+............................................... ...............................................
+............................................... ...............................................
+............................................... ...............................................
+..............................................................................................
+
+3.6 PNP Circuit
+Figure 3.8 shows a very typical PNP transistor circuit. Calculate I B , I E , and IC then simulate the circuit to double-check your calculation. Assume the current gain β = 100.
+
+Figure 3.8: A PNP Circuit
+3.6.1 Theoretical calculation
+Notes:
+Explanations, formulas, and equations are expected rather than only results.
+VE B = . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+IB = . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+IC = . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+IE = . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+Page 72
+
+HCMUT - Computer Engineering
+
+3.6.2 Simulation
+Your image goes here
+
+3.6.3 Comparison
+I B (In theory) = . . . . . . . . . . . . . . . . . . . . . . . . . . . . . I B (simulation) = . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+IC (In theory) = . . . . . . . . . . . . . . . . . . . . . . . . . . . . . IC (simulation) = . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+I E (In theory) = . . . . . . . . . . . . . . . . . . . . . . . . . . . . . I E (simulation) = . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+3.7 Circuit with NPN and PNP bipolar junction transistors
+Give the circuit in Figure 3.9. Calculate the Voltage at all nodes and the current in all
+branches. Assume the current gain of both transistors is the same at β = 100. Then perform a simulation and compare the result with the theoretical calculation.
+Electronic Device Component
+
+Page 73
+
+Figure 3.9: Circuit with NPN and PNP bipolar junction transistors
+
+3.7.1 Theoretical calculation
+Notes:
+Explanations, formulas, and equations are expected rather than only results.
+We have VE (compare to) . . . . . . . . . . . . . . . . VB , therefore the transistor Q 2 is . . . . . . . . . . . . . . . .
+According to the . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . , we have the following equation:
+I B E (hereinafter called I B ) = . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . (1)
+Solve (1) we have I B = . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+IC = . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+I EG = . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+VE = . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+VB = . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+3.7.2 Simulation
+Your image goes here
+Page 74
+
+HCMUT - Computer Engineering
+
+3.7.3 Comparison
+I B (In theory) = . . . . . . . . . . . . . . . . . . . . . . . . . . . . . I B (simulation) = . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+IC (In theory) = . . . . . . . . . . . . . . . . . . . . . . . . . . . . . IC (simulation) = . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+I EG (In theory) = . . . . . . . . . . . . . . . . . . . . . . . . . . . . I EG (simulation) = . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+VE (In theory) = . . . . . . . . . . . . . . . . . . . . . . . . . . . . . VE (simulation) = . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+VB (In theory) = . . . . . . . . . . . . . . . . . . . . . . . . . . . . . VB (simulation) = . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+3.8 NPN Circuit with E resistance
+In Figure 3.10, calculate all the values of I B , IC , I E , VE , and VC . Assume the voltage drop
+VB E = 0.7V and the current gain coefficient of the transistor is β = 100. Then, perform a
+simulation to double-check your theoretical calculations.
+
+Figure 3.10: NPN Circuit with E resistance
+3.8.1 Theoretical calculation
+Notes:
+Explanations, formulas, and equations are expected rather than only results.
+
+According to the . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . , we have the following equation:
+
+Electronic Device Component
+
+Page 75
+
+..............................................................................................
+
+⇐⇒ . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . (1)
+Solve (1), we have I B = . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+IC = . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+IE = . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+VE = . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+VC = . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+3.8.2 Simulation
+Your image goes here
+
+3.9 Darlington circuit
+The circuit given in Figure 3.11 is known as a darlington circuit. Calculate I B E , I AC , I AL ,
+and the overall current gain IIBALE . After that, simulate the circuit to double-check your
+theoretical calculations. Assume both transistors have the same current gain coefficient
+β = 100.
+Page 76
+
+HCMUT - Computer Engineering
+
+Figure 3.11: Darlington circuit
+3.9.1 Theoretical calculation
+Notes:
+Explanations, formulas, and equations are expected rather than only results.
+
+IB E = . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+I AC = . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+I AL = . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+I AL
+= .........................................................................................
+IB E
+
+Electronic Device Component
+
+Page 77
+
+3.9.2 Simulation
+Your image goes here
+
+3.10 Common base
+Figure 3.12 shows a bias techniques named common base bias. Calculate the values of I E ,
+I B , IC , and VC E . Then simulate the circuit to double-check your theoretical calculations.
+Assume the current gain coefficient β = 100.
+
+Figure 3.12: Common base
+3.10.1 Theoretical calculation
+Notes:
+Explanations, formulas, and equations are expected rather than only results.
+According to the . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . we have:
+IE = . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+IB = . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Page 78
+
+HCMUT - Computer Engineering
+
+IC = . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+V CE = . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+3.10.2 Simulation
+Your image goes here
+
+3.11 Current mirror
+The circuit shown in Figure 3.13 is known as a current mirror circuit. First, students do
+some theoretical calculations to get an understanding of it. After that, perform a simulation to double-check its principles and your analysis. Assume that the two transistors Q1
+and Q2, are the same type and the current gain β = 100.
+
+Figure 3.13: Current mirror circuit example
+Electronic Device Component
+
+Page 79
+
+3.11.1 Theoretical calculation
+Notes:
+Explanations, formulas, and equations are expected rather than only results.
+According to the . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . we have:
+IC T RL = . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+IC 1 = . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+I B1 = I B2 = . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+IL = . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+3.11.2 Simulation
+Your image goes here
+
+Why is the circuit in Figure 3.13 called circuit mirror? . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+..............................................................................................
+Now, replace the resistor R 1 with a 100-Ohms one. Next, calculate all the values again.
+Then, finally, simulate the new circuit and explain the phenomena you’ve observed.
+IC T RL = . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+IC 1 = . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+I B1 = I B2 = . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+IL = . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+Page 80
+
+HCMUT - Computer Engineering
+
+The 2nd simulation result goes here:
+
+What is the phenomena?
+
+..............................................................................................
+
+Explain:
+..............................................................................................
+..............................................................................................
+..............................................................................................
+..............................................................................................
+..............................................................................................
+..............................................................................................
+..............................................................................................
+..............................................................................................
+..............................................................................................
+..............................................................................................
+
+Electronic Device Component
+
+Page 81
+
+3.12 BJT’s logic gate application
+Figure 3.14 describes a straightforward NOT gate theoretical implementation using an
+NPN bipolar junction transistor. In the circuit, the NPN junction transistor operates in
+the saturation mode.
+
+Figure 3.14: NPN theoretical NOT gate
+V1 = 0 When the source is off, the voltage would be 0V.
+V2 = 5 When the source is on, the voltage would be 5V.
+TD = 0 Delay time. This exercise assumes that there is no delay.
+TR = 5ns The rise time of the pulse (from off to on stage).
+TF = 3ns The fall time of the pulse (from on to off stage).
+PW = 50ms Pulse width: The time in which the source keeps on.
+PER = 100ms The period of the signal.
+Tips:
+To get the Voltage Pulse Source component in the PSpice for TI, go to Place -> Pspice
+Compoment... -> Source -> Voltage Sources -> Pulse.
+
+Page 82
+
+HCMUT - Computer Engineering
+
+3.12.1 Simulation
+Your image goes here
+
+But, wait! How large is the maximum current this NOT gate can source? Of course, it
+cannot exceed 5V/10kOhm. How tiny it is! So, what if we want to use it to drive an LED?
+Just put an additional 220 Ohm resistor in parallel with the existing 10k one. And in this
+case, the 10k resistor is quite useless. Therefore, in many cases, people let the collector
+pin of the transistor open. This design is called open-collector output, as shown in Figure
+3.15.
+
+Figure 3.15: Open-collector output example
+But, with this design, the input of another IC can’t read the voltage of this output. Because
+without a pull-up resistor, the voltage VC is floating. To read this voltage, the users have to
+pull it up using a resistor. There advantage here is to let the users choose the value of the
+pull-up resistor as their desire.
+Electronic Device Component
+
+Page 83
+
+Figure 3.16: External pull-up resistor whose value selected by the users
+
+By the side, the open-collector design manner gives an exciting way of the use of these
+outputs, as shown in Figure 3.17. The open-collector wired output is at the LOW level if
+one of the elements is LOW and is HIGH only when all the elements output HIGH.
+Page 84
+
+HCMUT - Computer Engineering
+
+Figure 3.17: Wired open-collector outputs
+
+3.13 Opto
+The element OK 1 in Figure 3.18 is an optocoupler, which includes a light-emitting diode
+(LED) and a photodiode. The photodiode’s conductivity depends on the intensity of the
+light emitted by the LED, and of course, depends on the current intensity through the
+LED. When the voltage across the LED is lower than its barrier potential, the Opto is cutoff. When there is current through the LED, the Opto is in the transfer mode. Like the
+current gain β of a BJT, the Opto also has the current transfer ratio (CTR). Assume the LED
+has its own barrier potential VF = 1.7V, and the Opto has the CTR = 2. Calculate the voltage
+VOU T when the switch is closed. Finally, give your idea about what we may use an Opto
+for, and how to use it?
+Electronic Device Component
+
+Page 85
+
+Figure 3.18: Voltage isolation with opto
+I F = I R1 = . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+I R2 = . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+VOU T = . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+..............................................................................................
+..............................................................................................
+..............................................................................................
+..............................................................................................
+..............................................................................................
+..............................................................................................
+..............................................................................................
+..............................................................................................
+..............................................................................................
+..............................................................................................
+
+Page 86
+
+HCMUT - Computer Engineering
+
+CHAPTER 4
+Circuit Design with Altium Designer
+
+1 Introduction
+Altium Designer is an electronic design automation software package for printed circuit
+board (PCB), FPGA and embedded software design, and associated library and release
+management automation. A Printed Circuit Board (PCB) mechanically supports and electrically connects electric components using conductive tracks, pads and other features
+etched from copper sheets laminated onto a non-conductive substrate.
+
+Figure 4.1: PCB circuit in Altium Designer
+In this lab, two different voltage regular circuits are designed in Altium, based on IC 7805
+and LM2596. The manuals are provided by videos.
+
+2 Voltage Regulator using 7805
+Voltage regulator like IC7805 belongs to the 78xx series ICs. In the 78xx series, xx represents the fixed output voltage value and 7805 is a fixed linear voltage regulator. Batteries
+provide a voltage of 1.2V, 3.7V, 9V, and 12V. This voltage is good for the circuits which voltage requirements are in that range. The regulated power supply in this regulator is +5V
+DC.
+The 7805 voltage regulator is a three-terminal voltage regulator IC. In various applications, a 7805 voltage regulator with a fixed output voltage is used. The availability of this
+is through various packages like SOT-223, TO-263, TO-220, and TO-3. Among this, TO-220
+is the most used one. The pin diagram of 7805 voltage regulator IC and its description are
+explained bellow:
+• Pin1 - Input: This is an input pin and the voltage range should be between 7V to
+35V. an unregulated voltage is applied to this input pin for regulation. The pin will
+receive its maximum efficiency at 7.2V input.
+• Pin 2 - Ground: Pin2 is the ground pin, it means the ground is connected to this
+pin. Input and output are common to it.
+Page 88
+
+HCMUT - Computer Engineering
+
+Figure 4.2: LM7805 Pin Out
+• Pin 3 - Output: Pin3 is the output pin, where the regulated output is taken by this
+pin. It is about 5V(4.8V to 5.2V)
+
+Figure 4.3: Voltage regulator using 78xx schematic in Altium Designer
+The basic circuit of 7805 is very simple. It just needs two capacitors if the input is unregulated DC voltage, even the two capacitors used are also not mandatory. This 7805 circuit is
+capable of upholding fixed output voltage even if some changes take place in input voltage.
+The manual for this circuit is posted at the link bellow:
+https://www.youtube.com/watch?v=mSEBrma5MNM
+
+2.1 Schematic design
+Students are proposed to capture the schematic design in Altium Designer and place the
+image in this part.
+Some hot keys are normally used in the schematic is the space bar, X( horizontal mirror),
+Y (vertial mirror) and Ctrl + W (place a wire).
+Your image goes here
+Electronic Device Component
+
+Page 89
+
+2.2 PCB layout
+Similarly to the schematic, some snap shorts of for the TOP, BOTTOM layers are required
+in this report. Moreover, several 3D images of your schematic are also required.
+A manual video can be found at:
+https://www.youtube.com/watch?v=PW_QQpoODDk
+Your image goes here
+
+3 Volatage Regulator using LM2596
+LM2596 is a voltage regulator mainly used to step down the voltage or to drive load under
+3A. It is also known as DC-to-DC power converter or buck converter which is used to step
+down the voltage from its input supply to the output load. The current goes up during this
+voltage step down process.
+LM2596 comes with a remarkable load and line regulation. It is available in both versions:
+fixed output voltage version with 3.3V, 5V, 12V, and customized output version where you
+can choose the output as per your requirement. This regulator is incorporated with a
+fixed-frequency oscillator and an internal frequency compensation method.
+The typical connection for LM2596 is proposed by Texas Instrument (TI), as following:
+
+Figure 4.4: Typical connection for LM2596
+This circuit is simulated in PSpice in previous lab, and is implemented in Altium Design
+in this lab. The introduction of this circuit is presented in the video bellow:
+https://www.youtube.com/watch?v=57Ra92p3C0k
+
+3.1 Schematic design
+Students are proposed to capture the schematic design in Altium Designer and place the
+image in this part.
+Some hot keys are normally used in the schematic is the space bar, X( horizontal mirror),
+Y (vertial mirror) and Ctrl + W (place a wire).
+The manual is posted in this link:
+https://www.youtube.com/watch?v=DGiHsGWPyYw
+Your image goes here
+Page 90
+
+HCMUT - Computer Engineering
+
+3.2 PCB layout
+Similarly to the schematic, some snap shorts of for the TOP, BOTTOM layers are required
+in this report. Moreover, several 3D images of your schematic are also required.
+The manual is posted in this link:
+
+https://www.youtube.com/watch?v=WXszMiTSGPo
+Your image goes here
+
+Electronic Device Component
+
+Page 91
+
+Page 92
+
+HCMUT - Computer Engineering
+
+CHAPTER 5
+Operational Amplifier - OPAMP
+
+1 Introduction
+Operational Amplifiers, also known as Op-amps, are basically a voltage amplifying device
+designed to be used with components like capacitors and resistors, between its in/out
+terminals. They are essentially a core part of analog devices. Feedback components like
+these are used to determine the operation of the amplifier. The amplifier can perform
+many different operations, giving it the name Operational Amplifier.
+One key to the usefulness of these little circuits is in the engineering principle of feedback,
+particularly negative feedback, which constitutes the foundation of almost all automatic
+control processes. The principles presented in this section, extend well beyond the immediate scope of electronics. It is well worth the electronics student’s time to learn these
+principles and learn them well.
+Operational amplifiers can have either a closed-loop operation or an open-loop operation. The operation (closed-loop or open-loop) is determined by whether or not feedback
+is used. Without feedback the operational amplifier has an open-loop operation. This
+open-loop operation is practical only when the operational amplifier is used as a cooperator (a circuit which compares two input signals or compares an input signal to some
+fixed level of voltage). As an amplifier, the open-loop operation is not practical because
+the very high gain of the operational amplifier creates poor stability. (Noise and other
+unwanted signals are amplified so much in open-loop operation that the operational amplifier is usually not used in this way.) Therefore, most operational amplifiers are used
+with feedback (closed-loop operation).
+
+Page 94
+
+HCMUT - Computer Engineering
+
+2 Closed Loop Operation
+Operational amplifiers are used with degenerative (or negative) feedback which reduces
+the gain of the operational amplifier but greatly increases the stability of the circuit. In the
+closed-loop configuration, the output signal is applied back to one of the input terminals.
+This feedback is always degenerative (negative). In other words, the feedback signal always opposes the effects of the original input signal. One result of degenerative feedback
+is that the inverting and non-inverting inputs to the operational amplifier will be kept at
+the same potential.
+Closed-loop circuits can be of the inverting configuration or non-inverting configuration.
+
+2.1 Non inverting configuration
+The typical circuit for this configuration is shown in the figure bellow:
+
+Figure 5.1: Non inverting configuration
+The new component, named also OPAMP (Operational Amplifier) is easily found in the
+favorite list of the PSPICE.
+In order to explain the 4V at the ouput, it is obviously that V (+) = V (−) = 2V in a closed
+loop configuration. Therefore, from a resistor bridge at the output, VOU T = 4V .
+
+2.2 Inverting configuration
+In this configuration, the output is connected directly to a pin of the opamp as follow:
+
+Electronic Device Component
+
+Page 95
+
+Figure 5.2: Inverting configuration
+As the output voltage is negative, which is inverted to the input, the name of this circuit
+is the invert connection. Students are proposed to perform calculations to confirm the
+output, which is −2V .
+
+3 Exercise and Report
+3.1 Voltage Follower
+Voltage follower is one of the simplest uses of an operational amplifier, where the output
+voltage is exactly same as the input voltage applied to the circuit. In other words, the gain
+of a voltage follower circuit is unity. The connections are proposed as follows:
+
+Figure 5.3: Opamp follower circuit
+A voltage follower has low output impedance and extremely high input impedance, and
+this makes it a simple and effective solution to problematic impedance relationships. If
+a high-output-impedance sub-circuit must transfer a signal to a low-input-impedance
+sub-circuit, a voltage follower placed between these two sub-circuits will ensure that the
+full voltage is delivered to the load.
+
+Page 96
+
+HCMUT - Computer Engineering
+
+Students are propose to run the simulation with bias mode to confirm that VOU T =
+V (+). The feedback resistance is also required to change.
+Your calculations are presented here to prove VOU T = V (+) with any value of R15.
+
+3.2 High-Current Voltage Follower
+The voltage follower’s low output impedance makes it a good circuit for driving current
+into a low-impedance load, but it’s important to remember that most op-amps are not
+designed to deliver large output currents. The most basic circuit for buffering an op-amp’s
+output current is the following:
+
+Figure 5.4: Opamp follower circuit
+The voltage at the positive pin of the Opamp is copied to VOU T . In this schematic, R16 is
+used to simulate a load device, which can be a motor or an high power LED. However, in
+this case, there is a high current can pass the load.
+Students are proposed to run the simulation with bias configuration, capture the results
+and place them in the report.
+Finally, your computations go here to explain the results.
+
+3.3 Voltage Follower with Gain
+This basic circuit is not limited to the unity-gain configuration. As with a non-buffered
+op-amp, you can insert resistors into the feedback path to create overall gain from the
+input to the load voltage. Here is the non-unity-gain version of the circuit:
+Students are proposed to implement this circuit on PSPICE with input is 2V and the gain
+is 3. The voltage supply for the load side is 12VDC. Value of R LO AD is 1K.
+
+Electronic Device Component
+
+Page 97
+
+Figure 5.5: Opamp follower with gain for the output
+The simulation results in PSPICE (bias configuration) are presented here. Moreover, a
+short explanations are required in this report to explain the gain of the output follower
+voltage.
+
+3.4 Summing Amplifier
+Students are proposed to implement following schematic in PSPICE and run the simulation with R1 = 1K, R2 = 2K, R3 = 5K, Rf = 9K, Ri = 1K. There inputs are V1 = 1V, V2 = 2V and
+V3 = 3V. This circuit is a non inverting summing configuration using opamp.
+
+Figure 5.6: Non inverse summing using OPAMP
+Students are proposed to design the schematic and place the results in this report.
+Your image goes here
+Your calculations go here to explain the value of VOU T
+Page 98
+
+HCMUT - Computer Engineering
+
+Figure 5.7: Inverse summing using OPAMP
+The second type of the summing amplifier is proposed as follows:
+Students are proposed to do the same steps above, with R1 = 1K, R2 = 2K, R3 = 10K and V1
+= 1V, V2 = 5V.
+
+3.5 Low Pass Filter
+Low pass filter is a filter which passes all frequencies from 0Hz (DC current) to upper cutoff frequency f H and rejects any signals above this frequency. A picture to demonstrate a
+low pass filter behavior is shown in the figure bellow:
+
+Figure 5.8: Low pass filter principles
+Similar to the closed loop configuration, there also 2 types of low pass filter, including the
+inverting and non-inverting low pass filter. The figure bellow is an inverting low pass filter.
+The cut-off frequency is determined by this equation:
+fH =
+
+1
+2πR 2C
+
+By applying the value of R2 = 10K Ohm and C = 1nF , the cut-off frequency is around
+16K H z. In order to see the results, students are proposed to run the AC Sweep simulation profile (Linear Type, Start and Stop frequency are 1Hz and 50kHz, 200 points), as
+follows:
+Electronic Device Component
+
+Page 99
+
+Figure 5.9: Inverting low pass filter
+
+Figure 5.10: AC Sweep simulation profile
+
+Figure 5.11: Simulation results
+
+Page 100
+
+HCMUT - Computer Engineering
+
+The final results can be archived like the figure bellow:
+It is said that the cut-off frequency point having the gain reduced 3dB. The gain at 0Hz
+is 10 (input voltage is 2V and output voltage is 20V), or 20l og (10) = 20d B , meanwhile, the
+gain at 16kHz is 7 (input voltage is 2V and output voltage is 14V), or 20l og (7) = 16.9.
+The second type of a low pass filter, the non-inverting configuration, is presented as follows:
+
+Figure 5.12: Non-inverting low pass filter
+Students are proposed to calculate the value of R and C to have the amplifier factor
+equal to 10 and the cut-off frequency is the same as the previous example. The simulation result with AC Sweep mode is required to plot in this report as well.
+
+3.6 High Pass Filter
+In contrast to the low pass filter, there is a high pass filter, which can be referred from this
+link:
+
+https://www.allaboutcircuits.com/video-tutorials/op-amps-low-pass-and-high-pass-active-filters/
+Students are proposed to implement a high pass filter in PSPICE and explain the behaviors
+of your high pass filter.
+
+3.7 Comparator with Hysteresis (Schmitt Trigger)
+The two resistors R1 and R2 act only as a "pure" attenuator (voltage divider). The input
+loop acts as a simple series voltage summer that adds a part of the output voltage in series
+to the circuit input voltage. This series positive feedback creates the needed hysteresis
+that is controlled by the proportion between the resistances of R1 and the whole resistance (R1 and R2). The effective voltage applied to the op-amp input is floating so the
+Electronic Device Component
+
+Page 101
+
+Figure 5.13: Inverting Schmitt trigger
+op-amp must have a differential input.
+The circuit is named inverting since the output voltage always has an opposite sign to the
+input voltage when it is out of the hysteresis cycle (when the input voltage is above the
+high threshold or below the low threshold). However, if the input voltage is within the
+hysteresis cycle (between the high and low thresholds), the circuit can be inverting as well
+as non-inverting. The output voltage is undefined and it depends on the last state so the
+circuit behaves like an elementary latch.
+In PSPice, this trigger is implemented as follows, with 3 voltage markers:
+
+Figure 5.14: Schmitt trigger in PSPICE
+The OPAMP device is modified in the Properties windows (right click on the component
+and chose Edit Properties or double click on the component), in order to set the VPOS
+and VNEG to +5V and -5V, as follows:
+The simulation profile in this exercise is the Time Domain, and is configured as follows:
+Finally, the simulation results can be archived as follows:
+Students are proposed to explain the signal at the output of the opamp. Why the signal
+is toggled at +4V and -4V.
+Page 102
+
+HCMUT - Computer Engineering
+
+Figure 5.15: Schmitt trigger in PSPICE
+
+Figure 5.16: Simulation profile
+
+Figure 5.17: Schmitt trigger simulation results
+
+Electronic Device Component
+
+Page 103
+
+4 Altium Designer
+4.1 LED Driver
+In this project, we will show how to build a simple LED driver circuit. A simple driver
+based on BJT is proposed in this section.
+4.1.1 Schematic design
+The manual for the schematic is posted in this link:
+https://www.youtube.com/watch?v=ftiX8peTsiw
+Students are proposed to design the schematic and place the results in this report.
+Your image goes here
+4.1.2 PCB layout
+The manual for PCB layout is posted in this link:
+
+https://www.youtube.com/watch?v=btpAoh3nmBU
+Your image goes here
+
+4.2 Relay Controller
+4.2.1 Schematic design
+The manual for the schematic is posted in this link:
+https://www.youtube.com/watch?v=VcO_F97ydFM
+Students are proposed to design the schematic and place the results in this report.
+Your image goes here
+4.2.2 PCB layout
+The manual for PCB layout is posted in this link:
+
+https://www.youtube.com/watch?v=Dbqcb0zQ0E8
+Your image goes here
+
+Page 104
+
+HCMUT - Computer Engineering
+
+CHAPTER 6
+Chapter 6: Field Effect Transistor (FET)
+
+1 Introduction
+In the Bipolar Junction Transistor tutorials, we saw that the output Collector current of
+the transistor is proportional to input current flowing into the Base terminal of the device, thereby making the bipolar transistor a CURRENT operated device (Beta model) as
+a smaller current can be used to switch a larger load current.
+The Field Effect Transistor, or simply FET however, uses the voltage that is applied to their
+input terminal, called the Gate to control the current flowing through them resulting in
+the output current being proportional to the input voltage. As their operation relies on an
+electric field (hence the name field effect) generated by the input Gate voltage, this then
+makes the Field Effect Transistor a VOLTAGE operated device.
+The Field Effect Transistor has one major advantage over its standard bipolar transistor
+cousins, in that their input impedance, (Rin) is very high, (thousands of Ohms), while the
+BJT is comparatively low. This very high input impedance makes them very sensitive to
+input voltage signals, but the price of this high sensitivity also means that they can be
+easily damaged by static electricity.
+
+2 Junction Field Effect Transistor
+We saw previously that a bipolar junction transistor is constructed using two PN-junctions
+in the main current carrying path between the Emitter and the Collector terminals. The
+Junction Field Effect Transistor (JUGFET or JFET) has no PN-junctions but instead has a
+narrow piece of high resistant semiconductor material forming a “Channel” of either Ntype or P-type silicon for the majority carriers to flow through with two ohmic electrical
+connections at either end commonly called the Drain and the Source, respectively.
+Before analysing the circuit using JFET, students are proposed to characterize the I-V
+curve of a JFET in PSPICE (named JbreakN in the Favourite list), to determine IDSS and
+VP, which are two parameters for a JFET. The circuit bellow is required to implement in
+PSPICE:
+
+Figure 6.1: JFET circuit in PSPICE
+
+Page 106
+
+HCMUT - Computer Engineering
+
+2.1 DC Sweep simulation
+In the first simulation, a DC sweep for input source V3 is perform, varying from -3V to 0V
+to verify the active region. The simulation profile is suggested as follows:
+
+Figure 6.2: DC Sweep simulation profile
+The simulation results are presented in the following figure:
+
+Figure 6.3: Simulation results for sweeping V3 from -3V to 0V
+The simulation results confirm that IDSS = 400mA and VP = -2V for a typical JFET device
+in PSPICE.
+
+2.2 Nested DC Sweep simulation
+In this simulation, more details for the I-V characteristics are performed. Instead of varying the source V3, V2 can be also varied in a nested DC Sweep simulation.
+Firstly, for the primary DC sweep source, which is set to V2, is configured as follows:
+
+Figure 6.4: Primary dc sweep source V2
+Electronic Device Component
+
+Page 107
+
+Figure 6.5: Primary dc sweep source V3
+Secondly, the secondary DC sweep source, which is set to V3, is configured as follows:
+The simulation results are shown as the figure bellow:
+
+Figure 6.6: Simulation results with JFET
+This figure also confirm that IDSS = 400mA and VP = -2V (the lowest curve is -1.9V). In
+this simulation, the ohmic region and saturation region are indicated better.
+
+2.3 Exercises
+2.3.1 Self bias configuration
+This is the first configuration for a JFET, when the Gate pin is connected to the Ground. A
+typical circuit is presented as follows:
+
+Figure 6.7: Self bias configuration
+Page 108
+
+HCMUT - Computer Engineering
+
+Students are proposed to implement this circuit in PSPICE with the JFET is JbreakN. The
+simulation results in PSPICE (bias configuration) are presented here. Moreover, a short
+explanations are required in this report to explain the value of ID and VGS.
+2.3.2 Voltage divider configuration
+The proposed schematic for this configuration is presented as follows:
+
+Figure 6.8: Voltage divider configuration
+Students are proposed to implement this circuit in PSPICE with the JFET is JbreakN. The
+simulation results in PSPICE (bias configuration) are presented here. Moreover, a short
+explanations are required in this report to explain the value of ID and VGS.
+
+3 Metal Oxide Semiconductor FET
+As well as the Junction Field Effect Transistor (JFET), there is another type of Field Effect
+Transistor available whose Gate input is electrically insulated from the main current carrying channel and is therefore called an Insulated Gate Field Effect Transistor.
+The most common type of insulated gate FET which is used in many different types of
+electronic circuits is called the Metal Oxide Semiconductor Field Effect Transistor or MOSFET for short.
+The IGFET or MOSFET is a voltage controlled field effect transistor that differs from a JFET
+in that it has a “Metal Oxide” Gate electrode which is electrically insulated from the main
+semiconductor n-channel or p-channel by a very thin layer of insulating material usually
+silicon dioxide, commonly known as glass.
+
+3.1 Depletion-mode MOSFET
+The Depletion-mode MOSFET, which is less common than the enhancement mode types.
+This device is very similar to JFET, except that the maximum current saturation is obtained at VGS > 0. The circuit used to verify IDSS and VP for DFET is presented as follows:
+Electronic Device Component
+
+Page 109
+
+Figure 6.9: DFET verification in PSPICE
+
+The device for a common DFET is MbreakND. After a dc sweep simulation when V3 varies
+from -5V to 0V, the results are shown bellow:
+
+Figure 6.10: Simulation results with DFET
+
+From this simulation results, it is confirmed that IDSS = 160mA and VP = -4V for DFET.
+Students are proposed to implement the circuit bellow:
+
+Figure 6.11: Self bias configuration for DFET
+
+Only the bias configuration is required to executed. Please capture the simulation results
+with current and voltage information on the circuit. Finally, explain these values by theory
+calculations.
+Page 110
+
+HCMUT - Computer Engineering
+
+3.2 Enhancement-mode MOSFET
+The more common Enhancement-mode MOSFET or eMOSFET. The device is normally
+“OFF” (non-conducting) when the gate bias voltage, VGS is equal to zero. For the nchannel enhancement MOS transistor a drain current will only flow when a gate voltage
+( VGS ) is applied to the gate terminal greater than the threshold voltage ( VTH ) level in
+which conductance takes place making it a transconductance device. In other words, for
+an n-channel enhancement mode MOSFET: +VGS turns the transistor “ON”, while a zero
+or -VGS turns the transistor “OFF”. Thus the enhancement-mode MOSFET is equivalent
+to a “normally-open” switch.
+The reverse is true for the p-channel enhancement MOS transistor. When VGS = 0 the device is “OFF” and the channel is open. The application of a negative (-ve) gate voltage to
+the p-type eMOSFET enhances the channels conductivity turning it “ON”. Then for an pchannel enhancement mode MOSFET: +VGS turns the transistor “OFF”, while -VGS turns
+the transistor “ON”.
+The validation of an EFET in PSPICE is presented bellow. The typical EFET in PSPICE is
+MbreakN device.
+
+Figure 6.12: EFET validation
+
+A dc sweep simulation with V3 can be performed. The simulation results with V3 varies
+from -1V to 5V are presented as following:
+
+Figure 6.13: Simulation results with EFET
+
+Electronic Device Component
+
+Page 111
+
+4 MOSFET Applications
+This part presents some applications using MOSFETs and most of them are EFETs. Students are proposed to implement the schematic and then, validate in PSPICE.
+
+4.1 MOSFET as a switch
+In this circuit arrangement an Enhancement-mode N-channel MOSFET is being used to
+switch a simple lamp “ON” and “OFF” (could be replace by an resistor to simulate in
+PSPICE).
+
+Figure 6.14: EFET is used as a switch
+The gate input voltage VGS is taken to an appropriate positive voltage level to turn the
+device and therefore the lamp load either “ON”, ( VGS = +ve ) or at a zero voltage level that
+turns the device “OFF”, ( VGS = 0V ).
+If the resistive load of the lamp was to be replaced by an inductive load such as a coil,
+solenoid or relay a “flywheel diode” would be required in parallel with the load to protect
+the MOSFET from any self generated back-emf.
+Students are proposed to simulation this circuit with RIN = 4.7k and RGS = 47k and
+VIN is the TTL level (0V and 5V). The power supply for VDD can be set to 12V or 24V.
+Shortly explain the current passing through the load (a resistance 100Ohm replaced
+for the Lamp in the circuit).
+
+4.2 MOSFET Motor Controller [Optional]
+As the motor load is inductive, a simple flywheel diode is connected across the inductive
+load to dissipate any back emf generated by the motor when the MOSFET turns it “OFF”.
+A clamping network formed by a zener diode in series with the diode can also be used
+to allow for faster switching and better control of the peak reverse voltage and drop-out
+time.
+
+Page 112
+
+HCMUT - Computer Engineering
+
+Figure 6.15: Simple motor controller using EFET
+For added security an additional silicon or zener diode D1 can also be placed across
+the channel of a MOSFET switch when using inductive loads, such as motors, relays,
+solenoids, etc, for suppressing over voltage switching transients and noise giving extra
+protection to the MOSFET switch if required. Resistor RGS is used as a pull-down resistor
+to help pull the TTL output voltage down to 0V when the MOSFET is switched “OFF”.
+This exercise is optional in this lab.
+
+4.3 Complementary MOSFET Motor Controller [Optinal]
+The two MOSFETs are configured to produce a bi-directional switch from a dual supply
+with the motor connected between the common drain connection and ground reference.
+When the input is LOW the P-channel MOSFET is switched-ON as its gate-source junction
+is negatively biased so the motor rotates in one direction. Only the positive +VDD supply
+rail is used to drive the motor.
+
+Figure 6.16: Full Motor controller with N and P channel EFET
+When the input is HIGH, the P-channel device switches-OFF and the N-channel device
+switches-ON as its gate-source junction is positively biased. The motor now rotates in
+the opposite direction because the motors terminal voltage has been reversed as it is now
+supplied by the negative -VDD supply rail.
+
+Electronic Device Component
+
+Page 113
+
+Then the P-channel MOSFET is used to switch the positive supply to the motor for forward direction (high-side switching) while the N-channel MOSFET is used to switch the
+negative supply to the motor for reverse direction (low-side switching).
+This exercise is also optional in this lab.
+
+5 Altium Designer
+5.1 Button Input
+Pushbuttons or switches connect two points in a circuit when you press them. In a system,
+button is a traditional input method. The figure bellow is an example of a simple button,
+which is the target of this exercise:
+
+Figure 6.17: An example of a button
+The schematic of this circuit is proposed as follows:
+
+Figure 6.18: Button schematic in Altium
+Students are proposed to implement the circuit in Altium Designer. The manual can
+be found in the same playlist with other manual videos. Please capture the screen to
+present the schematic as well as the layout of your PCB.
+
+5.2 ADC Input
+The second type of the input signal is the ADC input value, which is a kind of sensing device. In this sensor part, we use two opamps which are packed in one IC LM358. IC LM358
+Page 114
+
+HCMUT - Computer Engineering
+
+includes two opamps. A photoresistor (also known as a light-dependent resistor, LDR, or
+photo-conductive cell) is use to measure the light intensitive. It is a passive component
+that decreases resistance with respect to receiving luminosity (light) on the component’s
+sensitive surface. An example of this module can be found in the figure bellow:
+
+Figure 6.19: An example of a light sensor
+The schematic of this circuit is proposed as follows, which is based on a voltage follower
+circuit:
+
+Figure 6.20: Light sensor schematic in Altium
+Students are proposed to implement the circuit in Altium Designer. The manual can
+be found in the same playlist with other manual videos. Please capture the screen to
+present the schematic as well as the layout of your PCB.
+
+Electronic Device Component
+
+Page 115
+
+Page 116
+
+HCMUT - Computer Engineering
+
+List of References
+[Ein05]
+
+Albert Einstein. “Zur Elektrodynamik bewegter Körper. (German) [On the electrodynamics of moving bodies]”. In: Annalen der Physik 322.10 (1905), pp. 891–
+921. DOI: http://dx.doi.org/10.1002/andp.19053221004.
+
+[Knu68]
+
+Donald E. Knuth. The Art of Computer Programming. Four volumes. Seven volumes planned. Addison-Wesley, 1968.
+
+[Knu73]
+
+Donald E. Knuth. “Fundamental Algorithms”. In: Addison-Wesley, 1973. Chap. 1.2.
+
+[Dir81]
+
+Paul Adrien Maurice Dirac. The Principles of Quantum Mechanics. International series of monographs on physics. Clarendon Press, 1981. ISBN: 9780198520115.
+
+[GMS93]
+
+Michel Goossens, Frank Mittelbach, and Alexander Samarin. The LATEX Companion. Reading, Massachusetts: Addison-Wesley, 1993.
+
+[Gre93]
+
+George D. Greenwade. “The Comprehensive Tex Archive Network (CTAN)”. In:
+TUGBoat 14.3 (1993), pp. 342–351.
+
+[Hal]
+
+Gareth Halfacree. The Official BBC micro:bit User Guide. URL: https://microbit.
+org/. (accessed: 25.05.2018).
+
+[Knu]
+
+Donald Knuth. Knuth: Computers and Typesetting. URL: http : / / www - cs faculty.stanford.edu/~uno/abcde.html. (accessed: 01.09.2016).
+
+Electronic Device Component
+
+Page 117
+
+

@@ -1,0 +1,13 @@
+* Lab 6 - Ex09: diode clipper
+V1 in 0 SINE(0 10 1k)
+R1 in out 1k
+D1 out vr D1N4148
+Vr vr 0 3
+D2 0 out D1N4148
+.tran 0 4m 0 5u
+* models
+.model D1N4148 D(Is=2.52n Rs=0.568 N=1.752 Cjo=4p M=0.4 Tt=20n)
+.model DZ12 D(Is=1e-14 Bv=12 Ibv=10m Rs=2)
+.model DZ51 D(Is=1e-14 Bv=5.1 Ibv=10m Rs=2)
+.model DZ17 D(Is=1e-14 Bv=1.7 Ibv=1m Rs=2)
+.model QN NPN(Is=1e-14 Bf=100 Br=1)

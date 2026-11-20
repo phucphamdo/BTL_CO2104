@@ -1,0 +1,10 @@
+* Lab 1 - Ex06: resistor network seen from terminals a-b
+V1 a 0 100
+R1 a n1 13
+R2 n1 m1 24
+R3 n1 m2 10
+R4 m1 m2 20
+R5 m1 0 30
+R6 m2 0 50
+.op
+.end

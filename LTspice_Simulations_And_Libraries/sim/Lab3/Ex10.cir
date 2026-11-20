@@ -1,0 +1,19 @@
+* Lab 3 - Ex10: behavioural optocoupler (replaces the PC817): LED + CTR = 2 phototransistor
+V1 bat 0 9
+R1 bat a 10k
+Vs a ld 0
+D1 ld 0 LEDRED
+.model LEDRED D(Is=1e-18 N=1.9 Rs=5 Cjo=30p)
+V2 vcc 0 5
+R2 vcc out 4.7k
+Q1 out b 0 QN
+F1 0 b Vs 0.02
+.op
+* models
+.model D1N4148 D(Is=2.52n Rs=0.568 N=1.752 Cjo=4p M=0.4 Tt=20n)
+.model DSCH D(Is=1u N=1.05 Rs=0.05 Cjo=100p)
+.model DZ5V D(Is=1e-14 Bv=5.0 Ibv=10m Rs=2)
+.model DZ22 D(Is=1e-14 Bv=22 Ibv=10m Rs=2)
+.model DZ20 D(Is=1e-14 Bv=20 Ibv=10m Rs=2)
+.model QN NPN(Is=1e-14 Bf=100 Br=1)
+.model QP PNP(Is=1e-14 Bf=100 Br=1)

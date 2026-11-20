@@ -1,0 +1,425 @@
+% !TEX program = xelatex
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[a4paper,top=2.2cm,bottom=2.4cm,left=2.2cm,right=2.2cm,headheight=16pt]{geometry}
+\usepackage{fontspec}
+\setmainfont{Latin Modern Roman}
+\setsansfont{Latin Modern Sans}
+\setmonofont{Latin Modern Mono}
+
+\usepackage[table]{xcolor}
+\usepackage{colortbl,array,tabularx,booktabs,multirow}
+\usepackage{enumitem,graphicx,float,caption,amsmath,amssymb}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric,arrows.meta,positioning,calc,shadows}
+\usepackage[most]{tcolorbox}
+\usepackage{fancyhdr,titlesec}
+\usepackage[colorlinks=true,linkcolor=navy,urlcolor=navy,citecolor=navy]{hyperref}
+
+% Define color palette
+\definecolor{navy}{HTML}{1A365D}
+\definecolor{accent}{HTML}{C05621}
+\definecolor{darkblue}{HTML}{0D47A1}
+\definecolor{lightblue}{HTML}{EBF4FF}
+\definecolor{darkgreen}{HTML}{1B5E20}
+\definecolor{lightgreen}{HTML}{E8F5E9}
+\definecolor{darkred}{HTML}{B71C1C}
+\definecolor{lightred}{HTML}{FFEBEE}
+\definecolor{lightorange}{HTML}{FFF8E1}
+\definecolor{codebg}{HTML}{F7FAFC}
+\definecolor{bordergray}{HTML}{CBD5E0}
+
+% Header & Footer
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\color{navy}\textbf{CO2037 / CO2104: Hướng dẫn Cài đặt và Cấu hình LTspice}}
+\fancyhead[R]{\small\color{gray}ĐHBK Tp.HCM -- Khoa KH\&KT Máy tính}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.6pt}
+\renewcommand{\footrulewidth}{0.3pt}
+
+% Section formatting
+\titleformat{\section}{\color{navy}\Large\bfseries}{\thesection.}{0.6em}{}[\vspace{2pt}\titlerule]
+\titleformat{\subsection}{\color{darkblue}\large\bfseries}{\thesubsection.}{0.5em}{}
+\titleformat{\subsubsection}{\color{accent}\normalsize\bfseries}{\thesubsubsection.}{0.4em}{}
+
+% Custom callout boxes
+\newtcolorbox{notebox}[1][Lưu ý quan trọng]{
+  colback=lightorange,colframe=accent,arc=3pt,boxrule=1pt,
+  fonttitle=\bfseries\color{accent},title=\textbf{#1},
+  left=8pt,right=8pt,top=6pt,bottom=6pt
+}
+
+\newtcolorbox{tipbox}[1][Mẹo hữu ích]{
+  colback=lightgreen,colframe=darkgreen,arc=3pt,boxrule=1pt,
+  fonttitle=\bfseries\color{darkgreen},title=\textbf{#1},
+  left=8pt,right=8pt,top=6pt,bottom=6pt
+}
+
+\newtcolorbox{warnbox}[1][Cảnh báo lỗi]{
+  colback=lightred,colframe=darkred,arc=3pt,boxrule=1pt,
+  fonttitle=\bfseries\color{darkred},title=\textbf{#1},
+  left=8pt,right=8pt,top=6pt,bottom=6pt
+}
+
+\newtcolorbox{stepbox}[1]{
+  colback=lightblue,colframe=navy,arc=3pt,boxrule=1pt,
+  fonttitle=\bfseries\color{navy},title=\textbf{#1},
+  left=8pt,right=8pt,top=6pt,bottom=6pt
+}
+
+\newcommand{\code}[1]{\texttt{\color{navy}\textbf{#1}}}
+\newcommand{\pathdir}[1]{\texttt{\color{darkblue}#1}}
+\newcommand{\key}[1]{\colorbox{gray!20}{\texttt{\textbf{#1}}}}
+
+\begin{document}
+
+% ------------------------- COVER PAGE -------------------------
+\begin{titlepage}
+\centering
+\vspace*{0.5cm}
+{\scshape\Large ĐẠI HỌC QUỐC GIA TP. HỒ CHÍ MINH\\[0.3cm]
+TRƯỜNG ĐẠI HỌC BÁCH KHOA\\[0.3cm]
+KHOA KHOA HỌC VÀ KỸ THUẬT MÁY TÍNH\par}
+
+\vspace{1.5cm}
+\begin{tikzpicture}
+  \node[draw=navy,line width=1.5pt,rounded corners=8pt,inner sep=18pt,fill=lightblue!30,drop shadow] {
+    \begin{minipage}{0.88\textwidth}
+      \centering
+      {\Huge\bfseries\color{navy} HƯỚNG DẪN CÀI ĐẶT \& CẤU HÌNH\\ PHẦN MỀM LTSPICE CHUẨN}\\[0.6cm]
+      {\large\bfseries\color{accent} Tài liệu Hướng dẫn Thực hành Dành cho Sinh viên}\\[0.3cm]
+      {\normalsize Môn học: \textbf{Linh kiện và Mạch điện tử (CO2037 / CO2104)}}\\[0.2cm]
+      {\small Phương pháp Cài đặt Trực tuyến, Ngoại tuyến (Offline), Đóng gói Thư viện\\ và Quy chuẩn Cấu hình Tối ưu trên Laptop Cá nhân}
+    \end{minipage}
+  };
+\end{tikzpicture}
+
+\vspace{1.8cm}
+
+\begin{minipage}{0.95\textwidth}
+\begin{tcolorbox}[colback=white,colframe=navy,arc=5pt,boxrule=1.2pt,title=\textbf{THÔNG TIN TÀI LIỆU \& HỌC PHẦN}]
+\renewcommand{\arraystretch}{1.35}
+\begin{tabularx}{\linewidth}{@{}p{4.2cm}X@{}}
+\textbf{Môn học:} & Linh kiện và Mạch điện tử (Electronic Devices and Circuits) \\
+\textbf{Mã môn:} & CO2037 / CO2104 \\
+\textbf{Giảng viên phụ trách:} & TS. Lê Trọng Nhân \\
+\textbf{Phần mềm sử dụng:} & Analog Devices LTspice (Bản 64-bit: 17.x / 24.x) \\
+\textbf{Nền tảng hỗ trợ:} & Windows 10/11 (khuyến nghị), macOS, Linux (qua Wine) \\
+\textbf{Mục tiêu:} & Chuẩn hóa quy trình cài đặt, khắc phục lỗi và cấu hình tối ưu.
+\end{tabularx}
+\end{tcolorbox}
+\end{minipage}
+
+\vfill
+{\large TP. Hồ Chí Minh, Năm 2026\par}
+\end{titlepage}
+
+\newpage
+\tableofcontents
+\newpage
+
+% ------------------------- NỘI DUNG CHÍNH -------------------------
+
+\section{Giới thiệu về LTspice và Yêu cầu Hệ thống}
+
+\subsection{Tổng quan về LTspice}
+\textbf{LTspice} là phần mềm mô phỏng mạch tương tự (SPICE simulator) chuyên dụng và mạnh mẽ được phát triển bởi tập đoàn \textbf{Analog Devices} (trước đây là Linear Technology). Đây là công cụ được ứng dụng rộng rãi trong cả đào tạo đại học và công nghiệp bán dẫn nhờ các ưu điểm nổi bật:
+\begin{itemize}[itemsep=2pt]
+  \item \textbf{Miễn phí 100\% và không giới hạn:} Không giới hạn số nút mạch (node count), không giới hạn số linh kiện và không yêu cầu đăng ký tài khoản trả phí như các phần mềm thương mại khác (Orcad PSpice, Multisim).
+  \item \textbf{Tốc độ hội tụ và mô phỏng cực nhanh:} Bộ giải thuật SPICE được tối ưu hóa đặc biệt cho các mạch chuyển mạch (switching power circuits), mạch phi tuyến diode/BJT/MOSFET và mạch khuếch đại thuật toán (op-amp).
+  \item \textbf{Dung lượng gọn nhẹ:} Bộ cài đặt gốc chỉ khoảng 60--80\,MB, tải về và cài đặt cực kỳ nhanh chóng trên laptop cá nhân của sinh viên.
+  \item \textbf{Tích hợp sẵn thư viện khổng lồ:} Tích hợp sẵn hàng nghìn mô hình IC quản lý nguồn, op-amp, transistor và linh kiện thụ động tiêu chuẩn từ Analog Devices.
+\end{itemize}
+
+\subsection{So sánh LTspice với PSpice for TI}
+Trong chương trình môn học \textit{Linh kiện và Mạch điện tử}, việc chuyển đổi từ \textit{PSpice for TI} sang \textit{LTspice} nhằm mang lại môi trường thực hành thuận tiện, tự chủ nhất cho sinh viên trên laptop cá nhân:
+
+\begin{table}[H]\centering\small
+\caption{Bảng so sánh giữa PSpice for TI và LTspice}\label{tab:so-sanh}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\linewidth}{|p{3.5cm}|X|X|}\hline
+\rowcolor{navy!15}\textbf{Đặc tính} & \textbf{PSpice for TI} & \textbf{LTspice} \\ \hline
+\textbf{Tài khoản \& Kích hoạt} & Bắt buộc có tài khoản TI, chờ duyệt mã kích hoạt & \textbf{Không cần tài khoản}, tải về là sử dụng ngay \\ \hline
+\textbf{Kết nối Internet} & Cần kiểm tra bản quyền định kỳ qua mạng & \textbf{Hoạt động 100\% offline}, độc lập hoàn toàn \\ \hline
+\textbf{Giới hạn mạch ngoài TI} & Bị hạn chế phân tích (tối đa 3 trace) nếu dùng linh kiện lạ & \textbf{Không giới hạn}, vẽ bao nhiêu trace tùy ý \\ \hline
+\textbf{Quản lý dự án} & Tạo project rườm rà với nhiều thư mục con & Chỉ cần \textbf{1 file schematic duy nhất (.asc)} \\ \hline
+\textbf{Lệnh mô phỏng} & Cấu hình qua hộp thoại Simulation Profile & Đặt trực tiếp lệnh dưới dạng text trên schematic \\ \hline
+\textbf{Hệ điều hành} & Chỉ hỗ trợ Windows & Hỗ trợ Windows, macOS và Linux (qua Wine) \\ \hline
+\end{tabularx}
+\end{table}
+
+\subsection{Yêu cầu Phần cứng và Hệ điều hành}
+\begin{itemize}[itemsep=2pt]
+  \item \textbf{Hệ điều hành:}
+  \begin{itemize}
+    \item \textbf{Windows:} Windows 10 hoặc Windows 11 (bản 64-bit) -- hệ điều hành phổ biến nhất trên laptop cá nhân của sinh viên.
+    \item \textbf{macOS:} macOS Monterey (12.x), Ventura (13.x), Sonoma (14.x) trở lên (hỗ trợ cả Apple Silicon M1/M2/M3 và Intel).
+    \item \textbf{Linux:} Ubuntu 20.04/22.04 LTS, Debian, Fedora (chạy mượt mà thông qua Wine 6.0+).
+  \end{itemize}
+  \item \textbf{Cấu hình phần cứng tối thiểu:}
+  \begin{itemize}
+    \item CPU: Bộ vi xử lý x86-64 hoặc ARM64, tối thiểu 2 nhân (khuyến nghị đa nhân để tận dụng tính năng đa luồng \textit{Multithreading} của LTspice).
+    \item RAM: Tối thiểu 2\,GB (khuyến nghị 4\,GB trở lên).
+    \item Dung lượng ổ đĩa: Trống tối thiểu 500\,MB để cài đặt ứng dụng và lưu trữ thư viện mô hình.
+    \item Màn hình: Tối thiểu $1280 \times 800$ (tối ưu trên màn hình FHD, 2K và 4K).
+  \end{itemize}
+\end{itemize}
+
+\subsection{Bản quyền và Điều khoản Phân phối lại (EULA)}
+Căn cứ vào Thỏa thuận Cấp phép Người dùng Cuối (EULA) của \textbf{Analog Devices}:
+\begin{itemize}[itemsep=2pt]
+  \item LTspice được cung cấp hoàn toàn miễn phí cho mục đích học tập, nghiên cứu và phát triển sản phẩm.
+  \item Sinh viên \textbf{được phép tự do tải về, cài đặt trên laptop cá nhân và sao lưu qua USB} để sử dụng học tập hoặc chia sẻ cho các thành viên trong nhóm mà không vi phạm bản quyền phần mềm.
+\end{itemize}
+
+\section{Quy trình Cài đặt Trực tuyến (Online Installation)}
+\label{sec:online}
+
+Dành cho sinh viên tự cài đặt trên máy tính cá nhân (laptop/PC) có kết nối mạng Internet.
+
+\begin{stepbox}{Bước 1: Tải bộ cài đặt chính thức từ Analog Devices}
+\begin{enumerate}[itemsep=2pt]
+  \item Truy cập vào trang chủ chính thức của LTspice:
+  \begin{center}
+    \url{https://www.analog.com/en/design-center/design-tools-and-calculators/ltspice-simulator.html}
+  \end{center}
+  \item Chọn nút \textbf{Download for Windows 64-bit} (đối với người dùng Windows) hoặc \textbf{Download for macOS} (đối với MacBook).
+  \item Tệp tin tải về sẽ có tên dạng \code{LTspice64.msi} (dung lượng khoảng 65\,MB).
+\end{enumerate}
+\end{stepbox}
+
+\begin{stepbox}{Bước 2: Tiến hành cài đặt ứng dụng}
+\begin{enumerate}[itemsep=2pt]
+  \item Nhấp đúp chuột vào tệp \code{LTspice64.msi} để khởi động trình cài đặt \textit{LTspice Setup Wizard}.
+  \item Nhấn \textbf{Next} và chấp thuận điều khoản cấp phép (\textit{I accept the terms in the License Agreement}).
+  \item Tại bước chọn đường dẫn cài đặt (\textit{Destination Folder}), giữ nguyên đường dẫn mặc định:
+  \begin{itemize}
+    \item Trên Windows: \pathdir{C:/Program Files/ADI/LTspice/}
+  \end{itemize}
+  \item Nhấn \textbf{Install} (cấp quyền Administrator nếu Windows yêu cầu thông báo UAC) và đợi khoảng 1--2 phút để quá trình hoàn tất.
+  \item Nhấn \textbf{Finish} để hoàn thành cài đặt.
+\end{enumerate}
+\end{stepbox}
+
+\begin{stepbox}{Bước 3: Đồng bộ và cập nhật thư viện linh kiện mới nhất}
+\begin{enumerate}[itemsep=2pt]
+  \item Khởi động phần mềm LTspice từ màn hình Desktop hoặc menu Start.
+  \item Trên thanh thực đơn chính, chọn: \textbf{Tools $\rightarrow$ Sync Release}.
+  \item Phần mềm sẽ tự động kết nối với máy chủ Analog Devices để tải về toàn bộ các mô hình SPICE, symbol mới nhất. Sau khi cập nhật xong, nhấn \textbf{OK} và khởi động lại phần mềm.
+\end{enumerate}
+\end{stepbox}
+
+\section{Quy trình Cài đặt Ngoại tuyến Chuẩn xác trên Laptop Cá nhân (Offline Installation)}
+\label{sec:offline}
+
+Trong trường hợp laptop cá nhân của sinh viên \textbf{không có kết nối Internet} (như khi đang học tập trên lớp, khu vực sóng yếu, hoặc muốn lưu trữ sẵn gói cài đặt để cài đặt lại nhanh chóng khi đổi máy), sinh viên có thể tự đóng gói bộ cài và thư viện ngoại tuyến độc lập theo quy trình dưới đây:
+
+\subsection{Giai đoạn 1: Chuẩn bị gói cài đặt trên máy có Internet}
+Sinh viên sử dụng một USB hoặc ổ cứng di động để chuẩn bị trọn gói bộ cài đặt:
+\begin{enumerate}[itemsep=3pt]
+  \item \textbf{Tải bộ cài đặt gốc:} Lưu file \code{LTspice64.msi} vào USB.
+  \item \textbf{Đóng gói thư viện hoàn chỉnh:}
+  Trên máy đã cài đặt và chạy \textit{Sync Release} đầy đủ, truy cập vào thư mục thư viện của LTspice:
+  \begin{itemize}
+    \item Thư mục thư viện gốc thường nằm tại:
+    \begin{center}
+      \pathdir{\%LOCALAPPDATA\%/LTspice/lib/} \quad hoặc \quad \pathdir{C:/Program Files/ADI/LTspice/lib/}
+    \end{center}
+    \item Thư mục \code{lib} gồm 3 thư mục con tối quan trọng:
+    \begin{itemize}
+      \item \pathdir{sym/}: Chứa toàn bộ các biểu tượng linh kiện (symbol \code{.asy}) từ diode, transistor, op-amp đến nguồn phụ thuộc.
+      \item \pathdir{sub/}: Chứa các tệp mô hình mạch con (subcircuit \code{.sub}, \code{.cir}, \code{.lib}).
+      \item \pathdir{cmp/}: Chứa danh bạ tham số linh kiện tiêu chuẩn (\code{standard.dio}, \code{standard.bjt}, \code{standard.mos}, \code{standard.jft}).
+    \end{itemize}
+    \item Nén toàn bộ thư mục \code{lib} này thành file zip: \code{LTspice\_lib\_offline.zip}.
+  \end{itemize}
+  \item \textbf{Chuẩn bị các file bài tập mẫu:} Sao chép toàn bộ thư mục bài tập của môn học (\pathdir{Lab1/} đến \pathdir{Lab6/}) chứa các file \code{.asc} vào USB.
+\end{enumerate}
+
+\subsection{Giai đoạn 2: Cài đặt ngoại tuyến trên laptop cá nhân}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[
+  node distance=1.3cm,
+  block/.style={rectangle, draw=navy, fill=lightblue!30, text width=13cm, text centered, rounded corners=4pt, minimum height=0.9cm, line width=1pt},
+  arrow/.style={thick, ->, >=stealth, navy, line width=1.5pt}
+]
+  \node [block] (step1) {\textbf{Bước 1:} Sao chép tệp \texttt{LTspice64.msi} và thư viện \texttt{.zip} từ USB sang ổ đĩa \texttt{D:/} hoặc \texttt{Desktop}};
+  \node [block, below of=step1] (step2) {\textbf{Bước 2:} Chạy tệp cài đặt \texttt{LTspice64.msi} vào thư mục mặc định của laptop};
+  \node [block, below of=step2] (step3) {\textbf{Bước 3:} Giải nén \texttt{LTspice\_lib\_offline.zip} ghi đè vào thư mục \texttt{lib} của LTspice};
+  \node [block, below of=step3] (step4) {\textbf{Bước 4:} Mở phần mềm và chạy kiểm tra mạch mẫu trong thư mục \texttt{examples}};
+  
+  \path [arrow] (step1) -- (step2);
+  \path [arrow] (step2) -- (step3);
+  \path [arrow] (step3) -- (step4);
+\end{tikzpicture}
+\caption{Sơ đồ các bước cài đặt LTspice Offline trên laptop cá nhân}\label{fig:quytrinh_offline}
+\end{figure}
+
+\begin{notebox}[Chi tiết vị trí ghi đè thư viện linh kiện trên laptop (Giai đoạn 2 -- Bước 3)]
+Trên hệ điều hành Windows của laptop cá nhân, sinh viên sao chép các thư mục \code{sym}, \code{sub}, \code{cmp} vào một trong hai vị trí sau:
+\begin{itemize}[itemsep=2pt]
+  \item \textbf{Vị trí khuyến nghị (cho tài khoản người dùng hiện tại):}
+  \begin{center}
+    \pathdir{C:/Users/<Tên\_Laptop>/AppData/Local/LTspice/lib/}
+  \end{center}
+  \item \textbf{Vị trí cài đặt chung (cho toàn bộ người dùng trên laptop):}
+  \begin{center}
+    \pathdir{C:/Program Files/ADI/LTspice/lib/}
+  \end{center}
+\end{itemize}
+\end{notebox}
+
+\section{Hướng dẫn Cài đặt trên macOS và Linux}
+
+\subsection{Cài đặt trên macOS}
+\begin{enumerate}[itemsep=2pt]
+  \item Tải tệp cài đặt \code{LTspice.dmg} từ trang chủ Analog Devices.
+  \item Mở tệp \code{LTspice.dmg}, kéo thả biểu tượng \textbf{LTspice} vào thư mục \textbf{Applications}.
+  \item Khởi chạy LTspice lần đầu: Nếu macOS hiển thị thông báo bảo mật \textit{"App cannot be opened because it is from an unidentified developer"}, vào \textbf{System Settings $\rightarrow$ Privacy \& Security} và chọn \textbf{Open Anyway}.
+  \item Giao diện trên macOS được tối ưu theo phong cách bản địa của Apple (sử dụng phím \key{Cmd} thay cho phím \key{Ctrl}).
+\end{enumerate}
+
+\subsection{Cài đặt trên Linux (thông qua Wine)}
+LTspice tương thích 100\% và chạy rất mượt mà trên môi trường Linux thông qua Wine mà không có bất kỳ hiện tượng suy giảm hiệu năng nào:
+\begin{enumerate}[itemsep=2pt]
+  \item Mở Terminal trên Ubuntu / Debian và cài đặt Wine:
+\begin{tcolorbox}[colback=codebg,colframe=bordergray,arc=2pt,boxrule=0.8pt]
+\small\texttt{sudo dpkg --add-architecture i386}\\
+\texttt{sudo apt update \&\& sudo apt install -y wine64 wine32 winetricks}
+\end{tcolorbox}
+  \item Tiến hành cài đặt LTspice:
+\begin{tcolorbox}[colback=codebg,colframe=bordergray,arc=2pt,boxrule=0.8pt]
+\small\texttt{wine msiexec /i LTspice64.msi}
+\end{tcolorbox}
+  \item Sau khi hoàn tất, bạn có thể khởi chạy LTspice trực tiếp từ thực đơn ứng dụng hoặc gõ lệnh:
+\begin{tcolorbox}[colback=codebg,colframe=bordergray,arc=2pt,boxrule=0.8pt]
+\small\texttt{wine "C:/Program Files/ADI/LTspice/LTspice.exe"}
+\end{tcolorbox}
+\end{enumerate}
+
+\section{Cấu hình Chuẩn Tối ưu trên Laptop Cá nhân}
+
+Để quá trình làm bài thí nghiệm đạt kết quả chính xác, thuận tiện cho việc chụp ảnh báo cáo nộp bài và mô phỏng không gặp lỗi hội tụ, sinh viên \textbf{bắt buộc phải cấu hình 4 mục chuẩn sau}:
+
+\subsection{1. Cấu hình Bảng màu Sáng (White Background) để Chụp Ảnh Báo Cáo}
+Mặc định LTspice có màu nền xám tối hoặc đen. Khi chụp màn hình đưa vào file báo cáo hoặc in ra giấy, nền đen làm mờ linh kiện và gây lãng phí mực in. Hãy chuyển sang \textbf{nền trắng chuẩn in ấn}:
+\begin{enumerate}[itemsep=2pt]
+  \item Vào menu: \textbf{Tools $\rightarrow$ Color Scheme} (hoặc biểu tượng búa/kìm \textit{Control Panel} $\rightarrow$ tab \textit{Drafting Options} $\rightarrow$ chọn \textit{Color Scheme}).
+  \item Trong tab \textbf{Schematic}:
+  \begin{itemize}[itemsep=1pt]
+    \item Chọn mục \textbf{Background}: Kéo cả 3 thanh trượt Red, Green, Blue lên mức tối đa: \code{R=255, G=255, B=255} (Nền trắng tinh khiết).
+    \item Chọn mục \textbf{Wires} (dây nối): Chỉnh sang màu đen (\code{R=0, G=0, B=0}) hoặc xanh đậm (\code{R=0, G=0, B=160}).
+    \item Chọn mục \textbf{Component} (thân linh kiện): Chỉnh sang màu xanh biển hoặc đỏ đậm.
+  \end{itemize}
+  \item Trong tab \textbf{WaveForm}: Chỉnh mục \textbf{Background} thành màu trắng (\code{255, 255, 255}) để nền đồ thị sáng rõ.
+  \item Nhấn \textbf{Apply} và \textbf{OK}.
+\end{enumerate}
+
+\begin{tipbox}[Mẹo chụp ảnh mạch và dạng sóng chuyên nghiệp]
+Thay vì dùng công cụ Snipping Tool chụp cả màn hình, trong LTspice bạn chỉ cần chọn:\\
+$\bullet$ Với sơ đồ mạch: Chọn \textbf{Tools $\rightarrow$ Copy bitmap to clipboard}. Toàn bộ schematic sẽ được sao chép vào bộ nhớ đệm dưới dạng ảnh nét căng, tự động lược bỏ các khoảng trống thừa.\\
+$\bullet$ Với đồ thị sóng: Nhấp vào cửa sổ đồ thị $\rightarrow$ chọn \textbf{Tools $\rightarrow$ Copy bitmap to clipboard}.
+\end{tipbox}
+
+\subsection{2. Bảng Phím tắt Nhanh Cần Thuộc Lòng (Hotkeys)}
+Việc dùng phím tắt giúp sinh viên vẽ mạch nhanh gấp 5 lần so với việc tìm kiếm biểu tượng trên menu:
+
+\begin{table}[H]\centering\small
+\caption{Bảng phím tắt thao tác nhanh chuẩn trong LTspice}\label{tab:phimtat}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabularx}{\linewidth}{|c|p{4.8cm}|X|}\hline
+\rowcolor{navy!15}\textbf{Phím tắt} & \textbf{Chức năng} & \textbf{Mô tả chi tiết} \\ \hline
+\key{R} & Place Resistor & Đặt điện trở \\ \hline
+\key{C} & Place Capacitor & Đặt tụ điện \\ \hline
+\key{L} & Place Inductor & Đặt cuộn cảm \\ \hline
+\key{D} & Place Diode & Đặt diode \\ \hline
+\key{G} & Place Ground (GND) & \textbf{Bắt buộc cho mọi mạch} (node 0) \\ \hline
+\key{F2} & Component Library & Mở danh mục linh kiện (tìm nguồn \code{voltage}, \code{current}, op-amp,...) \\ \hline
+\key{F3} & Draw Wire & Bật chế độ vẽ dây nối \\ \hline
+\key{F4} & Label Net & Đặt tên nút mạch (ví dụ: \code{Vin}, \code{Vout}, \code{A}, \code{B}) \\ \hline
+\key{F5} & Delete Component & Bật công cụ cây kéo để xóa linh kiện / dây dẫn \\ \hline
+\key{F7} & Move & Di chuyển linh kiện (dây nối sẽ ngắt ra) \\ \hline
+\key{F8} & Drag & Kéo linh kiện (dây nối di chuyển dính theo linh kiện) \\ \hline
+\key{Ctrl+R} & Rotate & Xoay linh kiện 90 độ \\ \hline
+\key{Ctrl+E} & Mirror & Lật gương linh kiện (rất tiện cho transistor/diode) \\ \hline
+\key{S} & SPICE Directive & Thêm dòng lệnh SPICE dạng văn bản (ví dụ: \code{.op}, \code{.model}) \\ \hline
+\key{T} & Text & Chèn chú thích chữ lên bản vẽ \\ \hline
+\key{Space} & Zoom to Fit & Tự động phóng to thu nhỏ vừa khít toàn bộ mạch \\ \hline
+\end{tabularx}
+\end{table}
+
+\subsection{3. Cấu hình Giải thuật SPICE (SPICE Engine Tuning)}
+Để hạn chế tối đa lỗi không hội tụ (\textit{Singular Matrix} hoặc \textit{Time step too small}):
+\begin{enumerate}[itemsep=2pt]
+  \item Vào biểu tượng búa/kìm \textbf{Control Panel} $\rightarrow$ chọn tab \textbf{SPICE}.
+  \item Tại mục \textbf{Engine}:
+  \begin{itemize}[itemsep=1pt]
+    \item \textbf{Solver:} Mặc định chọn \code{Normal}. Nếu gặp mạch phi tuyến phức tạp (như mạch dao động hoặc mạch buck converter) không hội tụ, hãy chuyển sang \code{Alternate}.
+    \item \textbf{Max threads:} Chọn số nhân tối đa của CPU (ví dụ: 4, 8 hoặc 16) để tận dụng đa luồng tăng tốc mô phỏng.
+    \item \textbf{Integration method:} Mặc định là \code{Modified Trap}. Với các mạch nguồn xung có tải cảm kháng lớn, nếu xuất hiện hiện tượng dao động số giả mạo (numerical ringing), có thể chuyển sang \code{Gear}.
+  \end{itemize}
+\end{enumerate}
+
+\subsection{4. Quy chuẩn Tiền tố Đơn vị trong SPICE (Cực kỳ Quan trọng)}
+\begin{warnbox}[Lỗi thường gặp nhất của sinh viên khi nhập giá trị linh kiện!]
+Trình mô phỏng SPICE \textbf{không phân biệt chữ hoa và chữ thường}. Do đó:
+\begin{itemize}[itemsep=1pt]
+  \item \textbf{Ký tự \code{m} và \code{M} đều được hiểu là milli ($10^{-3}$)!}
+  \item Nếu muốn nhập đơn vị \textbf{Mega} ($10^{6}$), bắt buộc phải gõ là \code{Meg} hoặc \code{MEG} (ví dụ điện trở $1\,\text{M}\Omega$ phải gõ là \code{1Meg}, nếu chỉ gõ \code{1M} phần mềm sẽ hiểu là $1\,\text{m}\Omega = 0.001\,\Omega$).
+  \item Các tiền tố hợp lệ khác: \code{f} (femto), \code{p} (pico), \code{n} (nano), \code{u} (micro), \code{k} (kilo), \code{g} (giga).
+\end{itemize}
+\end{warnbox}
+
+\section{Quy trình Kiểm tra và Nghiệm thu Cài đặt Thành công}
+
+Sau khi hoàn tất cài đặt, sinh viên cần thực hiện bài test nghiệm thu gồm 3 bước sau để đảm bảo phần mềm hoạt động 100\%:
+
+\subsection{Bước 1: Mở và chạy mạch mẫu có sẵn trong LTspice}
+\begin{enumerate}[itemsep=2pt]
+  \item Vào menu: \textbf{File $\rightarrow$ Open}.
+  \item Tìm đến thư mục ví dụ có sẵn:
+  \begin{center}
+    \pathdir{C:/Program Files/ADI/LTspice/examples/Educational/curvetrace.asc}
+  \end{center}
+  \item Nhấn nút \textbf{Run} (biểu tượng hình người đang chạy trên thanh công cụ).
+  \item Nếu cửa sổ đồ thị xuất hiện với các đường đặc tuyến V-I của linh kiện được vẽ đầy đủ, mượt mà $\rightarrow$ \textbf{Cài đặt phần mềm và bộ giải SPICE thành công!}
+\end{enumerate}
+
+\subsection{Bước 2: Kiểm tra thư viện linh kiện tiêu chuẩn}
+\begin{enumerate}[itemsep=2pt]
+  \item Tạo một schematic mới (\textbf{File $\rightarrow$ New Schematic}).
+  \item Nhấn phím \key{D} để đặt diode, nhấp chuột phải lên thân diode và nhấn \textbf{Pick New Diode}.
+  \item Kiểm tra xem danh sách các mã diode thương mại (như \code{1N4148}, \code{1N4007}, \code{BZX84C6V2L}) có xuất hiện đầy đủ hay không.
+  \item Tương tự, nhấn \key{F2}, gõ tìm kiếm linh kiện \code{npn}, nhấp chuột phải chọn \textbf{Pick New Transistor} và kiểm tra các mã BJT như \code{2N2222}, \code{2N3904}.
+  \item Nếu danh sách hiện đầy đủ $\rightarrow$ \textbf{Thư viện linh kiện đã được nạp chính xác!}
+\end{enumerate}
+
+\subsection{Bước 3: Kiểm tra hiển thị kết quả Bias Point (.op)}
+\begin{enumerate}[itemsep=2pt]
+  \item Vẽ một mạch phân áp đơn giản gồm nguồn 10\,V và 2 điện trở $1\,\text{k}\Omega$ nối tiếp xuống đất.
+  \item Nhấn phím \key{S}, gõ \code{.op} và đặt lên bản vẽ. Nhấn \textbf{Run}.
+  \item Hộp thoại \textit{Operating Point} hiện ra liệt kê điện áp nút $V(n001)=10\,\text{V}$, $V(n002)=5\,\text{V}$ và dòng điện $10\,\text{mA}$.
+  \item Nhấp chuột vào dây dẫn giữa 2 điện trở $\rightarrow$ nhãn hiển thị điện áp $5\,\text{V}$ được dán trực tiếp lên dây.
+\end{enumerate}
+
+\section{Xử lý các Sự cố Thường gặp (Troubleshooting)}
+
+\begin{table}[H]\centering\small
+\caption{Bảng tra cứu và khắc phục lỗi thường gặp khi sử dụng LTspice}\label{tab:trouble}
+\renewcommand{\arraystretch}{1.35}
+\begin{tabularx}{\linewidth}{|p{4.2cm}|p{5.5cm}|X|}\hline
+\rowcolor{navy!15}\textbf{Hiện tượng / Thông báo lỗi} & \textbf{Nguyên nhân} & \textbf{Cách khắc phục} \\ \hline
+\textbf{Fatal Error: Singular matrix ... Check nodes ...} & Mạch bị hở mạch, có nút lơ lửng hoặc chưa đặt mass (Ground). & Kiểm tra xem mạch đã có cổng \textbf{Ground (node 0)} chưa bằng phím \key{G}. Kiểm tra lại các điểm nối dây. \\ \hline
+\textbf{Unknown subcircuit ... / Cannot find symbol} & Thiếu tệp thư viện \code{.sub} hoặc \code{.lib} ngoài của linh kiện. & Chép tệp \code{.sub}/\code{.lib} vào cùng thư mục với file \code{.asc}, hoặc thêm lệnh \code{.lib <tên\_file>} lên schematic. \\ \hline
+\textbf{Analysis command not found} & Chưa thiết lập phân tích mô phỏng cho sơ đồ. & Vào \textit{Simulate $\rightarrow$ Edit Simulation Cmd} để chọn kiểu phân tích (\code{.op}, \code{.tran}, \code{.ac}, \code{.dc}). \\ \hline
+\textbf{Giao diện bị mờ, chữ quá nhỏ trên màn hình 4K} & Tính năng tự động scale DPI của Windows chưa tối ưu. & Nhấp chuột phải vào icon LTspice $\rightarrow$ \textit{Properties $\rightarrow$ Compatibility $\rightarrow$ Change high DPI settings} $\rightarrow$ chọn \textit{System (Enhanced)}. \\ \hline
+\textbf{Không lưu được file / Access Denied} & File đang nằm trong thư mục hệ thống yêu cầu quyền Administrator. & Không lưu file mô phỏng trực tiếp vào \pathdir{C:/Program Files}. Hãy lưu bài làm vào thư mục bài tập của bạn trên ổ đĩa \pathdir{D:/} hoặc trong \pathdir{Documents/}, \pathdir{Desktop}. \\ \hline
+\end{tabularx}
+\end{table}
+
+\section{Kết luận và Lời khuyên cho Sinh viên}
+Việc nắm vững các thao tác cài đặt, đóng gói thư viện ngoại tuyến và cấu hình môi trường LTspice chuẩn xác không chỉ giúp sinh viên hoàn thành xuất sắc 6 bài thực hành môn \textit{Linh kiện và Mạch điện tử} mà còn trang bị kỹ năng thiết kế, phân tích mạch tương tự chuyên nghiệp cho các môn học chuyên ngành tiếp theo. Chúc các bạn sinh viên thực hành hiệu quả và đạt kết quả cao!
+
+\end{document}

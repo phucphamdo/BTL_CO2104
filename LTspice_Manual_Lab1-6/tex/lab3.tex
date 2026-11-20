@@ -1,0 +1,340 @@
+\chap{Bipolar Junction Transistor}
+
+\section{Introduction}
+In this laboratory you study the bipolar junction transistor (BJT): its characteristics, its use as a switch and as a driver, the common bias configurations, the Darlington pair, the common-base amplifier, the current mirror and two typical applications (a logic gate and an optocoupler).
+
+\textbf{After this laboratory you will be able to:}
+\begin{itemize}
+  \item declare NPN and PNP models and plot the output characteristics with a nested DC sweep;
+  \item decide the operating region of a BJT (active or saturated) from the simulated voltages;
+  \item calculate and verify bias circuits (fixed, voltage-divider, emitter resistor, PNP);
+  \item analyse a Darlington pair, a common-base stage and a current mirror;
+  \item use a BJT in switching applications (switch, LED driver, NOT gate) and model an optocoupler;
+  \item run an AC analysis to obtain the gain and the cut-off frequencies of an amplifier.
+\end{itemize}
+
+\textbf{Exercises.} Save every schematic as \file{Lab3/ExNN.asc} (\file{Ex01.asc} to \file{Ex10.asc} for main exercises; \file{Ex11.asc} and \file{Ex12.asc} for advanced exercises). Calculation spaces are blank; fill in the comparison tables with your own theoretical and simulated values.
+
+\section{LTspice guide}
+
+\subsection{Bipolar transistors in LTspice}
+Place a transistor from the component list (\texttt{F2}): \cmd{npn} or \cmd{pnp}. Use \textit{Pick New Transistor} in the dialog to select a library device, or declare the models with directives as shown in the exercises and type the model name in the value field. The arrow on the emitter shows the type; use \texttt{Ctrl+R} and \texttt{Ctrl+E} to rotate and mirror the symbol so that the terminals match your drawing.
+
+\labfig{lab3_guide01.png}{10cm}{Placing an NPN transistor and giving it a model}{fig:lab3_guide01}
+
+\subsection{Nested DC sweep}
+To plot a family of output characteristics, sweep two sources: in \textit{Edit Simulation Cmd $\rightarrow$ DC sweep} fill in the first source (the collector voltage) and enable the second source tab (the base current), with start, stop and increment for each. The corresponding directive is \cmd{.dc V1 0 10 0.05 I1 20u 100u 20u}.
+
+\labfig{lab3_guide02.png}{12cm}{Nested DC sweep: collector voltage and base current}{fig:lab3_guide02}
+
+\subsection{Parameters, steps and the AC analysis}
+A parameter is defined with \cmd{.param name=value} and used in curly brackets (\cmd{\{name\}}); it can be stepped with \cmd{.step param name list v1 v2 v3}. For a frequency response choose the \textit{AC Analysis} tab (decade sweep, points per decade, start and stop frequency) and give the input source an AC amplitude of 1. In the waveform viewer, the magnitude is displayed in dB together with the phase.
+
+\labfig{lab3_guide03.png}{10cm}{AC analysis settings}{fig:lab3_guide03}
+
+\section{Exercises}
+
+\subsection{Exercise 1: Output characteristics and saturation}
+\status{Modified (combined Ch.~3, Sec.~3.1 and 3.2: output characteristics and saturation analysis).}
+Consider the NPN transistor circuits of Figure~\ref{fig:lab3_ex01} (a) and (b). In (a), V$_{CC}$ = 10\,V, R$_C$ = 1\,k$\Omega$, R$_B$ = 10\,k$\Omega$ and the base supply is 5\,V. Calculate $I_B$, $I_C$ and $V_{CE}$ and decide in which mode the transistor works. Assume $\beta=100$, $V_{BE}=0.7$\,V and $|V_{CE(sat)}|\approx0.2$\,V unless stated otherwise. In (b), the transistor is driven by a base current source and the collector voltage is swept. Plot the output characteristics $I_C=f(V_{CE})$ for $I_B=20$, 40, 60, 80 and 100\,$\micro$A, identify the saturation region and the active region, and estimate $\beta$ from the curves.
+
+\labfig{lab3_ex01.png}{8cm}{Exercise 1 (a): transistor in saturation}{fig:lab3_ex01}
+
+\labfig{lab3_ex01b.png}{8cm}{Exercise 1 (b): circuit for the output characteristics}{fig:lab3_ex01b}
+
+\theory{8}
+
+\simulation{
+\item Draw the circuit of Figure~\ref{fig:lab3_ex01} in LTspice and save it as \file{Lab3/Ex01.asc}.
+\item Declare the transistor models with SPICE directives (\texttt{S} key): \cmd{.model QN NPN(Is=1e-14 Bf=100 Br=1)} for an NPN transistor and \cmd{.model QP PNP(Is=1e-14 Bf=100 Br=1)} for a PNP transistor. Place the transistor (\cmd{npn} or \cmd{pnp}) and type the model name in its value field.
+\item Circuit (a): run \cmd{.op} and read $V_{CE}$ and $I_C$.
+\item Circuit (b): use a nested DC sweep \cmd{.dc V1 0 10 0.05 I1 20u 100u 20u} (first source: the collector voltage; second source: the base current) and plot \cmd{Ic(Q1)}.
+\item Be careful with signs: LTspice reports the current of a voltage source as positive when it flows \emph{into} its positive terminal, and the current of a two-terminal device as positive when it flows from its first pin to its second pin.
+}
+
+\comparetable{
+\cmprow{(a) $I_B$ (mA)}
+\cmprow{(a) $I_C$ (mA)}
+\cmprow{(a) $V_{CE}$ (V)}
+\cmprow{(b) $\beta$ at $V_{CE}=5$\,V ($I_B=40\,\micro$A)}
+}
+
+\commentlines{2}
+
+\subsection{Exercise 2: BJT as a switch and as a device driver}
+\status{Modified (combined Ch.~3, Sec.~3.3 and 3.4: BJT as a switch and LED driver).}
+(a) For the BJT switch of Figure~\ref{fig:lab3_ex02}(a) (V$_{CC}$ = 5\,V, input 5\,V) determine R$_C$ and R$_B$ such that the collector current saturates at 50\,mA, with $V_{CE(sat)}=0.2$\,V, $V_{BE}=0.7$\,V and a forced current gain $\beta_{forced}=10$. (b) A red LED has to carry 10\,mA from a 5\,V supply, switched by a 3.3\,V logic signal (Figure~\ref{fig:lab3_ex02b}): determine the series resistor of the LED (LED voltage about 1.8\,V) and the base resistor. Use standard resistor values and simulate both circuits with them.
+
+\labfig{lab3_ex02.png}{8cm}{Exercise 2 (a): BJT switch in saturation}{fig:lab3_ex02}
+
+\labfig{lab3_ex02b.png}{8cm}{Exercise 2 (b): driving an LED with a BJT}{fig:lab3_ex02b}
+
+\theory{10}
+
+\simulation{
+\item Draw the circuit of Figure~\ref{fig:lab3_ex02} in LTspice and save it as \file{Lab3/Ex02.asc}.
+\item Declare the transistor models with SPICE directives (\texttt{S} key): \cmd{.model QN NPN(Is=1e-14 Bf=100 Br=1)} for an NPN transistor and \cmd{.model QP PNP(Is=1e-14 Bf=100 Br=1)} for a PNP transistor. Place the transistor (\cmd{npn} or \cmd{pnp}) and type the model name in its value field.
+\item Declare an LED model with a directive such as \cmd{.model LEDRED D(Is=1e-18 N=1.9 Rs=5)}.
+\item Add the \cmd{.op} analysis (\textit{Simulate $\rightarrow$ Edit Simulation Cmd $\rightarrow$ DC op pnt}), run the simulation and read the node voltages and branch currents.
+\item Check that $V_{CE}$ is close to the saturation value and compare $I_C$ and the LED current with the specification.
+\item Be careful with signs: LTspice reports the current of a voltage source as positive when it flows \emph{into} its positive terminal, and the current of a two-terminal device as positive when it flows from its first pin to its second pin.
+}
+
+\comparetable{
+\cmprow{(a) $R_C$ calculated ($\Omega$)}
+\cmprow{(a) $R_B$ calculated ($\Omega$)}
+\cmprow{(a) $I_C$ with standard values (mA)}
+\cmprow{(a) $V_{CE}$ (V)}
+\cmprow{(b) LED current (mA)}
+\cmprow{(b) $V_{CE}$ (V)}
+}
+
+\commentlines{2}
+
+\subsection{Exercise 3: Simple bias: voltage-divider configuration}
+\status{Modified (Ch.~3, Sec.~3.5: voltage-divider bias analysis).}
+In the circuit of Figure~\ref{fig:lab3_ex03} (V$_{CC}$ = 12\,V, R1 = 47\,k$\Omega$, R2 = 10\,k$\Omega$, R$_C$ = 2.2\,k$\Omega$, R$_E$ = 1\,k$\Omega$) determine the base voltage $V_B$, the emitter current $I_E$, the collector current $I_C$ and the voltages $V_C$ and $V_{CE}$, using the approximate method of the voltage divider (Assume $\beta=100$, $V_{BE}=0.7$\,V and $|V_{CE(sat)}|\approx0.2$\,V unless stated otherwise.). Then simulate and discuss the effect of the base current on the divider.
+
+\labfig{lab3_ex03.png}{8cm}{Exercise 3: voltage-divider bias}{fig:lab3_ex03}
+
+\theory{10}
+
+\simulation{
+\item Draw the circuit of Figure~\ref{fig:lab3_ex03} in LTspice and save it as \file{Lab3/Ex03.asc}.
+\item Declare the transistor models with SPICE directives (\texttt{S} key): \cmd{.model QN NPN(Is=1e-14 Bf=100 Br=1)} for an NPN transistor and \cmd{.model QP PNP(Is=1e-14 Bf=100 Br=1)} for a PNP transistor. Place the transistor (\cmd{npn} or \cmd{pnp}) and type the model name in its value field.
+\item Add the \cmd{.op} analysis (\textit{Simulate $\rightarrow$ Edit Simulation Cmd $\rightarrow$ DC op pnt}), run the simulation and read the node voltages and branch currents.
+\item Be careful with signs: LTspice reports the current of a voltage source as positive when it flows \emph{into} its positive terminal, and the current of a two-terminal device as positive when it flows from its first pin to its second pin.
+}
+
+\comparetable{
+\cmprow{$V_B$ (V)}
+\cmprow{$V_E$ (V)}
+\cmprow{$I_C$ (mA)}
+\cmprow{$V_C$ (V)}
+\cmprow{$V_{CE}$ (V)}
+}
+
+\commentlines{2}
+
+\subsection{Exercise 4: PNP circuit and complementary pair}
+\status{Modified (combined Ch.~3, Sec.~3.6 and 3.7: PNP bias and complementary emitter follower).}
+(a) In the PNP circuit of Figure~\ref{fig:lab3_ex04} (supply +10\,V, R1 = 22\,k$\Omega$, R2 = 10\,k$\Omega$, R$_E$ = 2\,k$\Omega$ to the supply, R$_C$ = 680\,$\Omega$ to ground) determine $V_B$, $V_E$, $I_C$, $V_C$ and $V_{EC}$. Assume $\beta=100$, $V_{BE}=0.7$\,V and $|V_{CE(sat)}|\approx0.2$\,V unless stated otherwise. (b) The circuit of Figure~\ref{fig:lab3_ex04b} uses an NPN and a PNP transistor with supplies of $\pm12$\,V and a 100\,$\Omega$ load (complementary emitter follower). For a 5\,V peak, 1\,kHz sine input, find the expected output peak value and explain what happens when the input crosses zero.
+
+\labfig{lab3_ex04.png}{8cm}{Exercise 4 (a): PNP bias circuit}{fig:lab3_ex04}
+
+\labfig{lab3_ex04b.png}{9cm}{Exercise 4 (b): complementary emitter follower}{fig:lab3_ex04b}
+
+\theory{10}
+
+\simulation{
+\item Draw the circuit of Figure~\ref{fig:lab3_ex04} in LTspice and save it as \file{Lab3/Ex04.asc}.
+\item Declare the transistor models with SPICE directives (\texttt{S} key): \cmd{.model QN NPN(Is=1e-14 Bf=100 Br=1)} for an NPN transistor and \cmd{.model QP PNP(Is=1e-14 Bf=100 Br=1)} for a PNP transistor. Place the transistor (\cmd{npn} or \cmd{pnp}) and type the model name in its value field.
+\item Circuit (a): run \cmd{.op}. Circuit (b): run \cmd{.tran 0 5m 0 5u} with a sine source (amplitude 5\,V, 1\,kHz) and plot the input and the output.
+\item Zoom in around the zero crossings of the output and measure the dead zone.
+\item Be careful with signs: LTspice reports the current of a voltage source as positive when it flows \emph{into} its positive terminal, and the current of a two-terminal device as positive when it flows from its first pin to its second pin.
+}
+
+\comparetable{
+\cmprow{(a) $V_B$ (V)}
+\cmprow{(a) $I_C$ (mA)}
+\cmprow{(a) $V_C$ (V)}
+\cmprow{(a) $V_{EC}$ (V)}
+\cmprow{(b) output peak (V)}
+\cmprow{(b) dead zone around zero (V)}
+}
+
+\commentlines{2}
+
+\subsection{Exercise 5: NPN circuit with an emitter resistance}
+\status{Modified (Ch.~3, Sec.~3.8: NPN circuit with emitter resistance).}
+For the circuit of Figure~\ref{fig:lab3_ex05} (V$_{CC}$ = 12\,V, R$_B$ = 270\,k$\Omega$, R$_C$ = 1.5\,k$\Omega$, R$_E$ = 1\,k$\Omega$) write the base-emitter loop equation, determine $I_B$, $I_C$, $V_E$, $V_C$ and $V_{CE}$, and verify that the transistor is in the active region. Assume $\beta=100$, $V_{BE}=0.7$\,V and $|V_{CE(sat)}|\approx0.2$\,V unless stated otherwise. Simulate and compare.
+
+\labfig{lab3_ex05.png}{8cm}{Exercise 5: NPN with an emitter resistor}{fig:lab3_ex05}
+
+\theory{10}
+
+\simulation{
+\item Draw the circuit of Figure~\ref{fig:lab3_ex05} in LTspice and save it as \file{Lab3/Ex05.asc}.
+\item Declare the transistor models with SPICE directives (\texttt{S} key): \cmd{.model QN NPN(Is=1e-14 Bf=100 Br=1)} for an NPN transistor and \cmd{.model QP PNP(Is=1e-14 Bf=100 Br=1)} for a PNP transistor. Place the transistor (\cmd{npn} or \cmd{pnp}) and type the model name in its value field.
+\item Add the \cmd{.op} analysis (\textit{Simulate $\rightarrow$ Edit Simulation Cmd $\rightarrow$ DC op pnt}), run the simulation and read the node voltages and branch currents.
+\item Be careful with signs: LTspice reports the current of a voltage source as positive when it flows \emph{into} its positive terminal, and the current of a two-terminal device as positive when it flows from its first pin to its second pin.
+}
+
+\comparetable{
+\cmprow{$I_B$ ($\micro$A)}
+\cmprow{$I_C$ (mA)}
+\cmprow{$V_E$ (V)}
+\cmprow{$V_C$ (V)}
+\cmprow{$V_{CE}$ (V)}
+}
+
+\commentlines{2}
+
+\subsection{Exercise 6: Darlington circuit}
+\status{Unchanged (Ch.~3, Sec.~3.9: Darlington pair circuit).}
+In the Darlington circuit of Figure~\ref{fig:lab3_ex06} a 3\,V source drives the base of Q1 through 470\,k$\Omega$; R2 = 4.7\,k$\Omega$ and R3 = 470\,$\Omega$ are connected to a 10\,V supply. Determine $I_{BE}$ (the current in the 470\,k$\Omega$ resistor), the current $I_{AC}$ through the 4.7\,k$\Omega$ resistor and the current $I_{AL}$ through the 470\,$\Omega$ resistor, and the overall current gain $I_{AL}/I_{BE}$. Assume both transistors have $\beta=100$ and check whether Q2 saturates.
+
+\labfig{lab3_ex06.png}{8cm}{Exercise 6: Darlington circuit}{fig:lab3_ex06}
+
+\theory{10}
+
+\simulation{
+\item Draw the circuit of Figure~\ref{fig:lab3_ex06} in LTspice and save it as \file{Lab3/Ex06.asc}.
+\item Declare the transistor models with SPICE directives (\texttt{S} key): \cmd{.model QN NPN(Is=1e-14 Bf=100 Br=1)} for an NPN transistor and \cmd{.model QP PNP(Is=1e-14 Bf=100 Br=1)} for a PNP transistor. Place the transistor (\cmd{npn} or \cmd{pnp}) and type the model name in its value field.
+\item Add the \cmd{.op} analysis (\textit{Simulate $\rightarrow$ Edit Simulation Cmd $\rightarrow$ DC op pnt}), run the simulation and read the node voltages and branch currents.
+\item Compare the simulated overall gain with $\beta^2$ and explain the difference.
+\item Be careful with signs: LTspice reports the current of a voltage source as positive when it flows \emph{into} its positive terminal, and the current of a two-terminal device as positive when it flows from its first pin to its second pin.
+}
+
+\comparetable{
+\cmprow{$I_{BE}$ ($\micro$A)}
+\cmprow{$I_{AC}$ (mA)}
+\cmprow{$I_{AL}$ (mA)}
+\cmprow{$I_{AL}/I_{BE}$}
+\cmprow{Mode of Q2}
+}
+
+\commentlines{2}
+
+\subsection{Exercise 7: Common-base circuit}
+\status{Unchanged (Ch.~3, Sec.~3.10: common-base amplifier configuration).}
+Figure~\ref{fig:lab3_ex07} shows a common-base circuit (R1 = 1.2\,k$\Omega$, V1 = 4\,V, R2 = 2.4\,k$\Omega$, V2 = 10\,V; the base is grounded and the emitter is returned to $-4$\,V). Calculate $I_E$, $I_B$, $I_C$, $V_C$ and $V_{CE}$. Assume $\beta=100$, $V_{BE}=0.7$\,V and $|V_{CE(sat)}|\approx0.2$\,V unless stated otherwise. Then simulate the circuit. Check that the transistor is wired in the right direction (the emitter arrow points away from the base).
+
+\labfig{lab3_ex07.png}{9cm}{Exercise 7: common-base circuit}{fig:lab3_ex07}
+
+\theory{10}
+
+\simulation{
+\item Draw the circuit of Figure~\ref{fig:lab3_ex07} in LTspice and save it as \file{Lab3/Ex07.asc}.
+\item Declare the transistor models with SPICE directives (\texttt{S} key): \cmd{.model QN NPN(Is=1e-14 Bf=100 Br=1)} for an NPN transistor and \cmd{.model QP PNP(Is=1e-14 Bf=100 Br=1)} for a PNP transistor. Place the transistor (\cmd{npn} or \cmd{pnp}) and type the model name in its value field.
+\item If $I_B$ is as large as $I_C$ in the simulation, the transistor is upside down: mirror it (\texttt{Ctrl+E}).
+\item Add the \cmd{.op} analysis (\textit{Simulate $\rightarrow$ Edit Simulation Cmd $\rightarrow$ DC op pnt}), run the simulation and read the node voltages and branch currents.
+\item Be careful with signs: LTspice reports the current of a voltage source as positive when it flows \emph{into} its positive terminal, and the current of a two-terminal device as positive when it flows from its first pin to its second pin.
+}
+
+\comparetable{
+\cmprow{$I_E$ (mA)}
+\cmprow{$I_B$ ($\micro$A)}
+\cmprow{$I_C$ (mA)}
+\cmprow{$V_C$ (V)}
+\cmprow{$V_{CE}$ (V)}
+}
+
+\commentlines{2}
+
+\subsection{Exercise 8: Current mirror}
+\status{Unchanged (Ch.~3, Sec.~3.11: BJT current mirror).}
+The circuit of Figure~\ref{fig:lab3_ex08} is a current mirror (V1 = 12\,V, R2 = 1\,k$\Omega$ as the load, Q1 and Q2 identical, $\beta=100$). First calculate, for R1 = 2\,k$\Omega$, the control current $I_{CTRL}$, the base currents and the collector currents $I_{C1}$ and $I_L=I_{C2}$ and explain why the circuit is called a current mirror. Now replace R1 by 100\,$\Omega$, calculate all the values again, simulate the new circuit and explain the phenomenon you observe.
+
+\labfig{lab3_ex08.png}{8cm}{Exercise 8: current mirror}{fig:lab3_ex08}
+
+\theory{10}
+
+\simulation{
+\item Draw the circuit of Figure~\ref{fig:lab3_ex08} in LTspice and save it as \file{Lab3/Ex08.asc}.
+\item Declare the transistor models with SPICE directives (\texttt{S} key): \cmd{.model QN NPN(Is=1e-14 Bf=100 Br=1)} for an NPN transistor and \cmd{.model QP PNP(Is=1e-14 Bf=100 Br=1)} for a PNP transistor. Place the transistor (\cmd{npn} or \cmd{pnp}) and type the model name in its value field.
+\item Define R1 as a parameter and run both values with \cmd{.step param R1v list 2k 100} (R1 = \cmd{\{R1v\}}).
+\item Add the \cmd{.op} analysis (\textit{Simulate $\rightarrow$ Edit Simulation Cmd $\rightarrow$ DC op pnt}), run the simulation and read the node voltages and branch currents.
+\item Be careful with signs: LTspice reports the current of a voltage source as positive when it flows \emph{into} its positive terminal, and the current of a two-terminal device as positive when it flows from its first pin to its second pin.
+}
+
+\comparetable{
+\cmprow{$I_{CTRL}$, R1\,=\,2\,k$\Omega$ (mA)}
+\cmprow{$I_{C1}$, R1\,=\,2\,k$\Omega$ (mA)}
+\cmprow{$I_L$, R1\,=\,2\,k$\Omega$ (mA)}
+\cmprow{$I_{CTRL}$, R1\,=\,100\,$\Omega$ (mA)}
+\cmprow{$I_{C1}$, R1\,=\,100\,$\Omega$ (mA)}
+\cmprow{$I_L$, R1\,=\,100\,$\Omega$ (mA)}
+}
+
+\commentlines{2}
+
+\subsection{Exercise 9: BJT logic gate: the NOT gate}
+\status{Unchanged (Ch.~3, Sec.~3.12: BJT NOT logic gate).}
+The circuit of Figure~\ref{fig:lab3_ex09} is a NOT gate (V2 = 5\,V, R$_C$ = 10\,k$\Omega$, R$_B$ = 10\,k$\Omega$). The input source V1 is a pulse source: V1 = 0\,V, V2 = 5\,V, TD = 0, TR = 5\,ns, TF = 3\,ns, PW = 50\,ms, PER = 100\,ms. Explain, with calculations, why the output is high for a low input and low for a high input (check the saturation of the transistor). Find the maximum current this gate can source and explain why adding an additional 220\,$\Omega$ resistor in parallel with R$_C$ allows the gate to drive a LED. Simulate the circuit with a transient analysis of 200\,ms.
+
+\labfig{lab3_ex09.png}{8cm}{Exercise 9: BJT NOT gate}{fig:lab3_ex09}
+
+\theory{10}
+
+\simulation{
+\item Draw the circuit of Figure~\ref{fig:lab3_ex09} in LTspice and save it as \file{Lab3/Ex09.asc}.
+\item Declare the transistor models with SPICE directives (\texttt{S} key): \cmd{.model QN NPN(Is=1e-14 Bf=100 Br=1)} for an NPN transistor and \cmd{.model QP PNP(Is=1e-14 Bf=100 Br=1)} for a PNP transistor. Place the transistor (\cmd{npn} or \cmd{pnp}) and type the model name in its value field.
+\item Set V1 as a pulse source (voltage source dialog $\rightarrow$ \textit{Advanced} $\rightarrow$ PULSE) with the parameters above.
+\item Run \cmd{.tran 0 200m 0 0.1m} and plot the input and the collector voltage.
+\item Optionally run a DC sweep of the input from 0 to 5\,V to obtain the transfer characteristic.
+}
+
+\comparetable{
+\cmprow{Output for input 0\,V (V)}
+\cmprow{Output for input 5\,V (V)}
+\cmprow{$I_B$ for input 5\,V (mA)}
+\cmprow{Maximum output current (mA)}
+}
+
+\commentlines{2}
+
+\subsection{Exercise 10: Optocoupler}
+\status{Replaced (behavioural model using LED, CCCS and BJT replaces vendor PC817 optocoupler model).}
+In the circuit of Figure~\ref{fig:lab3_ex10} a 9\,V battery drives, through a 10\,k$\Omega$ resistor, the LED of an optocoupler whose phototransistor is pulled up to 5\,V by R2 = 4.7\,k$\Omega$ (output V$_{OUT}$). The LED forward voltage is 1.7\,V and the current transfer ratio (CTR) is 2, i.e.\ $I_C=CTR\cdot I_F$. Calculate the LED current $I_F$, the collector current the phototransistor would need, the current $I_{R2}$ and the output voltage V$_{OUT}$ when the switch is closed and when it is open; check whether the output transistor saturates. Explain what the optocoupler is used for. (The vendor model of the PC817 is not available in LTspice; the optocoupler is modelled by a LED, a current-controlled current source with gain CTR/$\beta$ driving the base of an NPN transistor.)
+
+\labfig{lab3_ex10.png}{12cm}{Exercise 10: optocoupler circuit with a behavioural model}{fig:lab3_ex10}
+
+\theory{10}
+
+\simulation{
+\item Draw the circuit of Figure~\ref{fig:lab3_ex10} in LTspice and save it as \file{Lab3/Ex10.asc}.
+\item Declare the transistor models with SPICE directives (\texttt{S} key): \cmd{.model QN NPN(Is=1e-14 Bf=100 Br=1)} for an NPN transistor and \cmd{.model QP PNP(Is=1e-14 Bf=100 Br=1)} for a PNP transistor. Place the transistor (\cmd{npn} or \cmd{pnp}) and type the model name in its value field.
+\item Use a zero-volt source Vs in series with the LED to sense its current. Place the current-controlled current source \cmd{f}: its value field contains the name of the sensing source and the gain 0.02 (= CTR/$\beta$ = 2/100); its output is connected from ground to the base of the output transistor.
+\item Add the \cmd{.op} analysis (\textit{Simulate $\rightarrow$ Edit Simulation Cmd $\rightarrow$ DC op pnt}), run the simulation and read the node voltages and branch currents.
+\item Open the switch (remove the source or set 0\,V) and run again.
+\item Be careful with signs: LTspice reports the current of a voltage source as positive when it flows \emph{into} its positive terminal, and the current of a two-terminal device as positive when it flows from its first pin to its second pin.
+}
+
+\comparetable{
+\cmprow{$I_F$ (mA)}
+\cmprow{$I_{R2}$, switch closed (mA)}
+\cmprow{$V_{OUT}$, switch closed (V)}
+\cmprow{$V_{OUT}$, switch open (V)}
+}
+
+\commentlines{2}
+
+\newpage
+\section{Advanced exercises}
+
+\subsection{Advanced Exercise 1: Q-point versus transistor gain}
+\status{Advanced / Supplementary (quiescent point sensitivity to transistor current gain $\beta$ spread).}
+Use the voltage-divider bias circuit of Exercise~3 (Figure~\ref{fig:lab3_adv01}). Study how the operating point changes when the current gain $\beta$ of the transistor changes from 50 to 200 (a typical production spread).
+
+\labfig{lab3_adv01.png}{8cm}{Advanced Exercise 1: voltage-divider bias with a variable $\beta$}{fig:lab3_adv01}
+
+\subsubsection{Theory calculation}\vspace{-3pt}\notesblock Calculate $I_C$ and $V_{CE}$ for $\beta=50$, 100 and 200 with the approximate method, and explain why this bias circuit is called stable.\dotlines{4}
+
+\simulation{
+\item Draw the circuit of Figure~\ref{fig:lab3_adv01} in LTspice and save it as \file{Lab3/Ex11.asc}.
+\item Declare the model with a parameter: \cmd{.model QV NPN(Is=1e-14 Bf=\{BF\} Br=1)}, define \cmd{.param BF=100} and add \cmd{.step param BF list 50 100 200}.
+\item Use a one-point DC sweep \cmd{.dc V1 12 12 1} and measure with \cmd{.meas DC Ic FIND I(RC) AT=12} and \cmd{.meas DC Vce FIND V(c,e) AT=12}.
+\item Compare the variation of $I_C$ (in percent) with the variation of $\beta$.
+}
+\begin{center}\renewcommand{\arraystretch}{1.8}\begin{tabular}{|c|c|c|c|c|}\hline \textbf{$\beta$} & \textbf{$I_C$ theory (mA)} & \textbf{$I_C$ LTspice (mA)} & \textbf{$V_{CE}$ theory (V)} & \textbf{$V_{CE}$ LTspice (V)}\\ \hline 50 & & & & \\ \hline 100 & & & & \\ \hline 200 & & & & \\ \hline \end{tabular}\end{center}
+\commentlines{2}
+\newpage
+
+\subsection{Advanced Exercise 2: Frequency response of a common-emitter amplifier}
+\status{Advanced / Supplementary (frequency response and bandwidth of common-emitter amplifier with parasitics).}
+Figure~\ref{fig:lab3_adv02} shows a common-emitter amplifier built from the bias circuit of Exercise~3, with a 10\,$\micro$F input capacitor, a 100\,$\micro$F emitter bypass capacitor, a 10\,$\micro$F output capacitor and a 10\,k$\Omega$ load. Determine the mid-band voltage gain and the lower and upper cut-off frequencies.
+
+\labfig{lab3_adv02.png}{11cm}{Advanced Exercise 2: common-emitter amplifier}{fig:lab3_adv02}
+
+\subsubsection{Theory calculation}\vspace{-3pt}\notesblock Estimate the small-signal mid-band gain $A_v\approx-g_m(R_C\parallel R_L)$, with $g_m=I_C/V_T$ ($V_T=25.9$\,mV).\dotlines{4}
+
+\simulation{
+\item Draw the circuit of Figure~\ref{fig:lab3_adv02} in LTspice and save it as \file{Lab3/Ex12.asc}.
+\item Use a transistor model with capacitances, for example \cmd{.model QA NPN(Is=1e-14 Bf=100 Br=1 Vaf=100 Cje=10p Cjc=4p Tf=0.4n)}.
+\item Set the AC amplitude of the input source to 1\,V (voltage source dialog) and run \cmd{.ac dec 20 10 100Meg}.
+\item Plot \cmd{V(out)} and read the mid-band gain and the $-3$\,dB frequencies with the cursors.
+}
+\begin{center}\renewcommand{\arraystretch}{1.8}\begin{tabular}{|c|c|c|c|}\hline \textbf{Quantity} & \textbf{Theory} & \textbf{LTspice} & \textbf{Error (\%)}\\ \hline Mid-band gain (V/V) & & & \\ \hline Mid-band gain (dB) & & & \\ \hline Lower cut-off $f_L$ (Hz) & & & \\ \hline Upper cut-off $f_H$ (MHz) & & & \\ \hline \end{tabular}\end{center}
+\commentlines{2}
+\newpage

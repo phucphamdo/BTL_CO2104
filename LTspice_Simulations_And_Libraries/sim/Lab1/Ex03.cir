@@ -1,0 +1,14 @@
+* Lab 1 - Ex03: current source network, node F = ground
+I1 0 A 18m
+R1 A B 2k
+R2 B C 2k
+R3 C D 10k
+R4 D Y 1k
+R5 Y E 2k
+R6 C E 6k
+R9 D E 6k
+R10 B E 6k
+R8 B 0 4k
+R7 0 E 9k
+.op
+.end

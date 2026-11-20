@@ -1,0 +1,78 @@
+﻿
+Lab   ID Type              Status Figure Theory Sim Comp SaveRef
+---   -- ----              ------ ------ ------ --- ---- -------
+Lab 1  1 Exercise          OK     OK     OK     OK  OK   OK     
+Lab 1  2 Exercise          OK     OK     OK     OK  OK   OK     
+Lab 1  3 Exercise          OK     OK     OK     OK  OK   OK     
+Lab 1  4 Exercise          OK     OK     OK     OK  OK   OK     
+Lab 1  5 Exercise          OK     OK     NO     OK  OK   OK     
+Lab 1  6 Exercise          OK     OK     OK     OK  OK   OK     
+Lab 1  7 Exercise          OK     OK     OK     OK  OK   OK     
+Lab 1  8 Exercise          OK     OK     OK     OK  OK   OK     
+Lab 1  9 Exercise          OK     OK     OK     OK  OK   OK     
+Lab 1 10 Exercise          OK     OK     OK     OK  OK   OK     
+Lab 1  1 Advanced Exercise OK     OK     OK     OK  NO   OK     
+Lab 1  2 Advanced Exercise OK     OK     OK     OK  NO   OK     
+Lab 2  1 Exercise          OK     OK     OK     OK  OK   OK     
+Lab 2  2 Exercise          OK     OK     OK     OK  OK   OK     
+Lab 2  3 Exercise          OK     OK     OK     OK  OK   OK     
+Lab 2  4 Exercise          OK     OK     OK     OK  OK   OK     
+Lab 2  5 Exercise          OK     OK     OK     OK  OK   OK     
+Lab 2  6 Exercise          OK     OK     OK     OK  OK   OK     
+Lab 2  7 Exercise          OK     OK     OK     OK  OK   OK     
+Lab 2  8 Exercise          OK     OK     OK     OK  OK   OK     
+Lab 2  9 Exercise          OK     OK     OK     OK  OK   OK     
+Lab 2 10 Exercise          OK     OK     OK     OK  OK   OK     
+Lab 2  1 Advanced Exercise OK     OK     OK     OK  NO   OK     
+Lab 2  2 Advanced Exercise OK     OK     OK     OK  NO   OK     
+Lab 3  1 Exercise          OK     OK     OK     OK  OK   OK     
+Lab 3  2 Exercise          OK     OK     OK     OK  OK   OK     
+Lab 3  3 Exercise          OK     OK     OK     OK  OK   OK     
+Lab 3  4 Exercise          OK     OK     OK     OK  OK   OK     
+Lab 3  5 Exercise          OK     OK     OK     OK  OK   OK     
+Lab 3  6 Exercise          OK     OK     OK     OK  OK   OK     
+Lab 3  7 Exercise          OK     OK     OK     OK  OK   OK     
+Lab 3  8 Exercise          OK     OK     OK     OK  OK   OK     
+Lab 3  9 Exercise          OK     OK     OK     OK  OK   OK     
+Lab 3 10 Exercise          OK     OK     OK     OK  OK   OK     
+Lab 3  1 Advanced Exercise OK     OK     OK     OK  NO   OK     
+Lab 3  2 Advanced Exercise OK     OK     OK     OK  OK   OK     
+Lab 4  1 Exercise          OK     OK     OK     OK  OK   OK     
+Lab 4  2 Exercise          OK     OK     OK     OK  OK   OK     
+Lab 4  3 Exercise          OK     OK     OK     OK  OK   OK     
+Lab 4  4 Exercise          OK     OK     OK     OK  OK   OK     
+Lab 4  5 Exercise          OK     OK     OK     OK  OK   OK     
+Lab 4  6 Exercise          OK     OK     OK     OK  OK   OK     
+Lab 4  7 Exercise          OK     OK     OK     OK  OK   OK     
+Lab 4  8 Exercise          OK     OK     OK     OK  OK   OK     
+Lab 4  9 Exercise          OK     OK     OK     OK  OK   OK     
+Lab 4 10 Exercise          OK     OK     OK     OK  OK   OK     
+Lab 4  1 Advanced Exercise OK     OK     OK     OK  NO   OK     
+Lab 4  2 Advanced Exercise OK     OK     OK     OK  OK   OK     
+Lab 5  1 Exercise          OK     OK     OK     OK  OK   OK     
+Lab 5  2 Exercise          OK     OK     OK     OK  OK   OK     
+Lab 5  3 Exercise          OK     OK     OK     OK  OK   OK     
+Lab 5  4 Exercise          OK     OK     OK     OK  OK   OK     
+Lab 5  5 Exercise          OK     OK     OK     OK  OK   OK     
+Lab 5  6 Exercise          OK     OK     OK     OK  OK   OK     
+Lab 5  7 Exercise          OK     OK     OK     OK  OK   OK     
+Lab 5  8 Exercise          OK     OK     OK     OK  OK   OK     
+Lab 5  9 Exercise          OK     OK     OK     OK  OK   OK     
+Lab 5 10 Exercise          OK     OK     OK     OK  OK   OK     
+Lab 5  1 Advanced Exercise OK     OK     OK     OK  NO   OK     
+Lab 5  2 Advanced Exercise OK     OK     OK     OK  OK   OK     
+Lab 6  1 Exercise          OK     OK     OK     OK  OK   OK     
+Lab 6  2 Exercise          OK     OK     OK     OK  OK   OK     
+Lab 6  3 Exercise          OK     OK     OK     OK  OK   OK     
+Lab 6  4 Exercise          OK     OK     OK     OK  OK   OK     
+Lab 6  5 Exercise          OK     OK     OK     OK  OK   OK     
+Lab 6  6 Exercise          OK     OK     OK     OK  OK   OK     
+Lab 6  7 Exercise          OK     OK     OK     OK  OK   OK     
+Lab 6  8 Exercise          OK     OK     OK     OK  OK   OK     
+Lab 6  9 Exercise          OK     OK     OK     OK  OK   OK     
+Lab 6 10 Exercise          OK     OK     OK     OK  OK   OK     
+Lab 6  1 Advanced Exercise OK     OK     OK     OK  OK   OK     
+Lab 6  2 Advanced Exercise OK     OK     OK     OK  OK   OK     
+
+
+

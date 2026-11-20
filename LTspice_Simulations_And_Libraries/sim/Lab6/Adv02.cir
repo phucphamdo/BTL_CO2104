@@ -1,0 +1,8 @@
+* Lab 6 - Adv02: Thevenin equivalent seen by R5 (R5 removed) with .tf
+V1 s 0 24
+R1 s t 4
+R2 t m 20
+R3 t r 30
+R4 m 0 60
+R6 m r 10
+.tf V(r) V1

@@ -1,0 +1,15 @@
+* Lab 4 - Ex07: first-order inverting low-pass filter (fc about 1 kHz, gain -10)
+V1 in 0 AC 1
+R1 in inn 1k
+Rf out inn 10k
+Cf out inn 15.9n
+X1 0 inn out vcc vee OPAMP
+.ac dec 20 10 100k
+* behavioural op-amp (rails = supply -/+ 1.5 V)
+.subckt OPAMP inp inn out vcc vee
+Rin inp inn 10Meg
+B1 out 0 V=limit(1e6*(V(inp)-V(inn)),V(vee)+1.5,V(vcc)-1.5)
+.ends
+.model QN NPN(Is=1e-14 Bf=100 Br=1)
+V+ vcc 0 15
+V- vee 0 -15

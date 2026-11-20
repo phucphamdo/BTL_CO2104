@@ -1,0 +1,15 @@
+* Lab 5 - Ex10: DC motor (R-L model) driven by a MOSFET with a flyback diode, 50 % PWM at 1 kHz
+V1 vdd 0 12
+V2 g 0 PULSE(0 5 0 1u 1u 0.5m 1m)
+Rm vdd m 10
+Lm m d 10m
+D1 d vdd D1N4148
+M1 d g 0 0 NMSW
+.tran 0 30m 0 2u
+* models
+.model JN NJF(Beta=2.5m Vto=-2 Lambda=0.01)
+.model DMOS NMOS(Kp=1.78m Vto=-3 Lambda=0.01)
+.model NM NMOS(Kp=2m Vto=2 Lambda=0.01)
+.model NMSW NMOS(Kp=0.5 Vto=2)
+.model PM PMOS(Kp=1m Vto=-2 Lambda=0.01)
+.model D1N4148 D(Is=2.52n Rs=0.568 N=1.752 Cjo=4p M=0.4 Tt=20n)

@@ -1,0 +1,12 @@
+* Lab 5 - Adv01: on-resistance of the MOSFET versus VGS
+V1 d 0 0.1
+VGS g 0 0
+M1 d g 0 0 NMSW
+.dc VGS 0 10 0.05
+* models
+.model JN NJF(Beta=2.5m Vto=-2 Lambda=0.01)
+.model DMOS NMOS(Kp=1.78m Vto=-3 Lambda=0.01)
+.model NM NMOS(Kp=2m Vto=2 Lambda=0.01)
+.model NMSW NMOS(Kp=0.5 Vto=2)
+.model PM PMOS(Kp=1m Vto=-2 Lambda=0.01)
+.model D1N4148 D(Is=2.52n Rs=0.568 N=1.752 Cjo=4p M=0.4 Tt=20n)
