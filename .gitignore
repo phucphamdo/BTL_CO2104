@@ -21,3 +21,9 @@
 Thumbs.db
 .vscode/
 .idea/
+
+# Python & MCP
+__pycache__/
+*.pyc
+.ltspice-mcp/
+
