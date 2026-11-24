@@ -83,6 +83,9 @@
 \titlespacing*{\subsection}{0pt}{12pt}{4pt}
 \titlespacing*{\subsubsection}{0pt}{8pt}{3pt}
 
+\newcommand{\pathdir}[1]{\path{#1}}
+\newcommand{\key}[1]{\colorbox{gray!20}{\small\texttt{\textbf{#1}}}}
+
 %% =====================================================================
 %%  MACRO GIÚP LÀM BÀI
 %% =====================================================================
@@ -350,7 +353,7 @@ Dự án bao gồm 6 bài Lab thực hành mô phỏng tương ứng với các 
   \item \textbf{Lab 2 (Diode Circuits \& Applications):} Ánh xạ từ Chương 2 (\textit{Diode Circuits Analysis}), gồm 10 bài tập về đặc tuyến V-I, diode nối tiếp, mạch xén, chuyển nguồn, chỉnh lưu bán kỳ/toàn kỳ, ổn áp Zener và bộ nguồn AC/DC.
   \item \textbf{Lab 3 (Bipolar Junction Transistor -- BJT):} Ánh xạ từ Chương 3 (\textit{Bipolar Junction Transistor}), gồm 10 bài tập về vùng bão hoà, họ đặc tuyến ngõ ra, mạch công tắc BJT, phân cực, cặp Darlington, gương dòng và cổng logic.
   \item \textbf{Lab 4 (Operational Amplifier -- Op-Amp):} Ánh xạ từ Chương 5 (\textit{Operational Amplifier}), gồm 10 bài tập về mạch đệm điện áp, khuếch đại không đảo/đảo, mạch cộng, mạch tích phân/vi phân, bộ lọc tích cực thông thấp/thông cao và bộ so sánh Schmitt Trigger.
-  \item \textbf{Lab 5 (Field Effect Transistor -- FET/MOSFET):} Ánh xạ từ Chương 6 (\textit{Field Effect Transistor}), gồm 10 bài tập về JFET (đặc tuyến ra, truyền đạt, tự phân cực, phân áp), MOSFET kênh liên tục và kênh cảm ứng (Depletion/Enhancement MOS), mạch khoá công suất và mạch lái động cơ DC kèm diode dập xung flyback; cùng 2 bài nâng cao về khảo sát {DS(on)}$ phi tuyến và cổng đảo CMOS logic.
+  \item \textbf{Lab 5 (Field Effect Transistor -- FET/MOSFET):} Ánh xạ từ Chương 6 (\textit{Field Effect Transistor}), gồm 10 bài tập về JFET (đặc tuyến ra, truyền đạt, tự phân cực, phân áp), MOSFET kênh liên tục và kênh cảm ứng (Depletion/Enhancement MOS), mạch khoá công suất và mạch lái động cơ DC kèm diode dập xung flyback; cùng 2 bài nâng cao về khảo sát $R_{\text{DS(on)}}$ phi tuyến và cổng đảo CMOS logic.
   \item \textbf{Lab 6 (Review Laboratory: Circuits with Diodes and Transistors):} Ánh xạ từ Chương 7, gồm 10 bài tập tổng hợp về mạch cầu điện trở, mạch tam giác nguồn dòng, diode trong mạch cầu/mạng hỗn hợp, ổn áp Zener đa mức tải, BJT bão hoà, mạch ghim hai ngưỡng và bộ ổn áp nối tiếp Zener + BJT; cùng 2 bài nâng cao về phân tích thống kê Monte Carlo sai số linh kiện và trích xuất tương đương Thévenin tự động bằng lệnh \texttt{.tf}.
 \end{itemize}
 
@@ -378,7 +381,7 @@ Nội dung phần này được xây dựng đồng bộ hoàn toàn với tài 
 \begin{itemize}[itemsep=2pt]
   \item \textbf{Nguồn tải chính thức:} Trang chủ Analog Devices tại địa chỉ:
   \begin{center}
-    \url{https://www.analog.com/en/design-center/design-tools-and-calculators/ltspice-simulator.html}
+    \url{https://www.analog.com/ltspice}
   \end{center}
   \item \textbf{Phiên bản sử dụng:} Bản phát hành chính thức 64-bit mới nhất (LTspice 17.x / 24.x). Tệp cài đặt Windows có tên \texttt{LTspice64.msi} với dung lượng chỉ khoảng 65\,MB, cực kỳ gọn nhẹ so với các phần mềm thương mại khác (PSpice for TI $\approx 1.5$\,GB, Multisim $\approx 2$\,GB).
   \item \textbf{Hỗ trợ đa nền tảng:}
@@ -406,8 +409,10 @@ Thư viện LTspice gồm thư mục \texttt{lib/} với 3 thành phần cốt l
 \textbf{Giải pháp đóng gói offline của nhóm:}
 Trên một máy tính đã thực hiện \textit{Sync Release} đầy đủ, nhóm nén toàn bộ thư mục \texttt{lib/} thành tệp \texttt{LTspice\_lib\_offline.zip}. Khi chuyển sang máy tính không có mạng, chỉ cần giải nén đè vào một trong hai thư mục thư viện trên hệ điều hành:
 \begin{itemize}[itemsep=1pt]
-  \item \textit{Vị trí cho tài khoản người dùng hiện tại (khuyến nghị):} \pathdir{C:/Users/<Username>/AppData/Local/LTspice/lib/}
-  \item \textit{Vị trí chung cho toàn hệ thống:} \pathdir{C:/Program Files/ADI/LTspice/lib/}
+  \item \textit{Vị trí cho tài khoản người dùng hiện tại (khuyến nghị):}\newline
+  \path{C:/Users/<Username>/AppData/Local/LTspice/lib/}
+  \item \textit{Vị trí chung cho toàn hệ thống:}\newline
+  \path{C:/Program Files/ADI/LTspice/lib/}
 \end{itemize}
 
 \subsection{Quy trình 4 bước triển khai trên laptop/máy tính không có Internet}
@@ -426,11 +431,11 @@ Quy trình triển khai offline được chuẩn hóa gồm 4 bước rõ ràng 
 \begin{enumerate}[itemsep=2pt]
   \item \textbf{Bước 1 -- Chạy mạch mẫu có sẵn:} Vào \textbf{File $\rightarrow$ Open}, mở tệp:
   \begin{center}
-    \pathdir{C:/Program Files/ADI/LTspice/examples/Educational/curvetrace.asc}
+    \path{C:/Program Files/ADI/LTspice/examples/Educational/curvetrace.asc}
   \end{center}
   Nhấn nút \textbf{Run} (biểu tượng người chạy). Đồ thị họ đặc tuyến V-I hiển thị mượt mà xác nhận bộ giải SPICE hoạt động hoàn hảo.
   \item \textbf{Bước 2 -- Kiểm tra danh mục linh kiện tiêu chuẩn:} Tạo một schematic mới, nhấn phím \texttt{D}, nhấp chuột phải lên thân diode và chọn \textbf{Pick New Diode}. Danh sách các mã diode thực tế (\texttt{1N4148}, \texttt{1N4007}, \texttt{BZX84C6V2L}) hiện ra đầy đủ. Tương tự, nhấn \texttt{F2}, chọn linh kiện \texttt{npn}, nhấp chuột phải chọn \textbf{Pick New Transistor} để kiểm tra các mã BJT như \texttt{2N2222}, \texttt{2N3904}.
-  \item \textbf{Bước 3 -- Kiểm tra hiển thị điểm làm việc (\texttt{.op}):} Vẽ mạch phân áp đơn giản gồm nguồn 10\,V và 2 điện trở \,\text{k}\Omega$ nối tiếp. Nhấn phím \texttt{S}, đặt lệnh \texttt{.op} và bấm Run. Kết quả hiển thị điện áp nút =5\,\text{V}$ và dòng điện \,\text{mA}$, đồng thời nhấp probe lên dây dẫn sẽ dán nhãn điện áp trực tiếp trên sơ đồ.
+  \item \textbf{Bước 3 -- Kiểm tra hiển thị điểm làm việc (\texttt{.op}):} Vẽ mạch phân áp đơn giản gồm nguồn $10\,\text{V}$ và 2 điện trở $10\,\text{k}\Omega$ nối tiếp. Nhấn phím \texttt{S}, đặt lệnh \texttt{.op} và bấm Run. Kết quả hiển thị điện áp nút $V_{\text{out}} = 5\,\text{V}$ và dòng điện $I = 0.5\,\text{mA}$, đồng thời nhấp probe lên dây dẫn sẽ dán nhãn điện áp trực tiếp trên sơ đồ.
 \end{enumerate}
 
 \subsection{Cấu hình chuẩn tối ưu phục vụ học tập và viết báo cáo}
@@ -439,7 +444,7 @@ Nhóm đưa ra 4 khuyến nghị cấu hình bắt buộc để bài thực hàn
   \item \textbf{Chuyển nền trắng chuẩn in ấn:} Vào \textbf{Tools $\rightarrow$ Color Scheme}, tại tab \textit{Schematic} và tab \textit{WaveForm}, chỉnh màu \textbf{Background} thành màu trắng tinh khiết (\texttt{R=255, G=255, B=255}), dây nối (\textit{Wires}) sang màu đen hoặc xanh đậm (\texttt{R=0, G=0, B=160}). Việc này giúp sơ đồ sáng rõ, tiết kiệm mực in và không bị chói mắt khi đọc báo cáo.
   \item \textbf{Xuất ảnh nét cao tự động (Copy bitmap):} Thay vì chụp màn hình thủ công bằng Snipping Tool (dễ bị vỡ hạt và dính thanh công cụ thừa), trong LTspice chỉ cần chọn \textbf{Tools $\rightarrow$ Copy bitmap to clipboard}. Toàn bộ schematic hoặc đồ thị sóng sẽ được sao chép với độ phân giải cao và tự động cắt bỏ khoảng trắng thừa.
   \item \textbf{Bộ phím tắt nhanh cần thuộc lòng:} \texttt{R} (Điện trở), \texttt{C} (Tụ điện), \texttt{L} (Cuộn cảm), \texttt{D} (Diode), \texttt{G} (Mass/Ground -- node 0), \texttt{F2} (Thư viện linh kiện), \texttt{F3} (Vẽ dây), \texttt{F4} (Đặt tên nút), \texttt{F5} (Xoá), \texttt{F7} (Di chuyển tách dây), \texttt{F8} (Kéo dính dây), \texttt{Ctrl+R} (Xoay 90 độ), \texttt{Ctrl+E} (Lật gương), \texttt{S} (Đặt lệnh SPICE directive), \texttt{Space} (Zoom vừa màn hình).
-  \item \textbf{Quy chuẩn đơn vị trong SPICE:} SPICE không phân biệt chữ hoa thường. Ký tự \texttt{m} và \texttt{M} đều được hiểu là milli (^{-3}$). Muốn nhập đơn vị Mega (^6$), bắt buộc phải gõ là \texttt{Meg} hoặc \texttt{MEG} (ví dụ: \texttt{1Meg} $\Omega$).
+  \item \textbf{Quy chuẩn đơn vị trong SPICE:} SPICE không phân biệt chữ hoa thường. Ký tự \texttt{m} và \texttt{M} đều được hiểu là milli ($10^{-3}$). Muốn nhập đơn vị Mega ($10^6$), bắt buộc phải gõ là \texttt{Meg} hoặc \texttt{MEG} (ví dụ: \texttt{1Meg} $\Omega$).
 \end{enumerate}
 
 %% ----------------------------- 3 -----------------------------
