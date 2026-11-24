@@ -333,7 +333,7 @@ Công cụ AI đã sử dụng & \CongCuAI\\ \hline
 %% ----------------------------- 1 -----------------------------
 \section{Giới thiệu}
 
-\subsection{1.1. Bối cảnh và mục tiêu dự án}
+\subsection{Bối cảnh và mục tiêu dự án}
 Học phần \textit{Linh kiện và Mạch điện tử} (CO2037 / CO2104) là môn học kỹ thuật cơ sở cốt lõi trong chương trình đào tạo kỹ sư ngành Khoa học Máy tính và Kỹ thuật Máy tính tại Trường Đại học Bách Khoa -- ĐHQG-HCM. Học phần trang bị cho sinh viên kiến thức chuyên sâu về mô hình toán học, nguyên lý vật lý bán dẫn và kỹ năng phân tích thiết kế các mạch điện tử tương tự cơ bản (Diode, BJT, FET/MOSFET, Op-Amp, nguồn ổn áp và chuyển mạch công suất).
 
 Trong nhiều năm qua, các bài thực hành mô phỏng được thực hiện trên phần mềm thương mại \textit{PSpice for TI} (Texas Instruments / Cadence). Mặc dù có ưu thế về hệ thống mô hình IC chính hãng của TI, phần mềm này bộc lộ nhiều rào cản kỹ thuật nghiêm trọng đối với sinh viên:
@@ -345,7 +345,7 @@ Trong nhiều năm qua, các bài thực hành mô phỏng được thực hiệ
 
 Trước thực trạng đó, \textbf{Mục tiêu trọng tâm của Dự án 3} là: \textbf{Nghiên cứu, chuyển đổi toàn diện và xây dựng bộ tài liệu thực hành mô phỏng mới dựa trên phần mềm Analog Devices LTspice} cho toàn bộ 6 bài Lab (Lab 1 đến Lab 6). Dự án hướng đến việc cung cấp một môi trường mô phỏng mở, miễn phí 100\%, hoạt động độc lập ngoại tuyến (offline), không giới hạn số nút mạch hay số linh kiện, giúp sinh viên làm chủ công cụ mô phỏng chuẩn công nghiệp ngay trên laptop cá nhân.
 
-\subsection{1.2. Phạm vi thực hiện}
+\subsection{Phạm vi thực hiện}
 Dự án bao gồm 6 bài Lab thực hành mô phỏng tương ứng với các chương trọng tâm trong giáo trình bài giảng gốc:
 \begin{itemize}[itemsep=2pt]
   \item \textbf{Lab 1 (DC Circuits \& Basic Laws):} Ánh xạ từ Chương 1 (\textit{First Project on PSpice}), gồm 10 bài tập phân tích mạch một chiều, định luật Ohm, Kirchhoff (KCL, KVL), nguồn phụ thuộc (VCVS), điện trở tương đương và biến đổi sao -- tam giác.
@@ -358,7 +358,7 @@ Dự án bao gồm 6 bài Lab thực hành mô phỏng tương ứng với các 
 
 \textbf{Nội dung ngoài phạm vi dự án:} Căn cứ theo quy định của đề tài, Chương 4 (Altium Designer), các nội dung thiết kế mạch in PCB bằng Altium Designer nằm trong Chương 5 và Chương 6, cùng với Chương 8 (Final Project -- Thi công mạch thực tế) hoàn toàn nằm ngoài phạm vi thực hiện của Dự án 3.
 
-\subsection{1.3. Phân công tổ chức nhóm}
+\subsection{Phân công tổ chức nhóm}
 Nhóm gồm 3 sinh viên, phân chia trách nhiệm cụ thể như sau:
 \begin{itemize}[itemsep=2pt]
   \item \textbf{\TVa\ (\MSa\ -- Nhóm trưởng):} Phụ trách chính \textbf{Lab 5} và \textbf{Lab 6}; thiết kế các mạch thay thế flyback và ổn áp nối tiếp; biên soạn tài liệu hướng dẫn cài đặt \textit{LTspice Installation Guide}; thực hiện kiểm tra và chuẩn hóa layout sơ đồ mạch chống chồng lấn text bằng LTspice MCP.
@@ -367,7 +367,7 @@ Nhóm gồm 3 sinh viên, phân chia trách nhiệm cụ thể như sau:
   \item \textbf{Phần việc chung:} Thống nhất quy chuẩn cài đặt offline, đóng gói thư viện, hoàn thiện Bảng ánh xạ thao tác (Mục 3), thực hiện quy trình kiểm thử chéo (cross-testing) giữa các thành viên và hoàn thiện báo cáo tổng kết.
 \end{itemize}
 
-\subsection{1.4. Bố cục báo cáo}
+\subsection{Bố cục báo cáo}
 Báo cáo này được cấu trúc thành 12 mục chính: Mục 1 giới thiệu tổng quan; Mục 2 trình bày giải pháp cài đặt offline và cấu hình LTspice; Mục 3 đối chiếu bảng ánh xạ thao tác giữa PSpice for TI và LTspice; Mục 4 tổng quan thống kê các bài tập; Mục 5 mô tả chi tiết 6 bài Lab; Mục 6 phân tích các bài tập không chuyển đổi được và đề xuất giải pháp thay thế; Mục 7 trả lời 9 câu hỏi nghiên cứu của đề; Mục 8 báo cáo kết quả kiểm thử chéo; Mục 9 hướng dẫn sử dụng tài liệu cho giảng viên; Mục 10 ghi nhận nhật ký sử dụng AI; Mục 11 tổng kết phân công đóng góp; và Mục 12 kết luận dự án.
 
 %% ----------------------------- 2 -----------------------------
@@ -375,7 +375,7 @@ Báo cáo này được cấu trúc thành 12 mục chính: Mục 1 giới thi�
 
 Nội dung phần này được xây dựng đồng bộ hoàn toàn với tài liệu chuyên khảo \textit{LTspice Installation Guide} do nhóm biên soạn, cung cấp giải pháp trọn gói để sinh viên có thể tự cài đặt, cấu hình và sử dụng phần mềm hoàn toàn độc lập với kết nối Internet.
 
-\subsection{2.1. Nguồn tải chính thức, phiên bản và tính năng vượt trội}
+\subsection{Nguồn tải chính thức, phiên bản và tính năng vượt trội}
 \textbf{LTspice} là phần mềm mô phỏng mạch tương tự chuyên dụng do tập đoàn \textbf{Analog Devices (ADI)} phát triển.
 \begin{itemize}[itemsep=2pt]
   \item \textbf{Nguồn tải chính thức:} Trang chủ Analog Devices tại địa chỉ:
@@ -392,10 +392,10 @@ Nội dung phần này được xây dựng đồng bộ hoàn toàn với tài 
   \item \textbf{Ưu điểm kỹ thuật cốt lõi:} Bộ giải thuật SPICE được tối ưu hóa đặc biệt giúp tốc độ hội tụ cực nhanh; không giới hạn số nút mạch hay số lượng linh kiện; không yêu cầu đăng ký tài khoản hay kiểm tra bản quyền mạng.
 \end{itemize}
 
-\subsection{2.2. Điều khoản cấp phép sử dụng (EULA)}
+\subsection{Điều khoản cấp phép sử dụng (EULA)}
 Căn cứ theo Thỏa thuận Cấp phép Người dùng Cuối (EULA) của Analog Devices, LTspice được cấp phép miễn phí cho mục đích giáo dục, nghiên cứu học thuật và thiết kế kỹ thuật. Điều khoản cho phép người dùng tự do tải về, cài đặt trên laptop cá nhân, lưu trữ và sao lưu bộ cài qua USB để cài đặt ngoại tuyến mà không vi phạm bất kỳ quyền sở hữu trí tuệ nào, hoàn toàn phù hợp để triển khai đồng loạt trong môi trường đại học.
 
-\subsection{2.3. Cơ chế quản lý thư viện và giải pháp đóng gói ngoại tuyến (Offline Library)}
+\subsection{Cơ chế quản lý thư viện và giải pháp đóng gói ngoại tuyến (Offline Library)}
 Bộ cài gốc \texttt{LTspice64.msi} đã tích hợp sẵn thư viện cơ sở. Trong môi trường có mạng, người dùng có thể chọn menu \textbf{Tools $\rightarrow$ Sync Release} để tải về các mô hình mới nhất từ máy chủ ADI.
 
 Thư viện LTspice gồm thư mục \texttt{lib/} với 3 thành phần cốt lõi:
@@ -412,7 +412,7 @@ Trên một máy tính đã thực hiện \textit{Sync Release} đầy đủ, nh
   \item \textit{Vị trí chung cho toàn hệ thống:} \pathdir{C:/Program Files/ADI/LTspice/lib/}
 \end{itemize}
 
-\subsection{2.4. Quy trình 4 bước triển khai trên laptop/máy tính không có Internet}
+\subsection{Quy trình 4 bước triển khai trên laptop/máy tính không có Internet}
 Quy trình triển khai offline được chuẩn hóa gồm 4 bước rõ ràng (minh hoạ tại Hình~\ref{fig:caidat}):
 \begin{enumerate}[itemsep=2pt]
   \item \textbf{Bước 1 (Chuẩn bị USB):} Sao chép tệp cài đặt \texttt{LTspice64.msi}, tệp thư viện \texttt{LTspice\_lib\_offline.zip} và thư mục chứa 6 bài lab (\texttt{Lab1/} đến \texttt{Lab6/}) vào USB.
@@ -423,7 +423,7 @@ Quy trình triển khai offline được chuẩn hóa gồm 4 bước rõ ràng 
 
 \hinhanh{cai-dat-offline.png}{0.92\linewidth}{Quy trình 4 giai đoạn cài đặt ngoại tuyến (Offline), cấu hình và nghiệm thu LTspice chuẩn trên laptop cá nhân}{fig:caidat}
 
-\subsection{2.5. Quy trình kiểm tra và nghiệm thu 3 bước}
+\subsection{Quy trình kiểm tra và nghiệm thu 3 bước}
 Để khẳng định việc cài đặt offline thành công 100\%, sinh viên thực hiện bài test nghiệm thu tiêu chuẩn:
 \begin{enumerate}[itemsep=2pt]
   \item \textbf{Bước 1 -- Chạy mạch mẫu có sẵn:} Vào \textbf{File $\rightarrow$ Open}, mở tệp:
@@ -435,7 +435,7 @@ Quy trình triển khai offline được chuẩn hóa gồm 4 bước rõ ràng 
   \item \textbf{Bước 3 -- Kiểm tra hiển thị điểm làm việc (\texttt{.op}):} Vẽ mạch phân áp đơn giản gồm nguồn 10\,V và 2 điện trở \,\text{k}\Omega$ nối tiếp. Nhấn phím \texttt{S}, đặt lệnh \texttt{.op} và bấm Run. Kết quả hiển thị điện áp nút =5\,\text{V}$ và dòng điện \,\text{mA}$, đồng thời nhấp probe lên dây dẫn sẽ dán nhãn điện áp trực tiếp trên sơ đồ.
 \end{enumerate}
 
-\subsection{2.6. Cấu hình chuẩn tối ưu phục vụ học tập và viết báo cáo}
+\subsection{Cấu hình chuẩn tối ưu phục vụ học tập và viết báo cáo}
 Nhóm đưa ra 4 khuyến nghị cấu hình bắt buộc để bài thực hành đạt chất lượng cao nhất:
 \begin{enumerate}[itemsep=2pt]
   \item \textbf{Chuyển nền trắng chuẩn in ấn:} Vào \textbf{Tools $\rightarrow$ Color Scheme}, tại tab \textit{Schematic} và tab \textit{WaveForm}, chỉnh màu \textbf{Background} thành màu trắng tinh khiết (\texttt{R=255, G=255, B=255}), dây nối (\textit{Wires}) sang màu đen hoặc xanh đậm (\texttt{R=0, G=0, B=160}). Việc này giúp sơ đồ sáng rõ, tiết kiệm mực in và không bị chói mắt khi đọc báo cáo.
@@ -463,17 +463,17 @@ Bias Point, Enable Bias Display & \texttt{.op}; di chuột lên dây/linh kiện
 DC Sweep & \texttt{.dc <nguồn> <bắt đầu> <kết thúc> <bước>} & & $\checkmark$ Cú pháp chuẩn: \texttt{.dc V1 0 10 0.05}. Thiết lập trực tiếp qua hộp thoại \textit{Edit Simulation Cmd}. \\ \hline
 Nested DC Sweep & \texttt{.dc V1 \dots\ V2 \dots} (hai nguồn trong một lệnh) & Dùng cho họ đặc tuyến JFET/BJT & $\checkmark$ Rất mạnh trong Lab 5 \& 6: \texttt{.dc VDS 0 10 0.05 VGS -2 0 0.5} quét 2 nguồn vẽ họ đặc tuyến chỉ trong 1 lệnh. \\ \hline
 Parametric sweep & \texttt{.step param R list \dots} hoặc \texttt{.step param R 1k 10k 1k} & Kết hợp \texttt{.param} và giá trị \texttt{\{R\}} & $\checkmark$ Dùng biến \texttt{\{RL\}} trên linh kiện, kết hợp \texttt{.step param RL list 1k 10k} khảo sát đa điểm tải. \\ \hline
-Time Domain (Transient) & \texttt{.tran <thời gian dừng>} & Chú ý bước thời gian tối đa với mạch chuyển mạch & $\checkmark$ Cú pháp \texttt{.tran 0 30m 0 2u}; đặt {maxstep}$ nhỏ để tránh sai số số học ở mạch đóng cắt cảm kháng (Lab 5 Ex10). \\ \hline
+Time Domain (Transient) & \texttt{.tran <thời gian dừng>} & Chú ý bước thời gian tối đa với mạch chuyển mạch & $\checkmark$ Cú pháp \texttt{.tran 0 30m 0 2u}; đặt $T_{\text{maxstep}}$ nhỏ để tránh sai số số học ở mạch đóng cắt cảm kháng (Lab 5 Ex10). \\ \hline
 AC Sweep & \texttt{.ac dec <số điểm/dec> <f\_start> <f\_stop>} & Nguồn phải có biên độ AC & $\checkmark$ Cú pháp \texttt{.ac dec 20 10 1Meg}; nguồn độc lập đặt \texttt{AC 1}. \\ \hline
 Trace > Add Trace, cursor & Bấm chuột lên nút/linh kiện (probe); cursor; \texttt{.meas} & \texttt{.meas} giúp tự động đo giá trị để so sánh lý thuyết & $\checkmark$ Click chuột trái lên node để xem điện áp, click thân linh kiện để xem dòng điện; nhấp đúp tên trace để bật 2 con trỏ đo (Cursor 1, 2). \\ \hline
 Copy to Clipboard (xuất dữ liệu) & Xuất dữ liệu dạng text từ cửa sổ đồ thị & & $\checkmark$ Hỗ trợ \textbf{File $\rightarrow$ Export data as text} (xuất file \texttt{.txt}), hoặc \textbf{Tools $\rightarrow$ Copy bitmap to clipboard} lấy ảnh nét cao. \\ \hline
 VCVS / CCCS \dots & Nguồn phụ thuộc E, F, G, H; nguồn hành vi B & & $\checkmark$ Nhấn \key{F2}, gõ tên linh kiện \texttt{e}, \texttt{f}, \texttt{g}, \texttt{h} hoặc nguồn phi tuyến tuỳ ý \texttt{bv}, \texttt{bi}. \\ \hline
 VSIN, VPULSE & Nguồn áp với hàm SINE/PULSE & & $\checkmark$ Đặt nguồn \texttt{voltage}, chuột phải chọn \textit{Advanced} để cấu hình \texttt{SINE(0 10 1k)} hoặc \texttt{PULSE(0 5 0 1u 1u 0.5m 1m)}. \\ \hline
 Dbreak, mô hình TI & D với \texttt{.model} mặc định hoặc mô hình trong thư viện; nhập \texttt{.lib} & Mô hình PSpice mã hoá của TI thường không dùng được trong LTspice & $\checkmark$ Dùng phím \key{S} khai báo mô hình chuẩn: \newline \texttt{.model D1N4148 D(...)} hoặc \texttt{.model DZ12 D(Bv=12 ...)}. \\ \hline
-\multicolumn{3}{|l|}{\textbf{Thao tác phát hiện thêm 1: Khai báo mô hình BJT / FET nội tại}} & Dùng phím \key{S} đặt: \newline \texttt{.model NMSW NMOS(Kp=0.5 Vto=2)} \newline \texttt{.model JN NJF(Beta=2.5m Vto=-2)}. \\ \hline
-\multicolumn{3}{|l|}{\textbf{Thao tác phát hiện thêm 2: Đo tự động bằng câu lệnh \texttt{.meas}}} & Cú pháp tự động trích xuất kết quả vào SPICE Error Log (\key{Ctrl+L}): \newline \texttt{.meas TRAN Iavg AVG I(Rm)} \newline \texttt{.meas OP Vout FIND V(out) AT=0}. \\ \hline
-\multicolumn{3}{|l|}{\textbf{Thao tác phát hiện thêm 3: Phân tích thống kê Monte Carlo sai số}} & Dùng hàm phân bố đều \texttt{\{mc(val, tol)\}} kết hợp \texttt{.step param run 1 20 1} khảo sát dải dung sai \%$ linh kiện (Lab 6 Adv01). \\ \hline
-\multicolumn{3}{|l|}{\textbf{Thao tác phát hiện thêm 4: Trích xuất tương đương Thévenin bằng \texttt{.tf}}} & Phân tích hàm truyền DC: \texttt{.tf V(out) V1} tự động tính điện áp hở mạch, độ lợi và nội trở {th}$ trực tiếp (Lab 6 Adv02). \\ \hline
+\multicolumn{3}{|p{10.6cm}|}{\textbf{Thao tác phát hiện thêm 1: Khai báo mô hình BJT / FET nội tại}} & Dùng phím \key{S} đặt: \newline \texttt{.model NMSW NMOS(Kp=0.5 Vto=2)} \newline \texttt{.model JN NJF(Beta=2.5m Vto=-2)}. \\ \hline
+\multicolumn{3}{|p{10.6cm}|}{\textbf{Thao tác phát hiện thêm 2: Đo tự động bằng câu lệnh \texttt{.meas}}} & Cú pháp tự động trích xuất kết quả vào SPICE Error Log (\key{Ctrl+L}): \newline \texttt{.meas TRAN Iavg AVG I(Rm)} \newline \texttt{.meas OP Vout FIND V(out) AT=0}. \\ \hline
+\multicolumn{3}{|p{10.6cm}|}{\textbf{Thao tác phát hiện thêm 3: Phân tích thống kê Monte Carlo sai số}} & Dùng hàm phân bố đều \texttt{\{mc(val, tol)\}} kết hợp \texttt{.step param run 1 20 1} khảo sát dải dung sai $5\%$ linh kiện (Lab 6 Adv01). \\ \hline
+\multicolumn{3}{|p{10.6cm}|}{\textbf{Thao tác phát hiện thêm 4: Trích xuất tương đương Thévenin bằng \texttt{.tf}}} & Phân tích hàm truyền DC: \texttt{.tf V(out) V1} tự động tính điện áp hở mạch, độ lợi và nội trở $R_{\text{th}}$ trực tiếp (Lab 6 Adv02). \\ \hline
 \end{longtable}}
 
 %% ----------------------------- 4 -----------------------------
