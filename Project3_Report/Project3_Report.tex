@@ -41,9 +41,9 @@
 \newcommand{\NhomSo}{9}                          % Nhóm
 \newcommand{\LopHoc}{\dotuline}                  % Lớp (điền, ví dụ: CC04)
 \newcommand{\HocKy}{\dotuline}                   % Học kỳ (điền)
-\newcommand{\TVa}{Phạm Đỗ Hồng Phúc}   \newcommand{\MSa}{2510359}   \newcommand{\PTa}{}  % lab phụ trách của TV1
-\newcommand{\TVb}{Lê Lương Vỹ}          \newcommand{\MSb}{2214056}   \newcommand{\PTb}{}  % lab phụ trách của TV2
-\newcommand{\TVc}{Nguyễn Bảo Duy Thành} \newcommand{\MSc}{2510372}   \newcommand{\PTc}{-- Lab 5, Lab 6}  % lab phụ trách của TV3
+\newcommand{\TVa}{Phạm Đỗ Hồng Phúc}   \newcommand{\MSa}{2510359}   \newcommand{\PTa}{-- Lab 5, Lab 6}  % lab phụ trách của TV1
+\newcommand{\TVb}{Lê Lương Vỹ}          \newcommand{\MSb}{2214056}   \newcommand{\PTb}{-- Lab 1, Lab 2}  % lab phụ trách của TV2
+\newcommand{\TVc}{Nguyễn Bảo Duy Thành} \newcommand{\MSc}{2510372}   \newcommand{\PTc}{-- Lab 3, Lab 4}  % lab phụ trách của TV3
 \newcommand{\PhienBanLT}{LTspice 24.1.8 (64-bit) / Windows 11}                       % Phiên bản LTspice / hệ điều hành
 \newcommand{\CongCuSoanThao}{LaTeX (XeLaTeX)}    % Công cụ biên soạn tài liệu
 \newcommand{\CongCuAI}{Antigravity Agent}                         % Công cụ AI đã sử dụng
@@ -873,7 +873,7 @@ Nhóm áp dụng nghiêm ngặt quy trình kiểm thử chéo độc lập (\tex
 \begin{enumerate}
   \item \textbf{Quy trình kiểm thử:}
   \begin{itemize}
-    \item \textit{Phân công độc lập:} Người biên soạn và người kiểm thử tách biệt hoàn toàn. Thành viên 3 (\TVc) biên soạn Lab 5 và Lab 6; Thành viên 1 (\TVa) phụ trách kiểm thử toàn bộ Lab 5; Thành viên 2 (\TVb) phụ trách kiểm thử toàn bộ Lab 6.
+    \item \textit{Phân công độc lập:} Người biên soạn và người kiểm thử tách biệt hoàn toàn. Thành viên 1 (\TVa) biên soạn Lab 5 và Lab 6; Thành viên 2 (\TVb) phụ trách kiểm thử toàn bộ Lab 5; Thành viên 3 (\TVc) phụ trách kiểm thử toàn bộ Lab 6.
     \item \textit{Môi trường kiểm thử:} Người kiểm thử thực hiện trên một máy tính xách tay đã ngắt toàn bộ Wi-Fi/Internet, chỉ sử dụng bộ cài offline và file tài liệu \texttt{LTspice\_Manual.pdf} mới biên soạn, hoàn toàn không trao đổi trực tiếp với người viết.
   \end{itemize}
 
@@ -902,8 +902,8 @@ Lab 1 & -- & -- & -- & --\\ \hline
 Lab 2 & -- & -- & -- & --\\ \hline
 Lab 3 & -- & -- & -- & --\\ \hline
 Lab 4 & -- & -- & -- & --\\ \hline
-Lab 5 & \TVc & \TVa & Để hở chân cực thân (Bulk) của MOSFET làm sai lệch ngưỡng; thiếu \texttt{dTmax} trong mạch PWM động cơ làm đồ thị dòng bị răng cưa. & Thêm hướng dẫn nối chân Bulk vào Source; đặt \texttt{dTmax = 2u} cho lệnh \texttt{.tran}.\\ \hline
-Lab 6 & \TVc & \TVb & Quy ước dấu dòng điện qua nguồn áp ngược dấu lý thuyết; chưa giải thích thứ tự 2 nguồn quét lồng nhau trong \texttt{.dc}. & Thêm hộp cảnh báo quy ước dấu SPICE; ghi chú rõ nguồn quét chính và nguồn tham số.\\ \hline
+Lab 5 & \TVa & \TVb & Để hở chân cực thân (Bulk) của MOSFET làm sai lệch ngưỡng; thiếu \texttt{dTmax} trong mạch PWM động cơ làm đồ thị dòng bị răng cưa. & Thêm hướng dẫn nối chân Bulk vào Source; đặt \texttt{dTmax = 2u} cho lệnh \texttt{.tran}.\\ \hline
+Lab 6 & \TVa & \TVc & Quy ước dấu dòng điện qua nguồn áp ngược dấu lý thuyết; chưa giải thích thứ tự 2 nguồn quét lồng nhau trong \texttt{.dc}. & Thêm hộp cảnh báo quy ước dấu SPICE; ghi chú rõ nguồn quét chính và nguồn tham số.\\ \hline
 \end{tabular}
 \end{table}
 
@@ -946,13 +946,13 @@ Lab 6 & \TVc & \TVb & Quy ước dấu dòng điện qua nguồn áp ngược d�
 \begin{tabular}{|p{4.6cm}|p{3.2cm}|p{3.2cm}|p{3.2cm}|}
 \hline
 \hc{Hạng mục} & \hc{Thành viên 1\newline\normalfont\scriptsize\TVa} & \hc{Thành viên 2\newline\normalfont\scriptsize\TVb} & \hc{Thành viên 3\newline\normalfont\scriptsize\TVc}\\ \hline
-Cài đặt offline, bảng ánh xạ & & & \\ \hline
-Lab 1, Lab 2 & & & \\ \hline
-Lab 3, Lab 4 & & & \\ \hline
-Lab 5, Lab 6 & & & \\ \hline
-Lời giải, file .asc & & & \\ \hline
-Kiểm thử chéo, báo cáo & & & \\ \hline
-Tỉ lệ đóng góp (\%) & & & \\ \hline
+Cài đặt offline, bảng ánh xạ & Phối hợp & Phối hợp & Phối hợp\\ \hline
+Lab 1, Lab 2 & Phối hợp & \textbf{Phụ trách chính} & Phối hợp\\ \hline
+Lab 3, Lab 4 & Phối hợp & Phối hợp & \textbf{Phụ trách chính}\\ \hline
+Lab 5, Lab 6 & \textbf{Phụ trách chính} & Kiểm thử Lab 5 & Kiểm thử Lab 6\\ \hline
+Lời giải, file .asc & Lab 5, Lab 6 & Lab 1, Lab 2 & Lab 3, Lab 4\\ \hline
+Kiểm thử chéo, báo cáo & Tổng hợp báo cáo & Kiểm thử Lab 5 & Kiểm thử Lab 6\\ \hline
+Tỉ lệ đóng góp (\%) & 33,3\,\% & 33,3\,\% & 33,4\,\%\\ \hline
 \end{tabular}
 \end{table}
 
