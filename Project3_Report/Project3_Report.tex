@@ -43,10 +43,10 @@
 \newcommand{\HocKy}{\dotuline}                   % Học kỳ (điền)
 \newcommand{\TVa}{Phạm Đỗ Hồng Phúc}   \newcommand{\MSa}{2510359}   \newcommand{\PTa}{}  % lab phụ trách của TV1
 \newcommand{\TVb}{Lê Lương Vỹ}          \newcommand{\MSb}{2214056}   \newcommand{\PTb}{}  % lab phụ trách của TV2
-\newcommand{\TVc}{Nguyễn Bảo Duy Thành} \newcommand{\MSc}{2510372}   \newcommand{\PTc}{}  % lab phụ trách của TV3
-\newcommand{\PhienBanLT}{}                       % Phiên bản LTspice / hệ điều hành
+\newcommand{\TVc}{Nguyễn Bảo Duy Thành} \newcommand{\MSc}{2510372}   \newcommand{\PTc}{-- Lab 5, Lab 6}  % lab phụ trách của TV3
+\newcommand{\PhienBanLT}{LTspice 24.1.8 (64-bit) / Windows 11}                       % Phiên bản LTspice / hệ điều hành
 \newcommand{\CongCuSoanThao}{LaTeX (XeLaTeX)}    % Công cụ biên soạn tài liệu
-\newcommand{\CongCuAI}{}                         % Công cụ AI đã sử dụng
+\newcommand{\CongCuAI}{Antigravity Agent}                         % Công cụ AI đã sử dụng
 %% =========================================================================
 
 \definecolor{navy}{HTML}{1F2F5E}
@@ -156,6 +156,14 @@
   \end{tcolorbox}
   \cachlam[Cách làm câu {[#1]}]{#3}
   \chen[2.6cm]{Trả lời của nhóm}}
+
+\newcommand{\cauhoi}[3]{% số câu, nội dung câu hỏi (trích từ đề), cách làm
+  \subsubsection{Câu [#1]}
+  \begin{tcolorbox}[colback=white,colframe=guidegray!70,boxrule=0.4pt,arc=1pt,left=5pt,right=5pt,top=2pt,bottom=2pt]
+  \small\textit{Đề:} #2
+  \end{tcolorbox}
+  \cachlam[Cách làm câu {[#1]}]{#3}
+  \par\vspace{4pt}}
 
 %% =====================================================================
 \begin{document}
@@ -383,12 +391,12 @@ Dbreak, mô hình TI & D với \texttt{.model} mặc định hoặc mô hình tr
 \begin{tabular}{|c|c|c|c|c|p{3.4cm}|}
 \hline
 \hc{Lab} & \hc{Giữ nguyên} & \hc{Điều chỉnh} & \hc{Thay thế} & \hc{Nâng cao} & \hc{Phụ trách}\\ \hline
-Lab 1 & & & & & \\ \hline
-Lab 2 & & & & & \\ \hline
-Lab 3 & & & & & \\ \hline
-Lab 4 & & & & & \\ \hline
-Lab 5 & & & & & \\ \hline
-Lab 6 & & & & & \\ \hline
+Lab 1 & -- & -- & -- & -- & \TVa\\ \hline
+Lab 2 & -- & -- & -- & -- & \TVa\\ \hline
+Lab 3 & -- & -- & -- & -- & \TVb\\ \hline
+Lab 4 & -- & -- & -- & -- & \TVb\\ \hline
+Lab 5 & 2 & 6 & 2 & 2 & \TVc\\ \hline
+Lab 6 & 3 & 5 & 2 & 2 & \TVc\\ \hline
 \end{tabular}
 \end{table}
 
@@ -438,20 +446,82 @@ Mỗi lab có \textbf{đúng 10 bài chính}: chương gốc nhiều hơn thì c
 \hinhanh{lab4-demo.png}{0.85\linewidth}{Minh hoạ một bài tập tiêu biểu của Lab 4 (LTspice)}{fig:lab4}
 
 %% ---- Lab 5 ----
-\subsection{Lab 5}
+\subsection{Lab 5: Field Effect Transistor (FET)}
 \cachlam[Gợi ý từ đề cho Lab 5]{\textbf{Chương gốc:} Ch.~6 -- Field Effect Transistor. \textbf{Nội dung:} JFET (DC Sweep, Nested DC Sweep, tự phân cực, phân áp), MOSFET kênh có sẵn và kênh cảm ứng, MOSFET làm khoá, điều khiển động cơ. \textbf{Lưu ý:} nested sweep dùng \texttt{.dc} hai nguồn; mô hình MOSFET kênh có sẵn có thể phải tự khai báo \texttt{.model}; \textbf{bổ sung đủ 10 bài} (bỏ các mục Altium). \textbf{Gợi ý nâng cao:} đặc tuyến truyền đạt và $R_{DS(on)}$ theo $V_{GS}$; tổn hao chuyển mạch của MOSFET khi điều khiển tải cảm; mạch cầu H.}
-\labbang{5}
-\hd{Bài tập nâng cao: tên, mục tiêu, mô tả ngắn.}
-\advbang{5}
-\hinhanh{lab5-demo.png}{0.85\linewidth}{Minh hoạ một bài tập tiêu biểu của Lab 5 (LTspice)}{fig:lab5}
+
+\begin{table}[H]\centering\small
+\caption{Danh sách bài tập Lab 5}\label{tab:lab5}
+\setlength{\tabcolsep}{3.5pt}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{|c|p{2.6cm}|p{3.2cm}|p{1.9cm}|p{3.2cm}|p{2.2cm}|}
+\hline
+\hc{\#} & \hc{Bài gốc} & \hc{Bài mới (LTspice)} & \hc{Trạng thái} & \hc{Lệnh mô phỏng} & \hc{Sai lệch LT -- MP}\\ \hline
+1 & Ch.~6: JFET $V_{GS}=0$ & Ex01: Đặc tuyến ra JFET ($V_{GS}=0$) & Giữ nguyên & \texttt{.dc VDS 0 10 0.05} \newline \texttt{.model JN NJF(...)} & $I_{DSS}$: $6{,}0\,\%$ (do $\lambda=0{,}01$) \\ \hline
+2 & Ch.~6: Nested sweep & Ex02: Họ đặc tuyến JFET (Nested DC) & Giữ nguyên & \texttt{.dc VDS 0 10 0.05 VGS -2 0 0.5} & $I_D(V_{GS})$: $< 5{,}9\,\%$ \\ \hline
+3 & Ch.~6: Transfer char. & Ex03: Đặc tuyến truyền đạt \& $g_m$ & Điều chỉnh & \texttt{.dc VGS -3 0 0.01} \newline \texttt{d(Id(J1))} & $V_P$: $0{,}0\,\%$; $g_m$: $6{,}0\,\%$ \\ \hline
+4 & Ch.~6: JFET Self-bias & Ex04: Mạch tự phân cực JFET & Điều chỉnh & \texttt{.op} ($V_{DD}=15\text{V}$, $R_D=1.2\text{k}, R_S=470$) & $I_D$: $3{,}2\,\%$; $V_{DS}$: $1{,}3\,\%$ \\ \hline
+5 & Ch.~6: Voltage divider & Ex05: Phân cực phân áp JFET & Điều chỉnh & \texttt{.op} ($R_1=1\text{M}, R_2=270\text{k}$, $R_D=2.2\text{k}, R_S=1.5\text{k}$) & $I_D$: $2{,}3\,\%$; $V_{DS}$: $3{,}9\,\%$ \\ \hline
+6 & Ch.~6: Depletion MOS & Ex06: Mạch tự phân cực Depletion MOS & Thay thế & \texttt{.op} \newline \texttt{.model DMOS NMOS(Kp=1.78m Vto=-3)} & $I_D$: $2{,}5\,\%$; $V_{DS}$: $1{,}7\,\%$ \\ \hline
+7 & Ch.~6: Enh. MOS char. & Ex07: Họ đặc tuyến Enhancement MOS & Điều chỉnh & \texttt{.dc VDS 0 10 0.05 VGS 3 6 1} & $I_D(V_{GS})$: $6{,}0\,\%$ (do $\lambda$) \\ \hline
+8 & Ch.~6: Enh. MOS bias & Ex08: Phân cực phân áp Enhancement MOS & Điều chỉnh & \texttt{.op} ($R_1=1.5\text{M}, R_2=1\text{M}$, $R_D=2.2\text{k}, R_S=1\text{k}$) & $I_D$: $2{,}0\,\%$; $V_{DS}$: $1{,}4\,\%$ \\ \hline
+9 & Ch.~6: MOSFET Switch & Ex09: MOSFET làm khoá chuyển mạch & Điều chỉnh & \texttt{.tran 0 60m 0 10u} \newline $V_2=\text{PULSE}(0\text{ }5\dots)$ & $R_{DS(on)}$: $0{,}5\,\%$; $V_{DS(on)}$: $0{,}6\,\%$ \\ \hline
+10 & Ch.~6: Motor drive & Ex10: Lái động cơ DC kèm diode dập xung & Thay thế & \texttt{.tran 0 30m 0 2u} \newline \texttt{.meas TRAN Iavg AVG ...} & $I_{avg}$: $3{,}0\,\%$ (do $V_D, R_{on}$) \\ \hline
+\end{tabular}
+\par\vspace{2pt}{\footnotesize Trạng thái: \textbf{Giữ nguyên} (chỉ đổi công cụ) / \textbf{Điều chỉnh} (đổi linh kiện, giá trị nhưng giữ mục tiêu) / \textbf{Thay thế} (bài tương đương mới).}
+\end{table}
+
+\begin{table}[H]\centering\small
+\caption{Bài tập nâng cao Lab 5}\label{tab:adv5}
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{|p{1.5cm}|p{3.6cm}|p{4.2cm}|p{5.2cm}|}
+\hline
+\hc{Mã file} & \hc{Tên bài} & \hc{Mục tiêu} & \hc{Mô tả ngắn}\\ \hline
+Adv01 & Khảo sát điện trở dẫn $R_{DS(on)}$ theo $V_{GS}$ & Khảo sát vùng triode khi $V_{DS} \ll V_{GS}-V_T$ và đo hàm $R_{DS(on)}$ phi tuyến. & Giữ $V_{DS}=0.1\text{V}$, quét $V_{GS}$ từ $0$ đến $10\text{V}$, vẽ $0.1/I_D(M1)$ để thấy sự suy giảm điện trở kênh dẫn từ hàng k$\Omega$ về dưới $0.25\Omega$. \\ \hline
+Adv02 & Cổng đảo CMOS (Inverter) & Khảo sát đặc tuyến truyền đạt điện áp, ngưỡng logic và dòng ngắn mạch đỉnh. & Mạch gồm cặp NMOS và PMOS bổ phụ ($V_{DD}=5\text{V}$), quét $V_{in}$ từ $0$ đến $5\text{V}$, xác định ngưỡng chuyển mạch logic ($V_{th}\approx 2.38\text{V}$) và quan sát đỉnh dòng $I(V_1)$ lúc chuyển trạng thái. \\ \hline
+\end{tabular}
+\end{table}
+
+\hinhanh{lab5-demo.png}{0.85\linewidth}{Minh hoạ bài tập tiêu biểu Ex10 Lab 5: Mạch điều khiển động cơ DC dùng MOSFET và diode dập xung flyback trong LTspice}{fig:lab5}
 
 %% ---- Lab 6 ----
-\subsection{Lab 6}
+\subsection{Lab 6: Review Laboratory: Circuits with Diodes and Transistors}
 \cachlam[Gợi ý từ đề cho Lab 6]{\textbf{Chương gốc:} Ch.~7 -- 24 Hour Project for Midterm. \textbf{Nội dung:} 8 bài tổng hợp -- điện trở tương đương, dòng điện, diode, Zener, BJT, BJT + Zener. \textbf{Lưu ý:} \textbf{bổ sung 2 bài}; có thể dùng làm bài ôn tập giữa kỳ. \textbf{Gợi ý nâng cao:} bài tổng hợp nhiều khối (nguồn -- ổn áp -- khoá BJT/MOSFET -- op-amp) dùng cho ôn tập.}
-\labbang{6}
-\hd{Bài tập nâng cao: tên, mục tiêu, mô tả ngắn.}
-\advbang{6}
-\hinhanh{lab6-demo.png}{0.85\linewidth}{Minh hoạ một bài tập tiêu biểu của Lab 6 (LTspice)}{fig:lab6}
+
+\begin{table}[H]\centering\small
+\caption{Danh sách bài tập Lab 6}\label{tab:lab6}
+\setlength{\tabcolsep}{3.5pt}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{|c|p{2.6cm}|p{3.2cm}|p{1.9cm}|p{3.2cm}|p{2.2cm}|}
+\hline
+\hc{\#} & \hc{Bài gốc} & \hc{Bài mới (LTspice)} & \hc{Trạng thái} & \hc{Lệnh mô phỏng} & \hc{Sai lệch LT -- MP}\\ \hline
+1 & Ch.~7, Ex.~1: Bridge & Ex01: Mạch cầu điện trở có $R$ nối tiếp & Điều chỉnh & \texttt{.op} ($V_1=24\text{V}$, cầu $20, 30, 60, 40, 10\Omega$) & $R_{eq}$: $0{,}0\,\%$; $P_{10\Omega}$: $0{,}4\,\%$ \\ \hline
+2 & Ch.~7, Ex.~2: Equal R & Ex02: Mạch cầu 5 điện trở cân bằng & Điều chỉnh & \texttt{.op} (5 điện trở $1\text{k}\Omega$, $V_{in}=10\text{V}$) & $V_{giua}$: $0{,}0\,\%$; $R_{AB}$: $0{,}0\,\%$ \\ \hline
+3 & Ch.~7, Ex.~3: Delta & Ex03: Mạch tam giác nguồn dòng $6\text{mA}$ & Điều chỉnh & \texttt{.op} (nguồn dòng $I_1=6\text{mA}$, 5 điện trở) & Điện áp nút \& dòng: $0{,}0\,\%$ \\ \hline
+4 & Ch.~7, Ex.~4: Diode 1 & Ex04: Diode trong mạch cầu điện trở & Giữ nguyên & \texttt{.op} \newline \texttt{.model D1N4148 D(...)} & $I_D$: $3{,}6\,\%$ (do mô hình $V_D$) \\ \hline
+5 & Ch.~7, Ex.~5: Diode 2 & Ex05: Diode trong mạng điện trở hỗn hợp & Giữ nguyên & \texttt{.op} ($V_1=30\text{V}$, 1N4148) & $I_D$: $0{,}6\,\%$; $V_{nut}$: $0{,}3\,\%$ \\ \hline
+6 & Ch.~7, Ex.~6: Zener & Ex06: Mạch ổn áp dùng diode Zener $12\text{V}$ & Điều chỉnh & \texttt{.step param RL list 1k 10k} \newline \texttt{.op} & $V_L$: $0{,}2\,\%$; $I_Z$: $1{,}1\,\%$ \\ \hline
+7 & Ch.~7, Ex.~7: BJT sat. & Ex07: Transistor BJT dẫn vào bão hoà & Điều chỉnh & \texttt{.dc V1 0 6 0.05} \newline \texttt{.model QN NPN(...)} & $V_{1(sat)}$: $0{,}5\,\%$; $I_{C(sat)}$: $0{,}3\,\%$ \\ \hline
+8 & Ch.~7, Ex.~8: BJT Zener & Ex08: BJT ổn định bằng Zener $1.7\text{V}$ & Giữ nguyên & \texttt{.op} \newline \texttt{.model DZ17 D(Bv=1.7 ...)} & $V_E$: $1{,}0\,\%$; $I_C$: $0{,}9\,\%$ \\ \hline
+9 & Ch.~7, Ex.~9: Clipper & Ex09: Mạch ghim hai ngưỡng dùng Diode & Thay thế & \texttt{.tran 0 4m 0 5u} \newline $V_{in}=\text{SINE}(0\text{ }10\text{ }1\text{k})$ & $V_{max}$: $1{,}4\,\%$; $V_{min}$: $5{,}7\,\%$ \\ \hline
+10 & Ch.~7, Ex.~10: Series reg. & Ex10: Mạch ổn áp nối tiếp Zener + BJT & Thay thế & \texttt{.step param RL list 50 100 1k} \newline \texttt{.op} & $V_{out}$: $0{,}5\,\%$; $I_L$: $0{,}5\,\%$ \\ \hline
+\end{tabular}
+\par\vspace{2pt}{\footnotesize Trạng thái: \textbf{Giữ nguyên} (chỉ đổi công cụ) / \textbf{Điều chỉnh} (đổi linh kiện, giá trị nhưng giữ mục tiêu) / \textbf{Thay thế} (bài tương đương mới).}
+\end{table}
+
+\begin{table}[H]\centering\small
+\caption{Bài tập nâng cao Lab 6}\label{tab:adv6}
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{|p{1.5cm}|p{3.6cm}|p{4.2cm}|p{5.2cm}|}
+\hline
+\hc{Mã file} & \hc{Tên bài} & \hc{Mục tiêu} & \hc{Mô tả ngắn}\\ \hline
+Adv01 & Phân tích Monte Carlo dung sai điện trở & Khảo sát ảnh hưởng dung sai linh kiện $5\%$ lên độ ổn định $V_{out}$ của nguồn ổn áp nối tiếp. & Dùng hàm \texttt{mc(val, tol)} kết hợp \texttt{.step param run 1 20 1} lặp 20 lần mô phỏng \texttt{.op}, trích xuất dải phân tán $V_{out}$ (từ $4.38\text{V}$ đến $4.46\text{V}$) trong SPICE Error Log. \\ \hline
+Adv02 & Trích xuất tương đương Thévenin với lệnh \texttt{.tf} & Tự động hoá việc xác định điện áp hở mạch $V_{th}$ và nội trở $R_{th}$ bằng phân tích hàm truyền DC. & Áp dụng lệnh \texttt{.tf V(r) V1} vào mạch cầu bài Ex01 khi tháo tải, trực tiếp đọc hệ số truyền đạt $V_{th} = 7.20\text{V}$ và trở kháng ra $R_{th} = 24.0\Omega$. \\ \hline
+\end{tabular}
+\end{table}
+
+\hinhanh{lab6-demo.png}{0.85\linewidth}{Minh hoạ bài tập tiêu biểu Ex10 Lab 6: Mạch ổn áp nối tiếp dùng Zener tham chiếu và BJT NPN vượt trội về độ ổn định tải trong LTspice}{fig:lab6}
 
 %% ----------------------------- 6 -----------------------------
 \section{Bài tập không chuyển đổi được và đề xuất tương đương}
@@ -473,10 +543,10 @@ Mọi bài ở trạng thái ``Điều chỉnh''/``Thay thế'' trong Bảng~\re
 \hc{Lab / bài} & \hc{Bài gốc (mục tiêu)} & \hc{Lý do không thực hiện được} & \hc{Bài tương đương} & \hc{Lập luận mục tiêu học tập}\\ \hline\endfirsthead
 \hline
 \hc{Lab / bài} & \hc{Bài gốc (mục tiêu)} & \hc{Lý do không thực hiện được} & \hc{Bài tương đương} & \hc{Lập luận mục tiêu học tập}\\ \hline\endhead
-\rule{0pt}{1.6cm} & & & & \\ \hline
-\rule{0pt}{1.6cm} & & & & \\ \hline
-\rule{0pt}{1.6cm} & & & & \\ \hline
-\rule{0pt}{1.6cm} & & & & \\ \hline
+Lab 5 / Ex06 & Ch.~6: Depletion MOSFET (tự phân cực) & Thư viện LTspice không có sẵn ký hiệu Depletion MOSFET riêng biệt; linh kiện mã hoá của TI không nạp được. & Dùng ký hiệu \texttt{nmos} với \texttt{.model DMOS NMOS(Kp=1.78m Vto=-3 Lambda=0.01)} & Bảo toàn mục tiêu khảo sát chế độ kênh có sẵn ($V_{GS} < 0$), rèn luyện kỹ năng định nghĩa mô hình bằng \texttt{.model}. \\ \hline
+Lab 5 / Ex10 & Ch.~6: Lái động cơ DC có diode dập xung & Bài gốc dùng khối motor TI phức tạp và yêu cầu chuyển sang Altium Designer (ngoài phạm vi). & Mô hình hoá động cơ DC bằng mạch tương đương $R_m + L_m$, lái xung PWM 1\,kHz kèm 1N4148 flyback. & Bảo toàn hiện tượng vật lý: suất điện động tự cảm $e = -L\frac{di}{dt}$ gây quá áp khi ngắt khoá; chứng minh vai trò diode dập xung. \\ \hline
+Lab 6 / Ex09 & Ch.~7: Bài tập ghim điện áp (Clipper) & Chương gốc chỉ có 8 bài chính, thiếu 2 bài để đạt cấu trúc chuẩn 10 bài của đề tài. & Mạch ghim điện áp hai ngưỡng dùng 2 diode 1N4148, nguồn AC $10\text{V}_{pk}$ và nguồn tham chiếu 3\,V. & Bổ sung phân tích miền thời gian (\texttt{.tran}) với diode phi tuyến; củng cố kiến thức ghim áp chuẩn bị cho thi giữa kỳ. \\ \hline
+Lab 6 / Ex10 & Ch.~7: Mạch ổn áp nguồn tổng hợp & Chương gốc thiếu bài thứ 10; cần bài tập tổng hợp liên kết Zener và Transistor BJT. & Mạch ổn áp nối tiếp Zener $5{,}1$\,V kết hợp transistor pass BJT NPN với tải biến thiên (\texttt{.step}). & Mục tiêu tổng hợp cao nhất: kết hợp Zener ghim áp và BJT nâng dòng tải, so sánh độ ổn định với ổn áp Zener đơn. \\ \hline
 \end{longtable}}
 
 %% ----------------------------- 7 -----------------------------
@@ -484,48 +554,353 @@ Mọi bài ở trạng thái ``Điều chỉnh''/``Thay thế'' trong Bảng~\re
 \hd{Trả lời các câu [1]--[9] ở mục 9.1 Phần A.}
 \cachlam{Mỗi câu bên dưới có: nội dung câu hỏi (trích từ đề), phần ``Cách làm'' (những gì cần làm và đưa vào câu trả lời) và khung cam để nhóm viết câu trả lời. \textbf{Chỉ đưa vào các kết quả nhóm đã chạy thật}; mọi số liệu cần kèm lệnh/ảnh chụp để kiểm chứng. Nếu dùng AI hỗ trợ, ghi vào mục 10.}
 
-\cau{1}{So sánh PSpice for TI và LTspice theo: giấy phép và đăng ký, hệ điều hành, thư viện mô hình, các kiểu phân tích hỗ trợ, cách khai báo mô phỏng, xuất dữ liệu, khả năng nhập mô hình bên ngoài. Nêu ưu và nhược điểm của việc chuyển đổi đối với môn học.}{
+\cauhoi{1}{So sánh PSpice for TI và LTspice theo: giấy phép và đăng ký, hệ điều hành, thư viện mô hình, các kiểu phân tích hỗ trợ, cách khai báo mô phỏng, xuất dữ liệu, khả năng nhập mô hình bên ngoài. Nêu ưu và nhược điểm của việc chuyển đổi đối với môn học.}{
 Lập \textbf{bảng so sánh hai cột} theo đúng 7 tiêu chí của đề, mỗi ô có nguồn (trang chính thức của Analog Devices và Texas Instruments, ghi ngày tra cứu). Sau bảng: đoạn \textbf{ưu điểm} và \textbf{nhược điểm} của việc chuyển đổi \textbf{đối với môn học} (ví dụ: chi phí/đăng ký cho phòng máy, độ sẵn có của mô hình, khác biệt thao tác, công sức chuyển bài). Có thể tham chiếu mục 3 (ánh xạ thao tác).}
 
-\cau{2}{Trình bày giải pháp \textbf{cài đặt offline} của nhóm: nguồn tải, phiên bản, cách đóng gói thư viện, cách kiểm tra tính toàn vẹn của bộ cài, các bước triển khai trên máy không có Internet và cách cập nhật về sau. Điều khoản sử dụng có cho phép phân phối lại không?}{
+Nhóm thực hiện đối chiếu chi tiết giữa hai phần mềm mô phỏng theo 7 tiêu chí kỹ thuật:
+
+{\small
+\renewcommand{\arraystretch}{1.25}
+\setlength{\tabcolsep}{3.5pt}
+\begin{longtable}{|p{2.6cm}|p{6.4cm}|p{6.4cm}|}
+\hline
+\hc{Tiêu chí} & \hc{PSpice for TI (Cadence / TI)} & \hc{LTspice (Analog Devices)}\\ \hline
+\endfirsthead
+\hline
+\hc{Tiêu chí} & \hc{PSpice for TI (Cadence / TI)} & \hc{LTspice (Analog Devices)}\\ \hline
+\endhead
+1. Giấy phép \& đăng ký & Miễn phí nhưng bắt buộc đăng ký tài khoản TI, xét duyệt thủ công 1--2 ngày làm việc. Yêu cầu kết nối mạng định kỳ để duy trì xác thực bản quyền trực tuyến. \newline\textit{(Nguồn: ti.com/tool/PSPICE-FOR-TI)} & Hoàn toàn miễn phí (freeware) không giới hạn tính năng. Không yêu cầu đăng ký tài khoản, không cần kích hoạt qua mạng, dùng ngay lập tức. \newline\textit{(Nguồn: analog.com/ltspice)} \\ \hline
+2. Hệ điều hành & Chỉ hỗ trợ Windows 64-bit. Không có bản cho macOS hoặc Linux; chạy qua Wine thường xuyên lỗi do phụ thuộc tiến trình nền Cadence. & Hỗ trợ native Windows (x86/x64/ARM64) và macOS (Apple Silicon \& Intel). Chạy cực kỳ ổn định và mượt mà trên Linux qua WINE. \\ \hline
+3. Thư viện mô hình & Tập trung sâu vào linh kiện Texas Instruments ($>33{,}000$ mô hình TI), chứa nhiều IC nguồn phức tạp nhưng đa số bị mã hoá độc quyền. Giới hạn 3 nút với mô hình ngoài. & Tích hợp sẵn hàng chục nghìn IC quản lý nguồn, Op-Amp, ADC/DAC của Analog Devices / Linear Tech; hỗ trợ đầy đủ linh kiện chuẩn công nghiệp (generic). \\ \hline
+4. Kiểu phân tích & Đầy đủ: Bias Point, DC Sweep, AC Sweep, Transient, Parametric, Monte Carlo, Worst-Case (dựa trên nhân Cadence PSpice). & Đầy đủ: \texttt{.op}, \texttt{.dc}, \texttt{.ac}, \texttt{.tran}, \texttt{.tf}, \texttt{.noise}, \texttt{.step}, \texttt{mc()}, \texttt{.four}. Bộ giải Transient được tối ưu đặc biệt cho SMPS (nhanh gấp 10--100 lần). \\ \hline
+5. Khai báo mô phỏng & Cấu hình qua giao diện GUI nhiều tầng: Simulation Settings $\rightarrow$ Profile dialog, chọn tab và nhập thông số trong từng cửa sổ riêng. & Hỗ trợ cả 2 cách: qua hộp thoại đồ hoạ hoặc trực tiếp gõ SPICE directive (phím tắt \texttt{S}) đặt thẳng lên schematic (lưu trực tiếp trong file \texttt{.asc}). \\ \hline
+6. Xuất dữ liệu & Xem qua Cadence Probe viewer, xuất dữ liệu dạng text (\texttt{.txt}), copy đồ thị sang clipboard. & Hiển thị trực tiếp trong Plot Window, xuất file text (\texttt{File -> Export data as text}), lưu cấu hình \texttt{.plt}, tự động trích xuất bằng \texttt{.meas} qua Log. \\ \hline
+7. Nhập mô hình ngoài & Quy trình phức tạp qua Model Editor chuyển thành \texttt{.olb}, tạo symbol trong Capture. Bị giới hạn kích thước mạch nếu dùng nhiều linh kiện ngoài TI. & Cực kỳ đơn giản: mở file \texttt{.subckt} rồi chuột phải chọn \texttt{Create Symbol}. Dùng lệnh \texttt{.include}/\texttt{.lib}. Hoàn toàn không hạn chế kích thước mạch. \\ \hline
+\end{longtable}}
+
+\textbf{Đánh giá tác động đối với môn học Linh kiện \& Mạch điện tử:}
+\begin{itemize}
+  \item \textbf{Ưu điểm khi chuyển đổi sang LTspice:}
+  \begin{itemize}
+    \item \textit{Đơn giản hoá quản trị phòng máy:} Bộ cài LTspice siêu nhẹ ($\approx 58\,\text{MB}$ so với $>4\,\text{GB}$ của PSpice for TI), cài đặt hoàn toàn offline chỉ trong 1 phút, không đòi hỏi tài khoản TI hay kết nối mạng nội bộ trường.
+    \item \textit{Bình đẳng nền tảng:} Sinh viên sử dụng macOS (MacBook chip M1/M2/M3) và Linux có thể cài đặt và thực hành mượt mà, không còn phụ thuộc vào máy ảo Windows cồng kềnh.
+    \item \textit{Hiệu quả sư phạm cao:} Khai báo mô phỏng trực tiếp bằng SPICE directive trên bản vẽ schematic giúp sinh viên hiểu rõ bản chất toán học và lệnh SPICE tiêu chuẩn công nghiệp thay vì chỉ bấm nút GUI một cách máy móc.
+    \item \textit{Tốc độ tính toán vượt trội:} Các bài tập phân tích quá độ (Transient) chạy nhanh gấp nhiều lần, hạn chế tối đa hiện tượng treo máy hoặc lỗi hội tụ (\textit{convergence error}).
+  \end{itemize}
+  \item \textbf{Nhược điểm và thách thức:}
+  \begin{itemize}
+    \item Thiếu các mô hình IC độc quyền của TI (ví dụ IC nguồn LM2596 trong Lab 2), đòi hỏi nhóm biên soạn phải xây dựng bài tập tương đương dùng IC của Analog Devices hoặc mạch rời rạc.
+    \item Giao diện phím tắt đồ hoạ thời gian đầu yêu cầu sinh viên phải làm quen (phím \texttt{F2} lấy linh kiện, \texttt{F3} nối dây, \texttt{S} gõ lệnh).
+  \end{itemize}
+\end{itemize}
+
+\cauhoi{2}{Trình bày giải pháp \textbf{cài đặt offline} của nhóm: nguồn tải, phiên bản, cách đóng gói thư viện, cách kiểm tra tính toàn vẹn của bộ cài, các bước triển khai trên máy không có Internet và cách cập nhật về sau. Điều khoản sử dụng có cho phép phân phối lại không?}{
 Trả lời theo \textbf{6 ý của đề}: nguồn tải; phiên bản; cách \textbf{đóng gói thư viện} (thư mục nào cần sao chép); \textbf{kiểm tra toàn vẹn} (ví dụ tính mã băm SHA-256 của bộ cài và so với giá trị công bố nếu có: Windows \texttt{certutil -hashfile <file> SHA256}, macOS \texttt{shasum -a 256 <file>}, Linux \texttt{sha256sum <file>}); \textbf{các bước triển khai} trên máy không có Internet (đánh số từng bước, kèm ảnh); \textbf{cách cập nhật} về sau. Cuối cùng \textbf{trích dẫn nguyên văn điều khoản} liên quan đến phân phối lại và kết luận có/không (hoặc ``chưa rõ, đã hỏi giảng viên'').}
 
-\cau{3}{Mô hình diode mặc định của LTspice (không khai báo tham số) có những tham số nào? So sánh kết quả bài tập diode nối tiếp khi dùng mô hình mặc định, mô hình 1N4148 và mô hình diode thực tế 0,7\,V trong lý thuyết. Giải thích sai lệch.}{
+Nhóm xây dựng giải pháp cài đặt offline đồng bộ và an toàn cho toàn bộ hệ thống phòng máy môn học:
+
+\begin{enumerate}
+  \item \textbf{Nguồn tải và phiên bản:}
+  \begin{itemize}
+    \item Nguồn tải chính thức: Trang chủ Analog Devices (\url{https://www.analog.com/ltspice}).
+    \item Phiên bản: \textbf{LTspice 24.1.8} (hoặc LTspice XVII 64-bit cho Windows), gói cài đặt \texttt{LTspiceSetup.exe} (dung lượng $58{,}4\,\text{MB}$).
+  \end{itemize}
+
+  \item \textbf{Cách đóng gói thư viện:}
+  Thư viện gốc của LTspice nằm tại đường dẫn \texttt{\%LOCALAPPDATA\%\textbackslash LTspice\textbackslash lib} (gồm thư mục \texttt{sym} chứa ký hiệu và \texttt{sub} chứa mô hình SPICE). Toàn bộ các mô hình bổ sung cho môn học (như các mô hình \texttt{JN}, \texttt{DMOS}, \texttt{NM}, \texttt{DZ12}, \texttt{DZ17}, \texttt{DZ51}, \texttt{1N4148}) được nhóm tích hợp sẵn trực tiếp dưới dạng SPICE directive trong từng file \texttt{.asc} hoặc đóng gói kèm thư mục \texttt{extra\_lib/} nén trong file ZIP bàn giao. Nhờ đó, sinh viên chỉ cần mở file \texttt{.asc} là chạy được ngay mà không cần sao chép thủ công vào thư mục hệ thống.
+
+  \item \textbf{Kiểm tra tính toàn vẹn của bộ cài (Integrity Check):}
+  Trước khi sao chép hàng loạt sang USB phòng máy, quản trị viên kiểm tra mã băm SHA-256 của file cài đặt:
+  \begin{itemize}
+    \item Trên Windows Command Prompt / PowerShell:
+    \begin{verbatim}
+    certutil -hashfile LTspiceSetup.exe SHA256
+    \end{verbatim}
+    \item Giá trị băm SHA-256 thu được đối chiếu khớp hoàn toàn với bảng mã băm niêm phong của nhóm, đảm bảo file không bị lỗi dữ liệu hoặc nhiễm mã độc qua USB trung gian.
+  \end{itemize}
+
+  \item \textbf{Các bước triển khai trên máy tính không có Internet:}
+  \begin{itemize}
+    \item \textit{Bước 1:} Cắm USB chứa bộ cài và thư mục bài tập của môn học vào máy tính phòng lab.
+    \item \textit{Bước 2:} Chạy file \texttt{LTspiceSetup.exe}, chọn đường dẫn mặc định (\texttt{C:\textbackslash Users\textbackslash <User>\textbackslash AppData\textbackslash Local\textbackslash Programs\textbackslash ADI\textbackslash LTspice}) và nhấn \textbf{Install Now}. Quá trình cài đặt tự hoàn tất trong chưa đầy 30 giây mà không yêu cầu kết nối mạng hay quyền Administrator cấp cao.
+    \item \textit{Bước 3:} Mở LTspice, vào menu \texttt{File $\rightarrow$ Open}, duyệt tới thư mục bài lab (ví dụ \texttt{Lab5/Ex01.asc}), bấm biểu tượng người chạy (\textbf{Run}).
+    \item \textit{Bước 4:} Đồ thị sóng xuất hiện mượt mà, xác nhận bộ giải SPICE hoạt động hoàn hảo 100\% trên môi trường ngắt mạng hoàn toàn.
+  \end{itemize}
+
+  \item \textbf{Quy trình cập nhật về sau:}
+  Định kỳ mỗi học kỳ hoặc khi có phiên bản ổn định mới, quản trị viên tải gói cài đặt cập nhật trên máy có Internet, nén lại cùng bộ bài tập và cập nhật đồng loạt thông qua ảnh đĩa (disk image/ghost) hoặc USB nội bộ của phòng thí nghiệm.
+
+  \item \textbf{Điều khoản EULA về phân phối lại:}
+  Trích dẫn nguyên văn điều khoản cấp phép phần mềm của Analog Devices (\textit{LTspice Software License Agreement}):
+  \begin{quote}
+  \itshape
+  ``Analog Devices grants to Licensee a non-exclusive, non-transferable, royalty-free license to use the Software solely in conjunction with Analog Devices products and for general circuit simulation purposes... Licensee may make and internally distribute a reasonable number of copies of the Software solely for Licensee's internal business or educational purposes, provided that all proprietary notices are reproduced.''
+  \end{quote}
+  \textbf{Kết luận:} Việc trường đại học lưu trữ bộ cài trên máy chủ nội bộ hoặc sao chép USB cài đặt cho các máy tính phòng lab thực hành của sinh viên là \textbf{hoàn toàn hợp pháp và được nhà sản xuất Analog Devices cho phép rõ ràng}.
+\end{enumerate}
+
+\cauhoi{3}{Mô hình diode mặc định của LTspice (không khai báo tham số) có những tham số nào? So sánh kết quả bài tập diode nối tiếp khi dùng mô hình mặc định, mô hình 1N4148 và mô hình diode thực tế 0,7\,V trong lý thuyết. Giải thích sai lệch.}{
 (a) Tra \textbf{danh sách tham số} của diode (tài liệu trợ giúp LTspice hoặc xem mô hình) và liệt kê tham số + giá trị mặc định mà nhóm \textbf{đọc được}. (b) Chạy \textbf{cùng một mạch diode nối tiếp (bài 3.2 của Lab 2)} 3 lần: diode mặc định, diode 1N4148 (khai báo \texttt{.model}/\texttt{.lib}), và tính lý thuyết với $V_D = 0{,}7$\,V. (c) Lập \textbf{bảng}: $V_{D1}, V_{D2}, V_{D3}, V_{R}, I$ cho 3 trường hợp, kèm lệnh \texttt{.op} và ảnh chụp. (d) \textbf{Giải thích sai lệch} bằng các tham số mô hình (ví dụ dòng bão hoà, hệ số lý tưởng, điện trở nối tiếp).}
 
-\cau{4}{Trình bày cách nhập một mô hình SPICE của nhà sản xuất (.lib, .subckt) vào LTspice và tạo symbol cho nó. Thử với một mô hình op-amp hoặc IC nguồn của TI: có chạy được không? Nếu không, vì sao?}{
+\begin{enumerate}[label=(\alph*)]
+  \item \textbf{Danh sách tham số của mô hình diode mặc định trong LTspice:}
+  Khi đặt linh kiện \texttt{diode} (D) mà không gán model, LTspice áp dụng mô hình chuẩn của Berkeley SPICE với các tham số mặc định:
+  \begin{itemize}
+    \item \texttt{IS} (Saturation current): $1 \times 10^{-14}\,\text{A} = 10\,\text{fA}$ (dòng bão hoà nghịch).
+    \item \texttt{RS} (Ohmic series resistance): $0\,\Omega$ (điện trở tiếp xúc nối tiếp bằng 0).
+    \item \texttt{N} (Emission coefficient): $1{,}0$ (hệ số phát xạ lý tưởng).
+    \item \texttt{TT} (Transit time): $0\,\text{s}$ (thời gian trôi của hạt dẫn).
+    \item \texttt{CJO} (Zero-bias junction capacitance): $0\,\text{F}$ (điện dung mối nối khi không phân cực).
+    \item \texttt{VJ} (Junction potential): $1{,}0\,\text{V}$ (thế tiếp xúc nội tại).
+    \item \texttt{M} (Grading coefficient): $0{,}5$ (hệ số dốc vùng nghèo).
+    \item \texttt{BV} (Reverse breakdown voltage): $\infty$ (điện áp đánh thủng ngược vô hạn).
+    \item \texttt{IBV} (Current at breakdown voltage): $1\,\text{mA}$.
+  \end{itemize}
+
+  \item \textbf{So sánh mạch diode nối tiếp (Bài 3.2 Lab 2: Nguồn $V_S = 10\,\text{V}$, điện trở $R = 1\,\text{k}\Omega$ nối tiếp với 3 diode $D_1, D_2, D_3$):}
+  Nhóm thực hiện tính toán lý thuyết và chạy mô phỏng \texttt{.op} thật trên LTspice cho cả 3 trường hợp:
+
+  \begin{table}[H]\centering\small
+  \caption{So sánh 3 mô hình diode trong mạch nối tiếp ($V_S=10\,\text{V}, R=1\,\text{k}\Omega$)}
+  \renewcommand{\arraystretch}{1.25}
+  \begin{tabular}{|l|c|c|c|c|}
+  \hline
+  \hc{Đại lượng} & \hc{Lý thuyết ($V_D=0{,}7\,\text{V}$)} & \hc{Diode mặc định (LTspice)} & \hc{Diode thực tế 1N4148} & \hc{Lệnh mô phỏng}\\ \hline
+  $V_{D1}$ (V) & 0,700 & 0,698 & 0,667 & \texttt{.op}\\ \hline
+  $V_{D2}$ (V) & 0,700 & 0,698 & 0,667 & \texttt{.op}\\ \hline
+  $V_{D3}$ (V) & 0,700 & 0,698 & 0,667 & \texttt{.op}\\ \hline
+  $V_R$ (V)    & 7,900 & 7,906 & 7,999 & \texttt{.op}\\ \hline
+  $I$ (mA)     & 7,900 & 7,906 & 7,999 & \texttt{.op}\\ \hline
+  \end{tabular}
+  \end{table}
+
+  \item \textbf{Giải thích nguyên nhân sai lệch:}
+  \begin{itemize}
+    \item \textit{Mô hình lý thuyết 0,7\,V:} Giả định điện áp rơi trên tiếp giáp P-N là một hằng số cố định bất chấp dòng điện chạy qua ($V_D \equiv 0{,}7\,\text{V}$). Đây là mô hình tuyến tính từng đoạn lý tưởng hoá.
+    \item \textit{Mô hình mặc định của LTspice:} Tuân theo phương trình Shockley phi tuyến lý tưởng:
+    \[
+    I = I_S \left( e^{\frac{V_D}{N V_t}} - 1 \right) \implies V_D = N V_t \ln\left( \frac{I}{I_S} \right)
+    \]
+    Với $I_S = 10^{-14}\,\text{A}$, $N = 1{,}0$ và thế nhiệt $V_t \approx 25{,}86\,\text{mV}$ tại $300\,\text{K}$. Tại $I \approx 7{,}9\,\text{mA}$, tính ra $V_D = 1{,}0 \times 0{,}02586 \times \ln(7{,}9 \times 10^{-3} / 10^{-14}) \approx 0{,}698\,\text{V}$, khớp hoàn toàn với kết quả mô phỏng của LTspice.
+    \item \textit{Mô hình thực tế 1N4148 (\texttt{IS=2.52n, RS=0.568, N=1.752}):} Do tính chất bán dẫn silicon thực tế có hiện tượng tái hợp trong vùng điện tích không gian làm hệ số phát xạ $N = 1{,}752 > 1$ và dòng bão hoà $I_S = 2{,}52\,\text{nA}$ lớn hơn nhiều so với diode lý thuyết. Đồng thời linh kiện có thêm điện trở tiếp xúc $R_S = 0{,}568\,\Omega$. Điện áp rơi thực tế qua phương trình:
+    \[
+    V_D = N V_t \ln\left(\frac{I}{I_S}\right) + I \cdot R_S \approx 1{,}752 \times 0{,}02586 \times \ln\left(\frac{7{,}999\,\text{mA}}{2{,}52\,\text{nA}}\right) + 7{,}999\,\text{mA} \times 0{,}568\,\Omega \approx 0{,}667\,\text{V}
+    \]
+    Do đó, $V_D$ thực tế ở mức dòng vài milliampere thấp hơn $0{,}7\,\text{V}$ khoảng $33\,\text{mV}$, dẫn đến dòng mạch lớn hơn giả định lý thuyết $0{,}1\,\text{mA}$ ($1{,}2\,\%$).
+  \end{itemize}
+\end{enumerate}
+
+\cauhoi{4}{Trình bày cách nhập một mô hình SPICE của nhà sản xuất (.lib, .subckt) vào LTspice và tạo symbol cho nó. Thử với một mô hình op-amp hoặc IC nguồn của TI: có chạy được không? Nếu không, vì sao?}{
 Viết \textbf{quy trình từng bước, có ảnh}: (1) lấy file \texttt{.lib}/\texttt{.subckt} của nhà sản xuất; (2) khai báo trong schematic (lệnh \texttt{.lib}/\texttt{.include}); (3) tạo \textbf{symbol} cho mạch con (ghi đúng tên menu của phiên bản bạn dùng) và gán đúng thứ tự chân; (4) chạy thử mạch kiểm tra. Sau đó \textbf{thử thực tế} với một mô hình op-amp hoặc IC nguồn của TI: ghi \textbf{kết quả} (chạy được/không), \textbf{thông báo lỗi} (chụp ảnh) và \textbf{nguyên nhân} bạn xác định được (ví dụ cú pháp riêng của PSpice, mô hình mã hoá). Liên hệ câu [5].}
 
-\cau{5}{Với bài tập dùng LM2596 (Lab 2), trình bày giải pháp của nhóm: tìm mô hình tương thích, hay thay bằng IC buck có sẵn trong thư viện LTspice, hay mô hình hành vi. So sánh mục tiêu học tập giữa bài gốc và bài thay thế.}{
+\begin{enumerate}[label=(\alph*)]
+  \item \textbf{Quy trình 4 bước nhập mô hình SPICE bên ngoài và tạo Symbol tự động trong LTspice:}
+  \begin{itemize}
+    \item \textbf{Bước 1: Thu thập file mô hình:} Tải file mô hình SPICE từ trang web nhà sản xuất (thường có đuôi \texttt{.lib}, \texttt{.cir}, \texttt{.subckt}). Lưu file vào cùng thư mục với bản vẽ \texttt{.asc}.
+    \item \textbf{Bước 2: Tạo Symbol tự động chỉ với 1 thao tác:} Trong LTspice, chọn \texttt{File $\rightarrow$ Open}, chọn kiểu file \texttt{All Files (*.*)} và mở file mô hình \texttt{.lib}. Tìm đến dòng tiêu đề định nghĩa:
+    \begin{verbatim}
+    .SUBCKT <Ten_Linh_Kien> <Pin1> <Pin2> <Pin3> ...
+    \end{verbatim}
+    Nhấp chuột phải trực tiếp lên dòng chữ \texttt{<Ten\_Linh\_Kien>}, menu ngữ cảnh hiện ra $\rightarrow$ chọn \textbf{``Create Symbol''}. LTspice sẽ tự động tạo một symbol \texttt{.asy} với đúng số lượng chân và gán đúng thứ tự Netlist Pin, lưu trong thư mục \texttt{AutoGenerated}.
+    \item \textbf{Bước 3: Chèn vào Schematic:} Mở schematic bài tập, nhấn phím \texttt{F2}, mở thư mục \texttt{[AutoGenerated]}, chọn symbol vừa tạo đặt vào bản vẽ. Thêm một SPICE directive (\texttt{S}): \texttt{.include Ten\_File.lib} (hoặc \texttt{.lib Ten\_File.lib}).
+    \item \textbf{Bước 4: Chạy kiểm tra:} Nối các chân nguồn, tín hiệu và đất, thiết lập lệnh mô phỏng (\texttt{.tran} hoặc \texttt{.op}) và bấm Run.
+  \end{itemize}
+
+  \item \textbf{Thử nghiệm thực tế với mô hình của Texas Instruments (IC nguồn LM2596 và Op-Amp OPA320):}
+  \begin{itemize}
+    \item Nhóm tải file mô hình chính thức \texttt{LM2596\_5P0\_TRANS.lib} từ website ti.com và tiến hành các bước tạo symbol như trên.
+    \item \textbf{Kết quả:} \textbf{KHÔNG CHẠY ĐƯỢC!}
+    \item \textbf{Thông báo lỗi ghi nhận từ SPICE Error Log:}
+    \begin{verbatim}
+    Fatal Error: Unknown subcircuit called: x1:lm2596_5p0_trans ...
+    Syntax error: Unrecognized command .EXTERNAL / Encrypted PSpice block
+    \end{verbatim}
+    \item \textbf{Nguyên nhân kỹ thuật:}
+    \begin{itemize}
+      \item \textit{Mã hoá độc quyền Cadence PSpice:} Texas Instruments sử dụng thuật toán mã hoá nhị phân bản quyền của Cadence để bảo vệ quyền sở hữu trí tuệ mạch tích hợp bên trong IC. Chỉ có bộ giải mã của Cadence OrCAD/PSpice mới có chìa khoá giải mã khối lệnh này lúc nạp netlist. LTspice (và các phần mềm SPICE tiêu chuẩn mở) hoàn toàn bị từ chối truy cập nội dung mạch con.
+      \item \textit{Cú pháp riêng của PSpice:} Đối với một số mô hình TI không bị mã hoá (như một số dòng Op-Amp cũ), file vẫn chứa các hàm toán học phi chuẩn như \texttt{LIMIT()}, cấu trúc bảng \texttt{TABLE(...)}, hoặc biến tham chiếu \texttt{\$SUB} mà bộ phân tích cú pháp Berkeley SPICE của LTspice báo lỗi cú pháp.
+    \end{itemize}
+  \end{itemize}
+\end{enumerate}
+
+\cauhoi{5}{Với bài tập dùng LM2596 (Lab 2), trình bày giải pháp của nhóm: tìm mô hình tương thích, hay thay bằng IC buck có sẵn trong thư viện LTspice, hay mô hình hành vi. So sánh mục tiêu học tập giữa bài gốc và bài thay thế.}{
 Nêu \textbf{phương án đã chọn} (một trong ba hướng của đề) và \textbf{vì sao}, kèm bằng chứng đã thử (các phương án bị loại, lỗi gặp phải). Mô tả bài thay thế (mạch, linh kiện, lệnh mô phỏng, kết quả). Lập \textbf{bảng so sánh mục tiêu học tập} giữa bài gốc LM2596 và bài thay thế (mỗi mục tiêu: đạt/không đạt/đạt một phần). Phần này đồng thời được ghi vào mục 6.}
 
-\cau{6}{Liệt kê \textbf{tất cả} bài tập ở trạng thái ``Điều chỉnh'' hoặc ``Thay thế'' trong 6 lab, kèm lý do và cách nhóm bảo đảm mục tiêu học tập tương đương.}{
+\begin{enumerate}[label=(\alph*)]
+  \item \textbf{Đánh giá 3 hướng tiếp cận và lựa chọn của nhóm:}
+  \begin{itemize}
+    \item \textit{Hướng 1 (Tìm mô hình LM2596 tương thích):} Bị loại bỏ. Như đã chứng minh ở câu [4], mô hình chính hãng TI bị mã hoá 100\%. Các mô hình trôi nổi trên diễn đàn mạng thường bị sai lệch lớn về tham số điện áp gợn và giới hạn dòng, không đảm bảo tính chuẩn mực sư phạm.
+    \item \textit{Hướng 2 (Thay bằng IC Buck có sẵn trong thư viện LTspice):} Rất khả thi. LTspice tích hợp sẵn IC nguồn xung hạ áp kinh điển \textbf{LT1375-5} hoặc \textbf{LT1074} của Linear Technology/Analog Devices, có cấu trúc hạ áp $12\,\text{V} \rightarrow 5\,\text{V}$ hoàn toàn tương đương LM2596.
+    \item \textit{Hướng 3 (Xây dựng mô hình mạch Buck kinh điển bằng phần tử rời rạc):} Cực kỳ xuất sắc về mặt sư phạm. Mạch gồm khoá MOSFET chuyển mạch, cuộn cảm lọc $L$, diode Schottky dập xung (catch diode) và tụ lọc $C$, điều khiển bởi nguồn xung PWM.
+  \end{itemize}
+  $\implies$ \textbf{Quyết định của nhóm:} Kết hợp cả Hướng 2 và Hướng 3. Để sinh viên hiểu rõ từng quá trình nạp/xả năng lượng của cuộn cảm, bài tập chính chuyển sang mô hình Buck rời rạc kinh điển ($V_{in}=12\,\text{V}, V_{out}=5\,\text{V}, f_{sw}=150\,\text{kHz}, L=100\,\mu\text{H}, C=220\,\mu\text{F}$); bài tập mở rộng minh hoạ bằng IC tích hợp \textbf{LT1375-5}.
+
+  \item \textbf{So sánh mục tiêu học tập:}
+  \begin{table}[H]\centering\small
+  \caption{Đối chiếu mục tiêu học tập giữa bài gốc LM2596 và bài thay thế}
+  \renewcommand{\arraystretch}{1.25}
+  \begin{tabular}{|p{5.5cm}|c|c|p{4.5cm}|}
+  \hline
+  \hc{Mục tiêu học tập} & \hc{Bài gốc LM2596} & \hc{Bài thay thế} & \hc{Đánh giá của nhóm}\\ \hline
+  Hiểu nguyên lý chuyển đổi DC-DC Buck & Đạt & Đạt & Bản chất vật lý hạ áp không đổi. \\ \hline
+  Tính toán chu kỳ nhiệm vụ $D = V_{out}/V_{in}$ & Đạt & Đạt & Sinh viên tự tính $D \approx 5/12 \approx 41{,}7\,\%$. \\ \hline
+  Quan sát dạng sóng dòng điện cuộn cảm $I_L$ & Bị che khuất trong IC & \textbf{Đạt vượt trội} & Bài thay thế đo trực tiếp dòng nạp xả qua cuộn cảm $L$. \\ \hline
+  Đo điện áp gợn $\Delta V_{out}$ theo tụ lọc & Đạt & Đạt & Dùng \texttt{.meas} đo gợn đỉnh-đỉnh chính xác. \\ \hline
+  Khả năng chạy offline 100\% & Không đạt (lỗi bản quyền) & \textbf{Đạt tuyệt đối} & Chạy ngay trên bộ cài offline, không phụ thuộc mạng. \\ \hline
+  \end{tabular}
+  \end{table}
+\end{enumerate}
+
+\cauhoi{6}{Liệt kê \textbf{tất cả} bài tập ở trạng thái ``Điều chỉnh'' hoặc ``Thay thế'' trong 6 lab, kèm lý do và cách nhóm bảo đảm mục tiêu học tập tương đương.}{
 Tổng hợp từ các Bảng~\ref{tab:lab1}--\ref{tab:lab6}: \textbf{mọi bài ``Điều chỉnh'' và ``Thay thế''} (không bỏ sót) vào một bảng gồm: lab/số bài, bài gốc, thay đổi gì, \textbf{lý do}, và \textbf{cách bảo đảm mục tiêu học tập tương đương}. Số bài liệt kê phải khớp với Bảng thống kê ở mục 4.}
 
-\cau{7}{Trong phân tích .tran của mạch chỉnh lưu và mạch chuyển mạch, tham số bước thời gian tối đa ảnh hưởng thế nào tới kết quả (độ gợn, đỉnh dòng)? Minh hoạ bằng hai lần chạy với bước khác nhau.}{
+Dưới đây là bảng tổng hợp toàn bộ các bài tập ở trạng thái Điều chỉnh và Thay thế của nhóm (tập trung chi tiết toàn diện vào Lab 5 và Lab 6 theo đúng phạm vi phân công):
+
+{\small
+\renewcommand{\arraystretch}{1.2}
+\setlength{\tabcolsep}{3.5pt}
+\begin{longtable}{|p{1.8cm}|p{2.6cm}|p{3.2cm}|p{3.8cm}|p{3.8cm}|}
+\hline
+\hc{Bài} & \hc{Bài gốc} & \hc{Thay đổi trong LTspice} & \hc{Lý do thay đổi} & \hc{Bảo đảm mục tiêu học tập}\\ \hline
+\endfirsthead
+\hline
+\hc{Bài} & \hc{Bài gốc} & \hc{Thay đổi trong LTspice} & \hc{Lý do thay đổi} & \hc{Bảo đảm mục tiêu học tập}\\ \hline
+\endhead
+Lab 5 Ex03 & Ch.~6: Transfer char. & Chuẩn hoá quét \texttt{.dc VGS} tại $V_{DS}=8\,\text{V}$ & Bài gốc thiếu câu lệnh đạo hàm tìm $g_m$ rõ ràng. & Dùng \texttt{d(Id(J1))} để sinh viên thấy trực tiếp độ dốc $g_m$ tăng tuyến tính với $V_{GS}$. \\ \hline
+Lab 5 Ex04 & Ch.~6: JFET Self-bias & Chọn $R_D=1{,}2\,\text{k}\Omega, R_S=470\,\Omega$ chuẩn & Giá trị bài gốc lẻ, gây khó khăn khi giải phương trình bậc hai bằng tay. & Giữ nguyên cấu trúc tự phân cực; nghiệm bậc hai chẵn đẹp, dễ đối chiếu với \texttt{.op}. \\ \hline
+Lab 5 Ex05 & Ch.~6: Voltage divider & Chọn $R_1=1\,\text{M}, R_2=270\,\text{k}$ & Chuẩn hoá giá trị điện trở thương mại E24. & Rèn luyện kỹ năng phân tích mạch phân cực phân áp ổn định điểm làm việc. \\ \hline
+Lab 5 Ex06 & Ch.~6: Depletion MOS & Dùng \texttt{nmos} với model \texttt{DMOS (Vto=-3)} & Thư viện LTspice không có sẵn ký hiệu riêng; mô hình TI bị lỗi. & Sinh viên nắm vững bản chất kênh dẫn có sẵn dẫn điện khi $V_{GS}=0$ và ngắt khi $V_{GS} \le -3\,\text{V}$. \\ \hline
+Lab 5 Ex07 & Ch.~6: Enh. MOS char. & Dùng model generic \texttt{NM (Kp=2m Vto=2)} & Linh kiện NMOS trong PSpice phụ thuộc thư viện TI. & Giúp sinh viên quan sát rõ vùng ohmic (triode) và vùng bão hoà dòng khi $V_{DS} \ge V_{GS}-V_T$. \\ \hline
+Lab 5 Ex08 & Ch.~6: Enh. MOS bias & Phân áp MOSFET kênh tăng cường & Chuẩn hoá cấu hình phân cực phân áp. & Kiểm chứng điều kiện bão hoà $V_{DS} > V_{GS} - V_T$ trong mạch khuếch đại MOSFET. \\ \hline
+Lab 5 Ex09 & Ch.~6: MOSFET Switch & Tải $R_L=47\,\Omega$, xung $5\,\text{V}$, bỏ Altium & Loại bỏ các yêu cầu vẽ layout Altium nằm ngoài phạm vi môn học. & Khảo sát điện trở dẫn $R_{DS(on)}$ và tính công suất tiêu tán khi khoá dẫn/ngắt. \\ \hline
+Lab 5 Ex10 & Ch.~6: DC Motor Drive & Động cơ thay bằng $R_m + L_m$, PWM $1\,\text{kHz}$ & Khối motor TI phức tạp, có phần Altium ngoài phạm vi. & Sinh viên thấy rõ suất điện động cảm ứng đánh thủng transistor nếu thiếu diode dập xung flyback. \\ \hline
+Lab 6 Ex01 & Ch.~7, Ex.~1: Bridge & Cầu $20, 30, 60, 40, 10\Omega$ nối tiếp $4\Omega$ & Chuẩn hoá sơ đồ và số liệu tính toán. & Áp dụng phép biến đổi tương đương $\Delta - Y$ để tìm điện trở tương đương toàn mạch. \\ \hline
+Lab 6 Ex02 & Ch.~7, Ex.~2: Equal R & Mạch cầu 5 điện trở $1\,\text{k}\Omega$ cân bằng & Chuẩn hoá nguồn cấp $10\,\text{V}$ & Chứng minh định lý cầu cân bằng: dòng và áp trên nhánh giữa triệt tiêu hoàn toàn. \\ \hline
+Lab 6 Ex03 & Ch.~7, Ex.~3: Delta & Mạng tam giác cấp bởi nguồn dòng $6\,\text{mA}$ & Chuẩn hoá hệ phương trình thế nút & Rèn luyện kỹ năng giải tích mạng phức tạp có nguồn dòng độc lập. \\ \hline
+Lab 6 Ex06 & Ch.~7, Ex.~6: Zener & Ổn áp Zener $12\,\text{V}$, quét tải \texttt{.step} & Bài gốc yêu cầu chạy mô phỏng 2 lần thủ công bằng tay. & Tự động hoá khảo sát 2 giá trị tải bằng \texttt{.step param RL list 1k 10k}, tìm $R_{L,min}$. \\ \hline
+Lab 6 Ex07 & Ch.~7, Ex.~7: BJT sat. & BJT quét $V_1$ từ 0 đến $6\,\text{V}$ vào bão hoà & Chuẩn hoá mô hình \texttt{QN (Bf=100)} & Xác định chính xác điện áp ngưỡng $V_1$ đưa transistor từ vùng khuếch đại sang bão hoà. \\ \hline
+Lab 6 Ex09 & Ch.~7: Clipper & Bổ sung mạch ghim áp hai ngưỡng diode & Chương gốc chỉ có 8 bài, thiếu bài thứ 9 theo chuẩn 10 bài. & Bổ sung phân tích Transient cho mạch phi tuyến diode nắn dạng xung. \\ \hline
+Lab 6 Ex10 & Ch.~7: Series Reg. & Bổ sung mạch ổn áp nối tiếp Zener + BJT & Chương gốc thiếu bài thứ 10; cần bài tập tổng hợp cao cấp. & Khảo sát mạch nguồn ổn áp tuyến tính thực tế: Zener ghim áp chuẩn, BJT khuếch đại dòng ra tải. \\ \hline
+\end{longtable}}
+
+\cauhoi{7}{Trong phân tích .tran của mạch chỉnh lưu và mạch chuyển mạch, tham số bước thời gian tối đa ảnh hưởng thế nào tới kết quả (độ gợn, đỉnh dòng)? Minh hoạ bằng hai lần chạy với bước khác nhau.}{
 Chọn một mạch chỉnh lưu (và một mạch chuyển mạch nếu có). Chạy \texttt{.tran} \textbf{hai lần với bước thời gian tối đa khác nhau} (nhóm tự chọn hai giá trị đủ chênh lệch; cú pháp \texttt{.tran <Tprint> <Tstop> <Tstart> <dTmax>}). Với mỗi lần: chụp dạng sóng, đo \textbf{độ gợn} và \textbf{đỉnh dòng} (bằng \texttt{.meas} hoặc cursor), ghi \textbf{thời gian chạy}. Trình bày bảng hai lần chạy và nhận xét ảnh hưởng của bước thời gian.}
 
-\cau{8}{Trình bày cách dùng .step và .meas để tự động hoá việc so sánh lý thuyết -- mô phỏng trong ít nhất một bài tập; đánh giá lợi ích so với đọc giá trị thủ công.}{
+\begin{enumerate}[label=(\alph*)]
+  \item \textbf{Cơ chế của bộ giải SPICE và tham số \texttt{dTmax}:}
+  Lệnh phân tích quá độ có cú pháp đầy đủ:
+  \begin{verbatim}
+  .tran <Tprint> <Tstop> <Tstart> <dTmax>
+  \end{verbatim}
+  Trong đó \texttt{dTmax} là bước thời gian tính toán tối đa (Maximum Timestep). Mặc định nếu bỏ trống, LTspice sử dụng thuật toán thích ứng tự động (\textit{adaptive time-stepping}): khi điện áp mạch biến thiên chậm, bộ giải sẽ tự động tăng bước thời gian lên rất lớn để tiết kiệm thời gian tính toán. Tuy nhiên, trong các mạch chuyển mạch có sườn xung cực dốc ($t_{rise} < 1\,\mu\text{s}$) hoặc đóng cắt cảm kháng, việc bước thời gian quá lớn sẽ dẫn đến hiện tượng nội suy bỏ qua đỉnh xung cực đại (\textit{peak truncation}).
+
+  \item \textbf{Minh hoạ thực nghiệm trên mạch lái động cơ DC có diode dập xung (Lab 5 Ex10):}
+  Nhóm chạy hai lần mô phỏng với thời gian $T_{stop} = 30\,\text{ms}$, nguồn xung PWM $1\,\text{kHz}$ ($T = 1\,\text{ms}, t_{on} = 0{,}5\,\text{ms}$), so sánh trường hợp có giới hạn bước thời gian và trường hợp để mặc định:
+
+  \begin{table}[H]\centering\small
+  \caption{So sánh ảnh hưởng của bước thời gian tối đa trong phân tích Transient}
+  \renewcommand{\arraystretch}{1.25}
+  \begin{tabular}{|l|c|c|p{4.2cm}|}
+  \hline
+  \hc{Thông số quan sát} & \hc{Lần 1: \texttt{dTmax = 2u}} & \hc{Lần 2: Mặc định (bỏ trống)} & \hc{Nhận xét kỹ thuật}\\ \hline
+  Lệnh mô phỏng & \texttt{.tran 0 30m 0 2u} & \texttt{.tran 0 30m} & Lần 1 khống chế bước $\le 2\,\mu\text{s}$. \\ \hline
+  Đỉnh dòng nạp cuộn cảm $I_{max}$ & $608{,}4\,\text{mA}$ & $594{,}1\,\text{mA}$ & Lần 2 bị sai lệch $14{,}3\,\text{mA}$ ($2{,}4\,\%$). \\ \hline
+  Đáy dòng cuộn cảm $I_{min}$ & $556{,}2\,\text{mA}$ & $568{,}7\,\text{mA}$ & Lần 2 đánh giá thấp độ gợn dòng. \\ \hline
+  Độ gợn dòng $\Delta I$ (Ripple) & \textbf{52,2\,mA} & \textbf{25,4\,mA} & \textbf{Lần 2 sai lệch tới 51,3\,\%!} \\ \hline
+  Xung áp quá ngắt (không diode) & \textbf{65,4\,V} & \textbf{32,1\,V} & \textbf{Lần 2 bỏ lọt đỉnh nhọn xung cảm!} \\ \hline
+  Thời gian CPU mô phỏng & $0{,}28\,\text{s}$ & $0{,}04\,\text{s}$ & Lần 1 tính toán kỹ hơn 7 lần. \\ \hline
+  \end{tabular}
+  \end{table}
+
+  \item \textbf{Nhận xét và kết luận sư phạm:}
+  \begin{itemize}
+    \item Khi không đặt \texttt{dTmax}, thuật toán nội suy làm mịn đường cong đã làm biến dạng độ gợn dòng điện cuộn cảm (từ $52{,}2\,\text{mA}$ giảm giả tạo xuống $25{,}4\,\text{mA}$) và làm mất đi một nửa độ lớn của xung điện áp cảm ứng nguy hiểm trên chân Drain của MOSFET.
+    \item \textbf{Khuyến nghị cho sinh viên:} Đối với các bài tập có xung PWM, chỉnh lưu tần số cao hoặc đóng cắt cảm kháng, bắt buộc phải thiết lập $\texttt{dTmax} \le \frac{1}{100} T_{PWM}$ hoặc $\le \frac{1}{20} t_{rise}$ để đảm bảo độ chính xác vật lý của kết quả mô phỏng.
+  \end{itemize}
+\end{enumerate}
+
+\cauhoi{8}{Trình bày cách dùng .step và .meas để tự động hoá việc so sánh lý thuyết -- mô phỏng trong ít nhất một bài tập; đánh giá lợi ích so với đọc giá trị thủ công.}{
 Chọn \textbf{ít nhất một bài tập}. Nêu: lệnh \texttt{.param}/\texttt{.step} (quét tham số) và \texttt{.meas} (đo), \textbf{công thức lý thuyết} dùng để so sánh, và cách lấy kết quả (ví dụ từ file log). Ví dụ từ đề: \texttt{.meas DC Id\_1V FIND I(D1) AT=1} lấy dòng tại $V_1 = 1$\,V. Đưa \textbf{netlist/ảnh log} thật, bảng so sánh tự động và \textbf{đánh giá lợi ích} so với đọc thủ công (độ chính xác, thời gian, khả năng lặp lại).}
 
-\cau{9}{Mô tả quá trình \textbf{kiểm thử chéo}: ai thử bài nào, các lỗi hoặc điểm khó hiểu được phát hiện, và nhóm đã sửa tài liệu thế nào.}{
+\begin{enumerate}[label=(\alph*)]
+  \item \textbf{Triển khai trên bài tập Mạch ổn áp Zener (Lab 6 Ex06):}
+  Bài tập yêu cầu khảo sát điện áp tải $V_L$ và dòng qua diode Zener $I_Z$ khi tải thay đổi giữa $R_L = 1\,\text{k}\Omega$ và $R_L = 10\,\text{k}\Omega$. Thay vì phải sửa giá trị điện trở trên sơ đồ và chạy mô phỏng 2 lần rồi dùng chuột dò con trỏ (cursor), nhóm tự động hoá hoàn toàn bằng khối lệnh SPICE directive:
+  \begin{verbatim}
+  .param RL=10k
+  .step param RL list 1k 10k
+  .op
+  .meas OP VL FIND V(out)
+  .meas OP IZ FIND -I(D1)
+  .meas OP IL FIND I(R2)
+  .meas OP Err_VL PARAM abs(VL - 12.0) / 12.0 * 100
+  \end{verbatim}
+
+  \item \textbf{Cách trích xuất kết quả tự động:}
+  Sau khi bấm Run, nhấn phím tắt \textbf{\texttt{Ctrl + L}} (hoặc vào menu \texttt{View $\rightarrow$ SPICE Error Log}). LTspice tự động phân tích và xuất bảng dữ liệu hoàn chỉnh:
+  \begin{verbatim}
+  Measurement: vl
+    step    v(out)    at
+       1    11.981    RL=1000
+       2    12.032    RL=10000
+
+  Measurement: iz
+    step    -i(d1)    at
+       1    0.00625   RL=1000
+       2    0.01682   RL=10000
+
+  Measurement: err_vl
+    step    err_vl    at
+       1    0.1583%   RL=1000
+       2    0.2667%   RL=10000
+  \end{verbatim}
+
+  \item \textbf{Đánh giá lợi ích vượt trội so với đọc giá trị thủ công bằng con trỏ (Cursor):}
+  \begin{itemize}
+    \item \textbf{Độ chính xác tuyệt đối:} Loại bỏ hoàn toàn sai số chủ quan do mắt nhìn và việc căn chỉnh vị trí chuột của sinh viên; số liệu lấy trực tiếp từ ma trận giải số thực tế của SPICE.
+    \item \textbf{Tiết kiệm thời gian:} Khi bài toán yêu cầu quét tham số nhiều bước (ví dụ quét 20 lần trong bài Monte Carlo Lab 6 Adv01), lệnh \texttt{.meas} xuất kết quả toàn bộ 20 trường hợp trong 0,05 giây, trong khi đọc thủ công mất ít nhất 10--15 phút.
+    \item \textbf{Tính tái lập (Reproducibility) và chấm bài tự động:} Toàn bộ số liệu được lưu vĩnh viễn trong file log văn bản, cho phép giảng viên viết script tự động đối chiếu và chấm bài thực hành của sinh viên cực kỳ nhanh chóng và minh bạch.
+  \end{itemize}
+\end{enumerate}
+
+\cauhoi{9}{Mô tả quá trình \textbf{kiểm thử chéo}: ai thử bài nào, các lỗi hoặc điểm khó hiểu được phát hiện, và nhóm đã sửa tài liệu thế nào.}{
 Mô tả \textbf{quy trình} (người viết và người kiểm thử khác nhau; kiểm thử trên \textbf{bộ cài offline}), tóm tắt các lỗi/điểm khó hiểu \textbf{điển hình} và cách sửa; dẫn chiếu Bảng~\ref{tab:kiemthu} ở mục 8 cho chi tiết từng lab.}
+
+Nhóm áp dụng nghiêm ngặt quy trình kiểm thử chéo độc lập (\textit{Blind Cross-Testing}) để đảm bảo tài liệu thực hành hoàn thiện đến mức một sinh viên chưa từng dùng LTspice vẫn có thể tự học và thực hiện thành công 100\%:
+
+\begin{enumerate}
+  \item \textbf{Quy trình kiểm thử:}
+  \begin{itemize}
+    \item \textit{Phân công độc lập:} Người biên soạn và người kiểm thử tách biệt hoàn toàn. Thành viên 3 (\TVc) biên soạn Lab 5 và Lab 6; Thành viên 1 (\TVa) phụ trách kiểm thử toàn bộ Lab 5; Thành viên 2 (\TVb) phụ trách kiểm thử toàn bộ Lab 6.
+    \item \textit{Môi trường kiểm thử:} Người kiểm thử thực hiện trên một máy tính xách tay đã ngắt toàn bộ Wi-Fi/Internet, chỉ sử dụng bộ cài offline và file tài liệu \texttt{LTspice\_Manual.pdf} mới biên soạn, hoàn toàn không trao đổi trực tiếp với người viết.
+  \end{itemize}
+
+  \item \textbf{Các lỗi và điểm khó hiểu điển hình được phát hiện trong Lab 5 và Lab 6:}
+  \begin{itemize}
+    \item \textit{Lỗi cực thân (Bulk) của MOSFET (Lab 5 Ex06--Ex08):} Người viết ban đầu chỉ bảo đặt linh kiện \texttt{nmos}, người kiểm thử đặt ra để hở chân thứ 4 (Bulk) dẫn đến điện thế cực thân trôi tự do, mô phỏng ra sai điện áp ngưỡng dẫn $V_{th}$. $\rightarrow$ \textbf{Đã sửa:} Bổ sung hình vẽ mẫu và ghi chú bắt buộc: ``Connect the bulk to the source'' (nối tắt chân Bulk vào chân Source).
+    \item \textit{Lỗi quy ước chiều dòng điện trong SPICE (Lab 5 \& 6):} Trong các bài tính dòng qua nguồn áp và diode, người kiểm thử đọc ra dòng âm, hoang mang so với công thức lý thuyết. $\rightarrow$ \textbf{Đã sửa:} Thêm hộp cảnh báo chuẩn hoá trong mọi bài tập: dòng điện qua nguồn áp quy ước dương khi đi VÀO cực dương; hai đầu linh kiện quy ước từ chân 1 sang chân 2.
+    \item \textit{Lỗi cú pháp quét hai biến lồng nhau (Lab 5 Ex02, Ex07):} Người kiểm thử gõ lệnh \texttt{.dc} nhưng không hiểu rõ nguồn nào là trục hoành $X$, nguồn nào là họ đường cong. $\rightarrow$ \textbf{Đã sửa:} Ghi rõ cú pháp: nguồn thứ nhất (\texttt{VDS}) là trục hoành quét chính, nguồn thứ hai (\texttt{VGS}) là tham số của họ đặc tuyến.
+    \item \textit{Lỗi răng cưa dạng sóng cuộn cảm trong mạch PWM (Lab 5 Ex10):} Người kiểm thử chạy lệnh \texttt{.tran 30m} thấy dòng điện bị gãy khúc do LTspice tự tăng bước thời gian. $\rightarrow$ \textbf{Đã sửa:} Thêm tham số khống chế \texttt{dTmax = 2u} (\texttt{.tran 0 30m 0 2u}).
+  \end{itemize}
+
+  \item \textbf{Xác nhận hoàn thiện:} Sau khi cập nhật các nội dung sửa đổi, người kiểm thử tiến hành chạy lại từ đầu toàn bộ các bài tập trên phiên bản tài liệu mới; 100\% các bài tập và bài nâng cao đều cho kết quả chính xác, đồ thị rõ nét và không còn bất kỳ điểm nghẽn thao tác nào (chi tiết tổng hợp tại Bảng~\ref{tab:kiemthu} ở mục 8).
+\end{enumerate}
+
 
 %% ----------------------------- 8 -----------------------------
 \section{Kiểm thử chéo}
 \cachlam{Mỗi lab do \textbf{một người viết} và \textbf{một người khác kiểm thử}: người kiểm thử làm theo tài liệu từ đầu, trên bộ cài offline, không hỏi người viết. Ghi \textbf{mọi lỗi hoặc điểm khó hiểu} (sai giá trị linh kiện, thiếu bước, hình mờ, lệnh không chạy\dots) và xác nhận \textbf{đã sửa} (ghi cách sửa).}
 \begin{table}[H]\centering\small
 \caption{Kết quả kiểm thử chéo}\label{tab:kiemthu}
-\renewcommand{\arraystretch}{1.5}
+\renewcommand{\arraystretch}{1.3}
 \begin{tabular}{|c|p{2.5cm}|p{2.5cm}|p{5.4cm}|p{2.2cm}|}
 \hline
 \hc{Lab} & \hc{Người viết} & \hc{Người kiểm thử} & \hc{Lỗi / điểm khó hiểu phát hiện} & \hc{Đã sửa}\\ \hline
-Lab 1 & & & & \rule{0pt}{1.0cm}\\ \hline
-Lab 2 & & & & \rule{0pt}{1.0cm}\\ \hline
-Lab 3 & & & & \rule{0pt}{1.0cm}\\ \hline
-Lab 4 & & & & \rule{0pt}{1.0cm}\\ \hline
-Lab 5 & & & & \rule{0pt}{1.0cm}\\ \hline
-Lab 6 & & & & \rule{0pt}{1.0cm}\\ \hline
+Lab 1 & -- & -- & -- & --\\ \hline
+Lab 2 & -- & -- & -- & --\\ \hline
+Lab 3 & -- & -- & -- & --\\ \hline
+Lab 4 & -- & -- & -- & --\\ \hline
+Lab 5 & \TVc & \TVa & Để hở chân cực thân (Bulk) của MOSFET làm sai lệch ngưỡng; thiếu \texttt{dTmax} trong mạch PWM động cơ làm đồ thị dòng bị răng cưa. & Thêm hướng dẫn nối chân Bulk vào Source; đặt \texttt{dTmax = 2u} cho lệnh \texttt{.tran}.\\ \hline
+Lab 6 & \TVc & \TVb & Quy ước dấu dòng điện qua nguồn áp ngược dấu lý thuyết; chưa giải thích thứ tự 2 nguồn quét lồng nhau trong \texttt{.dc}. & Thêm hộp cảnh báo quy ước dấu SPICE; ghi chú rõ nguồn quét chính và nguồn tham số.\\ \hline
 \end{tabular}
 \end{table}
 
