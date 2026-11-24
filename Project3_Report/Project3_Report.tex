@@ -1,6 +1,6 @@
 % !TEX program = xelatex
 %% =====================================================================
-%%  BÁO CÁO BÀI TẬP LỚN - DỰ ÁN 3 (CO2037)
+%%  BÁO CÁO BÀI TẬP LỚN - DỰ ÁN 3 (CO2013)
 %%  Xây dựng tài liệu thực hành mới với LTspice
 %%  Mẫu báo cáo theo "Phần B" của đề (TS. Lê Trọng Nhân), dựng bằng LaTeX
 %%  theo bố cục của các file logbook.
@@ -65,7 +65,7 @@
 %% ---------- Trang, chân trang (giống logbook: đường kẻ + chữ nghiêng) ----------
 \pagestyle{fancy}
 \fancyhf{}
-\fancyhead[R]{\small\itshape\color{guidegray} CO2037 -- Dự án 3: Tài liệu thực hành LTspice}
+\fancyhead[R]{\small\itshape\color{guidegray} CO2013 -- Dự án 3: Tài liệu thực hành LTspice}
 \fancyfoot[L]{\small\itshape\color{guidegray} HCMUT -- Khoa Khoa học và Kỹ thuật Máy tính}
 \fancyfoot[R]{\small\itshape\color{guidegray} Trang \thepage}
 \renewcommand{\headrulewidth}{0pt}
@@ -174,8 +174,8 @@
 TRƯỜNG ĐẠI HỌC BÁCH KHOA\\
 KHOA KHOA HỌC VÀ KỸ THUẬT MÁY TÍNH\par}
 \vspace{1.6cm}
-{\sffamily\bfseries\Large\color{navy} LINH KIỆN VÀ MẠCH ĐIỆN TỬ (CO2037)\par}
-{\itshape\color{navy} Electronic Devices and Circuits\par}
+{\sffamily\bfseries\Large\color{navy} MẠCH ĐIỆN -- ĐIỆN TỬ (CO2013)\par}
+{\itshape\color{navy} Electric and Electronic Circuits\par}
 \vspace{1.8cm}
 {\sffamily\bfseries\LARGE\color{accent} BÁO CÁO BÀI TẬP LỚN -- DỰ ÁN 3\par}
 \vspace{4pt}
@@ -332,7 +332,7 @@ Công cụ AI đã sử dụng & \CongCuAI\\ \hline
 \section{Giới thiệu}
 
 \subsection{Bối cảnh và mục tiêu dự án}
-Học phần \textit{Linh kiện và Mạch điện tử} (CO2037 / CO2104) là môn học kỹ thuật cơ sở cốt lõi trong chương trình đào tạo kỹ sư ngành Khoa học Máy tính và Kỹ thuật Máy tính tại Trường Đại học Bách Khoa -- ĐHQG-HCM. Học phần trang bị cho sinh viên kiến thức chuyên sâu về mô hình toán học, nguyên lý vật lý bán dẫn và kỹ năng phân tích thiết kế các mạch điện tử tương tự cơ bản (Diode, BJT, FET/MOSFET, Op-Amp, nguồn ổn áp và chuyển mạch công suất).
+Học phần \textit{Mạch điện -- Điện tử} (CO2013) là môn học kỹ thuật cơ sở cốt lõi trong chương trình đào tạo kỹ sư ngành Khoa học Máy tính và Kỹ thuật Máy tính tại Trường Đại học Bách Khoa -- ĐHQG-HCM. Học phần trang bị cho sinh viên kiến thức chuyên sâu về mô hình toán học, nguyên lý vật lý bán dẫn và kỹ năng phân tích thiết kế các mạch điện tử tương tự cơ bản (Diode, BJT, FET/MOSFET, Op-Amp, nguồn ổn áp và chuyển mạch công suất).
 
 Trong nhiều năm qua, các bài thực hành mô phỏng được thực hiện trên phần mềm thương mại \textit{PSpice for TI} (Texas Instruments / Cadence). Mặc dù có ưu thế về hệ thống mô hình IC chính hãng của TI, phần mềm này bộc lộ nhiều rào cản kỹ thuật nghiêm trọng đối với sinh viên:
 \begin{itemize}[itemsep=2pt]
@@ -659,7 +659,7 @@ Nhóm thực hiện đối chiếu chi tiết giữa hai phần mềm mô phỏn
 7. Nhập mô hình ngoài & Quy trình phức tạp qua Model Editor chuyển thành \texttt{.olb}, tạo symbol trong Capture. Bị giới hạn kích thước mạch nếu dùng nhiều linh kiện ngoài TI. & Cực kỳ đơn giản: mở file \texttt{.subckt} rồi chuột phải chọn \texttt{Create Symbol}. Dùng lệnh \texttt{.include}/\texttt{.lib}. Hoàn toàn không hạn chế kích thước mạch. \\ \hline
 \end{longtable}}
 
-\textbf{Đánh giá tác động đối với môn học Linh kiện \& Mạch điện tử:}
+\textbf{Đánh giá tác động đối với môn học Mạch điện -- Điện tử (CO2013):}
 \begin{itemize}
   \item \textbf{Ưu điểm khi chuyển đổi sang LTspice:}
   \begin{itemize}
@@ -1086,7 +1086,7 @@ Tỉ lệ đóng góp (\%) & 33,3\,\% & 33,3\,\% & 33,4\,\%\\ \hline
 \section{Kết luận}
 
 \subsection{Kết quả đạt được}
-Dự án chuyển đổi bộ bài giảng và tài liệu thực hành môn học \textit{Linh kiện và Mạch điện tử} từ môi trường thương mại \textit{PSpice for TI} sang phần mềm miễn phí tiêu chuẩn công nghiệp \textit{LTspice} đã hoàn thành toàn diện các mục tiêu đề ra:
+Dự án chuyển đổi bộ bài giảng và tài liệu thực hành môn học \textit{Mạch điện -- Điện tử} (CO2013) từ môi trường thương mại \textit{PSpice for TI} sang phần mềm miễn phí tiêu chuẩn công nghiệp \textit{LTspice} đã hoàn thành toàn diện các mục tiêu đề ra:
 \begin{itemize}[itemsep=2pt]
   \item \textbf{Quy mô chuyển đổi trọn vẹn:} Nhóm đã hoàn thành việc khảo sát, thiết kế và chuyển đổi toàn bộ 6 bài thực hành (từ Lab 1 đến Lab 6), bao gồm đầy đủ 60 bài tập chính và 12 bài tập nâng cao chất lượng cao (mỗi lab gồm đúng 10 bài chính và 2 bài nâng cao), được phân bổ và lưu trữ thành 72 file mô phỏng \texttt{.asc} độc lập.
   \item \textbf{Đạt chuẩn thẩm mỹ và kỹ thuật layout:} Toàn bộ 72 file mạch nguyên lý đều được kiểm định tự động bằng công cụ LTspice MCP kết hợp rà soát thủ công, đạt kết quả tuyệt đối \textbf{0 lỗi va chạm layout} (không chồng lấn nhãn linh kiện, giá trị, dây nối hay ký hiệu bán dẫn), dây nối trực giao góc vuông $90^\circ$ và điểm nối mạch minh bạch.
