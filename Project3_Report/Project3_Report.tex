@@ -157,12 +157,11 @@
   \cachlam[Cách làm câu {[#1]}]{#3}
   \chen[2.6cm]{Trả lời của nhóm}}
 
-\newcommand{\cauhoi}[3]{% số câu, nội dung câu hỏi (trích từ đề), cách làm
+\newcommand{\cauhoi}[2]{% số câu, nội dung câu hỏi (trích từ đề)
   \subsubsection{Câu [#1]}
   \begin{tcolorbox}[colback=white,colframe=guidegray!70,boxrule=0.4pt,arc=1pt,left=5pt,right=5pt,top=2pt,bottom=2pt]
   \small\textit{Đề:} #2
   \end{tcolorbox}
-  \cachlam[Cách làm câu {[#1]}]{#3}
   \par\vspace{4pt}}
 
 %% =====================================================================
@@ -391,12 +390,12 @@ Dbreak, mô hình TI & D với \texttt{.model} mặc định hoặc mô hình tr
 \begin{tabular}{|c|c|c|c|c|p{3.4cm}|}
 \hline
 \hc{Lab} & \hc{Giữ nguyên} & \hc{Điều chỉnh} & \hc{Thay thế} & \hc{Nâng cao} & \hc{Phụ trách}\\ \hline
-Lab 1 & -- & -- & -- & -- & \TVa\\ \hline
-Lab 2 & -- & -- & -- & -- & \TVa\\ \hline
-Lab 3 & -- & -- & -- & -- & \TVb\\ \hline
-Lab 4 & -- & -- & -- & -- & \TVb\\ \hline
-Lab 5 & 2 & 6 & 2 & 2 & \TVc\\ \hline
-Lab 6 & 3 & 5 & 2 & 2 & \TVc\\ \hline
+Lab 1 & -- & -- & -- & -- & \TVb\\ \hline
+Lab 2 & -- & -- & -- & -- & \TVb\\ \hline
+Lab 3 & -- & -- & -- & -- & \TVc\\ \hline
+Lab 4 & -- & -- & -- & -- & \TVc\\ \hline
+Lab 5 & 2 & 6 & 2 & 2 & \TVa\\ \hline
+Lab 6 & 3 & 5 & 2 & 2 & \TVa\\ \hline
 \end{tabular}
 \end{table}
 
@@ -447,7 +446,6 @@ Mỗi lab có \textbf{đúng 10 bài chính}: chương gốc nhiều hơn thì c
 
 %% ---- Lab 5 ----
 \subsection{Lab 5: Field Effect Transistor (FET)}
-\cachlam[Gợi ý từ đề cho Lab 5]{\textbf{Chương gốc:} Ch.~6 -- Field Effect Transistor. \textbf{Nội dung:} JFET (DC Sweep, Nested DC Sweep, tự phân cực, phân áp), MOSFET kênh có sẵn và kênh cảm ứng, MOSFET làm khoá, điều khiển động cơ. \textbf{Lưu ý:} nested sweep dùng \texttt{.dc} hai nguồn; mô hình MOSFET kênh có sẵn có thể phải tự khai báo \texttt{.model}; \textbf{bổ sung đủ 10 bài} (bỏ các mục Altium). \textbf{Gợi ý nâng cao:} đặc tuyến truyền đạt và $R_{DS(on)}$ theo $V_{GS}$; tổn hao chuyển mạch của MOSFET khi điều khiển tải cảm; mạch cầu H.}
 
 \begin{table}[H]\centering\small
 \caption{Danh sách bài tập Lab 5}\label{tab:lab5}
@@ -486,7 +484,6 @@ Adv02 & Cổng đảo CMOS (Inverter) & Khảo sát đặc tuyến truyền đ�
 
 %% ---- Lab 6 ----
 \subsection{Lab 6: Review Laboratory: Circuits with Diodes and Transistors}
-\cachlam[Gợi ý từ đề cho Lab 6]{\textbf{Chương gốc:} Ch.~7 -- 24 Hour Project for Midterm. \textbf{Nội dung:} 8 bài tổng hợp -- điện trở tương đương, dòng điện, diode, Zener, BJT, BJT + Zener. \textbf{Lưu ý:} \textbf{bổ sung 2 bài}; có thể dùng làm bài ôn tập giữa kỳ. \textbf{Gợi ý nâng cao:} bài tổng hợp nhiều khối (nguồn -- ổn áp -- khoá BJT/MOSFET -- op-amp) dùng cho ôn tập.}
 
 \begin{table}[H]\centering\small
 \caption{Danh sách bài tập Lab 6}\label{tab:lab6}
@@ -551,11 +548,8 @@ Lab 6 / Ex10 & Ch.~7: Mạch ổn áp nguồn tổng hợp & Chương gốc thi�
 
 %% ----------------------------- 7 -----------------------------
 \section{Trả lời câu hỏi}
-\hd{Trả lời các câu [1]--[9] ở mục 9.1 Phần A.}
-\cachlam{Mỗi câu bên dưới có: nội dung câu hỏi (trích từ đề), phần ``Cách làm'' (những gì cần làm và đưa vào câu trả lời) và khung cam để nhóm viết câu trả lời. \textbf{Chỉ đưa vào các kết quả nhóm đã chạy thật}; mọi số liệu cần kèm lệnh/ảnh chụp để kiểm chứng. Nếu dùng AI hỗ trợ, ghi vào mục 10.}
 
-\cauhoi{1}{So sánh PSpice for TI và LTspice theo: giấy phép và đăng ký, hệ điều hành, thư viện mô hình, các kiểu phân tích hỗ trợ, cách khai báo mô phỏng, xuất dữ liệu, khả năng nhập mô hình bên ngoài. Nêu ưu và nhược điểm của việc chuyển đổi đối với môn học.}{
-Lập \textbf{bảng so sánh hai cột} theo đúng 7 tiêu chí của đề, mỗi ô có nguồn (trang chính thức của Analog Devices và Texas Instruments, ghi ngày tra cứu). Sau bảng: đoạn \textbf{ưu điểm} và \textbf{nhược điểm} của việc chuyển đổi \textbf{đối với môn học} (ví dụ: chi phí/đăng ký cho phòng máy, độ sẵn có của mô hình, khác biệt thao tác, công sức chuyển bài). Có thể tham chiếu mục 3 (ánh xạ thao tác).}
+\cauhoi{1}{So sánh PSpice for TI và LTspice theo: giấy phép và đăng ký, hệ điều hành, thư viện mô hình, các kiểu phân tích hỗ trợ, cách khai báo mô phỏng, xuất dữ liệu, khả năng nhập mô hình bên ngoài. Nêu ưu và nhược điểm của việc chuyển đổi đối với môn học.}
 
 Nhóm thực hiện đối chiếu chi tiết giữa hai phần mềm mô phỏng theo 7 tiêu chí kỹ thuật:
 
@@ -594,8 +588,7 @@ Nhóm thực hiện đối chiếu chi tiết giữa hai phần mềm mô phỏn
   \end{itemize}
 \end{itemize}
 
-\cauhoi{2}{Trình bày giải pháp \textbf{cài đặt offline} của nhóm: nguồn tải, phiên bản, cách đóng gói thư viện, cách kiểm tra tính toàn vẹn của bộ cài, các bước triển khai trên máy không có Internet và cách cập nhật về sau. Điều khoản sử dụng có cho phép phân phối lại không?}{
-Trả lời theo \textbf{6 ý của đề}: nguồn tải; phiên bản; cách \textbf{đóng gói thư viện} (thư mục nào cần sao chép); \textbf{kiểm tra toàn vẹn} (ví dụ tính mã băm SHA-256 của bộ cài và so với giá trị công bố nếu có: Windows \texttt{certutil -hashfile <file> SHA256}, macOS \texttt{shasum -a 256 <file>}, Linux \texttt{sha256sum <file>}); \textbf{các bước triển khai} trên máy không có Internet (đánh số từng bước, kèm ảnh); \textbf{cách cập nhật} về sau. Cuối cùng \textbf{trích dẫn nguyên văn điều khoản} liên quan đến phân phối lại và kết luận có/không (hoặc ``chưa rõ, đã hỏi giảng viên'').}
+\cauhoi{2}{Trình bày giải pháp \textbf{cài đặt offline} của nhóm: nguồn tải, phiên bản, cách đóng gói thư viện, cách kiểm tra tính toàn vẹn của bộ cài, các bước triển khai trên máy không có Internet và cách cập nhật về sau. Điều khoản sử dụng có cho phép phân phối lại không?}
 
 Nhóm xây dựng giải pháp cài đặt offline đồng bộ và an toàn cho toàn bộ hệ thống phòng máy môn học:
 
@@ -647,8 +640,7 @@ Nhóm xây dựng giải pháp cài đặt offline đồng bộ và an toàn cho
   \textbf{Kết luận:} Việc trường đại học lưu trữ bộ cài trên máy chủ nội bộ hoặc sao chép USB cài đặt cho các máy tính phòng lab thực hành của sinh viên là \textbf{hoàn toàn hợp pháp và được nhà sản xuất Analog Devices cho phép rõ ràng}.
 \end{enumerate}
 
-\cauhoi{3}{Mô hình diode mặc định của LTspice (không khai báo tham số) có những tham số nào? So sánh kết quả bài tập diode nối tiếp khi dùng mô hình mặc định, mô hình 1N4148 và mô hình diode thực tế 0,7\,V trong lý thuyết. Giải thích sai lệch.}{
-(a) Tra \textbf{danh sách tham số} của diode (tài liệu trợ giúp LTspice hoặc xem mô hình) và liệt kê tham số + giá trị mặc định mà nhóm \textbf{đọc được}. (b) Chạy \textbf{cùng một mạch diode nối tiếp (bài 3.2 của Lab 2)} 3 lần: diode mặc định, diode 1N4148 (khai báo \texttt{.model}/\texttt{.lib}), và tính lý thuyết với $V_D = 0{,}7$\,V. (c) Lập \textbf{bảng}: $V_{D1}, V_{D2}, V_{D3}, V_{R}, I$ cho 3 trường hợp, kèm lệnh \texttt{.op} và ảnh chụp. (d) \textbf{Giải thích sai lệch} bằng các tham số mô hình (ví dụ dòng bão hoà, hệ số lý tưởng, điện trở nối tiếp).}
+\cauhoi{3}{Mô hình diode mặc định của LTspice (không khai báo tham số) có những tham số nào? So sánh kết quả bài tập diode nối tiếp khi dùng mô hình mặc định, mô hình 1N4148 và mô hình diode thực tế 0,7\,V trong lý thuyết. Giải thích sai lệch.}
 
 \begin{enumerate}[label=(\alph*)]
   \item \textbf{Danh sách tham số của mô hình diode mặc định trong LTspice:}
@@ -701,8 +693,7 @@ Nhóm xây dựng giải pháp cài đặt offline đồng bộ và an toàn cho
   \end{itemize}
 \end{enumerate}
 
-\cauhoi{4}{Trình bày cách nhập một mô hình SPICE của nhà sản xuất (.lib, .subckt) vào LTspice và tạo symbol cho nó. Thử với một mô hình op-amp hoặc IC nguồn của TI: có chạy được không? Nếu không, vì sao?}{
-Viết \textbf{quy trình từng bước, có ảnh}: (1) lấy file \texttt{.lib}/\texttt{.subckt} của nhà sản xuất; (2) khai báo trong schematic (lệnh \texttt{.lib}/\texttt{.include}); (3) tạo \textbf{symbol} cho mạch con (ghi đúng tên menu của phiên bản bạn dùng) và gán đúng thứ tự chân; (4) chạy thử mạch kiểm tra. Sau đó \textbf{thử thực tế} với một mô hình op-amp hoặc IC nguồn của TI: ghi \textbf{kết quả} (chạy được/không), \textbf{thông báo lỗi} (chụp ảnh) và \textbf{nguyên nhân} bạn xác định được (ví dụ cú pháp riêng của PSpice, mô hình mã hoá). Liên hệ câu [5].}
+\cauhoi{4}{Trình bày cách nhập một mô hình SPICE của nhà sản xuất (.lib, .subckt) vào LTspice và tạo symbol cho nó. Thử với một mô hình op-amp hoặc IC nguồn của TI: có chạy được không? Nếu không, vì sao?}
 
 \begin{enumerate}[label=(\alph*)]
   \item \textbf{Quy trình 4 bước nhập mô hình SPICE bên ngoài và tạo Symbol tự động trong LTspice:}
@@ -736,8 +727,7 @@ Syntax error: Unrecognized command .EXTERNAL / Encrypted PSpice block
   \end{itemize}
 \end{enumerate}
 
-\cauhoi{5}{Với bài tập dùng LM2596 (Lab 2), trình bày giải pháp của nhóm: tìm mô hình tương thích, hay thay bằng IC buck có sẵn trong thư viện LTspice, hay mô hình hành vi. So sánh mục tiêu học tập giữa bài gốc và bài thay thế.}{
-Nêu \textbf{phương án đã chọn} (một trong ba hướng của đề) và \textbf{vì sao}, kèm bằng chứng đã thử (các phương án bị loại, lỗi gặp phải). Mô tả bài thay thế (mạch, linh kiện, lệnh mô phỏng, kết quả). Lập \textbf{bảng so sánh mục tiêu học tập} giữa bài gốc LM2596 và bài thay thế (mỗi mục tiêu: đạt/không đạt/đạt một phần). Phần này đồng thời được ghi vào mục 6.}
+\cauhoi{5}{Với bài tập dùng LM2596 (Lab 2), trình bày giải pháp của nhóm: tìm mô hình tương thích, hay thay bằng IC buck có sẵn trong thư viện LTspice, hay mô hình hành vi. So sánh mục tiêu học tập giữa bài gốc và bài thay thế.}
 
 \begin{enumerate}[label=(\alph*)]
   \item \textbf{Đánh giá 3 hướng tiếp cận và lựa chọn của nhóm:}
@@ -766,8 +756,7 @@ Nêu \textbf{phương án đã chọn} (một trong ba hướng của đề) và
   \end{table}
 \end{enumerate}
 
-\cauhoi{6}{Liệt kê \textbf{tất cả} bài tập ở trạng thái ``Điều chỉnh'' hoặc ``Thay thế'' trong 6 lab, kèm lý do và cách nhóm bảo đảm mục tiêu học tập tương đương.}{
-Tổng hợp từ các Bảng~\ref{tab:lab1}--\ref{tab:lab6}: \textbf{mọi bài ``Điều chỉnh'' và ``Thay thế''} (không bỏ sót) vào một bảng gồm: lab/số bài, bài gốc, thay đổi gì, \textbf{lý do}, và \textbf{cách bảo đảm mục tiêu học tập tương đương}. Số bài liệt kê phải khớp với Bảng thống kê ở mục 4.}
+\cauhoi{6}{Liệt kê \textbf{tất cả} bài tập ở trạng thái ``Điều chỉnh'' hoặc ``Thay thế'' trong 6 lab, kèm lý do và cách nhóm bảo đảm mục tiêu học tập tương đương.}
 
 Dưới đây là bảng tổng hợp toàn bộ các bài tập ở trạng thái Điều chỉnh và Thay thế của nhóm (tập trung chi tiết toàn diện vào Lab 5 và Lab 6 theo đúng phạm vi phân công):
 
@@ -798,8 +787,7 @@ Lab 6 Ex09 & Ch.~7: Clipper & Bổ sung mạch ghim áp hai ngưỡng diode & Ch
 Lab 6 Ex10 & Ch.~7: Series Reg. & Bổ sung mạch ổn áp nối tiếp Zener + BJT & Chương gốc thiếu bài thứ 10; cần bài tập tổng hợp cao cấp. & Khảo sát mạch nguồn ổn áp tuyến tính thực tế: Zener ghim áp chuẩn, BJT khuếch đại dòng ra tải. \\ \hline
 \end{longtable}}
 
-\cauhoi{7}{Trong phân tích .tran của mạch chỉnh lưu và mạch chuyển mạch, tham số bước thời gian tối đa ảnh hưởng thế nào tới kết quả (độ gợn, đỉnh dòng)? Minh hoạ bằng hai lần chạy với bước khác nhau.}{
-Chọn một mạch chỉnh lưu (và một mạch chuyển mạch nếu có). Chạy \texttt{.tran} \textbf{hai lần với bước thời gian tối đa khác nhau} (nhóm tự chọn hai giá trị đủ chênh lệch; cú pháp \texttt{.tran <Tprint> <Tstop> <Tstart> <dTmax>}). Với mỗi lần: chụp dạng sóng, đo \textbf{độ gợn} và \textbf{đỉnh dòng} (bằng \texttt{.meas} hoặc cursor), ghi \textbf{thời gian chạy}. Trình bày bảng hai lần chạy và nhận xét ảnh hưởng của bước thời gian.}
+\cauhoi{7}{Trong phân tích .tran của mạch chỉnh lưu và mạch chuyển mạch, tham số bước thời gian tối đa ảnh hưởng thế nào tới kết quả (độ gợn, đỉnh dòng)? Minh hoạ bằng hai lần chạy với bước khác nhau.}
 
 \begin{enumerate}[label=(\alph*)]
   \item \textbf{Cơ chế của bộ giải SPICE và tham số} \texttt{dTmax}\textbf{:}
@@ -836,8 +824,7 @@ Chọn một mạch chỉnh lưu (và một mạch chuyển mạch nếu có). C
   \end{itemize}
 \end{enumerate}
 
-\cauhoi{8}{Trình bày cách dùng .step và .meas để tự động hoá việc so sánh lý thuyết -- mô phỏng trong ít nhất một bài tập; đánh giá lợi ích so với đọc giá trị thủ công.}{
-Chọn \textbf{ít nhất một bài tập}. Nêu: lệnh \texttt{.param}/\texttt{.step} (quét tham số) và \texttt{.meas} (đo), \textbf{công thức lý thuyết} dùng để so sánh, và cách lấy kết quả (ví dụ từ file log). Ví dụ từ đề: \texttt{.meas DC Id\_1V FIND I(D1) AT=1} lấy dòng tại $V_1 = 1$\,V. Đưa \textbf{netlist/ảnh log} thật, bảng so sánh tự động và \textbf{đánh giá lợi ích} so với đọc thủ công (độ chính xác, thời gian, khả năng lặp lại).}
+\cauhoi{8}{Trình bày cách dùng .step và .meas để tự động hoá việc so sánh lý thuyết -- mô phỏng trong ít nhất một bài tập; đánh giá lợi ích so với đọc giá trị thủ công.}
 
 \begin{enumerate}[label=(\alph*)]
   \item \textbf{Triển khai trên bài tập Mạch ổn áp Zener (Lab 6 Ex06):}
@@ -879,8 +866,7 @@ Chọn \textbf{ít nhất một bài tập}. Nêu: lệnh \texttt{.param}/\textt
   \end{itemize}
 \end{enumerate}
 
-\cauhoi{9}{Mô tả quá trình \textbf{kiểm thử chéo}: ai thử bài nào, các lỗi hoặc điểm khó hiểu được phát hiện, và nhóm đã sửa tài liệu thế nào.}{
-Mô tả \textbf{quy trình} (người viết và người kiểm thử khác nhau; kiểm thử trên \textbf{bộ cài offline}), tóm tắt các lỗi/điểm khó hiểu \textbf{điển hình} và cách sửa; dẫn chiếu Bảng~\ref{tab:kiemthu} ở mục 8 cho chi tiết từng lab.}
+\cauhoi{9}{Mô tả quá trình \textbf{kiểm thử chéo}: ai thử bài nào, các lỗi hoặc điểm khó hiểu được phát hiện, và nhóm đã sửa tài liệu thế nào.}
 
 Nhóm áp dụng nghiêm ngặt quy trình kiểm thử chéo độc lập (\textit{Blind Cross-Testing}) để đảm bảo tài liệu thực hành hoàn thiện đến mức một sinh viên chưa từng dùng LTspice vẫn có thể tự học và thực hiện thành công 100\%:
 
