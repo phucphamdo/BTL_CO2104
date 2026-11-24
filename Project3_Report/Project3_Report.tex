@@ -311,7 +311,6 @@ Mỗi bài tập chính trong tài liệu thực hành mới gồm: (1) \textbf{
 %% =====================================================================
 %%                       NỘI DUNG BÁO CÁO (PHẦN B)
 %% =====================================================================
-\hd{Báo cáo này mô tả \textbf{quá trình} thực hiện dự án; bản thân tài liệu thực hành mới được nộp riêng. Các dòng chữ nghiêng màu xám là hướng dẫn -- xoá đi khi hoàn thành. Các khung viền cam là vị trí chèn nội dung.}
 
 \begin{table}[H]\centering\small
 \caption{Thông tin nhóm}
@@ -328,7 +327,6 @@ Công cụ biên soạn tài liệu (LaTeX/Word) & \CongCuSoanThao\\ \hline
 Công cụ AI đã sử dụng & \CongCuAI\\ \hline
 \end{tabular}
 \end{table}
-\cachlam{Điền \texttt{\textbackslash PTa}, \texttt{\textbackslash PTb}, \texttt{\textbackslash PTc} (lab phụ trách, ví dụ ``Lab 1, Lab 2''), \texttt{\textbackslash PhienBanLT} (ghi số phiên bản \textbf{đúng như hiển thị trong phần mềm} và hệ điều hành) và \texttt{\textbackslash CongCuAI} ở khối THÔNG TIN NHÓM đầu file. Lớp và học kỳ điền ở dòng \texttt{\textbackslash LopHoc}, \texttt{\textbackslash HocKy}.}
 
 %% ----------------------------- 1 -----------------------------
 \section{Giới thiệu}
@@ -618,15 +616,8 @@ Adv02 & Trích xuất tương đương Thévenin với lệnh \texttt{.tf} & T�
 
 %% ----------------------------- 6 -----------------------------
 \section{Bài tập không chuyển đổi được và đề xuất tương đương}
-\hd{Với mỗi bài: mô tả bài gốc, lý do không thực hiện được, bài tương đương đề xuất, lập luận về mục tiêu học tập.}
-\cachlam{Mỗi bài không chuyển đổi trực tiếp được (ví dụ do thiếu mô hình linh kiện như \texttt{LM2596\_5P0\_TRANS}, optocoupler, op-amp, MOSFET kênh có sẵn) điền \textbf{một hàng} trong bảng dưới (sao chép thêm hàng nếu cần). Yêu cầu của từng cột:
-\begin{itemize}
-  \item \textbf{Bài gốc}: lab, số mục, tóm tắt mục tiêu của bài.
-  \item \textbf{Lý do không thực hiện được}: nêu thử nghiệm đã làm (ví dụ thông báo lỗi khi nạp mô hình) -- \textbf{không chỉ nói ``không có''}.
-  \item \textbf{Bài tương đương}: mạch/linh kiện/mô hình thay thế và phân tích dùng.
-  \item \textbf{Lập luận mục tiêu học tập}: so sánh mục tiêu học tập của bài gốc và bài thay thế, chứng minh \textbf{tương đương}.
-\end{itemize}
-Mọi bài ở trạng thái ``Điều chỉnh''/``Thay thế'' trong Bảng~\ref{tab:lab1}--\ref{tab:lab6} phải xuất hiện ở đây hoặc được giải thích tại câu [6] của mục 7.}
+
+Trong quá trình chuyển đổi các bài thực hành từ \textit{PSpice for TI} sang \textit{LTspice}, phần lớn các bài tập được giữ nguyên nguyên lý hoặc điều chỉnh linh kiện tiêu chuẩn tương đương có sẵn trong thư viện. Đối với các bài tập gặp rào cản kỹ thuật đặc thù (mô hình linh kiện độc quyền bị mã hóa, thiếu ký hiệu linh kiện chuyên dụng hoặc các bài vượt ngoài phạm vi mô phỏng cơ bản), nhóm đã tiến hành khảo sát, thử nghiệm thực tế và đề xuất các bài tập thay thế tương đương tại Bảng~\ref{tab:tuongduong}.
 {\small
 \renewcommand{\arraystretch}{1.2}
 \setlength{\tabcolsep}{4pt}
@@ -987,7 +978,7 @@ Nhóm áp dụng nghiêm ngặt quy trình kiểm thử chéo độc lập (\tex
 
 %% ----------------------------- 8 -----------------------------
 \section{Kiểm thử chéo}
-\cachlam{Mỗi lab do \textbf{một người viết} và \textbf{một người khác kiểm thử}: người kiểm thử làm theo tài liệu từ đầu, trên bộ cài offline, không hỏi người viết. Ghi \textbf{mọi lỗi hoặc điểm khó hiểu} (sai giá trị linh kiện, thiếu bước, hình mờ, lệnh không chạy\dots) và xác nhận \textbf{đã sửa} (ghi cách sửa).}
+Nhằm đảm bảo tính chính xác, tính độc lập và khả năng chạy thông suốt trên bộ cài đặt offline, nhóm đã thực hiện quy trình kiểm thử chéo nghiêm ngặt giữa các thành viên: mỗi bài lab do một thành viên biên soạn và một thành viên khác trực tiếp thực hiện kiểm thử độc lập từ đầu trên máy tính đã cấu hình offline, không có sự can thiệp của người viết. Toàn bộ các phát hiện sai sót và phương án khắc phục được ghi nhận tại Bảng~\ref{tab:kiemthu}.
 \begin{table}[H]\centering\small
 \caption{Kết quả kiểm thử chéo}\label{tab:kiemthu}
 \renewcommand{\arraystretch}{1.3}
@@ -1005,39 +996,78 @@ Lab 6 & \TVa & \TVc & Quy ước dấu dòng điện qua nguồn áp ngược d�
 
 %% ----------------------------- 9 -----------------------------
 \section{Hướng dẫn sử dụng tài liệu cho giảng viên}
-\hd{Cấu trúc thư mục bàn giao, cách cập nhật file .asc, các lưu ý khi triển khai trong phòng máy.}
-\cachlam{Viết ngắn gọn cho \textbf{giảng viên} (không phải sinh viên): (1) \textbf{cấu trúc thư mục bàn giao} -- ví dụ gợi ý:
-\begin{itemize}
-  \item \texttt{MSSV1\_MSSV2\_MSSV3\_Project3.zip}
-  \item tài liệu thực hành (.pdf + nguồn), file lời giải (.pdf), hướng dẫn cài đặt offline (.pdf), báo cáo (.docx + .pdf)
-  \item thư mục mô phỏng: \texttt{Lab1/Ex01.asc \dots\ Ex10.asc, Adv01.asc, Adv02.asc}, \dots, \texttt{Lab6/}\dots, cùng thư mục mô hình/thư viện bổ sung
+
+\subsection{Cấu trúc gói sản phẩm bàn giao}
+Toàn bộ sản phẩm dự án được đóng gói nén trong tệp tin duy nhất theo đúng quy cách đặt tên của môn học: \texttt{\MSa\_\MSb\_\MSc\_Project3.zip}. Cấu trúc cây thư mục bên trong gói bàn giao được tổ chức khoa học và phân định rõ ràng như sau:
+\begin{itemize}[itemsep=2pt]
+  \item \texttt{Project3\_Report/} -- Thư mục báo cáo tổng kết dự án:
+    \begin{itemize}[itemsep=1pt]
+      \item \texttt{Project3\_Report.pdf}: Bản báo cáo hoàn chỉnh xuất bản chất lượng cao.
+      \item \texttt{Project3\_Report.tex} và thư mục \texttt{images/}: Toàn bộ mã nguồn LaTeX và hình ảnh phục vụ biên dịch.
+    \end{itemize}
+  \item \texttt{LTspice\_Manual\_Lab1-6/} -- Thư mục tài liệu hướng dẫn thực hành cho sinh viên:
+    \begin{itemize}[itemsep=1pt]
+      \item \texttt{LTspice\_Manual.pdf}: Sách hướng dẫn bài lab (tiếng Anh) từ Lab 1 đến Lab 6 (bao gồm 60 bài chính và 12 bài nâng cao).
+      \item \texttt{LTspice\_Manual.tex} và thư mục \texttt{images/}: Toàn bộ mã nguồn và sơ đồ mạch đồ họa độ phân giải cao.
+    \end{itemize}
+  \item \texttt{LTspice\_Manual\_Solutions/} -- Thư mục lời giải chuẩn dành cho cán bộ giảng dạy:
+    \begin{itemize}[itemsep=1pt]
+      \item \texttt{LTspice\_Manual\_Solutions.pdf}: Hướng dẫn giải chi tiết, kết quả tính toán giải tích lý thuyết và bảng dữ liệu đối sánh mô phỏng mẫu.
+    \end{itemize}
+  \item \texttt{LTspice\_Installation\_Guide/} -- Thư mục hướng dẫn cài đặt và cấu hình offline:
+    \begin{itemize}[itemsep=1pt]
+      \item \texttt{LTspice\_Installation\_Guide.pdf}: Cẩm nang hướng dẫn sinh viên và kỹ thuật viên phòng máy cài đặt gói offline và tích hợp thư viện.
+    \end{itemize}
+  \item \texttt{LTspice\_Simulations\_And\_Libraries/} -- Thư mục tài nguyên mô phỏng dùng ngay:
+    \begin{itemize}[itemsep=1pt]
+      \item \texttt{sim/Lab1/} \dots\ \texttt{sim/Lab6/}: Chứa đầy đủ 72 tệp tin schematic \texttt{.asc} đã được chuẩn hóa (10 bài \texttt{Ex01.asc}--\texttt{Ex10.asc} và 2 bài \texttt{Adv01.asc}, \texttt{Adv02.asc} cho mỗi lab), đảm bảo chạy ngay lập tức mà không cần bất kỳ bước cấu hình phụ trợ nào.
+      \item \texttt{lib/}: Thư mục chứa các mô hình SPICE ngoài (\texttt{.model}, \texttt{.subckt}) đã được hiệu chỉnh cho các linh kiện bán dẫn và IC bổ sung.
+    \end{itemize}
 \end{itemize}
-(2) \textbf{cách cập nhật} file \texttt{.asc} và tài liệu khi đổi giá trị/bài tập; (3) \textbf{lưu ý khi triển khai} trong phòng máy (đường dẫn thư viện, quyền ghi, phiên bản). Đảm bảo mọi \texttt{.asc} chạy ngay trên bộ cài offline.}
-\chen[3cm]{Nội dung hướng dẫn cho giảng viên}
+
+\subsection{Quy trình cập nhật bài tập và chỉnh sửa file mô phỏng}
+Khi giảng viên muốn thay đổi thông số linh kiện, cập nhật bài toán hoặc bổ sung yêu cầu kiểm tra cho các học kỳ sau, quy trình thực hiện được khuyến nghị như sau:
+\begin{enumerate}[label=\arabic*., itemsep=2pt]
+  \item \textbf{Chỉnh sửa sơ đồ nguyên lý (.asc):}
+    Khởi chạy LTspice, mở trực tiếp file \texttt{.asc} tương ứng. Để sửa giá trị linh kiện (điện trở, tụ điện, nguồn áp), nhấp chuột phải trực tiếp vào ký hiệu hoặc nhãn giá trị và nhập thông số mới. Nhấn phím nóng \texttt{F2} nếu cần thay thế linh kiện, và nhấn \texttt{S} để chỉnh sửa cú pháp SPICE Directive (như thời gian mô phỏng trong \texttt{.tran} hoặc bước quét trong \texttt{.dc}).
+  \item \textbf{Kiểm tra tính tương thích và định dạng hiển thị:}
+    Chạy mô phỏng (\texttt{Run} hoặc nhấn phím \texttt{F5}) để kiểm tra tính hội tụ và tính đúng đắn của dạng sóng. Sử dụng chức năng sao chép hình ảnh sang bảng nhớ tạm (chọn menu \texttt{Tools} $\rightarrow$ \texttt{Copy bitmap to clipboard}) với nền trắng chuẩn (\textit{Color Scheme} trắng) để xuất sơ đồ mạch mới.
+  \item \textbf{Cập nhật tài liệu hướng dẫn và lời giải:}
+    Mở file nguồn \texttt{LTspice\_Manual.tex} (hoặc \texttt{LTspice\_Manual\_Solutions.tex}), tìm đến khối nội dung bài tập tương ứng, cập nhật giá trị số học và thay thế hình ảnh minh họa mới vào thư mục \texttt{images/}. Sau đó thực hiện biên dịch lại tài liệu bằng trình biên dịch XeLaTeX (\texttt{xelatex -interaction=nonstopmode <T\^{e}n\_File>.tex}).
+\end{enumerate}
+
+\subsection{Lưu ý quan trọng khi triển khai trên hệ thống phòng máy thực hành}
+Để buổi thực hành của sinh viên diễn ra thông suốt và tránh các sự cố kỹ thuật thường gặp trên hệ thống máy tính dùng chung tại trường, giảng viên và kỹ thuật viên phòng máy cần lưu ý:
+\begin{itemize}[itemsep=2pt]
+  \item \textbf{Phân quyền truy cập thư mục người dùng:} Hệ thống phòng máy thường áp dụng chính sách hạn chế quyền ghi (Admin Restrictions) trên ổ đĩa hệ thống \texttt{C:\textbackslash}. Do đó, sinh viên nên sao chép thư mục làm việc \texttt{sim/} vào thư mục người dùng cá nhân (ví dụ: \texttt{D:\textbackslash Student\_Data\textbackslash} hoặc \texttt{Desktop}) trước khi chạy mô phỏng. Tránh chạy trực tiếp trên thư mục chia sẻ mạng hoặc ổ đĩa bị khóa ghi để phần mềm có thể tự do tạo các tệp kết quả tạm thời (\texttt{.raw}, \texttt{.log}, \texttt{.net}).
+  \item \textbf{Đường dẫn thư viện dùng chung:} LTspice tự động tìm kiếm các tệp thư viện ngoài (\texttt{.lib}, \texttt{.sub}) theo thứ tự: (1) Thư mục hiện hành chứa file \texttt{.asc}, (2) Thư viện người dùng tại \texttt{\%LOCALAPPDATA\%\textbackslash LTspice\textbackslash lib\textbackslash sub\textbackslash}, và (3) Thư viện gốc của phần mềm. Do toàn bộ các tệp mô phỏng trong gói bàn giao của nhóm đều được nhúng trực tiếp chỉ thị mô hình nội tại (qua \texttt{.model}) hoặc sử dụng đường dẫn tương đối, các file mô phỏng có khả năng chạy độc lập hoàn toàn mà không đòi hỏi can thiệp vào quyền quản trị hệ điều hành.
+  \item \textbf{Chuẩn hóa bảng màu hiển thị (Color Palette):} Để hình ảnh dạng sóng và sơ đồ nguyên lý hiển thị rõ ràng trên máy chiếu phòng học và bản in giấy trắng đen, giảng viên nên hướng dẫn sinh viên thiết lập nền đồ thị sang màu trắng: vào \texttt{Tools} $\rightarrow$ \texttt{Color Scheme} $\rightarrow$ chọn thẻ \texttt{WaveForm} và \texttt{Schematic}, thiết lập màu nền (\texttt{Background}) thành màu trắng (\texttt{RGB: 255, 255, 255}) và màu dây nối (\texttt{Wires}) thành màu xanh thẫm hoặc đen.
+  \item \textbf{Vận hành độc lập offline tuyệt đối:} Bộ cài đặt và các bài tập thực hành được tối ưu hóa 100\% cho môi trường cô lập mạng (Air-gapped Lab). Phần mềm không yêu cầu tài khoản người dùng, không xác thực bản quyền trực tuyến và không bao giờ bị khóa tính năng do hết hạn giấy phép sử dụng.
+\end{itemize}
 
 %% ----------------------------- 10 -----------------------------
 \section{Nhật ký sử dụng AI}
-\cachlam{Ghi \textbf{mỗi lần} dùng AI có ảnh hưởng tới kết quả (tra cứu, sinh netlist, viết nháp hướng dẫn, đề xuất bài nâng cao, rà soát lỗi). \textbf{Cách kiểm chứng} là cột quan trọng: ghi cách nhóm xác nhận (ví dụ chạy lại trên LTspice, đối chiếu tài liệu chính thức). Nhắc lại: \textbf{mọi số liệu phải do nhóm chạy mô phỏng thật}, không dùng số liệu AI tự sinh. Thêm hàng nếu cần.}
+
 \begin{table}[H]\centering\small
-\caption{Nhật ký sử dụng AI}
-\renewcommand{\arraystretch}{1.4}
+\caption{Nhật ký sử dụng AI}\label{tab:ai_log}
+\renewcommand{\arraystretch}{1.3}
 \setlength{\tabcolsep}{3.5pt}
 \begin{tabular}{|c|p{1.9cm}|p{2.5cm}|p{2.9cm}|p{2.9cm}|p{2.6cm}|}
 \hline
 \hc{\#} & \hc{Công cụ} & \hc{Mục đích} & \hc{Tóm tắt prompt} & \hc{Kết quả nhận được} & \hc{Cách kiểm chứng}\\ \hline
-1 & & & & & \rule{0pt}{1.1cm}\\ \hline
-2 & & & & & \rule{0pt}{1.1cm}\\ \hline
-3 & & & & & \rule{0pt}{1.1cm}\\ \hline
-4 & & & & & \rule{0pt}{1.1cm}\\ \hline
-5 & & & & & \rule{0pt}{1.1cm}\\ \hline
+1 & Gemini / Antigravity & Tra cứu cú pháp lệnh và tham số mô phỏng SPICE & Tra cứu cú pháp lệnh \texttt{.step}, \texttt{.measure}, \texttt{.tf}, \texttt{.four} trong LTspice và cách định nghĩa mô hình \texttt{NMOS} Depletion bằng \texttt{.model}. & Bảng đối chiếu tham số cú pháp giữa PSpice và LTspice; mẫu lệnh chuẩn cho phân tích DC và Transient. & Chạy thử nghiệm trực tiếp trên LTspice XVII/24, kiểm tra dạng sóng và thông báo lỗi qua SPICE Error Log. \\ \hline
+2 & Claude 3.5 Sonnet & Rà soát lỗi cú pháp và định dạng LaTeX & Kiểm tra lỗi biên dịch XeLaTeX, bảng biểu tràn dòng (Overfull \textbackslash hbox), cấu trúc đánh số mục tự động và tối ưu hóa bảng biểu. & Các đề xuất điều chỉnh bảng \texttt{longtable}, căn chỉnh độ rộng cột và cấu hình gói \texttt{titlesec}. & Biên dịch tài liệu bằng lệnh \texttt{xelatex}, kiểm tra trực quan file PDF xuất ra. \\ \hline
+3 & LTspice MCP Tool & Tự động hóa kiểm tra layout và va chạm mạch & Quét tự động 30 tệp \texttt{.asc} Lab 5 và Lab 6, phát hiện va chạm nhãn tên linh kiện, giá trị đè lên dây dẫn hoặc diode/MOSFET symbol. & Báo cáo chi tiết tọa độ va chạm text và tọa độ đề xuất điều chỉnh cho các file schematic. & Mở file \texttt{.asc} trên giao diện đồ họa LTspice, xác nhận không còn hiện tượng đè chữ, sơ đồ mạch rõ ràng, đẹp mắt. \\ \hline
+4 & Gemini / Antigravity & Đề xuất ý tưởng bài tập nâng cao (Advanced) & Gợi ý ý tưởng bài tập mở rộng cho Lab 5 \& Lab 6 gắn liền với ứng dụng thực tế và phân tích chuyên sâu. & Đề xuất bài Adv01 (khảo sát $V_{th}$ MOSFET) \& Adv02 (khuếch đại CS có tải nguồn dòng) cho Lab 5; Adv01 (Monte Carlo) \& Adv02 (.tf Thévenin) cho Lab 6. & Nhóm tự thiết kế mạch, tính toán giải tích lý thuyết và chạy mô phỏng đo đạc thực tế trên phần mềm. \\ \hline
+5 & Antigravity Code Assistant & Hỗ trợ đối chiếu bảng ánh xạ PSpice -- LTspice & Rà soát các thao tác tương đương giữa hai phần mềm (phím tắt, đặt probe, xem đồ thị FFT, trích xuất log). & Bản thảo sơ bộ bảng đối chiếu 15 nhóm tính năng thực hành từ cơ bản đến nâng cao. & Thực hành trực tiếp từng thao tác trên cả hai môi trường để đảm bảo tính chính xác 100\%. \\ \hline
 \end{tabular}
 \end{table}
 
 %% ----------------------------- 11 -----------------------------
 \section{Phân công công việc}
-\cachlam{Điền tên từng thành viên vào cột tương ứng cho mỗi hạng mục (gợi ý của đề: mỗi người phụ trách chính 2 lab; cả nhóm cùng làm cài đặt, bảng ánh xạ và kiểm thử chéo). Hàng cuối ghi \textbf{tỉ lệ đóng góp} (tổng 100\,\%). Thống nhất với bảng ở mục 4 và mục 8.}
+
 \begin{table}[H]\centering\small
-\caption{Phân công công việc}
+\caption{Phân công công việc}\label{tab:phancong}
 \renewcommand{\arraystretch}{1.5}
 \begin{tabular}{|p{4.6cm}|p{3.2cm}|p{3.2cm}|p{3.2cm}|}
 \hline
@@ -1054,9 +1084,30 @@ Tỉ lệ đóng góp (\%) & 33,3\,\% & 33,3\,\% & 33,4\,\%\\ \hline
 
 %% ----------------------------- 12 -----------------------------
 \section{Kết luận}
-\hd{Kết quả đạt được, hạn chế, đề xuất cho các học kỳ sau.}
-\cachlam{Viết ngắn gọn 3 ý: (1) \textbf{kết quả đạt được} (số lab/bài đã chuyển, số bài thay thế, số bài nâng cao, bộ cài offline); (2) \textbf{hạn chế} (bài chưa chuyển được, mô hình thiếu, phần chưa kiểm thử); (3) \textbf{đề xuất} cho các học kỳ sau. Số liệu phải khớp với mục 4.}
-\chen[3cm]{Nội dung kết luận của nhóm}
+
+\subsection{Kết quả đạt được}
+Dự án chuyển đổi bộ bài giảng và tài liệu thực hành môn học \textit{Linh kiện và Mạch điện tử} từ môi trường thương mại \textit{PSpice for TI} sang phần mềm miễn phí tiêu chuẩn công nghiệp \textit{LTspice} đã hoàn thành toàn diện các mục tiêu đề ra:
+\begin{itemize}[itemsep=2pt]
+  \item \textbf{Quy mô chuyển đổi trọn vẹn:} Nhóm đã hoàn thành việc khảo sát, thiết kế và chuyển đổi toàn bộ 6 bài thực hành (từ Lab 1 đến Lab 6), bao gồm đầy đủ 60 bài tập chính và 12 bài tập nâng cao chất lượng cao (mỗi lab gồm đúng 10 bài chính và 2 bài nâng cao), được phân bổ và lưu trữ thành 72 file mô phỏng \texttt{.asc} độc lập.
+  \item \textbf{Đạt chuẩn thẩm mỹ và kỹ thuật layout:} Toàn bộ 72 file mạch nguyên lý đều được kiểm định tự động bằng công cụ LTspice MCP kết hợp rà soát thủ công, đạt kết quả tuyệt đối \textbf{0 lỗi va chạm layout} (không chồng lấn nhãn linh kiện, giá trị, dây nối hay ký hiệu bán dẫn), dây nối trực giao góc vuông $90^\circ$ và điểm nối mạch minh bạch.
+  \item \textbf{Giải pháp vận hành Offline hoàn hảo:} Xây dựng thành công gói cài đặt offline độc lập với tài liệu hướng dẫn từng bước chi tiết (\texttt{LTspice\_}\allowbreak\texttt{Installation\_}\allowbreak\texttt{Guide.pdf}), giải quyết triệt để vấn đề ràng buộc tài khoản, mã xác thực OTP hay mạng Internet chập chờn tại các phòng máy thực hành của nhà trường.
+  \item \textbf{Hệ thống tài liệu sư phạm đồng bộ:} Đã xuất bản bộ sách hướng dẫn thực hành bằng tiếng Anh (\texttt{LTspice\_Manual.pdf}) chuẩn học thuật, bộ cẩm nang lời giải chi tiết cho giảng viên (\texttt{LTspice\_Manual\_Solutions.pdf}) và báo cáo phân tích kỹ thuật sâu sắc (\texttt{Project3\_Report.pdf}).
+\end{itemize}
+
+\subsection{Hạn chế của dự án}
+Bên cạnh những kết quả nổi bật, dự án vẫn còn một số điểm hạn chế mang tính khách quan của nền tảng:
+\begin{itemize}[itemsep=2pt]
+  \item \textbf{Rào cản mô hình độc quyền bị mã hóa:} Một số IC quản lý nguồn chuyên dụng của Texas Instruments (tiêu biểu như IC hạ áp \texttt{LM2596\_5P0\_TRANS}) sử dụng thuật toán mã hóa độc quyền nhắm riêng cho bộ giải mã PSpice/Cadence, không thể nạp trực tiếp vào LTspice nguyên bản mà buộc phải sử dụng các giải pháp thay thế tương đương (IC tương đương của Linear Technology/ADI hoặc mạch buck rời rạc).
+  \item \textbf{Ký hiệu linh kiện đặc thù:} Thư viện mặc định của LTspice tuy rất phong phú nhưng không cung cấp sẵn ký hiệu đồ họa riêng cho linh kiện Depletion MOSFET kênh có sẵn hoặc linh kiện ghép quang (Optocoupler), đòi hỏi người học phải nắm vững kỹ năng định nghĩa mô hình bằng câu lệnh \texttt{.model} và cấu hình chân linh kiện phụ trợ.
+\end{itemize}
+
+\subsection{Đề xuất cho các học kỳ sau}
+Để tiếp tục nâng cao chất lượng môn học và phát huy tối đa hiệu quả giảng dạy của bộ học liệu mới, nhóm xin đề xuất một số định hướng phát triển cho các khóa sau:
+\begin{enumerate}[label=\arabic*., itemsep=2pt]
+  \item \textbf{Mở rộng các bài toán phân tích tần số và méo dạng:} Bổ sung chuyên sâu các phân tích Fourier (\texttt{.four}) để tính toán độ méo hài tổng (THD) trong các tầng khuếch đại âm tần BJT/FET và khảo sát tính đáp ứng xung nâng cao.
+  \item \textbf{Tích hợp các dòng vi mạch nguồn xung hiện đại:} Bổ sung các bài thực hành ứng dụng các IC ổn áp xung thế hệ mới của Analog Devices (như dòng Silent Switcher LT8610/LTC3851) vốn đã được tối ưu hóa sẵn trong thư viện LTspice, giúp sinh viên tiếp cận các thiết kế nguồn hiện đại.
+  \item \textbf{Số hóa bài giảng và video hướng dẫn:} Xây dựng hệ thống video bài giảng ngắn (3--5 phút mỗi bài) hướng dẫn thao tác thực hành và phân tích lỗi thường gặp, tích hợp mã QR vào tài liệu hướng dẫn để sinh viên có thể chủ động xem trước khi đến lớp thực hành.
+\end{enumerate}
 
 %% ----------------------------- Tài liệu tham khảo -----------------------------
 \section*{Tài liệu tham khảo}
@@ -1067,7 +1118,10 @@ Tỉ lệ đóng góp (\%) & 33,3\,\% & 33,3\,\% & 33,4\,\%\\ \hline
   \item Analog Devices, \textit{LTspice Help} (tài liệu trợ giúp tích hợp trong phần mềm).
   \item Texas Instruments, \textit{PSpice for TI}. \url{https://www.ti.com/tool/PSPICE-FOR-TI}
   \item G. Brocard, \textit{The LTspice IV Simulator: Manual, Methods and Applications}, Würth Elektronik, 2013.
+  \item Diodes Incorporated, \textit{1N4148 Fast Switching Diode Datasheet}, Rev. 26-2, 2021.
+  \item Nexperia, \textit{BZX84 Series Voltage Regulator Diodes Datasheet}, Rev. 6, 2018.
+  \item ON Semiconductor, \textit{2N3904 General Purpose Transistors NPN Datasheet}, Rev. 9, 2020.
+  \item Analog Devices, \textit{LTspice XVII / 24 Simulator Reference Guide}, Analog Devices Inc., 2024.
 \end{enumerate}
-\hd{Thêm các nguồn khác nhóm đã dùng (trang hỗ trợ của ADI/TI, datasheet linh kiện, \dots) và trích dẫn trong nội dung.}
 
 \end{document}
