@@ -21,7 +21,7 @@
 \usepackage{fontspec}
 \setmainfont{Latin Modern Roman}
 \setsansfont{Latin Modern Sans}
-\setmonofont{Latin Modern Mono}
+\setmonofont{Latin Modern Mono}[AutoFakeBold=1.5]
 
 \usepackage[table]{xcolor}
 \usepackage{colortbl,array,tabularx,longtable,multirow}
@@ -317,7 +317,7 @@ Mỗi bài tập chính trong tài liệu thực hành mới gồm: (1) \textbf{
 \begin{table}[H]\centering\small
 \caption{Thông tin nhóm}
 \renewcommand{\arraystretch}{1.5}
-\begin{tabular}{|p{6.6cm}|p{8.6cm}|}
+\begin{tabular}{|p{6.2cm}|p{8.8cm}|}
 \hline
 \hc{Thông tin} & \hc{Nội dung}\\ \hline
 Thành viên 1 (Họ tên -- MSSV) -- lab phụ trách & \TVa\ -- \MSa\ \PTa\\ \hline
@@ -562,7 +562,7 @@ Nhóm thực hiện đối chiếu chi tiết giữa hai phần mềm mô phỏn
 {\small
 \renewcommand{\arraystretch}{1.25}
 \setlength{\tabcolsep}{3.5pt}
-\begin{longtable}{|p{2.6cm}|p{6.4cm}|p{6.4cm}|}
+\begin{longtable}{|p{2.4cm}|p{6.3cm}|p{6.3cm}|}
 \hline
 \hc{Tiêu chí} & \hc{PSpice for TI (Cadence / TI)} & \hc{LTspice (Analog Devices)}\\ \hline
 \endfirsthead
@@ -607,7 +607,11 @@ Nhóm xây dựng giải pháp cài đặt offline đồng bộ và an toàn cho
   \end{itemize}
 
   \item \textbf{Cách đóng gói thư viện:}
-  Thư viện gốc của LTspice nằm tại đường dẫn \texttt{\%LOCALAPPDATA\%\textbackslash LTspice\textbackslash lib} (gồm thư mục \texttt{sym} chứa ký hiệu và \texttt{sub} chứa mô hình SPICE). Toàn bộ các mô hình bổ sung cho môn học (như các mô hình \texttt{JN}, \texttt{DMOS}, \texttt{NM}, \texttt{DZ12}, \texttt{DZ17}, \texttt{DZ51}, \texttt{1N4148}) được nhóm tích hợp sẵn trực tiếp dưới dạng SPICE directive trong từng file \texttt{.asc} hoặc đóng gói kèm thư mục \texttt{extra\_lib/} nén trong file ZIP bàn giao. Nhờ đó, sinh viên chỉ cần mở file \texttt{.asc} là chạy được ngay mà không cần sao chép thủ công vào thư mục hệ thống.
+  Thư viện mặc định của LTspice nằm tại đường dẫn:
+  \begin{center}\small
+  \texttt{\%LOCALAPPDATA\%\textbackslash LTspice\textbackslash lib}
+  \end{center}
+  (gồm thư mục \texttt{sym} chứa ký hiệu và \texttt{sub} chứa mô hình SPICE). Toàn bộ các mô hình bổ sung cho môn học (như các mô hình \texttt{JN}, \texttt{DMOS}, \texttt{NM}, \texttt{DZ12}, \texttt{DZ17}, \texttt{DZ51}, \texttt{1N4148}) được nhóm tích hợp sẵn trực tiếp dưới dạng SPICE directive trong từng file \texttt{.asc} hoặc đóng gói kèm thư mục \texttt{extra\_lib/} nén trong file ZIP bàn giao. Nhờ đó, sinh viên chỉ cần mở file \texttt{.asc} là chạy được ngay mà không cần sao chép thủ công vào thư mục hệ thống.
 
   \item \textbf{Kiểm tra tính toàn vẹn của bộ cài (Integrity Check):}
   Trước khi sao chép hàng loạt sang USB phòng máy, quản trị viên kiểm tra mã băm SHA-256 của file cài đặt:
@@ -622,7 +626,11 @@ Nhóm xây dựng giải pháp cài đặt offline đồng bộ và an toàn cho
   \item \textbf{Các bước triển khai trên máy tính không có Internet:}
   \begin{itemize}
     \item \textit{Bước 1:} Cắm USB chứa bộ cài và thư mục bài tập của môn học vào máy tính phòng lab.
-    \item \textit{Bước 2:} Chạy file \texttt{LTspiceSetup.exe}, chọn đường dẫn mặc định (\texttt{C:\textbackslash Users\textbackslash <User>\textbackslash AppData\textbackslash Local\textbackslash Programs\textbackslash ADI\textbackslash LTspice}) và nhấn \textbf{Install Now}. Quá trình cài đặt tự hoàn tất trong chưa đầy 30 giây mà không yêu cầu kết nối mạng hay quyền Administrator cấp cao.
+    \item \textit{Bước 2:} Chạy file \texttt{LTspiceSetup.exe}, chọn đường dẫn mặc định:
+    \begin{center}\small
+    \texttt{C:\textbackslash Users\textbackslash <User>\textbackslash AppData\textbackslash Local\textbackslash Programs\textbackslash ADI\textbackslash LTspice}
+    \end{center}
+    và nhấn \textbf{Install Now}. Quá trình cài đặt tự hoàn tất trong chưa đầy 30 giây mà không yêu cầu kết nối mạng hay quyền Administrator cấp cao.
     \item \textit{Bước 3:} Mở LTspice, vào menu \texttt{File $\rightarrow$ Open}, duyệt tới thư mục bài lab (ví dụ \texttt{Lab5/Ex01.asc}), bấm biểu tượng người chạy (\textbf{Run}).
     \item \textit{Bước 4:} Đồ thị sóng xuất hiện mượt mà, xác nhận bộ giải SPICE hoạt động hoàn hảo 100\% trên môi trường ngắt mạng hoàn toàn.
   \end{itemize}
@@ -663,6 +671,7 @@ Nhóm xây dựng giải pháp cài đặt offline đồng bộ và an toàn cho
   \begin{table}[H]\centering\small
   \caption{So sánh 3 mô hình diode trong mạch nối tiếp ($V_S=10\,\text{V}, R=1\,\text{k}\Omega$)}
   \renewcommand{\arraystretch}{1.25}
+  \resizebox{\linewidth}{!}{%
   \begin{tabular}{|l|c|c|c|c|}
   \hline
   \hc{Đại lượng} & \hc{Lý thuyết ($V_D=0{,}7\,\text{V}$)} & \hc{Diode mặc định (LTspice)} & \hc{Diode thực tế 1N4148} & \hc{Lệnh mô phỏng}\\ \hline
@@ -671,7 +680,8 @@ Nhóm xây dựng giải pháp cài đặt offline đồng bộ và an toàn cho
   $V_{D3}$ (V) & 0,700 & 0,698 & 0,667 & \texttt{.op}\\ \hline
   $V_R$ (V)    & 7,900 & 7,906 & 7,999 & \texttt{.op}\\ \hline
   $I$ (mA)     & 7,900 & 7,906 & 7,999 & \texttt{.op}\\ \hline
-  \end{tabular}
+  \end{tabular}%
+  }
   \end{table}
 
   \item \textbf{Giải thích nguyên nhân sai lệch:}
@@ -683,9 +693,10 @@ Nhóm xây dựng giải pháp cài đặt offline đồng bộ và an toàn cho
     \]
     Với $I_S = 10^{-14}\,\text{A}$, $N = 1{,}0$ và thế nhiệt $V_t \approx 25{,}86\,\text{mV}$ tại $300\,\text{K}$. Tại $I \approx 7{,}9\,\text{mA}$, tính ra $V_D = 1{,}0 \times 0{,}02586 \times \ln(7{,}9 \times 10^{-3} / 10^{-14}) \approx 0{,}698\,\text{V}$, khớp hoàn toàn với kết quả mô phỏng của LTspice.
     \item \textit{Mô hình thực tế 1N4148 (\texttt{IS=2.52n, RS=0.568, N=1.752}):} Do tính chất bán dẫn silicon thực tế có hiện tượng tái hợp trong vùng điện tích không gian làm hệ số phát xạ $N = 1{,}752 > 1$ và dòng bão hoà $I_S = 2{,}52\,\text{nA}$ lớn hơn nhiều so với diode lý thuyết. Đồng thời linh kiện có thêm điện trở tiếp xúc $R_S = 0{,}568\,\Omega$. Điện áp rơi thực tế qua phương trình:
-    \[
-    V_D = N V_t \ln\left(\frac{I}{I_S}\right) + I \cdot R_S \approx 1{,}752 \times 0{,}02586 \times \ln\left(\frac{7{,}999\,\text{mA}}{2{,}52\,\text{nA}}\right) + 7{,}999\,\text{mA} \times 0{,}568\,\Omega \approx 0{,}667\,\text{V}
-    \]
+    \begin{align*}
+    V_D &= N V_t \ln\left(\frac{I}{I_S}\right) + I \cdot R_S \\
+        &\approx 1{,}752 \times 0{,}02586 \times \ln\left(\frac{7{,}999\,\text{mA}}{2{,}52\,\text{nA}}\right) + 7{,}999\,\text{mA} \times 0{,}568\,\Omega \approx 0{,}667\,\text{V}
+    \end{align*}
     Do đó, $V_D$ thực tế ở mức dòng vài milliampere thấp hơn $0{,}7\,\text{V}$ khoảng $33\,\text{mV}$, dẫn đến dòng mạch lớn hơn giả định lý thuyết $0{,}1\,\text{mA}$ ($1{,}2\,\%$).
   \end{itemize}
 \end{enumerate}
@@ -711,10 +722,12 @@ Viết \textbf{quy trình từng bước, có ảnh}: (1) lấy file \texttt{.li
     \item Nhóm tải file mô hình chính thức \texttt{LM2596\_5P0\_TRANS.lib} từ website ti.com và tiến hành các bước tạo symbol như trên.
     \item \textbf{Kết quả:} \textbf{KHÔNG CHẠY ĐƯỢC!}
     \item \textbf{Thông báo lỗi ghi nhận từ SPICE Error Log:}
-    \begin{verbatim}
-    Fatal Error: Unknown subcircuit called: x1:lm2596_5p0_trans ...
-    Syntax error: Unrecognized command .EXTERNAL / Encrypted PSpice block
-    \end{verbatim}
+{\small
+\begin{verbatim}
+Fatal Error: Unknown subcircuit called: x1:lm2596_5p0_trans
+Syntax error: Unrecognized command .EXTERNAL / Encrypted PSpice block
+\end{verbatim}
+}
     \item \textbf{Nguyên nhân kỹ thuật:}
     \begin{itemize}
       \item \textit{Mã hoá độc quyền Cadence PSpice:} Texas Instruments sử dụng thuật toán mã hoá nhị phân bản quyền của Cadence để bảo vệ quyền sở hữu trí tuệ mạch tích hợp bên trong IC. Chỉ có bộ giải mã của Cadence OrCAD/PSpice mới có chìa khoá giải mã khối lệnh này lúc nạp netlist. LTspice (và các phần mềm SPICE tiêu chuẩn mở) hoàn toàn bị từ chối truy cập nội dung mạch con.
@@ -739,6 +752,7 @@ Nêu \textbf{phương án đã chọn} (một trong ba hướng của đề) và
   \begin{table}[H]\centering\small
   \caption{Đối chiếu mục tiêu học tập giữa bài gốc LM2596 và bài thay thế}
   \renewcommand{\arraystretch}{1.25}
+  \resizebox{\linewidth}{!}{%
   \begin{tabular}{|p{5.5cm}|c|c|p{4.5cm}|}
   \hline
   \hc{Mục tiêu học tập} & \hc{Bài gốc LM2596} & \hc{Bài thay thế} & \hc{Đánh giá của nhóm}\\ \hline
@@ -747,7 +761,8 @@ Nêu \textbf{phương án đã chọn} (một trong ba hướng của đề) và
   Quan sát dạng sóng dòng điện cuộn cảm $I_L$ & Bị che khuất trong IC & \textbf{Đạt vượt trội} & Bài thay thế đo trực tiếp dòng nạp xả qua cuộn cảm $L$. \\ \hline
   Đo điện áp gợn $\Delta V_{out}$ theo tụ lọc & Đạt & Đạt & Dùng \texttt{.meas} đo gợn đỉnh-đỉnh chính xác. \\ \hline
   Khả năng chạy offline 100\% & Không đạt (lỗi bản quyền) & \textbf{Đạt tuyệt đối} & Chạy ngay trên bộ cài offline, không phụ thuộc mạng. \\ \hline
-  \end{tabular}
+  \end{tabular}%
+  }
   \end{table}
 \end{enumerate}
 
@@ -759,7 +774,7 @@ Dưới đây là bảng tổng hợp toàn bộ các bài tập ở trạng th�
 {\small
 \renewcommand{\arraystretch}{1.2}
 \setlength{\tabcolsep}{3.5pt}
-\begin{longtable}{|p{1.8cm}|p{2.6cm}|p{3.2cm}|p{3.8cm}|p{3.8cm}|}
+\begin{longtable}{|p{1.5cm}|p{2.5cm}|p{3.1cm}|p{3.7cm}|p{3.8cm}|}
 \hline
 \hc{Bài} & \hc{Bài gốc} & \hc{Thay đổi trong LTspice} & \hc{Lý do thay đổi} & \hc{Bảo đảm mục tiêu học tập}\\ \hline
 \endfirsthead
@@ -787,7 +802,7 @@ Lab 6 Ex10 & Ch.~7: Series Reg. & Bổ sung mạch ổn áp nối tiếp Zener +
 Chọn một mạch chỉnh lưu (và một mạch chuyển mạch nếu có). Chạy \texttt{.tran} \textbf{hai lần với bước thời gian tối đa khác nhau} (nhóm tự chọn hai giá trị đủ chênh lệch; cú pháp \texttt{.tran <Tprint> <Tstop> <Tstart> <dTmax>}). Với mỗi lần: chụp dạng sóng, đo \textbf{độ gợn} và \textbf{đỉnh dòng} (bằng \texttt{.meas} hoặc cursor), ghi \textbf{thời gian chạy}. Trình bày bảng hai lần chạy và nhận xét ảnh hưởng của bước thời gian.}
 
 \begin{enumerate}[label=(\alph*)]
-  \item \textbf{Cơ chế của bộ giải SPICE và tham số \texttt{dTmax}:}
+  \item \textbf{Cơ chế của bộ giải SPICE và tham số} \texttt{dTmax}\textbf{:}
   Lệnh phân tích quá độ có cú pháp đầy đủ:
   \begin{verbatim}
   .tran <Tprint> <Tstop> <Tstart> <dTmax>
@@ -800,6 +815,7 @@ Chọn một mạch chỉnh lưu (và một mạch chuyển mạch nếu có). C
   \begin{table}[H]\centering\small
   \caption{So sánh ảnh hưởng của bước thời gian tối đa trong phân tích Transient}
   \renewcommand{\arraystretch}{1.25}
+  \resizebox{\linewidth}{!}{%
   \begin{tabular}{|l|c|c|p{4.2cm}|}
   \hline
   \hc{Thông số quan sát} & \hc{Lần 1: \texttt{dTmax = 2u}} & \hc{Lần 2: Mặc định (bỏ trống)} & \hc{Nhận xét kỹ thuật}\\ \hline
@@ -809,7 +825,8 @@ Chọn một mạch chỉnh lưu (và một mạch chuyển mạch nếu có). C
   Độ gợn dòng $\Delta I$ (Ripple) & \textbf{52,2\,mA} & \textbf{25,4\,mA} & \textbf{Lần 2 sai lệch tới 51,3\,\%!} \\ \hline
   Xung áp quá ngắt (không diode) & \textbf{65,4\,V} & \textbf{32,1\,V} & \textbf{Lần 2 bỏ lọt đỉnh nhọn xung cảm!} \\ \hline
   Thời gian CPU mô phỏng & $0{,}28\,\text{s}$ & $0{,}04\,\text{s}$ & Lần 1 tính toán kỹ hơn 7 lần. \\ \hline
-  \end{tabular}
+  \end{tabular}%
+  }
   \end{table}
 
   \item \textbf{Nhận xét và kết luận sư phạm:}
@@ -836,7 +853,7 @@ Chọn \textbf{ít nhất một bài tập}. Nêu: lệnh \texttt{.param}/\textt
   \end{verbatim}
 
   \item \textbf{Cách trích xuất kết quả tự động:}
-  Sau khi bấm Run, nhấn phím tắt \textbf{\texttt{Ctrl + L}} (hoặc vào menu \texttt{View $\rightarrow$ SPICE Error Log}). LTspice tự động phân tích và xuất bảng dữ liệu hoàn chỉnh:
+  Sau khi bấm Run, nhấn phím tắt \texttt{Ctrl + L} (hoặc vào menu \texttt{View $\rightarrow$ SPICE Error Log}). LTspice tự động phân tích và xuất bảng dữ liệu hoàn chỉnh:
   \begin{verbatim}
   Measurement: vl
     step    v(out)    at
