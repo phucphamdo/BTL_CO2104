@@ -1,0 +1,497 @@
+% !TEX program = xelatex
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[a4paper,top=2.2cm,bottom=2.3cm,left=2.2cm,right=2.2cm,headheight=15pt]{geometry}
+\usepackage{fontspec}
+\setmainfont{Latin Modern Roman}
+\setsansfont{Latin Modern Sans}
+\setmonofont{Latin Modern Mono}[AutoFakeBold=1.5]
+
+\usepackage[table]{xcolor}
+\usepackage{colortbl,array,tabularx,booktabs,longtable}
+\usepackage{enumitem,graphicx,float,caption,amsmath,amssymb}
+\graphicspath{{images/}}
+\usepackage[most]{tcolorbox}
+\usepackage{fancyhdr,titlesec}
+\usepackage[colorlinks=true,linkcolor=navy,urlcolor=navy]{hyperref}
+
+\definecolor{navy}{HTML}{1F2F5E}
+\definecolor{accent}{HTML}{D98200}
+\definecolor{lightnavy}{HTML}{EAEFF8}
+\definecolor{lightorange}{HTML}{FFF8E8}
+\definecolor{guidegray}{HTML}{6E6E6E}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\color{navy}\textbf{CO2013 -- Mạch điện -- Điện tử}}
+\fancyhead[R]{\small\itshape\color{guidegray} Bài giải chi tiết Lab 6: Review Circuits (Diodes \& BJTs)}
+\fancyfoot[L]{\small\itshape\color{guidegray} HCMUT -- Khoa KH\&KT Máy tính (Nhóm 9)}
+\fancyfoot[R]{\small\itshape\color{guidegray} Trang \thepage}
+\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\footrulewidth}{0.5pt}
+
+\titleformat{\section}{\sffamily\bfseries\Large\color{navy}}{\thesection.}{0.5em}{}[\vspace{2pt}\titlerule]
+\titleformat{\subsection}{\sffamily\bfseries\large\color{navy}}{\thesubsection.}{0.5em}{}
+
+\newtcolorbox{simbox}[1][Kết quả mô phỏng LTspice]{
+  colback=lightnavy!50,colframe=navy,arc=3pt,boxrule=0.8pt,
+  fonttitle=\sffamily\bfseries\small\color{white},title={#1},
+  left=7pt,right=7pt,top=4pt,bottom=4pt}
+
+\newtcolorbox{notebox}[1][Giải thích sai lệch \& Nhận xét]{
+  colback=lightorange,colframe=accent,arc=3pt,boxrule=0.8pt,
+  fonttitle=\sffamily\bfseries\small\color{white},title={#1},
+  left=7pt,right=7pt,top=4pt,bottom=4pt}
+
+\newcommand{\cmd}[1]{\texttt{#1}}
+\newcommand{\simfig}[2]{\begin{figure}[H]\centering\includegraphics[width=0.84\linewidth]{#1}\caption{#2}\end{figure}}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{4pt}
+
+\begin{document}
+
+\begin{titlepage}
+\centering
+\vspace*{1.5cm}
+{\sffamily\bfseries\large ĐẠI HỌC QUỐC GIA TP. HỒ CHÍ MINH\\
+TRƯỜNG ĐẠI HỌC BÁCH KHOA\\
+KHOA KHOA HỌC VÀ KỸ THUẬT MÁY TÍNH\par}
+\vspace{1.8cm}
+{\sffamily\bfseries\Large\color{navy} MẠCH ĐIỆN -- ĐIỆN TỬ (CO2013)\par}
+{\itshape\color{navy} Electric and Electronic Circuits\par}
+\vspace{1.6cm}
+{\sffamily\bfseries\Huge\color{navy} BÀI GIẢI CHI TIẾT LAB 6\par}
+\vspace{0.4cm}
+{\sffamily\bfseries\Large\color{accent} REVIEW LABORATORY: CIRCUITS WITH DIODES \& TRANSISTORS\par}
+\vspace{1.2cm}
+{\normalsize Tài liệu lời giải tham khảo gồm: Lời giải giải tích lý thuyết,\\
+kết quả chạy mô phỏng thực tế trên LTspice 26.1.1,\\
+bảng đối chiếu sai số và giải thích vật lý linh kiện.\par}
+\vfill
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{|>{\bfseries\sffamily}p{4.5cm}|p{8.5cm}|}
+\hline
+Giảng viên hướng dẫn & TS. Lê Trọng Nhân \\ \hline
+Nhóm thực hiện & Nhóm 9 (Lab 5 \& Lab 6: Phạm Đỗ Hồng Phúc -- 2510359) \\ \hline
+Tài liệu tham chiếu & \cmd{LTspice\_Manual.pdf} (Ch. 6) \& \cmd{sim/Lab6/*.asc} \\ \hline
+\end{tabular}
+\vspace{1cm}
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+%% =====================================================================
+\section{Bài tập chính (Ex01 -- Ex10)}
+%% =====================================================================
+
+%% ---------------------------------------------------------------------
+\subsection{Exercise 1: Điện trở tương đương mạch cầu bằng biến đổi \texorpdfstring{$\Delta$--Y}{Delta-Y}}
+%% ---------------------------------------------------------------------
+\textbf{Đề bài:} Nguồn $V_1=24\text{V}$ cấp cho điện trở $R_1=4\,\Omega$ mắc nối tiếp với cầu gồm $R_2=20\,\Omega$, $R_3=30\,\Omega$, $R_4=60\,\Omega$, $R_5=40\,\Omega$ và nhánh giữa $R_6=10\,\Omega$. Dùng biến đổi $\Delta$--Y tìm $R_{eq}$, dòng nguồn $I$ và công suất tiêu tán trên điện trở $10\,\Omega$.
+
+\textbf{1. Lời giải lý thuyết:}
+Biến đổi tam giác trên ($R_2=20\,\Omega, R_3=30\,\Omega, R_6=10\,\Omega$) sang hình sao Y ($R_a$ nối về nút trên, $R_b$ về nút trái, $R_c$ về nút phải):
+$$R_\Sigma = 20 + 30 + 10 = 60\,\Omega \implies R_a = \frac{20\cdot 30}{60} = 10\,\Omega, \quad R_b = \frac{20\cdot 10}{60} = \frac{10}{3}\,\Omega, \quad R_c = \frac{30\cdot 10}{60} = 5\,\Omega$$
+Tổng trở tương đương nhìn từ nguồn:
+$$R_{eq} = R_1 + R_a + \big[(R_b + 60) \parallel (R_c + 40)\big] = 4 + 10 + \left(\frac{190}{3} \parallel 45\right) = 14 + \frac{8550}{325} = \mathbf{40.3077\,\Omega}$$
+Dòng điện nguồn: $I = \frac{24}{40.3077} = \mathbf{0.59542\text{A}}$.
+Áp tại hai đầu cầu trên: $V_A = 24 - 4(0.59542) = 21.6183\text{V}$.
+Áp tại hai nút giữa (chia dòng theo nhánh sao mới):
+$$I_{\text{trái}} = 0.59542 \cdot \frac{45}{\frac{190}{3} + 45} = 0.24733\text{A} \implies V_{\text{trái}} = 0.24733 \times 60 = 14.8397\text{V}$$
+$$I_{\text{phải}} = 0.59542 - 0.24733 = 0.34809\text{A} \implies V_{\text{phải}} = 0.34809 \times 40 = 13.9237\text{V}$$
+Dòng qua điện trở $10\,\Omega$: $I_{10\,\Omega} = \frac{14.8397 - 13.9237}{10} = 0.09160\text{A} \implies P_{10\,\Omega} = I_{10\,\Omega}^2 \cdot 10 = \mathbf{0.08391\text{W}}$ ($83.91\text{mW}$).
+
+\begin{simbox}[Kết quả mô phỏng LTspice (\cmd{Lab6/Ex01.asc}, \cmd{.op})]
+\cmd{I(V1)} $= -0.59542\text{A}$ (dòng phát ra $I = 0.59542\text{A} \implies R_{eq} = 24 / 0.59542 = 40.3077\,\Omega$); \cmd{V(n003)} $= 14.8397\text{V}$; \cmd{V(n004)} $= 13.9237\text{V}$; \cmd{I(R6)} $= 0.0916031\text{A} \implies P_{10\,\Omega} = 83.911\text{mW}$.
+\end{simbox}
+\simfig{Lab6/Ex01_sim.png}{Kết quả mô phỏng thực tế LTspice -- Exercise 1 (Lab6)}
+
+\begin{table}[H]\centering\small
+\caption{Bảng đối chiếu Exercise 1 (Lab 6)}
+\begin{tabular}{|l|c|c|c|}
+\hline
+\textbf{Đại lượng} & \textbf{Lý thuyết} & \textbf{LTspice} & \textbf{Sai lệch} \\ \hline
+$R_{eq}$ ($\Omega$) & $40.308$ & $40.308$ & $0.00\,\%$ \\ \hline
+Dòng nguồn $I$ (A) & $0.5954$ & $0.5954$ & $0.00\,\%$ \\ \hline
+$P_{10\,\Omega}$ (mW) & $83.91$ & $83.91$ & $0.00\,\%$ \\ \hline
+\end{tabular}
+\end{table}
+
+%% ---------------------------------------------------------------------
+\subsection{Exercise 2: Mạch cầu 5 điện trở bằng nhau (\texorpdfstring{$R=1\text{k}\Omega$}{R = 1 kOhm})}
+%% ---------------------------------------------------------------------
+\textbf{Đề bài:} Năm điện trở $R=1\text{k}\Omega$ ghép dạng cầu Wheatstone (\cmd{Ex02.asc}) cấp nguồn $10\text{V}$. Tìm $R_{AB}$, dòng và áp trên điện trở giữa và giải thích điều kiện cân bằng cầu.
+
+\textbf{1. Lời giải lý thuyết:}
+Vì tỉ số hai nhánh đối xứng bằng nhau: $\frac{R_1}{R_2} = \frac{1\text{k}}{1\text{k}} = \frac{R_3}{R_4} = \frac{1\text{k}}{1\text{k}} \implies$ cầu cân bằng, điện thế hai nút giữa bằng nhau ($V_{M1} = V_{M2} = 5.00\text{V}$).
+Do đó $V_{\text{giữa}} = \mathbf{0.00\text{V}}$ và $I_{\text{giữa}} = \mathbf{0.00\text{mA}}$. Có thể tháo bỏ điện trở giữa khi tính $R_{AB}$:
+$$R_{AB} = (1\text{k} + 1\text{k}) \parallel (1\text{k} + 1\text{k}) = 2\text{k} \parallel 2\text{k} = \mathbf{1.00\text{k}\Omega}$$
+
+\begin{simbox}[Kết quả mô phỏng LTspice (\cmd{Lab6/Ex02.asc}, \cmd{.op})]
+\cmd{V(n002)} $= 5.000\text{V}$, \cmd{V(n003)} $= 5.000\text{V} \implies V_{\text{giữa}} = 0.000\text{V}$; \cmd{I(R5)} $= 0.000\text{mA}$; \cmd{I(V1)} $= -10.000\text{mA} \implies R_{AB} = 10 / 0.01 = 1.000\text{k}\Omega$.
+\end{simbox}
+\simfig{Lab6/Ex02_sim.png}{Kết quả mô phỏng thực tế LTspice -- Exercise 2 (Lab6)}
+
+\begin{table}[H]\centering\small
+\caption{Bảng đối chiếu Exercise 2 (Lab 6)}
+\begin{tabular}{|l|c|c|c|}
+\hline
+\textbf{Đại lượng} & \textbf{Lý thuyết} & \textbf{LTspice} & \textbf{Sai lệch} \\ \hline
+$R_{AB}$ (k$\Omega$) & $1.000$ & $1.000$ & $0.00\,\%$ \\ \hline
+Dòng qua điện trở giữa (mA) & $0.000$ & $0.000$ & $0.00\,\%$ \\ \hline
+Áp trên điện trở giữa (V) & $0.000$ & $0.000$ & $0.00\,\%$ \\ \hline
+\end{tabular}
+\end{table}
+
+%% ---------------------------------------------------------------------
+\subsection{Exercise 3: Mạng tam giác với nguồn dòng \texorpdfstring{$6\text{mA}$}{6 mA}}
+%% ---------------------------------------------------------------------
+\textbf{Đề bài:} Nguồn dòng $6\text{mA}$ đặt tại nút A hướng xuống đất (\cmd{Ex03.asc}: $I_1=6\text{mA}$ từ A đến 0). Các điện trở: $R_1=6\text{k}\Omega$ (A--B), $R_2=3\text{k}\Omega$ (B--C), $R_3=12\text{k}\Omega$ (A--C), $R_4=4\text{k}\Omega$ (B--0), $R_5=2\text{k}\Omega$ (C--0). Tính điện áp 3 nút và dòng qua từng điện trở.
+
+\textbf{1. Lời giải lý thuyết:}
+Biến đổi tam giác ($R_1=6\text{k}, R_2=3\text{k}, R_3=12\text{k}$) sang hình sao Y ($R_\Sigma = 21\text{k}\Omega$):
+$$R_A = \frac{6\cdot 12}{21} = \frac{24}{7}\text{k}\Omega, \quad R_B = \frac{6\cdot 3}{21} = \frac{6}{7}\text{k}\Omega, \quad R_C = \frac{3\cdot 12}{21} = \frac{12}{7}\text{k}\Omega$$
+Điện trở tương đương thấy từ nút A xuống đất:
+$$R_{eq,A} = \frac{24}{7} + \left[\left(\frac{6}{7} + 4\right) \parallel \left(\frac{12}{7} + 2\right)\right] = \frac{24}{7} + \left(\frac{34}{7} \parallel \frac{26}{7}\right) = \frac{24}{7} + \frac{884}{420} = \frac{2324}{420} = \frac{83}{15}\text{k}\Omega \approx 5.5333\text{k}\Omega$$
+Vì nguồn $I_1 = 6\text{mA}$ hút dòng từ nút A xuống đất:
+\begin{itemize}[itemsep=1pt]
+  \item $V_A = -6\text{mA} \times \frac{83}{15}\text{k}\Omega = \mathbf{-33.20\text{V}}$.
+  \item Chia dòng tại nhánh sao: $I_{B,\text{nhánh}} = -6 \cdot \frac{26/7}{60/7} = -2.60\text{mA}$; $I_{C,\text{nhánh}} = -6 \cdot \frac{34/7}{60/7} = -3.40\text{mA}$.
+  \item $V_B = I_{B,\text{nhánh}} R_4 = -2.60\text{mA} \times 4\text{k}\Omega = \mathbf{-10.40\text{V}}$; $V_C = -3.40\text{mA} \times 2\text{k}\Omega = \mathbf{-6.80\text{V}}$.
+  \item Dòng trên các điện trở (theo chiều quy ước từ A$\to$B$\to$C và xuống đất):
+  $$I_{R1} = \frac{V_A - V_B}{6\text{k}} = \mathbf{-3.80\text{mA}}, \quad I_{R2} = \frac{V_B - V_C}{3\text{k}} = \mathbf{-1.20\text{mA}}, \quad I_{R3} = \frac{V_A - V_C}{12\text{k}} = \mathbf{-2.20\text{mA}}$$
+  $$I_{R4} = \frac{V_B}{4\text{k}} = \mathbf{-2.60\text{mA}}, \quad I_{R5} = \frac{V_C}{2\text{k}} = \mathbf{-3.40\text{mA}}$$
+\end{itemize}
+
+\begin{simbox}[Kết quả mô phỏng LTspice (\cmd{Lab6/Ex03.asc}, \cmd{.op})]
+$V_A = -33.20\text{V}$; $V_B = -10.40\text{V}$; $V_C = -6.80\text{V}$;
+$I_{R1} = -3.80\text{mA}$; $I_{R2} = -1.20\text{mA}$; $I_{R3} = -2.20\text{mA}$; $I_{R4} = -2.60\text{mA}$; $I_{R5} = -3.40\text{mA}$.
+\end{simbox}
+\simfig{Lab6/Ex03_sim.png}{Kết quả mô phỏng thực tế LTspice -- Exercise 3 (Lab6)}
+
+\begin{table}[H]\centering\small
+\caption{Bảng đối chiếu Exercise 3 (Lab 6)}
+\begin{tabular}{|l|c|c|c|}
+\hline
+\textbf{Đại lượng} & \textbf{Lý thuyết} & \textbf{LTspice} & \textbf{Sai lệch} \\ \hline
+$V_A, V_B, V_C$ (V) & $-33.20,\,-10.40,\,-6.80$ & $-33.20,\,-10.40,\,-6.80$ & $0.00\,\%$ \\ \hline
+$I_{R1}, I_{R2}, I_{R3}$ (mA) & $-3.80,\,-1.20,\,-2.20$ & $-3.80,\,-1.20,\,-2.20$ & $0.00\,\%$ \\ \hline
+$I_{R4}, I_{R5}$ (mA) & $-2.60,\,-3.40$ & $-2.60,\,-3.40$ & $0.00\,\%$ \\ \hline
+\end{tabular}
+\end{table}
+
+%% ---------------------------------------------------------------------
+\subsection{Exercise 4: Diode trong mạch cầu điện trở}
+%% ---------------------------------------------------------------------
+\textbf{Đề bài:} Nguồn $10\text{V}$ cấp cho nhánh trái ($R_1=2\text{k}\Omega, R_3=8\text{k}\Omega$) và nhánh phải ($R_2=4\text{k}\Omega, R_4=6\text{k}\Omega$); diode 1N4148 nối giữa hai nút giữa (Anode tại $V_1$, Cathode tại $V_2$). Dùng giả thiết $V_F=0.7\text{V}$ xác định trạng thái dẫn và các đại lượng.
+
+\textbf{1. Lời giải lý thuyết:}
+\begin{itemize}[itemsep=1pt]
+  \item Khi tháo diode: $V_{1,oc} = 10\cdot\frac{8}{10} = 8.00\text{V}$; $V_{2,oc} = 10\cdot\frac{6}{10} = 6.00\text{V}$. Vì $V_{1,oc} - V_{2,oc} = 2.00\text{V} > 0.7\text{V} \implies$ \textbf{diode dẫn thuận}.
+  \item Tìm mạch tương đương Thévenin nhìn từ 2 đầu diode:
+  $$V_{th} = 8.00 - 6.00 = 2.00\text{V}, \quad R_{th} = (2\text{k}\parallel 8\text{k}) + (4\text{k}\parallel 6\text{k}) = 1.60\text{k} + 2.40\text{k} = 4.00\text{k}\Omega$$
+  \item $I_D = \frac{2.00 - 0.70}{4.00\text{k}} = \mathbf{0.325\text{mA}}$.
+  \item $V_1 = 8.00 - 0.325\text{mA}\cdot 1.6\text{k}\Omega = \mathbf{7.480\text{V}}$; $V_2 = 6.00 + 0.325\text{mA}\cdot 2.4\text{k}\Omega = \mathbf{6.780\text{V}}$.
+  \item $I_{R1} = \frac{10 - 7.48}{2\text{k}} = \mathbf{1.260\text{mA}}$; $I_{R3} = \frac{7.48}{8\text{k}} = \mathbf{0.935\text{mA}}$; $I_{R2} = \frac{10 - 6.78}{4\text{k}} = \mathbf{0.805\text{mA}}$; $I_{R4} = \frac{6.78}{6\text{k}} = \mathbf{1.130\text{mA}}$.
+\end{itemize}
+
+\begin{simbox}[Kết quả mô phỏng LTspice (\cmd{Lab6/Ex04.asc}, \cmd{.op})]
+$V_1 = 7.4155\text{V}$; $V_2 = 6.8768\text{V}$ ($V_D = 0.5387\text{V}$); $I_D = 0.3653\text{mA}$;
+$I_{R1} = 1.2923\text{mA}$; $I_{R2} = 0.7808\text{mA}$; $I_{R3} = 0.9269\text{mA}$; $I_{R4} = 1.1461\text{mA}$.
+\end{simbox}
+\simfig{Lab6/Ex04_sim.png}{Kết quả mô phỏng thực tế LTspice -- Exercise 4 (Lab6)}
+
+\begin{table}[H]\centering\small
+\caption{Bảng đối chiếu Exercise 4 (Lab 6)}
+\begin{tabular}{|l|c|c|c|}
+\hline
+\textbf{Đại lượng} & \textbf{Lý thuyết ($V_F=0.7\text{V}$)} & \textbf{LTspice (1N4148)} & \textbf{Sai lệch} \\ \hline
+$V_1$ (V) & $7.480$ & $7.416$ & $-0.86\,\%$ \\ \hline
+$V_2$ (V) & $6.780$ & $6.877$ & $+1.43\,\%$ \\ \hline
+$I_D$ (mA) & $0.325$ & $0.365$ & $+12.31\,\%$ \\ \hline
+$I_{R1}, I_{R2}$ (mA) & $1.260,\; 0.805$ & $1.292,\; 0.781$ & $+2.54\,\%,\; -2.98\,\%$ \\ \hline
+$I_{R3}, I_{R4}$ (mA) & $0.935,\; 1.130$ & $0.927,\; 1.146$ & $-0.86\,\%,\; +1.42\,\%$ \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{notebox}
+Ở mức dòng rất nhỏ ($I_D \approx 0.365\text{mA}$), mô hình hàm mũ Shockley của 1N4148 cho điện áp rơi thực tế chỉ $V_D = N V_T \ln(I_D/I_S) \approx 0.539\text{V}$ (thay vì $0.7\text{V}$). Chính vì $V_D$ thực nhỏ hơn $0.161\text{V}$ nên dòng $I_D$ mô phỏng cao hơn $12.3\,\%$.
+\end{notebox}
+
+%% ---------------------------------------------------------------------
+\subsection{Exercise 5: Diode trong mạng điện trở hỗn hợp}
+%% ---------------------------------------------------------------------
+\textbf{Đề bài:} Nguồn $30\text{V}$ cấp qua $R_1=1\text{k}\Omega$ tới nút $X$; từ $X$ rẽ thành nhánh $R_2=1.5\text{k}\Omega + R_3=4.7\text{k}\Omega$ xuống đất và nhánh $R_4=4.7\text{k}\Omega + D_1$ xuống đất. Xác định trạng thái diode ($V_F=0.7\text{V}$), $V_X$ và các dòng.
+
+\textbf{1. Lời giải lý thuyết:}
+\begin{itemize}[itemsep=1pt]
+  \item Tháo diode, áp hở mạch ở đầu $R_4$ bằng áp tại nút $X$: $V_{X,oc} = 30 \cdot \frac{6.2}{7.2} = 25.83\text{V} > 0.7\text{V} \implies$ \textbf{diode dẫn}.
+  \item Phương trình KCL tại nút $X$:
+  $$\frac{V_X - 30}{1} + \frac{V_X}{1.5 + 4.7} + \frac{V_X - 0.7}{4.7} = 0 \implies V_X\left(1 + \frac{1}{6.2} + \frac{1}{4.7}\right) = 30 + \frac{0.7}{4.7}$$
+  $$1.37406\,V_X = 30.14894 \implies V_X = \mathbf{21.941\text{V}}$$
+  \item $I_{R1} = \frac{30 - 21.941}{1\text{k}} = \mathbf{8.059\text{mA}}$; $I_{R2} = I_{R3} = \frac{21.941}{6.2\text{k}} = \mathbf{3.539\text{mA}}$; $I_{R4} = I_D = \frac{21.941 - 0.7}{4.7\text{k}} = \mathbf{4.519\text{mA}}$.
+\end{itemize}
+
+\begin{simbox}[Kết quả mô phỏng LTspice (\cmd{Lab6/Ex05.asc}, \cmd{.op})]
+$V_X = 21.9346\text{V}$; $V_D = 0.6552\text{V}$;
+$I_{R1} = 8.0654\text{mA}$; $I_{R2} = I_{R3} = 3.5378\text{mA}$; $I_{R4} = I_D = 4.5275\text{mA}$.
+\end{simbox}
+\simfig{Lab6/Ex05_sim.png}{Kết quả mô phỏng thực tế LTspice -- Exercise 5 (Lab6)}
+
+\begin{table}[H]\centering\small
+\caption{Bảng đối chiếu Exercise 5 (Lab 6)}
+\begin{tabular}{|l|c|c|c|}
+\hline
+\textbf{Đại lượng} & \textbf{Lý thuyết} & \textbf{LTspice} & \textbf{Sai lệch} \\ \hline
+Điện áp nút $X$ (V) & $21.941$ & $21.935$ & $-0.03\,\%$ \\ \hline
+$I_{R1}$ (mA) & $8.059$ & $8.065$ & $+0.07\,\%$ \\ \hline
+$I_{R2} = I_{R3}$ (mA) & $3.539$ & $3.538$ & $-0.03\,\%$ \\ \hline
+$I_{R4} = I_D$ (mA) & $4.519$ & $4.528$ & $+0.20\,\%$ \\ \hline
+\end{tabular}
+\end{table}
+
+%% ---------------------------------------------------------------------
+\subsection{Exercise 6: Mạch ổn áp dùng Diode Zener (\texorpdfstring{$V_Z=12\text{V}$}{Vz = 12 V})}
+%% ---------------------------------------------------------------------
+\textbf{Đề bài:} Nguồn $V_S=16\text{V}$, điện trở hạn dòng $R=220\,\Omega$, Zener $V_Z=12\text{V}$ song song tải $R_L$. Tính $V_L, I, I_L, I_Z, P_Z$ cho hai trường hợp $R_L=10\text{k}\Omega$ và $R_L=1\text{k}\Omega$; tìm $R_{L,\min}$ để mạch còn ổn áp.
+
+\textbf{1. Lời giải lý thuyết:}
+\begin{itemize}[itemsep=1pt]
+  \item Điều kiện đánh thủng: $V_{L,oc} = 16 \cdot \frac{R_L}{220 + R_L} \ge 12\text{V} \iff R_{L,\min} = 220 \cdot \frac{12}{16 - 12} = \mathbf{660\,\Omega}$.
+  \item Cả $10\text{k}\Omega$ và $1\text{k}\Omega$ đều $> 660\,\Omega$ nên Zener dẫn ổn áp $V_L = 12.00\text{V}$, dòng tổng $I = \frac{16 - 12}{220} = \mathbf{18.18\text{mA}}$.
+  \item \textbf{Trường hợp $R_L = 10\text{k}\Omega$:} $I_L = \frac{12}{10\text{k}} = \mathbf{1.20\text{mA}}$; $I_Z = 18.18 - 1.20 = \mathbf{16.98\text{mA}}$; $P_Z = 12 \times 16.98\text{m} = \mathbf{203.8\text{mW}}$.
+  \item \textbf{Trường hợp $R_L = 1\text{k}\Omega$:} $I_L = \frac{12}{1\text{k}} = \mathbf{12.00\text{mA}}$; $I_Z = 18.18 - 12.00 = \mathbf{6.18\text{mA}}$; $P_Z = 12 \times 6.18\text{m} = \mathbf{74.2\text{mW}}$.
+\end{itemize}
+
+\begin{simbox}[Kết quả mô phỏng LTspice (\cmd{Lab6/Ex06.asc}, \cmd{.step param RL list 1k 10k})]
+Model: \cmd{.model DZ12 D(Is=1e-14 Bv=12 Ibv=10m Rs=2)}:
+\begin{itemize}[itemsep=1pt]
+  \item $R_L = 10\text{k}\Omega$: $V_L = 12.0469\text{V}$; $I = 17.969\text{mA}$; $I_L = 1.205\text{mA}$; $I_Z = 16.764\text{mA}$; $P_Z = 201.95\text{mW}$.
+  \item $R_L = 1\text{k}\Omega$: $V_L = 11.9999\text{V}$; $I = 18.182\text{mA}$; $I_L = 12.000\text{mA}$; $I_Z = 6.182\text{mA}$; $P_Z = 74.19\text{mW}$.
+\end{itemize}
+\end{simbox}
+\simfig{Lab6/Ex06_sim.png}{Kết quả mô phỏng thực tế LTspice -- Exercise 6 (Lab6)}
+
+\begin{table}[H]\centering\small
+\caption{Bảng đối chiếu Exercise 6 (Lab 6)}
+\begin{tabular}{|l|c|c|c|}
+\hline
+\textbf{Đại lượng} & \textbf{Lý thuyết} & \textbf{LTspice} & \textbf{Sai lệch} \\ \hline
+$R_L=10\text{k}\Omega$: $V_L$ (V) & $12.00$ & $12.05$ & $+0.42\,\%$ \\ \hline
+$R_L=10\text{k}\Omega$: $I$ (mA) / $I_L$ (mA) & $18.18\,/\,1.20$ & $17.97\,/\,1.20$ & $-1.16\,/\,0.00\,\%$ \\ \hline
+$R_L=10\text{k}\Omega$: $I_Z$ (mA) / $P_Z$ (mW) & $16.98\,/\,203.8$ & $16.76\,/\,202.0$ & $-1.30\,/\,-0.88\,\%$ \\ \hline
+$R_L=1\text{k}\Omega$: $V_L$ (V) & $12.00$ & $12.00$ & $0.00\,\%$ \\ \hline
+$R_L=1\text{k}\Omega$: $I$ (mA) / $I_L$ (mA) & $18.18\,/\,12.00$ & $18.18\,/\,12.00$ & $0.00\,\%$ \\ \hline
+$R_L=1\text{k}\Omega$: $I_Z$ (mA) / $P_Z$ (mW) & $6.18\,/\,74.2$ & $6.18\,/\,74.2$ & $0.00\,\%$ \\ \hline
+$R_{L,\min}$ ($\Omega$) & $660.0$ & -- & -- \\ \hline
+\end{tabular}
+\end{table}
+
+%% ---------------------------------------------------------------------
+\subsection{Exercise 7: Transistor BJT dẫn vào vùng bão hoà}
+%% ---------------------------------------------------------------------
+\textbf{Đề bài:} Mạch \cmd{Ex07.asc}: nguồn $V_1$ kích Base qua $R_1=10\text{k}\Omega$, Collector nối nguồn $10\text{V}$ qua $R_2=470\,\Omega$, Emitter nối đất. Cho $\beta=100, V_{BE}=0.7\text{V}, V_{CE(sat)}=0.2\text{V}$. Tìm $V_1$ tại điểm bắt đầu bão hoà, $I_{C(sat)}$, và $V_C$ khi $V_1=1\text{V}, 6\text{V}$.
+
+\textbf{1. Lời giải lý thuyết:}
+\begin{itemize}[itemsep=1pt]
+  \item Dòng bão hoà cực Collector: $I_{C(sat)} = \frac{10 - 0.2}{470} = \mathbf{20.85\text{mA}}$.
+  \item Dòng Base biên bão hoà: $I_{B(sat)} = \frac{I_{C(sat)}}{\beta} = \frac{20.85\text{mA}}{100} = 0.2085\text{mA}$.
+  \item Điện áp $V_1$ biên bão hoà: $V_{1(sat)} = V_{BE} + I_{B(sat)} R_1 = 0.7 + 0.2085\text{m} \times 10\text{k} = \mathbf{2.785\text{V}}$.
+  \item Tại $V_1=1\text{V}$ (vùng khuếch đại): $I_B = \frac{1 - 0.7}{10\text{k}} = 0.03\text{mA} \implies I_C = 3.00\text{mA} \implies V_C = 10 - 3\text{m}\times 470 = \mathbf{8.590\text{V}}$.
+  \item Tại $V_1=6\text{V}$ (bão hoà sâu): $V_C = V_{CE(sat)} \approx \mathbf{0.200\text{V}}$.
+\end{itemize}
+
+\begin{simbox}[Kết quả mô phỏng LTspice (\cmd{Lab6/Ex07.asc}, \cmd{.dc V1 0 6 0.05})]
+\begin{itemize}[itemsep=1pt]
+  \item Điểm đạt $V_C \le 0.2\text{V}$: $V_1 = 2.95\text{V}$ ($V_C = 0.1916\text{V}$, $I_C = 20.869\text{mA}$).
+  \item Tại $V_1=1\text{V}$: $V_C = 8.5186\text{V}$, $I_C = 3.1519\text{mA}$.
+  \item Tại $V_1=6\text{V}$: $V_C = 0.1099\text{V}$, $I_C = 21.0429\text{mA}$.
+\end{itemize}
+\end{simbox}
+\simfig{Lab6/Ex07_sim.png}{Kết quả mô phỏng thực tế LTspice -- Exercise 7 (Lab6)}
+
+\begin{table}[H]\centering\small
+\caption{Bảng đối chiếu Exercise 7 (Lab 6)}
+\begin{tabular}{|l|c|c|c|}
+\hline
+\textbf{Đại lượng} & \textbf{Lý thuyết} & \textbf{LTspice} & \textbf{Sai lệch} \\ \hline
+$V_1$ biên bão hoà (V) & $2.785$ & $2.950$ & $+5.92\,\%$ \\ \hline
+$I_{C(sat)}$ (mA) & $20.85$ & $20.87$ & $+0.10\,\%$ \\ \hline
+$V_C$ tại $V_1=1\text{V}$ (V) & $8.590$ & $8.519$ & $-0.83\,\%$ \\ \hline
+$V_C$ tại $V_1=6\text{V}$ (V) & $0.200$ & $0.110$ & $-45.0\,\%$ \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{notebox}
+Tại $V_1=6\text{V}$, BJT bão hoà rất sâu ($I_B \approx 0.52\text{mA} \gg I_{C(sat)}/\beta$), theo mô hình Ebers--Moll thì $V_{CE(sat)}$ giảm xuống chỉ còn $\approx 0.11\text{V}$ thay vì $0.2\text{V}$. Ngoài ra ở $I_C \approx 21\text{mA}$, $V_{BE}$ thực tế $\approx 0.78\text{V}$ nên $V_{1(sat)}$ dịch lên $2.95\text{V}$.
+\end{notebox}
+
+%% ---------------------------------------------------------------------
+\subsection{Exercise 8: BJT ổn định bằng Diode Zener (\texorpdfstring{$V_Z=1.7\text{V}$}{Vz = 1.7 V})}
+%% ---------------------------------------------------------------------
+\textbf{Đề bài:} Mạch \cmd{Ex08.asc}: $V_{CC}=6\text{V}$, $R_B=8.6\text{k}\Omega$, $V_Z=1.7\text{V}$ ghim tại Base, $R_L=400\,\Omega$, $R_E=100\,\Omega$, $\beta=100$, $V_{BE}=0.7\text{V}$. Tính $V_E, I_E, I_C, I_B, I_Z, V_{CE}, V_{CB}$ và kiểm tra vùng khuếch đại.
+
+\textbf{1. Lời giải lý thuyết:}
+\begin{itemize}[itemsep=1pt]
+  \item $V_B = V_Z = 1.70\text{V} \implies V_E = 1.70 - 0.70 = \mathbf{1.000\text{V}}$.
+  \item $I_E = \frac{1.00}{100} = \mathbf{10.00\text{mA}}$; $I_C = \frac{\beta}{\beta+1} I_E = \frac{100}{101}\times 10 = \mathbf{9.901\text{mA}}$; $I_B = \frac{I_E}{101} = \mathbf{99.01\,\mu\text{A}}$.
+  \item Dòng qua $R_B$: $I_{RB} = \frac{6 - 1.7}{8.6\text{k}} = 0.500\text{mA} \implies I_Z = 0.500 - 0.099 = \mathbf{0.401\text{mA}} > 0$ (Zener đánh thủng tốt).
+  \item $V_C = 6 - 9.901\text{m}\times 400 = 2.040\text{V} \implies V_{CE} = 2.040 - 1.00 = \mathbf{1.040\text{V}}$; $V_{CB} = 2.040 - 1.70 = \mathbf{0.340\text{V}} > 0 \implies$ vùng khuếch đại (active).
+\end{itemize}
+
+\begin{simbox}[Kết quả mô phỏng LTspice (\cmd{Lab6/Ex08.asc}, \cmd{.op})]
+$V_B = 1.6776\text{V}$; $V_E = 0.9641\text{V}$; $I_E = 9.641\text{mA}$; $I_C = 9.546\text{mA}$; $I_B = 95.46\,\mu\text{A}$; $I_Z = 0.407\text{mA}$; $V_C = 2.1818\text{V} \implies V_{CE} = 1.2177\text{V}$, $V_{CB} = 0.5042\text{V}$.
+\end{simbox}
+\simfig{Lab6/Ex08_sim.png}{Kết quả mô phỏng thực tế LTspice -- Exercise 8 (Lab6)}
+
+\begin{table}[H]\centering\small
+\caption{Bảng đối chiếu Exercise 8 (Lab 6)}
+\begin{tabular}{|l|c|c|c|}
+\hline
+\textbf{Đại lượng} & \textbf{Lý thuyết} & \textbf{LTspice} & \textbf{Sai lệch} \\ \hline
+$V_E$ (V) & $1.000$ & $0.964$ & $-3.60\,\%$ \\ \hline
+$I_E$ (mA) / $I_C$ (mA) & $10.00\,/\,9.90$ & $9.64\,/\,9.55$ & $-3.60\,\%$ \\ \hline
+$I_B$ ($\mu$A) / $I_Z$ (mA) & $99.0\,/\,0.401$ & $95.5\,/\,0.407$ & $-3.54\,/\,+1.50\,\%$ \\ \hline
+$V_{CE}$ (V) / $V_{CB}$ (V) & $1.040\,/\,0.340$ & $1.218\,/\,0.504$ & $+17.1\,/\,+48.2\,\%$ \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{notebox}
+Do dòng phân cực Zener nhỏ ($0.407\text{mA} < I_{bv}=1\text{mA}$), điện áp đầu gối Zener $V_B$ chỉ đạt $1.678\text{V}$ (thấp hơn $22\text{mV}$), đồng thời $V_{BE}$ ở $9.5\text{mA}$ đạt $0.713\text{V}$, làm $V_E$ giảm $36\text{mV}$ ($-3.6\,\%$), kéo theo $V_C$ tăng $0.14\text{V}$ nên $V_{CE}, V_{CB}$ tăng tương ứng.
+\end{notebox}
+
+%% ---------------------------------------------------------------------
+\subsection{Exercise 9: Mạch ghim điện áp hai ngưỡng (Diode Clipper)}
+%% ---------------------------------------------------------------------
+\textbf{Đề bài:} Nguồn sin $10\text{V}_{pk}$, $1\text{kHz}$ cấp qua $R_1=1\text{k}\Omega$ tới ngõ ra \cmd{out}. Ngõ ra mắc D1 (Anode tại \cmd{out}) tới nguồn $V_r=3\text{V}$ và D2 (Cathode tại \cmd{out}) xuống đất. Với $V_F=0.7\text{V}$, tìm $V_{out,\max}$ và $V_{out,\min}$.
+
+\textbf{1. Lời giải lý thuyết:}
+\begin{itemize}[itemsep=1pt]
+  \item Bán kỳ dương ($V_{in} > 3.7\text{V}$): D1 dẫn, D2 ngắt $\implies V_{out,\max} = V_r + V_F = 3 + 0.7 = \mathbf{+3.70\text{V}}$.
+  \item Bán kỳ âm ($V_{in} < -0.7\text{V}$): D2 dẫn, D1 ngắt $\implies V_{out,\min} = -V_F = \mathbf{-0.70\text{V}}$.
+\end{itemize}
+
+\begin{simbox}[Kết quả mô phỏng LTspice (\cmd{Lab6/Ex09.asc}, \cmd{.tran 0 4m 0 5u})]
+$V_{out,\max} = +3.671\text{V}$; $V_{out,\min} = -0.691\text{V}$.
+\end{simbox}
+\simfig{Lab6/Ex09_sim.png}{Kết quả mô phỏng thực tế LTspice -- Exercise 9 (Lab6)}
+
+\begin{table}[H]\centering\small
+\caption{Bảng đối chiếu Exercise 9 (Lab 6)}
+\begin{tabular}{|l|c|c|c|}
+\hline
+\textbf{Đại lượng} & \textbf{Lý thuyết} & \textbf{LTspice} & \textbf{Sai lệch} \\ \hline
+$V_{out,\max}$ (V) & $+3.700$ & $+3.671$ & $-0.78\,\%$ \\ \hline
+$V_{out,\min}$ (V) & $-0.700$ & $-0.691$ & $-1.29\,\%$ \\ \hline
+\end{tabular}
+\end{table}
+
+%% ---------------------------------------------------------------------
+\subsection{Exercise 10: Mạch ổn áp nối tiếp Zener + BJT}
+%% ---------------------------------------------------------------------
+\textbf{Đề bài:} Nguồn $12\text{V}$ cấp qua $R_1=1\text{k}\Omega$ tới Zener $V_Z=5.1\text{V}$ đặt vào Base của NPN ($\beta=100, V_{BE}=0.7\text{V}$), Collector nối $12\text{V}$, Emitter nối tải $R_L$. Tính $V_{out}, I_Z, I_L, I_B$ với $R_L=100\,\Omega$ và quét $R_L \in \{50, 100, 1000\}\,\Omega$.
+
+\textbf{1. Lời giải lý thuyết:}
+\begin{itemize}[itemsep=1pt]
+  \item $V_{out} = V_Z - V_{BE} = 5.1 - 0.7 = \mathbf{4.40\text{V}}$ (gần như không đổi theo tải $R_L$).
+  \item Với $R_L=100\,\Omega$: $I_L = \frac{4.40}{100} = \mathbf{44.00\text{mA}}$; $I_B = \frac{I_L}{\beta+1} = \frac{44\text{m}}{101} = \mathbf{435.6\,\mu\text{A}}$.
+  \item $I_{R1} = \frac{12 - 5.1}{1\text{k}} = 6.90\text{mA} \implies I_Z = 6.90 - 0.436 = \mathbf{6.464\text{mA}}$.
+  \item \textbf{Ưu điểm vượt trội so với Zener đơn:} Dòng tải được cung cấp bởi nhánh Collector--Emitter của BJT; Zener chỉ cần gánh dòng Base rất nhỏ ($I_L/\beta$), giúp tải biến thiên mạnh từ $50\,\Omega$ đến $1\text{k}\Omega$ mà vẫn ổn áp ổn định.
+\end{itemize}
+
+\begin{simbox}[Kết quả mô phỏng LTspice (\cmd{Lab6/Ex10.asc}, \cmd{.step param RL list 50 100 1k})]
+\begin{itemize}[itemsep=1pt]
+  \item $R_L = 50\,\Omega$: $V_{out} = 4.3288\text{V}$.
+  \item $R_L = 100\,\Omega$: $V_{out} = 4.3492\text{V}$; $I_Z = 6.468\text{mA}$; $I_L = 43.492\text{mA}$; $I_B = 430.6\,\mu\text{A}$.
+  \item $R_L = 1\text{k}\Omega$: $V_{out} = 4.4107\text{V}$.
+\end{itemize}
+\end{simbox}
+\simfig{Lab6/Ex10_sim.png}{Kết quả mô phỏng thực tế LTspice -- Exercise 10 (Lab6)}
+
+\begin{table}[H]\centering\small
+\caption{Bảng đối chiếu Exercise 10 (Lab 6)}
+\begin{tabular}{|l|c|c|c|}
+\hline
+\textbf{Đại lượng} & \textbf{Lý thuyết} & \textbf{LTspice} & \textbf{Sai lệch} \\ \hline
+$V_{out}$ ($R_L=50\,\Omega$) (V) & $4.400$ & $4.329$ & $-1.61\,\%$ \\ \hline
+$V_{out}$ ($R_L=100\,\Omega$) (V) & $4.400$ & $4.349$ & $-1.16\,\%$ \\ \hline
+$V_{out}$ ($R_L=1\text{k}\Omega$) (V) & $4.400$ & $4.411$ & $+0.25\,\%$ \\ \hline
+$I_Z$ ($R_L=100\,\Omega$) (mA) & $6.464$ & $6.468$ & $+0.06\,\%$ \\ \hline
+$I_L$ ($R_L=100\,\Omega$) (mA) & $44.00$ & $43.49$ & $-1.16\,\%$ \\ \hline
+$I_B$ ($R_L=100\,\Omega$) ($\mu$A) & $435.6$ & $430.6$ & $-1.15\,\%$ \\ \hline
+\end{tabular}
+\end{table}
+
+%% =====================================================================
+\section{Bài tập nâng cao Lab 6 (Adv01 \& Adv02)}
+%% =====================================================================
+
+%% ---------------------------------------------------------------------
+\subsection{Advanced Exercise 1: Phân tích Monte Carlo dung sai điện trở (\texorpdfstring{\cmd{Ex11.asc}}{Ex11.asc})}
+%% ---------------------------------------------------------------------
+\textbf{Đề bài:} Với mạch ổn áp nối tiếp ở Ex10, cho $R_1 = 1\text{k}\Omega \pm 5\%$ và $R_L = 100\,\Omega \pm 5\%$ dùng hàm \cmd{mc(val, 0.05)} lặp 20 lần. Phân tích điện trở nào ảnh hưởng mạnh hơn đến $V_{out}$ và đo độ phân tán.
+
+\textbf{1. Lời giải lý thuyết:}
+\begin{itemize}[itemsep=1pt]
+  \item Sai số $R_1$ ($\pm 5\%$) làm $I_{R1}$ đổi $\pm 0.35\text{mA}$, qua nội trở động Zener $R_s=2\,\Omega$ chỉ làm $V_Z$ đổi $\pm 0.7\text{mV}$.
+  \item Sai số $R_L$ ($\pm 5\%$) làm $I_L \approx I_C$ thay đổi $\pm 5\%$, làm $V_{BE} = V_T \ln(I_C/I_S)$ thay đổi:
+  $$\Delta V_{BE} \approx V_T \ln\left(\frac{1.05}{0.95}\right) = 25.85\text{mV} \times 0.100 = 2.59\text{mV}$$
+  Vậy \textbf{$R_L$ ảnh hưởng mạnh hơn $R_1$}, nhưng độ ổn áp tổng thể rất tốt, độ trải worst-case lý thuyết chỉ khoảng $\Delta V_{out} \approx 4\text{mV}$--$6\text{mV}$.
+\end{itemize}
+
+\begin{simbox}[Kết quả mô phỏng LTspice (\cmd{Lab6/Ex11.asc}, 20 lần \cmd{.step param run 1 20 1})]
+Đọc 20 giá trị \cmd{V(out)} từ mô phỏng Monte Carlo:
+\end{simbox}
+\simfig{Lab6/Ex11_sim.png}{Kết quả mô phỏng thực tế LTspice -- Advanced Exercise 1 (Lab6)}
+
+\begin{table}[H]\centering\small
+\caption{Thống kê Monte Carlo 20 lần chạy -- Advanced Exercise 1 (Lab 6)}
+\begin{tabular}{|l|c|}
+\hline
+\textbf{Đại lượng} & \textbf{Giá trị đo từ LTspice (V)} \\ \hline
+Minimum $V_{out}$ & $4.3466$ \\ \hline
+Maximum $V_{out}$ & $4.3519$ \\ \hline
+Average $V_{out}$ & $4.3495$ \\ \hline
+Spread ($\max - \min$) & $0.0053$ ($5.32\text{mV}$) \\ \hline
+\end{tabular}
+\end{table}
+
+%% ---------------------------------------------------------------------
+\subsection{Advanced Exercise 2: Trích xuất tương đương Thévenin bằng lệnh \texorpdfstring{\cmd{.tf}}{.tf} (\texorpdfstring{\cmd{Ex12.asc}}{Ex12.asc})}
+%% ---------------------------------------------------------------------
+\textbf{Đề bài:} Tháo tải $R_5=40\,\Omega$ khỏi mạch cầu Ex01 (\cmd{Ex12.asc}, nút tải ký hiệu \cmd{r}), dùng lệnh \cmd{.tf V(r) V1} tìm $V_{th}$, $R_{th}$ và suy ra dòng qua tải $40\,\Omega$.
+
+\textbf{1. Lời giải lý thuyết:}
+\begin{itemize}[itemsep=1pt]
+  \item \textbf{Tính $V_{th}$ (hở mạch tại \cmd{r}):} Đặt $V_1 = 24\text{V}$. Từ Ex01, $R_1=4\,\Omega$ nối tiếp với nhánh $(20\parallel (30+10))$? Không, tại nút \cmd{r}, $R_3=30\,\Omega$ và $R_6=10\,\Omega$ mắc nối tiếp song song với $R_2=20\,\Omega$ giữa $V_x$ và $V_y$, nối xuống đất qua $R_4=60\,\Omega$:
+  $$R_{xy} = 20 \parallel (30 + 10) = 20 \parallel 40 = \frac{40}{3}\,\Omega$$
+  Tổng trở hở mạch từ $V_1$: $R_{\text{in}} = 4 + \frac{40}{3} + 60 = \frac{232}{3} = 77.333\,\Omega \implies I_{V1} = \frac{24}{77.333} = 0.31034\text{A}$.
+  $$V_y = I_{V1} \cdot 60 = 18.6207\text{V}; \quad V_x = 24 - 4 I_{V1} = 22.7586\text{V}$$
+  $$V_{th} = V_r = V_y + (V_x - V_y)\frac{10}{30 + 10} = 18.6207 + 4.1379 \times 0.25 = \mathbf{19.6552\text{V}}$$
+  \item \textbf{Tính $R_{th}$ (ngắn mạch nguồn $V_1$):} Biến đổi sao--tam giác hoặc giải nút khi đặt $1\text{A}$ vào nút \cmd{r} cho kết quả giải tích:
+  $$R_{th} = \mathbf{16.4655\,\Omega}$$
+  \item \textbf{Dòng tải khi nối $R_5=40\,\Omega$:} $I_{R5} = \frac{V_{th}}{R_{th} + 40} = \frac{19.6552}{16.4655 + 40} = \mathbf{348.09\text{mA}}$ (trùng khớp hoàn toàn với kết quả $0.34809\text{A}$ ở Ex01).
+\end{itemize}
+
+\begin{simbox}[Kết quả mô phỏng LTspice (\cmd{Lab6/Ex12.asc}, \cmd{.tf V(r) V1})]
+\begin{itemize}[itemsep=1pt]
+  \item \cmd{transfer\_function} $= 0.818966 \implies V_{th} = 0.818966 \times 24 = 19.6552\text{V}$.
+  \item \cmd{V1\#input\_impedance} $= 77.3333\,\Omega$.
+  \item \cmd{output\_impedance\_at\_v(r)} $= R_{th} = 16.4655\,\Omega$.
+\end{itemize}
+\end{simbox}
+\simfig{Lab6/Ex12_sim.png}{Kết quả mô phỏng thực tế LTspice -- Advanced Exercise 2 (Lab6)}
+
+\begin{table}[H]\centering\small
+\caption{Bảng đối chiếu Advanced Exercise 2 (Lab 6)}
+\begin{tabular}{|l|c|c|c|}
+\hline
+\textbf{Đại lượng} & \textbf{Lý thuyết} & \textbf{LTspice (\cmd{.tf})} & \textbf{Sai lệch (\%)} \\ \hline
+$V_{th}$ (V) & $19.655$ & $19.655$ & $0.00\,\%$ \\ \hline
+$R_{th}$ ($\Omega$) & $16.466$ & $16.466$ & $0.00\,\%$ \\ \hline
+Dòng tải qua $R_5=40\,\Omega$ (mA) & $348.09$ & $348.09$ & $0.00\,\%$ \\ \hline
+\end{tabular}
+\end{table}
+
+\end{document}

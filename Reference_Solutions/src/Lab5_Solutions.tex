@@ -1,0 +1,535 @@
+% !TEX program = xelatex
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[a4paper,top=2.2cm,bottom=2.3cm,left=2.2cm,right=2.2cm,headheight=15pt]{geometry}
+\usepackage{fontspec}
+\setmainfont{Latin Modern Roman}
+\setsansfont{Latin Modern Sans}
+\setmonofont{Latin Modern Mono}[AutoFakeBold=1.5]
+
+\usepackage[table]{xcolor}
+\usepackage{colortbl,array,tabularx,booktabs,longtable}
+\usepackage{enumitem,graphicx,float,caption,amsmath,amssymb}
+\graphicspath{{images/}}
+\usepackage[most]{tcolorbox}
+\usepackage{fancyhdr,titlesec}
+\usepackage[colorlinks=true,linkcolor=navy,urlcolor=navy]{hyperref}
+
+\definecolor{navy}{HTML}{1F2F5E}
+\definecolor{accent}{HTML}{D98200}
+\definecolor{lightnavy}{HTML}{EAEFF8}
+\definecolor{lightorange}{HTML}{FFF8E8}
+\definecolor{guidegray}{HTML}{6E6E6E}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\color{navy}\textbf{CO2013 -- Mạch điện -- Điện tử}}
+\fancyhead[R]{\small\itshape\color{guidegray} Bài giải chi tiết Lab 5: Field Effect Transistor}
+\fancyfoot[L]{\small\itshape\color{guidegray} HCMUT -- Khoa KH\&KT Máy tính (Nhóm 9)}
+\fancyfoot[R]{\small\itshape\color{guidegray} Trang \thepage}
+\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\footrulewidth}{0.5pt}
+
+\titleformat{\section}{\sffamily\bfseries\Large\color{navy}}{\thesection.}{0.5em}{}[\vspace{2pt}\titlerule]
+\titleformat{\subsection}{\sffamily\bfseries\large\color{navy}}{\thesubsection.}{0.5em}{}
+
+\newtcolorbox{simbox}[1][Kết quả mô phỏng LTspice]{
+  colback=lightnavy!50,colframe=navy,arc=3pt,boxrule=0.8pt,
+  fonttitle=\sffamily\bfseries\small\color{white},title={#1},
+  left=7pt,right=7pt,top=4pt,bottom=4pt}
+
+\newtcolorbox{notebox}[1][Giải thích sai lệch \& Nhận xét]{
+  colback=lightorange,colframe=accent,arc=3pt,boxrule=0.8pt,
+  fonttitle=\sffamily\bfseries\small\color{white},title={#1},
+  left=7pt,right=7pt,top=4pt,bottom=4pt}
+
+\newcommand{\cmd}[1]{\texttt{#1}}
+\newcommand{\simfig}[2]{\begin{figure}[H]\centering\includegraphics[width=0.84\linewidth]{#1}\caption{#2}\end{figure}}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{4pt}
+
+\begin{document}
+
+\begin{titlepage}
+\centering
+\vspace*{1.5cm}
+{\sffamily\bfseries\large ĐẠI HỌC QUỐC GIA TP. HỒ CHÍ MINH\\
+TRƯỜNG ĐẠI HỌC BÁCH KHOA\\
+KHOA KHOA HỌC VÀ KỸ THUẬT MÁY TÍNH\par}
+\vspace{1.8cm}
+{\sffamily\bfseries\Large\color{navy} MẠCH ĐIỆN -- ĐIỆN TỬ (CO2013)\par}
+{\itshape\color{navy} Electric and Electronic Circuits\par}
+\vspace{1.6cm}
+{\sffamily\bfseries\Huge\color{navy} BÀI GIẢI CHI TIẾT LAB 5\par}
+\vspace{0.4cm}
+{\sffamily\bfseries\Large\color{accent} FIELD EFFECT TRANSISTOR (JFET \& MOSFET)\par}
+\vspace{1.2cm}
+{\normalsize Tài liệu lời giải tham khảo gồm: Lời giải giải tích lý thuyết,\\
+kết quả chạy mô phỏng thực tế trên LTspice 26.1.1,\\
+bảng đối chiếu sai số và giải thích vật lý linh kiện.\par}
+\vfill
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{|>{\bfseries\sffamily}p{4.5cm}|p{8.5cm}|}
+\hline
+Giảng viên hướng dẫn & TS. Lê Trọng Nhân \\ \hline
+Nhóm thực hiện & Nhóm 9 (Lab 5 \& Lab 6: Phạm Đỗ Hồng Phúc -- 2510359) \\ \hline
+Tài liệu tham chiếu & \cmd{LTspice\_Manual.pdf} (Ch. 5) \& \cmd{sim/Lab5/*.asc} \\ \hline
+\end{tabular}
+\vspace{1cm}
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+%% =====================================================================
+\section{Bài tập chính (Ex01 -- Ex10)}
+%% =====================================================================
+
+%% ---------------------------------------------------------------------
+\subsection{Exercise 1: Đặc tuyến ra của JFET (\texorpdfstring{$V_{GS}=0$}{VGS = 0})}
+%% ---------------------------------------------------------------------
+\textbf{Đề bài:} Trong mạch \cmd{Ex01.asc}, cực Gate của JFET kênh n nối với Source ($V_{GS}=0$), quét $V_{DS}$ từ $0$ đến $10\text{V}$. Cho $I_{DSS}=10\text{mA}$, $V_P=-2\text{V}$. Vẽ phác thảo đường đặc tuyến $I_D=f(V_{DS})$, chỉ rõ vùng thuần trở (ohmic), vùng bão hoà (saturation), điện áp biên và đọc $I_{DSS}$ từ mô phỏng.
+
+\textbf{1. Lời giải lý thuyết:}
+\begin{itemize}[itemsep=2pt]
+  \item \textbf{Điện áp biên (Pinch-off / Knee voltage):}
+  $$V_{DS,\text{sat}} = V_{GS} - V_P = 0 - (-2\text{V}) = 2.00\text{V}$$
+  \item \textbf{Vùng thuần trở ($0 \le V_{DS} < 2\text{V}$):}
+  $$I_D = \beta \left[ 2(V_{GS} - V_P)V_{DS} - V_{DS}^2 \right] = 2.5\times 10^{-3} (4V_{DS} - V_{DS}^2)$$
+  Độ dốc tại lân cận gốc $V_{DS} \to 0$:
+  $$g_{ds0} = \left.\frac{\partial I_D}{\partial V_{DS}}\right|_{V_{DS}=0} = 2\beta |V_P| = 2(2.5\text{m})(2) = 10.00\text{mS}$$
+  (Nếu tính độ dốc cát tuyến trên đoạn $0 \to 0.5\text{V}$: $I_D(0.5\text{V}) = 2.5\text{m}(2 - 0.25) = 4.375\text{mA} \implies \text{slope} = 4.375 / 0.5 = 8.75\text{mS}$.)
+  \item \textbf{Vùng bão hoà ($V_{DS} \ge 2\text{V}$, bỏ qua hiệu ứng điều biến chiều dài kênh $\lambda=0$):}
+  $$I_D = I_{DSS}\left(1 - \frac{V_{GS}}{V_P}\right)^2 = 10\text{mA} \cdot (1 - 0)^2 = 10.00\text{mA}$$
+\end{itemize}
+
+\begin{simbox}[Kết quả mô phỏng LTspice (\cmd{Lab5/Ex01.asc}, \cmd{.dc VDS 0 10 0.05})]
+Model: \cmd{.model JN NJF(Beta=2.5m Vto=-2 Lambda=0.01)}. Kết quả đọc từ trace \cmd{Id(J1)}:
+\begin{itemize}[itemsep=1pt]
+  \item Tại $V_{DS} = 2.00\text{V}$ (biên bão hoà): $I_D = 10.200\text{mA}$.
+  \item Tại $V_{DS} = 8.00\text{V}$ (vùng bão hoà): $I_D = 10.800\text{mA}$.
+  \item Tại $V_{DS} = 10.00\text{V}$: $I_D = 11.000\text{mA}$.
+  \item Độ dốc vùng thuần trở đoạn $0 \to 0.5\text{V}$: $8.794\text{mS}$.
+\end{itemize}
+\end{simbox}
+\simfig{Lab5/Ex01_sim.png}{Kết quả mô phỏng thực tế LTspice -- Exercise 1 (Lab5)}
+
+\begin{table}[H]\centering\small
+\caption{Bảng đối chiếu Exercise 1 (Lab 5)}
+\begin{tabular}{|l|c|c|c|}
+\hline
+\textbf{Đại lượng} & \textbf{Lý thuyết ($\lambda=0$)} & \textbf{LTspice ($\lambda=0.01$)} & \textbf{Sai lệch} \\ \hline
+$I_{DSS}$ tại $V_{DS}=2\text{V}$ (mA) & $10.00$ & $10.20$ & $+2.00\,\%$ \\ \hline
+$I_{DSS}$ tại $V_{DS}=8\text{V}$ (mA) & $10.00$ & $10.80$ & $+8.00\,\%$ \\ \hline
+Điện áp biên $V_{DS,\text{sat}}$ (V) & $2.00$ & $2.00$ & $0.00\,\%$ \\ \hline
+Độ dốc vùng ohmic $0\to 0.5\text{V}$ (mS) & $8.75$ & $8.79$ & $+0.46\,\%$ \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{notebox}
+Trong mô hình SPICE Shichman--Hodges có hệ số điều biến chiều dài kênh $\lambda = 0.01\text{V}^{-1}$, dòng bão hoà tăng tuyến tính nhẹ theo $V_{DS}$: $I_D = I_{DSS}(1 + \lambda V_{DS})$. Tại $V_{DS}=8\text{V}$, $1 + 0.01\times 8 = 1.08$, giải thích chính xác mức sai lệch $+8.00\,\%$ so với công thức lý tưởng $\lambda=0$.
+\end{notebox}
+
+%% ---------------------------------------------------------------------
+\subsection{Exercise 2: Họ đặc tuyến ra JFET (Nested DC Sweep)}
+%% ---------------------------------------------------------------------
+\textbf{Đề bài:} Dùng mạch \cmd{Ex02.asc} quét lồng nhau \cmd{.dc VDS 0 10 0.05 VGS -2 0 0.5} để vẽ họ đặc tuyến ra của JFET ($I_{DSS}=10\text{mA}, V_P=-2\text{V}$) ứng với $V_{GS} \in \{-2, -1.5, -1, -0.5, 0\}\text{V}$. Tính dòng bão hoà lý thuyết và đọc tại $V_{DS}=8\text{V}$.
+
+\textbf{1. Lời giải lý thuyết:}
+Áp dụng phương trình Shockley $I_D = I_{DSS}(1 - V_{GS}/V_P)^2 = 10(1 + V_{GS}/2)^2\,\text{mA}$:
+\begin{itemize}[itemsep=1pt]
+  \item $V_{GS} = 0\text{V} \implies I_D = 10(1)^2 = 10.000\text{mA}$.
+  \item $V_{GS} = -0.5\text{V} \implies I_D = 10(0.75)^2 = 5.625\text{mA}$.
+  \item $V_{GS} = -1.0\text{V} \implies I_D = 10(0.50)^2 = 2.500\text{mA}$.
+  \item $V_{GS} = -1.5\text{V} \implies I_D = 10(0.25)^2 = 0.625\text{mA}$.
+  \item $V_{GS} = -2.0\text{V} \implies I_D = 10(0)^2 = 0.000\text{mA}$ (vùng ngắt).
+\end{itemize}
+
+\begin{simbox}[Kết quả mô phỏng LTspice (\cmd{Lab5/Ex02.asc}, tại $V_{DS}=8\text{V}$)]
+Đọc từ 5 bước quét của trace \cmd{Id(J1)} tại $V_{DS}=8\text{V}$:
+$I_D(0\text{V}) = 10.800\text{mA}$; $I_D(-0.5\text{V}) = 6.075\text{mA}$; $I_D(-1.0\text{V}) = 2.700\text{mA}$; $I_D(-1.5\text{V}) = 0.675\text{mA}$; $I_D(-2.0\text{V}) = 0.000\text{mA}$.
+\end{simbox}
+\simfig{Lab5/Ex02_sim.png}{Kết quả mô phỏng thực tế LTspice -- Exercise 2 (Lab5)}
+
+\begin{table}[H]\centering\small
+\caption{Bảng đối chiếu Exercise 2 (Lab 5)}
+\begin{tabular}{|l|c|c|c|}
+\hline
+\textbf{Đại lượng (tại $V_{DS}=8\text{V}$)} & \textbf{Lý thuyết ($\lambda=0$)} & \textbf{LTspice ($\lambda=0.01$)} & \textbf{Sai lệch} \\ \hline
+$I_D$ tại $V_{GS}=0\text{V}$ (mA) & $10.000$ & $10.800$ & $+8.00\,\%$ \\ \hline
+$I_D$ tại $V_{GS}=-0.5\text{V}$ (mA) & $5.625$ & $6.075$ & $+8.00\,\%$ \\ \hline
+$I_D$ tại $V_{GS}=-1.0\text{V}$ (mA) & $2.500$ & $2.700$ & $+8.00\,\%$ \\ \hline
+$I_D$ tại $V_{GS}=-1.5\text{V}$ (mA) & $0.625$ & $0.675$ & $+8.00\,\%$ \\ \hline
+$I_D$ tại $V_{GS}=-2.0\text{V}$ (mA) & $0.000$ & $0.000$ & $0.00\,\%$ \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{notebox}
+Cả 4 đường dẫn dòng tại $V_{DS}=8\text{V}$ đều lớn hơn đúng hệ số $(1+\lambda V_{DS}) = 1.08$ ($+8.00\,\%$) so với công thức lý thuyết lý tưởng. Nếu lấy tại biên $V_{DS}=6\text{V}$ hoặc tính gộp $(1+\lambda V_{DS})$ vào công thức lý thuyết thì sai số là $0.00\,\%$.
+\end{notebox}
+
+%% ---------------------------------------------------------------------
+\subsection{Exercise 3: Đặc tuyến truyền đạt JFET và độ dẫn truyền \texorpdfstring{$g_m$}{gm}}
+%% ---------------------------------------------------------------------
+\textbf{Đề bài:} Cố định $V_{DS}=8\text{V}$, quét $V_{GS}$ từ $-3\text{V}$ đến $0\text{V}$ (\cmd{Ex03.asc}). Tính $g_m = \partial I_D / \partial V_{GS}$ tại $V_{GS}=-1\text{V}$ và $-0.5\text{V}$, xác định $V_P$.
+
+\textbf{1. Lời giải lý thuyết:}
+Đạo hàm phương trình Shockley theo $V_{GS}$:
+$$g_m = \frac{\partial I_D}{\partial V_{GS}} = \frac{2I_{DSS}}{|V_P|}\left(1 - \frac{V_{GS}}{V_P}\right) = g_{m0}\left(1 - \frac{V_{GS}}{V_P}\right)$$
+Với $g_{m0} = \frac{2\times 10\text{mA}}{2\text{V}} = 10.00\text{mS}$ và $V_P = -2.00\text{V}$:
+\begin{itemize}[itemsep=1pt]
+  \item Tại $V_{GS} = -1.0\text{V}$: $I_D = 10(1 - 0.5)^2 = 2.50\text{mA}$; $g_m = 10(1 - 0.5) = 5.00\text{mS}$.
+  \item Tại $V_{GS} = -0.5\text{V}$: $g_m = 10(1 - 0.25) = 7.50\text{mS}$.
+\end{itemize}
+
+\begin{simbox}[Kết quả mô phỏng LTspice (\cmd{Lab5/Ex03.asc}, \cmd{.dc VGS -3 0 0.01})]
+\begin{itemize}[itemsep=1pt]
+  \item Điểm bắt đầu dẫn ($I_D > 1\,\mu\text{A}$): $V_{GS} = -1.98\text{V}$ (ngắt hoàn toàn tại $V_P = -2.00\text{V}$).
+  \item Tại $V_{GS}=-1.0\text{V}$: $I_D = 2.700\text{mA}$, đạo hàm \cmd{d(Id(J1))} $= 5.400\text{mS}$.
+  \item Tại $V_{GS}=-0.5\text{V}$: đạo hàm \cmd{d(Id(J1))} $= 8.100\text{mS}$.
+\end{itemize}
+\end{simbox}
+\simfig{Lab5/Ex03_sim.png}{Kết quả mô phỏng thực tế LTspice -- Exercise 3 (Lab5)}
+
+\begin{table}[H]\centering\small
+\caption{Bảng đối chiếu Exercise 3 (Lab 5)}
+\begin{tabular}{|l|c|c|c|}
+\hline
+\textbf{Đại lượng} & \textbf{Lý thuyết ($\lambda=0$)} & \textbf{LTspice ($V_{DS}=8\text{V}$)} & \textbf{Sai lệch} \\ \hline
+$V_P$ (V) & $-2.00$ & $-1.98$ (ngưỡng $1\mu\text{A}$) & $1.00\,\%$ \\ \hline
+$I_D$ tại $V_{GS}=-1\text{V}$ (mA) & $2.50$ & $2.70$ & $+8.00\,\%$ \\ \hline
+$g_m$ tại $V_{GS}=-1\text{V}$ (mS) & $5.00$ & $5.40$ & $+8.00\,\%$ \\ \hline
+$g_m$ tại $V_{GS}=-0.5\text{V}$ (mS) & $7.50$ & $8.10$ & $+8.00\,\%$ \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{notebox}
+Do $V_{DS}$ được giữ cố định ở $8\text{V}$ và $\lambda=0.01\text{V}^{-1}$, $g_m$ thực tế trong mô phỏng bằng $g_{m,\text{ideal}}(1+\lambda V_{DS}) = 1.08\,g_{m,\text{ideal}}$.
+\end{notebox}
+
+%% ---------------------------------------------------------------------
+\subsection{Exercise 4: Mạch tự phân cực JFET (Self-Bias)}
+%% ---------------------------------------------------------------------
+\textbf{Đề bài:} Mạch tự phân cực \cmd{Ex04.asc} với $V_{DD}=15\text{V}$, $R_D=1.2\text{k}\Omega$, $R_G=1\text{M}\Omega$, $R_S=470\,\Omega$; $I_{DSS}=10\text{mA}$, $V_P=-2\text{V}$. Tính $I_D, V_{GS}, V_D, V_{DS}$ và kiểm tra điều kiện bão hoà.
+
+\textbf{1. Lời giải lý thuyết:}
+Do $I_G \approx 0 \implies V_G = 0\text{V}$, nên $V_{GS} = V_G - V_S = -I_D R_S = -0.47\,I_D$ (với $I_D$ tính theo mA).
+Thay vào phương trình bão hoà Shockley:
+$$I_D = 10\left(1 - \frac{-0.47 I_D}{-2}\right)^2 = 10(1 - 0.235 I_D)^2 = 10 - 4.7 I_D + 0.55225 I_D^2$$
+$$\iff 0.55225 I_D^2 - 5.7 I_D + 10 = 0$$
+Giải phương trình bậc hai:
+$$I_D = \frac{5.7 \pm \sqrt{5.7^2 - 4(0.55225)(10)}}{2(0.55225)} = \frac{5.7 \pm \sqrt{10.4}}{1.1045}$$
+Ta được hai nghiệm: $I_{D1} = 8.0805\text{mA}$ (loại vì cho $V_{GS}=-3.80\text{V} < V_P=-2\text{V}$) và $I_{D2} = \mathbf{2.241\text{mA}}$ (nhận).
+Từ đó:
+\begin{itemize}[itemsep=1pt]
+  \item $V_{GS} = -0.47 \times 2.241 = \mathbf{-1.053\text{V}}$ ($V_S = +1.053\text{V}$).
+  \item $V_D = V_{DD} - I_D R_D = 15 - 2.241 \times 1.2 = \mathbf{12.311\text{V}}$.
+  \item $V_{DS} = V_D - V_S = 12.311 - 1.053 = \mathbf{11.258\text{V}}$.
+  \item \textbf{Kiểm tra bão hoà:} $V_{DS} = 11.258\text{V} > V_{GS} - V_P = -1.053 - (-2) = 0.947\text{V} \implies$ JFET hoạt động ở vùng bão hoà.
+\end{itemize}
+
+\begin{simbox}[Kết quả mô phỏng LTspice (\cmd{Lab5/Ex04.asc}, \cmd{.op})]
+$I_D = \cmd{Id(J1)} = 2.3137\text{mA}$; $V_G = \cmd{V(n003)} = 13.3\,\mu\text{V}$; $V_S = \cmd{V(n004)} = 1.0875\text{V} \implies V_{GS} = -1.0875\text{V}$; $V_D = \cmd{V(n002)} = 12.2235\text{V}$; $V_{DS} = 12.2235 - 1.0875 = 11.1360\text{V}$.
+\end{simbox}
+\simfig{Lab5/Ex04_sim.png}{Kết quả mô phỏng thực tế LTspice -- Exercise 4 (Lab5)}
+
+\begin{table}[H]\centering\small
+\caption{Bảng đối chiếu Exercise 4 (Lab 5)}
+\begin{tabular}{|l|c|c|c|}
+\hline
+\textbf{Đại lượng} & \textbf{Lý thuyết} & \textbf{LTspice} & \textbf{Sai lệch} \\ \hline
+$I_D$ (mA) & $2.241$ & $2.314$ & $+3.26\,\%$ \\ \hline
+$V_{GS}$ (V) & $-1.053$ & $-1.087$ & $+3.23\,\%$ \\ \hline
+$V_D$ (V) & $12.311$ & $12.224$ & $-0.71\,\%$ \\ \hline
+$V_{DS}$ (V) & $11.258$ & $11.136$ & $-1.08\,\%$ \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{notebox}
+Sai lệch $3.26\,\%$ ở $I_D$ xuất phát từ hệ số $\lambda=0.01\text{V}^{-1}$ làm tăng dòng ở $V_{DS} \approx 11.14\text{V}$ thêm yếu tố $(1 + 0.01\times 11.14) \approx 1.11$, kéo theo phản hồi âm qua $R_S$ làm $|V_{GS}|$ tăng nhẹ nên $I_D$ thực tế chỉ tăng $3.26\,\%$ thay vì $11\,\%$.
+\end{notebox}
+
+%% ---------------------------------------------------------------------
+\subsection{Exercise 5: Phân cực phân áp JFET (Voltage-Divider Bias)}
+%% ---------------------------------------------------------------------
+\textbf{Đề bài:} Mạch \cmd{Ex05.asc} với $V_{DD}=15\text{V}$, $R_1=1\text{M}\Omega$, $R_2=270\text{k}\Omega$, $R_D=2.2\text{k}\Omega$, $R_S=1.5\text{k}\Omega$; $I_{DSS}=10\text{mA}$, $V_P=-2\text{V}$. Tính $V_G, I_D, V_{GS}, V_S, V_D, V_{DS}$ và giải thích tính ổn định của mạch.
+
+\textbf{1. Lời giải lý thuyết:}
+\begin{itemize}[itemsep=1pt]
+  \item $V_G = V_{DD} \frac{R_2}{R_1+R_2} = 15 \cdot \frac{270}{1000+270} = \mathbf{3.189\text{V}}$ (do $I_G \approx 0$).
+  \item $V_{GS} = V_G - I_D R_S = 3.189 - 1.5 I_D$ ($I_D$ tính bằng mA).
+  \item Thay vào phương trình Shockley:
+  $$I_D = 10\left(1 - \frac{3.189 - 1.5 I_D}{-2}\right)^2 = 10(2.5945 - 0.75 I_D)^2$$
+  $$5.625 I_D^2 - 39.9175 I_D + 67.3143 = 0 \implies I_D = \frac{39.9175 - \sqrt{39.9175^2 - 4(5.625)(67.3143)}}{11.25}$$
+  Ta chọn nghiệm thoả $V_{GS} > V_P$: $I_D = \mathbf{2.759\text{mA}}$ (nghiệm $4.337\text{mA}$ cho $V_{GS} = -3.32\text{V} < V_P$, loại).
+  \item $V_S = I_D R_S = 2.759 \times 1.5 = \mathbf{4.139\text{V}}$; $V_{GS} = 3.189 - 4.139 = \mathbf{-0.950\text{V}}$.
+  \item $V_D = 15 - 2.759 \times 2.2 = \mathbf{8.930\text{V}}$; $V_{DS} = 8.930 - 4.139 = \mathbf{4.792\text{V}}$.
+  \item \textbf{Giải thích độ ổn định:} Điện áp cố định $V_G = 3.189\text{V} > 0$ cho phép chọn $R_S$ lớn hơn hẳn mạch tự phân cực ($1.5\text{k}\Omega$ so với $470\Omega$). Đường tải $V_{GS} = V_G - I_D R_S$ có độ dốc thoải hơn ($-1/R_S$), nên khi $I_{DSS}$ hoặc $V_P$ thay đổi giữa các linh kiện, độ biến thiên $\Delta I_D$ bị kìm hãm mạnh hơn.
+\end{itemize}
+
+\begin{simbox}[Kết quả mô phỏng LTspice (\cmd{Lab5/Ex05.asc}, \cmd{.op})]
+$V_G = 3.1890\text{V}$; $I_D = 2.7732\text{mA}$; $V_S = 4.1599\text{V}$; $V_{GS} = 3.1890 - 4.1599 = -0.9709\text{V}$; $V_D = 8.8989\text{V}$; $V_{DS} = 4.7390\text{V}$.
+\end{simbox}
+\simfig{Lab5/Ex05_sim.png}{Kết quả mô phỏng thực tế LTspice -- Exercise 5 (Lab5)}
+
+\begin{table}[H]\centering\small
+\caption{Bảng đối chiếu Exercise 5 (Lab 5)}
+\begin{tabular}{|l|c|c|c|}
+\hline
+\textbf{Đại lượng} & \textbf{Lý thuyết} & \textbf{LTspice} & \textbf{Sai lệch} \\ \hline
+$V_G$ (V) & $3.189$ & $3.189$ & $0.00\,\%$ \\ \hline
+$I_D$ (mA) & $2.759$ & $2.773$ & $+0.51\,\%$ \\ \hline
+$V_{GS}$ (V) & $-0.950$ & $-0.971$ & $+2.21\,\%$ \\ \hline
+$V_S$ (V) & $4.139$ & $4.160$ & $+0.51\,\%$ \\ \hline
+$V_D$ (V) & $8.930$ & $8.899$ & $-0.35\,\%$ \\ \hline
+$V_{DS}$ (V) & $4.792$ & $4.739$ & $-1.11\,\%$ \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{notebox}
+Do có điện trở $R_S = 1.5\text{k}\Omega$ tạo hồi tiếp âm mạnh và $V_{DS} \approx 4.74\text{V}$ nhỏ hơn so với Ex04, ảnh hưởng của $\lambda = 0.01\text{V}^{-1}$ chỉ làm $I_D$ tăng rất nhẹ ($+14\,\mu\text{A}$, tương ứng $+0.51\,\%$).
+\end{notebox}
+
+%% ---------------------------------------------------------------------
+\subsection{Exercise 6: Depletion-mode MOSFET tự phân cực}
+%% ---------------------------------------------------------------------
+\textbf{Đề bài:} MOSFET kênh có sẵn (Depletion) có $I_{DSS}=8\text{mA}$, $V_T=-3\text{V}$. Mạch tự phân cực \cmd{Ex06.asc}: $V_{DD}=12\text{V}$, $R_D=1\text{k}\Omega$, $R_G=1\text{M}\Omega$, $R_S=500\,\Omega$. Tính $I_D, V_{GS}, V_D, V_{DS}$, kiểm tra bão hoà và giải thích nguyên lý.
+
+\textbf{1. Lời giải lý thuyết:}
+\begin{itemize}[itemsep=1pt]
+  \item $V_G = 0\text{V} \implies V_{GS} = -I_D R_S = -0.5\,I_D$ (mA).
+  \item Phương trình dòng bão hoà: $I_D = 8\left(1 - \frac{-0.5 I_D}{-3}\right)^2 = 8\left(1 - \frac{I_D}{6}\right)^2$.
+  $$2 I_D^2 - 33 I_D + 72 = 0 \implies I_D = \frac{33 - \sqrt{33^2 - 4(2)(72)}}{4} = \frac{33 - \sqrt{513}}{4} = \mathbf{2.588\text{mA}}$$
+  (Nghiệm $13.91\text{mA}$ bị loại do làm $V_{GS} = -6.96\text{V} < V_T$.)
+  \item $V_{GS} = -0.5 \times 2.588 = \mathbf{-1.294\text{V}}$ ($V_S = +1.294\text{V}$).
+  \item $V_D = 12 - 2.588 \times 1 = \mathbf{9.412\text{V}}$; $V_{DS} = 9.412 - 1.294 = \mathbf{8.118\text{V}}$.
+  \item \textbf{Kiểm tra bão hoà:} $V_{DS} = 8.118\text{V} > V_{GS} - V_T = -1.294 - (-3) = 1.706\text{V}$ (bão hoà).
+  \item \textbf{Giải thích hoạt động với cả $V_{GS}<0$ và $V_{GS}>0$:} Depletion MOSFET được cấy sẵn kênh dẫn vật lý ngay khi chế tạo ($V_{GS}=0$ vẫn có dòng $I_{DSS}$). Khi $V_{GS} < 0$ (nhưng $>V_T$), hạt tải trong kênh bị đẩy ra làm hẹp kênh (chế độ nghèo -- depletion). Khi $V_{GS} > 0$, điện trường cổng hút thêm điện tử vào kênh làm tăng độ dẫn (chế độ giàu -- enhancement) mà không gây dòng cổng như JFET do có lớp cách điện $\text{SiO}_2$.
+\end{itemize}
+
+\begin{simbox}[Kết quả mô phỏng LTspice (\cmd{Lab5/Ex06.asc}, \cmd{.op})]
+Model: \cmd{.model DMOS NMOS(Kp=1.78m Vto=-3 Lambda=0.01)} ($K_p = 2I_{DSS}/V_T^2 = 16/9 \approx 1.778\text{mA/V}^2$).
+$I_D = 2.6679\text{mA}$; $V_{GS} = -1.3340\text{V}$; $V_D = 9.3321\text{V}$; $V_{DS} = 9.3321 - 1.3340 = 7.9981\text{V}$.
+\end{simbox}
+\simfig{Lab5/Ex06_sim.png}{Kết quả mô phỏng thực tế LTspice -- Exercise 6 (Lab5)}
+
+\begin{table}[H]\centering\small
+\caption{Bảng đối chiếu Exercise 6 (Lab 5)}
+\begin{tabular}{|l|c|c|c|}
+\hline
+\textbf{Đại lượng} & \textbf{Lý thuyết} & \textbf{LTspice} & \textbf{Sai lệch} \\ \hline
+$I_D$ (mA) & $2.588$ & $2.668$ & $+3.09\,\%$ \\ \hline
+$V_{GS}$ (V) & $-1.294$ & $-1.334$ & $+3.09\,\%$ \\ \hline
+$V_D$ (V) & $9.412$ & $9.332$ & $-0.85\,\%$ \\ \hline
+$V_{DS}$ (V) & $8.118$ & $7.998$ & $-1.48\,\%$ \\ \hline
+\end{tabular}
+\end{table}
+
+%% ---------------------------------------------------------------------
+\subsection{Exercise 7: Họ đặc tuyến Enhancement MOSFET}
+%% ---------------------------------------------------------------------
+\textbf{Đề bài:} Enhancement NMOS có $V_T=2\text{V}$, $K=1\text{mA/V}^2$ ($K_p = 2K = 2\text{mA/V}^2$). Quét \cmd{.dc VDS 0 10 0.05 VGS 3 6 1} trong \cmd{Ex07.asc}, tính $I_D$ bão hoà và điện áp biên $V_{DS,\text{sat}}$ cho từng $V_{GS} \in \{3, 4, 5, 6\}\text{V}$, đọc kết quả tại $V_{DS}=8\text{V}$.
+
+\textbf{1. Lời giải lý thuyết:}
+Dùng $I_D = K(V_{GS} - V_T)^2 = 1\cdot (V_{GS}-2)^2\text{mA}$ và $V_{DS,\text{sat}} = V_{GS} - V_T$:
+\begin{itemize}[itemsep=1pt]
+  \item $V_{GS}=3\text{V}$: $V_{DS,\text{sat}} = 1\text{V}$, $I_D = 1(1)^2 = \mathbf{1.00\text{mA}}$.
+  \item $V_{GS}=4\text{V}$: $V_{DS,\text{sat}} = 2\text{V}$, $I_D = 1(2)^2 = \mathbf{4.00\text{mA}}$.
+  \item $V_{GS}=5\text{V}$: $V_{DS,\text{sat}} = 3\text{V}$, $I_D = 1(3)^2 = \mathbf{9.00\text{mA}}$.
+  \item $V_{GS}=6\text{V}$: $V_{DS,\text{sat}} = 4\text{V}$, $I_D = 1(4)^2 = \mathbf{16.00\text{mA}}$.
+\end{itemize}
+
+\begin{simbox}[Kết quả mô phỏng LTspice (\cmd{Lab5/Ex07.asc}, tại $V_{DS}=8\text{V}$)]
+$I_D(3\text{V}) = 1.080\text{mA}$; $I_D(4\text{V}) = 4.320\text{mA}$; $I_D(5\text{V}) = 9.720\text{mA}$; $I_D(6\text{V}) = 17.280\text{mA}$.
+\end{simbox}
+\simfig{Lab5/Ex07_sim.png}{Kết quả mô phỏng thực tế LTspice -- Exercise 7 (Lab5)}
+
+\begin{table}[H]\centering\small
+\caption{Bảng đối chiếu Exercise 7 (Lab 5)}
+\begin{tabular}{|l|c|c|c|}
+\hline
+\textbf{Đại lượng (tại $V_{DS}=8\text{V}$)} & \textbf{Lý thuyết ($\lambda=0$)} & \textbf{LTspice ($\lambda=0.01$)} & \textbf{Sai lệch} \\ \hline
+$I_D$, $V_{GS}=3\text{V}$ (mA) & $1.000$ & $1.080$ & $+8.00\,\%$ \\ \hline
+$I_D$, $V_{GS}=4\text{V}$ (mA) & $4.000$ & $4.320$ & $+8.00\,\%$ \\ \hline
+$I_D$, $V_{GS}=5\text{V}$ (mA) & $9.000$ & $9.720$ & $+8.00\,\%$ \\ \hline
+$I_D$, $V_{GS}=6\text{V}$ (mA) & $16.000$ & $17.280$ & $+8.00\,\%$ \\ \hline
+\end{tabular}
+\end{table}
+
+%% ---------------------------------------------------------------------
+\subsection{Exercise 8: Mạch phân cực phân áp Enhancement MOSFET}
+%% ---------------------------------------------------------------------
+\textbf{Đề bài:} Mạch \cmd{Ex08.asc} với $V_{DD}=12\text{V}$, $R_1=1.5\text{M}\Omega$, $R_2=1\text{M}\Omega$, $R_D=2.2\text{k}\Omega$, $R_S=1\text{k}\Omega$; $V_T=2\text{V}$, $K=1\text{mA/V}^2$. Tính $V_G, I_D, V_{GS}, V_S, V_D, V_{DS}$ và kiểm tra bão hoà.
+
+\textbf{1. Lời giải lý thuyết:}
+\begin{itemize}[itemsep=1pt]
+  \item $V_G = 12 \cdot \frac{1}{1.5 + 1} = \mathbf{4.800\text{V}}$.
+  \item $V_{GS} = 4.8 - I_D R_S = 4.8 - I_D$ ($I_D$ tính bằng mA).
+  \item $I_D = K(V_{GS} - V_T)^2 = 1 \cdot (4.8 - I_D - 2)^2 = (2.8 - I_D)^2 = I_D^2 - 5.6 I_D + 7.84$.
+  $$I_D^2 - 6.6 I_D + 7.84 = 0 \implies I_D = \frac{6.6 - \sqrt{6.6^2 - 4(7.84)}}{2} = \frac{6.6 - \sqrt{12.2}}{2} = \mathbf{1.554\text{mA}}$$
+  (Nghiệm $5.046\text{mA}$ bị loại do cho $V_{GS} = -0.246\text{V} < V_T$.)
+  \item $V_S = I_D R_S = \mathbf{1.554\text{V}}$; $V_{GS} = 4.8 - 1.554 = \mathbf{3.246\text{V}}$.
+  \item $V_D = 12 - 1.554 \times 2.2 = \mathbf{8.581\text{V}}$; $V_{DS} = 8.581 - 1.554 = \mathbf{7.027\text{V}}$.
+  \item \textbf{Kiểm tra bão hoà:} $V_{DS} = 7.027\text{V} > V_{GS} - V_T = 1.246\text{V}$ (bão hoà).
+\end{itemize}
+
+\begin{simbox}[Kết quả mô phỏng LTspice (\cmd{Lab5/Ex08.asc}, \cmd{.op})]
+$V_G = 4.800\text{V}$; $I_D = 1.5832\text{mA}$; $V_S = 1.5832\text{V}$; $V_{GS} = 3.2168\text{V}$; $V_D = 8.5169\text{V}$; $V_{DS} = 6.9337\text{V}$.
+\end{simbox}
+\simfig{Lab5/Ex08_sim.png}{Kết quả mô phỏng thực tế LTspice -- Exercise 8 (Lab5)}
+
+\begin{table}[H]\centering\small
+\caption{Bảng đối chiếu Exercise 8 (Lab 5)}
+\begin{tabular}{|l|c|c|c|}
+\hline
+\textbf{Đại lượng} & \textbf{Lý thuyết} & \textbf{LTspice} & \textbf{Sai lệch} \\ \hline
+$V_G$ (V) & $4.800$ & $4.800$ & $0.00\,\%$ \\ \hline
+$I_D$ (mA) & $1.554$ & $1.583$ & $+1.87\,\%$ \\ \hline
+$V_{GS}$ (V) & $3.246$ & $3.217$ & $-0.89\,\%$ \\ \hline
+$V_S$ (V) & $1.554$ & $1.583$ & $+1.87\,\%$ \\ \hline
+$V_D$ (V) & $8.581$ & $8.517$ & $-0.75\,\%$ \\ \hline
+$V_{DS}$ (V) & $7.027$ & $6.934$ & $-1.32\,\%$ \\ \hline
+\end{tabular}
+\end{table}
+
+%% ---------------------------------------------------------------------
+\subsection{Exercise 9: MOSFET làm khoá chuyển mạch (Switch)}
+%% ---------------------------------------------------------------------
+\textbf{Đề bài:} Mạch \cmd{Ex09.asc} dùng MOSFET ($V_T=2\text{V}$, $K_p=0.5\text{A/V}^2$) đóng cắt tải $R_L=47\,\Omega$ nối nguồn $V_{DD}=12\text{V}$, điều khiển bằng xung $0\text{V}/5\text{V}$ chu kỳ $20\text{ms}$ ($D=50\%$). Tính $R_{DS(on)}$, dòng tải, áp Drain khi dẫn/ngắt và công suất tiêu tán trên MOSFET khi dẫn.
+
+\textbf{1. Lời giải lý thuyết:}
+\begin{itemize}[itemsep=1pt]
+  \item Khi $V_{GS}=5\text{V}$ (dẫn trong vùng triode):
+  $$R_{DS(on)} \approx \frac{1}{K_p(V_{GS} - V_T)} = \frac{1}{0.5(5 - 2)} = \mathbf{0.667\,\Omega}$$
+  \item Dòng qua tải khi dẫn: $I_L = \frac{V_{DD}}{R_L + R_{DS(on)}} = \frac{12}{47 + 0.667} = \mathbf{251.75\text{mA}}$.
+  \item Điện áp Drain khi dẫn: $V_{DS(on)} = I_L R_{DS(on)} = 0.25175 \times 0.6667 = \mathbf{167.8\text{mV}}$.
+  \item Công suất tiêu tán trên MOSFET khi dẫn: $P_M = I_L^2 R_{DS(on)} = \mathbf{42.25\text{mW}}$.
+  \item Khi $V_{GS}=0\text{V} < V_T$ (ngắt): $I_D = 0 \implies V_{DS(off)} = V_{DD} = \mathbf{12.00\text{V}}$.
+\end{itemize}
+
+\begin{simbox}[Kết quả mô phỏng LTspice (\cmd{Lab5/Ex09.asc}, \cmd{.tran 0 60m 0 10u})]
+Tại $t=5\text{ms}$ (trạng thái dẫn, $V_2=5\text{V}$): $V_{DS(on)} = 172.74\text{mV}$, $I(R_L) = 251.64\text{mA}$. Suy ra $R_{DS(on)} = \frac{0.17274}{0.25164} = 0.686\,\Omega$, $P_M = 0.25164 \times 0.17274 = 43.47\text{mW}$. Tại $t=15\text{ms}$ (trạng thái ngắt, $V_2=0\text{V}$): $V_{DS(off)} = 12.00\text{V}$.
+\end{simbox}
+\simfig{Lab5/Ex09_sim.png}{Kết quả mô phỏng thực tế LTspice -- Exercise 9 (Lab5)}
+
+\begin{table}[H]\centering\small
+\caption{Bảng đối chiếu Exercise 9 (Lab 5)}
+\begin{tabular}{|l|c|c|c|}
+\hline
+\textbf{Đại lượng} & \textbf{Lý thuyết} & \textbf{LTspice} & \textbf{Sai lệch} \\ \hline
+$R_{DS(on)}$ ($\Omega$) & $0.667$ & $0.686$ & $+2.85\,\%$ \\ \hline
+Dòng tải khi dẫn (mA) & $251.75$ & $251.64$ & $-0.04\,\%$ \\ \hline
+$V_{DS(on)}$ khi dẫn (mV) & $167.8$ & $172.7$ & $+2.92\,\%$ \\ \hline
+Công suất MOSFET khi dẫn (mW) & $42.25$ & $43.47$ & $+2.89\,\%$ \\ \hline
+$V_{DS(off)}$ khi ngắt (V) & $12.00$ & $12.00$ & $0.00\,\%$ \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{notebox}
+Công thức $R_{DS(on)} \approx \frac{1}{K_p(V_{GS}-V_T)}$ bỏ qua số hạng bậc hai $-\frac{1}{2}V_{DS}^2$ trong phương trình triode $I_D = K_p[(V_{GS}-V_T)V_{DS} - \frac{1}{2}V_{DS}^2]$. Vì $V_{DS} \approx 0.173\text{V}$, hệ số hiệu chỉnh là $(V_{GS}-V_T - V_{DS}/2) = 3 - 0.086 = 2.914\text{V}$, cho $R_{DS(on)} = \frac{1}{0.5 \times 2.914} = 0.686\,\Omega$, khớp tuyệt đối với LTspice.
+\end{notebox}
+
+%% ---------------------------------------------------------------------
+\subsection{Exercise 10: Điều khiển động cơ DC và Diode dập xung Flyback}
+%% ---------------------------------------------------------------------
+\textbf{Đề bài:} Động cơ DC (\cmd{Ex10.asc}) mô hình hoá bởi $R_m=10\,\Omega$ nối tiếp $L_m=10\text{mH}$, cấp nguồn $12\text{V}$, đóng cắt bằng MOSFET với xung PWM $1\text{kHz}$ ($D=50\%$), mắc diode 1N4148 song song ngược với động cơ. Tính điện áp và dòng trung bình động cơ, độ gợn dòng, giải thích vai trò diode khi ngắt.
+
+\textbf{1. Lời giải lý thuyết:}
+\begin{itemize}[itemsep=1pt]
+  \item \textbf{Điện áp trung bình (lý tưởng, bỏ qua $V_{DS(on)}$ và $V_D$):} $V_{avg} = D \cdot V_{DD} = 0.5 \times 12 = \mathbf{6.00\text{V}}$.
+  \item \textbf{Dòng trung bình lý tưởng:} $I_{avg} = \frac{V_{avg}}{R_m} = \frac{6.00}{10} = \mathbf{600\text{mA}}$.
+  \item \textbf{Hiệu chỉnh thực tế có sụt áp $V_D \approx 0.76\text{V}$ và $V_{DS(on)} \approx 0.24\text{V}$:} Trong $T_{\text{on}}$ áp đặt lên động cơ là $12 - 0.24 = 11.76\text{V}$; trong $T_{\text{off}}$ khi diode flyback dẫn, áp đặt ngược lên động cơ là $-V_D \approx -0.76\text{V}$ (giảm năng lượng nhanh hơn). Khi đó $V_{avg,\text{eff}} \approx 0.5(11.76 - 0.76) = 5.50\text{V}$ ($I_{avg,\text{eff}} \approx 550\text{mA}$).
+  \item \textbf{Độ gợn dòng đỉnh--đỉnh (xấp xỉ tuyến tính):}
+  $$\Delta I_L \approx \frac{(V_{DD} - I_{avg} R_m) \cdot D T}{L_m} = \frac{(12 - 6) \times 0.5\text{ms}}{10\text{mH}} = \mathbf{300\text{mA}}$$
+  \item \textbf{Vai trò diode flyback:} Dòng qua cuộn cảm không thể thay đổi tức thời. Khi MOSFET ngắt đột ngột ($t_f = 1\,\mu\text{s}$), sức điện động tự cảm $e = -L \frac{di}{dt}$ sinh ra xung áp dương cực lớn tại cực Drain (nếu không có diode, $\Delta V \approx L\frac{\Delta I}{\Delta t}$ có thể lên tới hàng nghìn vôn gây đánh thủng MOSFET). Diode 1N4148 tạo đường xả kín cho dòng cảm ứng, ghim áp Drain tối đa ở mức $V_{DD} + V_D \approx 13\text{V}$.
+\end{itemize}
+
+\begin{simbox}[Kết quả mô phỏng LTspice (\cmd{Lab5/Ex10.asc}, xét ổn định $20\text{ms}\to 30\text{ms}$)]
+\begin{itemize}[itemsep=1pt]
+  \item Có diode flyback: Áp trung bình trên động cơ $V(n001)-V(n004) = 12 - 6.762 = 5.238\text{V}$; $I_{avg} = 523.8\text{mA}$; dòng dao động từ $367.5\text{mA}$ đến $680.0\text{mA} \implies \Delta I_L = 312.5\text{mA}$; áp Drain đỉnh được ghim ở $13.27\text{V}$.
+  \item Thử tháo diode D1 (\cmd{Lab5\_Ex10\_no\_diode}): Đỉnh xung áp cực Drain vọt lên tới $\mathbf{67{,}294\text{V}}$ (vì model \cmd{NMSW} không có thông số đánh thủng \cmd{BV}), minh hoạ rõ nguy cơ phá huỷ linh kiện.
+\end{itemize}
+\end{simbox}
+\simfig{Lab5/Ex10_sim.png}{Kết quả mô phỏng thực tế LTspice -- Exercise 10 (Lab5)}
+
+\begin{table}[H]\centering\small
+\caption{Bảng đối chiếu Exercise 10 (Lab 5)}
+\begin{tabular}{|l|c|c|c|}
+\hline
+\textbf{Đại lượng (trạng thái xác lập)} & \textbf{Lý thuyết (lý tưởng)} & \textbf{LTspice} & \textbf{Sai lệch} \\ \hline
+Điện áp trung bình động cơ (V) & $6.00$ & $5.24$ & $-12.67\,\%$ \\ \hline
+Dòng trung bình động cơ (mA) & $600.0$ & $523.8$ & $-12.70\,\%$ \\ \hline
+Độ gợn dòng $\Delta I_L$ (mA) & $300.0$ & $312.5$ & $+4.17\,\%$ \\ \hline
+Áp đỉnh Drain khi tháo diode (V) & $> 4{,}600$ & $67{,}294$ & -- \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{notebox}
+Điện áp và dòng trung bình thực tế thấp hơn $12.7\,\%$ so với phép tính lý tưởng $D\cdot V_{DD}$ do hai nguyên nhân vật lý: (1) Sụt áp thuận trên diode 1N4148 ở dòng $0.5\text{A}$ (với $R_s=0.568\,\Omega$) lên tới $\approx 1.1\text{V}$, tạo điện áp hãm âm $-1.1\text{V}$ trên nhánh $R_m$--$L_m$ suốt nửa chu kỳ tắt; (2) Thời gian dẫn kênh của MOSFET chỉ bắt đầu khi $V_G > V_T = 2\text{V}$ và sụt áp $V_{DS(on)}$ khi dòng đỉnh $0.7\text{A}$ đạt $\approx 0.3\text{V}$.
+\end{notebox}
+
+%% =====================================================================
+\section{Bài tập nâng cao Lab 5 (Adv01 \& Adv02)}
+%% =====================================================================
+
+%% ---------------------------------------------------------------------
+\subsection{Advanced Exercise 1: Khảo sát \texorpdfstring{$R_{DS(on)}$}{Rds(on)} theo \texorpdfstring{$V_{GS}$}{Vgs} (\texorpdfstring{\cmd{Ex11.asc}}{Ex11.asc})}
+%% ---------------------------------------------------------------------
+\textbf{Đề bài:} Đặt $V_{DS}=0.1\text{V}$ (vùng triode), quét $V_{GS}$ từ $0$ đến $10\text{V}$. Dùng $R_{DS(on)} \approx \frac{1}{K_p(V_{GS}-V_T)}$ ($K_p=0.5\text{A/V}^2, V_T=2\text{V}$) tính $R_{DS(on)}$ tại $V_{GS}=3, 5, 10\text{V}$ và đối chiếu với trace \cmd{0.1/Id(M1)}.
+
+\textbf{1. Lời giải lý thuyết:}
+\begin{itemize}[itemsep=1pt]
+  \item $V_{GS}=3\text{V}$: $R_{DS(on)} \approx \frac{1}{0.5(3-2)} = \mathbf{2.000\,\Omega}$. (Chính xác: $\frac{1}{0.5(1 - 0.1/2)} = 2.105\,\Omega$).
+  \item $V_{GS}=5\text{V}$: $R_{DS(on)} \approx \frac{1}{0.5(5-2)} = \mathbf{0.667\,\Omega}$.
+  \item $V_{GS}=10\text{V}$: $R_{DS(on)} \approx \frac{1}{0.5(10-2)} = \mathbf{0.250\,\Omega}$.
+\end{itemize}
+
+\begin{simbox}[Kết quả mô phỏng LTspice (\cmd{Lab5/Ex11.asc}, \cmd{.dc VGS 0 10 0.05})]
+$V_{GS}=3\text{V}$: $I_D=47.50\text{mA} \implies R_{DS(on)}=2.1053\,\Omega$;
+$V_{GS}=5\text{V}$: $I_D=147.50\text{mA} \implies R_{DS(on)}=0.6780\,\Omega$;
+$V_{GS}=10\text{V}$: $I_D=397.50\text{mA} \implies R_{DS(on)}=0.2516\,\Omega$.
+\end{simbox}
+\simfig{Lab5/Ex11_sim.png}{Kết quả mô phỏng thực tế LTspice -- Advanced Exercise 1 (Lab5)}
+
+\begin{table}[H]\centering\small
+\caption{Bảng đối chiếu Advanced Exercise 1 (Lab 5)}
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{$V_{GS}$ (V)} & \textbf{$R_{DS(on)}$ lý thuyết ($\Omega$)} & \textbf{$R_{DS(on)}$ LTspice ($\Omega$)} & \textbf{Sai lệch (\%)} \\ \hline
+$3$ & $2.000$ & $2.105$ & $+5.26\,\%$ \\ \hline
+$5$ & $0.667$ & $0.678$ & $+1.69\,\%$ \\ \hline
+$10$ & $0.250$ & $0.252$ & $+0.63\,\%$ \\ \hline
+\end{tabular}
+\end{table}
+
+%% ---------------------------------------------------------------------
+\subsection{Advanced Exercise 2: Cổng đảo CMOS (CMOS Inverter -- \texorpdfstring{\cmd{Ex12.asc}}{Ex12.asc})}
+%% ---------------------------------------------------------------------
+\textbf{Đề bài:} Cổng đảo CMOS cấp nguồn $V_{DD}=5\text{V}$ gồm NMOS ($V_{Tn}=2\text{V}, K_{pn}=2\text{mA/V}^2 \implies K_n=1\text{mA/V}^2$) và PMOS ($V_{Tp}=-2\text{V}, K_{pp}=1\text{mA/V}^2 \implies K_p=0.5\text{mA/V}^2$). Giải thích trạng thái dẫn tại $V_{in}=0\text{V}$ và $5\text{V}$, ước lượng ngưỡng chuyển mạch $V_{th}$ (nơi cả hai bão hoà và $V_{out}=V_{in}$).
+
+\textbf{1. Lời giải lý thuyết:}
+\begin{itemize}[itemsep=1pt]
+  \item Tại $V_{in}=0\text{V}$: $V_{GSn}=0 < V_{Tn}$ (NMOS ngắt), $V_{SGp}=5\text{V} > |V_{Tp}|$ (PMOS dẫn sâu vùng triode) $\implies V_{out} = V_{DD} = \mathbf{5.00\text{V}}$.
+  \item Tại $V_{in}=5\text{V}$: $V_{GSn}=5 > V_{Tn}$ (NMOS dẫn sâu), $V_{SGp}=0 < |V_{Tp}|$ (PMOS ngắt) $\implies V_{out} = \mathbf{0.00\text{V}}$.
+  \item \textbf{Ngưỡng chuyển mạch $V_{th}$:} Khi $V_{in} = V_{out} = V_{th}$, cả hai transistor đều ở bão hoà ($V_{DS} = V_{GS}$), cân bằng dòng $I_{Dn} = I_{Dp}$:
+  $$K_n(V_{th} - V_{Tn})^2 = K_p(V_{DD} - V_{th} - |V_{Tp}|)^2 \iff 1\cdot(V_{th}-2)^2 = 0.5\cdot(3 - V_{th})^2$$
+  $$\implies \sqrt{2}(V_{th} - 2) = 3 - V_{th} \implies V_{th} = \frac{3 + 2\sqrt{2}}{1 + \sqrt{2}} = \mathbf{2.414\text{V}}$$
+\end{itemize}
+
+\begin{simbox}[Kết quả mô phỏng LTspice (\cmd{Lab5/Ex12.asc}, \cmd{.dc Vin 0 5 0.01})]
+$V_{out}(0\text{V}) = 5.000\text{V}$; $V_{out}(5\text{V}) = 1.67\times 10^{-9}\text{V} \approx 0.000\text{V}$; ngưỡng chuyển mạch nơi $V_{out}=V_{in}$ là $V_{th} = 2.410\text{V}$ (đỉnh dòng xuyên mạch $|I(V_1)| = 176.0\,\mu\text{A}$ xảy ra tại $V_{in} = 2.42\text{V}$).
+\end{simbox}
+\simfig{Lab5/Ex12_sim.png}{Kết quả mô phỏng thực tế LTspice -- Advanced Exercise 2 (Lab5)}
+
+\begin{table}[H]\centering\small
+\caption{Bảng đối chiếu Advanced Exercise 2 (Lab 5)}
+\begin{tabular}{|l|c|c|c|}
+\hline
+\textbf{Đại lượng} & \textbf{Lý thuyết} & \textbf{LTspice} & \textbf{Sai lệch (\%)} \\ \hline
+Ngưỡng chuyển mạch $V_{th}$ (V) & $2.414$ & $2.410$ & $-0.17\,\%$ \\ \hline
+$V_{out}$ tại $V_{in}=0\text{V}$ (V) & $5.000$ & $5.000$ & $0.00\,\%$ \\ \hline
+$V_{out}$ tại $V_{in}=5\text{V}$ (V) & $0.000$ & $0.000$ & $0.00\,\%$ \\ \hline
+\end{tabular}
+\end{table}
+
+\end{document}
